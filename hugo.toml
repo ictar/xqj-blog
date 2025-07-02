@@ -1,3 +1,47 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://www.xuqiongjie.com'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = "Qiongjie's Notes"
+[[module.imports]]
+  path = "github.com/halogenica/beautifulhugo"
+
+[languages]
+  [languages.en] 
+    contentDir = "content/en" # English
+  [languages.zh-cn]
+    contentDir = "content/zh-CN" # Chinese
+
+[Params]
+    subtitle = "Spatial intelligence researcher | GIS developer | Data storyteller"
+    mainSections = ["post","posts"]
+    rss = true
+    wordCount = true
+    socialShare = true
+    showRelatedPosts = true
+
+[Params.author]
+    name = "Xu Qiongjie"
+    website = "https://www.xuqiongjie.com"
+    email = "ele.qiong@gmail.com"
+    github = "ictar"
+    linkedin = "qiongjie-xu"
+
+
+[[menu.main]]
+    name = "Blog"
+    url = ""
+    weight = 1
+
+[[menu.main]]
+    name = "Projects"
+    url = ""
+    weight = 2
+
+[[menu.main]]
+    name = "About"
+    url = "page/about/"
+    weight = 3
+
+[[menu.main]]
+    name = "Tags"
+    url = "tags"
+    weight = 3
