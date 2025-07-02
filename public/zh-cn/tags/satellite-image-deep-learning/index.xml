@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Satellite-Image-Deep-Learning on 琼洁的笔记</title>
+    <link>http://localhost:1313/zh-cn/tags/satellite-image-deep-learning/</link>
+    <description>Recent content in Satellite-Image-Deep-Learning on 琼洁的笔记</description>
+    <generator>Hugo</generator>
+    <language>zh-cm</language>
+    <managingEditor>ele.qiong@gmail.com (Xu Qiongjie)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Xu Qiongjie)</webMaster>
+    <lastBuildDate>Wed, 02 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/tags/satellite-image-deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>播客笔记：Chat2Geo and the Power of LLMs</title>
+      <link>http://localhost:1313/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/</guid>
+      <description>&lt;p&gt;🎧 &lt;strong&gt;音频笔记：&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;iframe src=&#34;https://notebooklm.google.com/notebook/3396b39f-24fd-439e-8b27-90d28e866872/audio&#34; width=&#34;100%&#34; height=&#34;120&#34; frameborder=&#34;0&#34; allow=&#34;autoplay&#34;&gt;&lt;/iframe&gt;&#xA;&lt;div class=&#34;substack-post-embed&#34;&gt;&lt;p lang=&#34;en&#34;&gt;Chat2Geo and the Power of LLMs by Robin Cole&lt;/p&gt;&lt;p&gt;with Shahab Jozdani&lt;/p&gt;&lt;a data-post-link href=&#34;https://www.satellite-image-deep-learning.com/p/chat2geo-and-the-power-of-llms&#34;&gt;Read on Substack&lt;/a&gt;&lt;/div&gt;&lt;script async src=&#34;https://substack.com/embedjs/embed.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;📝 &lt;strong&gt;我的笔记：&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;这期播客主要讲了三点：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;学习的本质是从错误中调整思维模型；&lt;/li&gt;&#xA;&lt;li&gt;复利式学习来自长期笔记和反复复习；&lt;/li&gt;&#xA;&lt;li&gt;教别人是最好的检验方式。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;📌 &lt;strong&gt;灵感摘录：&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;“You don’t understand something until you can teach it to a 5-year-old.”&lt;/p&gt;&lt;/blockquote&gt;</description>
+    </item>
+  </channel>
+</rss>

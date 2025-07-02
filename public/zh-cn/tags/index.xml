@@ -8,6 +8,63 @@
     <language>zh-cm</language>
     <managingEditor>ele.qiong@gmail.com (Xu Qiongjie)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Xu Qiongjie)</webMaster>
+    <lastBuildDate>Wed, 02 Jul 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chat2Geo</title>
+      <link>http://localhost:1313/zh-cn/tags/chat2geo/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/tags/chat2geo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Geo</title>
+      <link>http://localhost:1313/zh-cn/tags/geo/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/tags/geo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM</title>
+      <link>http://localhost:1313/zh-cn/tags/llm/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/tags/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Notellm</title>
+      <link>http://localhost:1313/zh-cn/tags/notellm/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/tags/notellm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Notes</title>
+      <link>http://localhost:1313/zh-cn/tags/notes/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/tags/notes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Podcast</title>
+      <link>http://localhost:1313/zh-cn/tags/podcast/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/tags/podcast/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Satellite-Image-Deep-Learning</title>
+      <link>http://localhost:1313/zh-cn/tags/satellite-image-deep-learning/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/tags/satellite-image-deep-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>播客笔记</title>
+      <link>http://localhost:1313/zh-cn/tags/%E6%92%AD%E5%AE%A2%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E6%92%AD%E5%AE%A2%E7%AC%94%E8%AE%B0/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

@@ -1,0 +1,536 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>【播客笔记】Chat2Geo and the Power of LLMs&#34; - </title>
+
+  <meta name="description" content="对一集关于“Chat2Geo以及地理空间分析的LLM赋能”的播客内容总结和思考">
+  <meta name="author" content="Xu Qiongjie"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼洁的笔记",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/localhost:1313\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/zh-cn\/notes\/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8\/",
+          "name": "【播客笔记】 chat2 geo and the power of llms\u0022"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Xu Qiongjie"
+  },
+  "headline": "【播客笔记】Chat2Geo and the Power of LLMs\u0022",
+  "description" : "对一集关于“Chat2Geo以及地理空间分析的LLM赋能”的播客内容总结和思考",
+  "inLanguage" : "zh-cn",
+  "wordCount":  195 ,
+  "datePublished" : "2025-07-02T00:00:00\u002b00:00",
+  "dateModified" : "2025-07-02T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/",
+  "keywords" : [ "Chat2Geo, LLM, Geo, 播客笔记, notes, podcast, notellm, satellite-image-deep-learning" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/notes\/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+<meta property="og:title" content="【播客笔记】Chat2Geo and the Power of LLMs&#34;" />
+<meta property="og:description" content="对一集关于“Chat2Geo以及地理空间分析的LLM赋能”的播客内容总结和思考">
+<meta property="og:url" content="http://localhost:1313/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼洁的笔记" />
+
+  <meta name="twitter:title" content="【播客笔记】Chat2Geo and the Power of LLMs&#34;" />
+  <meta name="twitter:description" content="对一集关于“Chat2Geo以及地理空间分析的LLM赋能”的播客内容总结和思考">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼洁的笔记"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/zh-cn/">琼洁的笔记</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/zh-cn/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Projects" href="/zh-cn/">Projects</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Notes" href="/zh-cn/notes">Notes</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/zh-cn/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/zh-cn/tags">Tags</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="notes-heading">
+              
+                <h1>【播客笔记】Chat2Geo and the Power of LLMs&#34;</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>🎧 <a href="https://notebooklm.google.com/notebook/3396b39f-24fd-439e-8b27-90d28e866872/audio">点击这里访问 NotebookLM 中关于这篇播客的音频笔记</a></p>
+<hr>
+<p>本播客概述了 Shahab Jazdani 创立的 Georina 公司开发的 Chat2Geo 应用程序及其背后的理念。Chat2Geo 是一款基于网络的应用程序，旨在通过直观的聊天机器人界面简化基于遥感的地理空间分析。它利用大型语言模型 (LLM) 来实现地理空间分析的民主化，使没有地理空间背景的用户也能轻松使用。该应用程序的诞生源于对更简单界面的需求，并受到 ChatGPT 等流行的 LLM 模型的启发，旨在提供一种熟悉的、无障碍的用户体验。</p>
+<h2 id="主要主题与重要观点">主要主题与重要观点</h2>
+<h3 id="地理空间分析的民主化与简化">地理空间分析的民主化与简化</h3>
+<ul>
+<li>核心使命： Georina 和 Chat2Geo 的主要目标是“民主化和简化复杂的地理空间任务”。</li>
+<li>解决痛点： 现有的地理空间工具（如 QGIS）虽然功能强大，但缺乏易于使用的网络应用，尤其对于非专业用户而言。Chat2Geo 填补了这一空白，使“那些没有地理空间背景的人”也能进行分析。</li>
+</ul>
+<blockquote>
+<p>“我们发现人们不喜欢参与更复杂的界面，他们想要一些更简单的东西。”</p></blockquote>
+<blockquote>
+<p>“在地理地球科学、地理空间数据科学领域，最重要的事情之一是缺少一款首先是网络原生的软件，然后它拥有最终产品的所有主要组件。”</p></blockquote>
+<h3 id="受-llm-启发的直观用户界面">受 LLM 启发的直观用户界面</h3>
+<ul>
+<li>熟悉度是关键： Chat2Geo 的界面设计旨在模仿 ChatGPT 或 Cloud 等流行的聊天机器人。“体验非常非常熟悉，就像你打开 ChatGPT 或 Cloud 一样。”</li>
+<li>无缝用户入门： 目标是最大限度地缩短用户从“想要开始使用某个应用程序到真正使用它”的时间。“人们不需要任何培训，因为它只是一个简单的框和聊天机器人，然后他们就可以开始使用该应用程序。”</li>
+<li>单次提示操作： 用户可以通过“单个提示”执行分析任务，并提出后续问题，因为系统会保留上下文。</li>
+</ul>
+<blockquote>
+<p>“最积极的反馈之一是，使用这个系统有多么容易，它有多么快，以及这个系统有多么直观。”</p></blockquote>
+<h3 id="数据连接与集成">数据连接与集成</h3>
+<ul>
+<li>三大数据源：卫星数据： 主要来自 Google Earth Engine。</li>
+<li>用户上传数据： 包括用户定义的感兴趣区域（如 GeoJSON 或 Shapefile），以及非空间文本数据（如报告、政策等）。</li>
+<li>外部数据库： 能够连接到 Esri 的要素服务和即将推出的 PostgreSQL 连接。</li>
+</ul>
+<h3 id="知识库rag-系统">知识库（RAG 系统）</h3>
+<p>Chat2Geo 采用基于检索增强生成（RAG）的系统来处理和查询用户上传的大型非空间文档。</p>
+<ul>
+<li>RAG 工作原理： 文档被 LLM 编码成二进制数字（向量），存储在向量数据库中。用户查询也被编码，用于从向量数据库中检索相关信息，然后解码以生成响应。</li>
+<li>可扩展性： RAG 系统“可以轻松扩展”。</li>
+<li>挑战： 数据的“分块”方式至关重要，因为不当的分块可能导致信息丢失、幻觉或错误响应。“这在很大程度上取决于你拥有的数据、上下文、你拥有的文档。”</li>
+</ul>
+<blockquote>
+<p>“我们有三个主要的数据来源……卫星数据……用户上传到系统的数据……文本数据，非空间数据，如报告、政策以及所有非空间的东西。”</p></blockquote>
+<blockquote>
+<p>“我们称之为知识库，这是一个基于 RAG 的系统，可以轻松地为用户查询大型文档。”</p></blockquote>
+<h3 id="应对快速发展的技术格局">应对快速发展的技术格局</h3>
+<ul>
+<li>MCP 协议： Chat2Geo 计划采用 MCP（多边形计算协议），这是一种“非常强大的协议”，可以自动更新 API，从而减少开发人员维护集成的工作量。“你不需要再担心这个问题了，因为那些 API 将自动更新。”</li>
+<li>持续更新的挑战： 对于像 Georina 这样的小团队来说，跟上 AI 技术和新进展的步伐“非常具有挑战性”。</li>
+<li>选择性采用： 团队通过“精挑细选那些真正强大和有用的功能”来应对这一挑战，而不是盲目地引入所有新事物。</li>
+</ul>
+<blockquote>
+<p>“MCP 我认为这是最近非常热门的话题之一。”
+“对于像我们这样的小团队来说，跟上新技术、新进展是非常非常具有挑战性的。”</p></blockquote>
+<h3 id="llm-在软件开发中的应用例如-cursor">LLM 在软件开发中的应用（例如 Cursor）</h3>
+<ul>
+<li>提高开发效率： 像 Cursor 这样的 AI IDE 可以深入代码库，编写单元测试、添加功能、调试代码，从而“提高你的效率或生产力”。</li>
+<li>提示工程的重要性： 尽管功能强大，但有效利用这些工具需要“提示工程”方面的专业知识。如果缺乏足够的上下文或“系统提示”，LLM 可能会“破坏你的架构”、“创建不相关的文件夹”，导致代码库混乱且容易出错。</li>
+</ul>
+<blockquote>
+<p>“它可以编写测试……可以添加新功能……可以调试你的代码。”
+“如果你不给它提供足够的信息、足够的上下文……它会破坏你的架构，它会创建不相关的文件夹。”</p></blockquote>
+<h3 id="未来愿景与教育">未来愿景与教育</h3>
+<ul>
+<li>开源版本： 发布 Chat2Geo 的开源版本是为了帮助“需要构建类似东西的人，他们可以从某个地方开始。”</li>
+<li>教育资源： Jazdani 计划发布教程视频，分享应用程序的开发过程，并展示如何有效利用 AI 系统（如 Cursor）来提高效率。“我希望能够发布一些视频、教程，介绍我们如何启动这个应用程序，如何开发它以及将不同的部分整合在一起。”</li>
+</ul>
+<blockquote>
+<p>“我认为，既然我们有了这个应用程序的开源版本……我希望能够发布一些视频、教程。”</p></blockquote>
+<h2 id="重要事实">重要事实</h2>
+<ul>
+<li>公司/创始人： Georina，创始人 Shahab Jazdani。</li>
+<li>创始人背景： 地理信息工程硕士和学士，物理地理学博士，均专注于遥感和人工智能。</li>
+<li>产品： Chat2Geo，一款基于网络的地理空间分析应用程序，采用聊天机器人界面。</li>
+<li>开发历程： 从早期的 AI 平台 Aras 演变而来，因用户需要更简单的界面而重新设计，并受到 ChatGPT 等 LLM 模型的启发。</li>
+<li>主要数据来源： Google Earth Engine（卫星数据）、用户上传数据（GeoJSON、Shapefile、文本文件）、外部数据库（Esri 要素服务，计划支持 PostgreSQL）。</li>
+<li>核心技术： 大型语言模型（LLM）、检索增强生成（RAG）系统、向量数据库。</li>
+<li>计划采用技术： MCP 协议。</li>
+<li>开发工具提及： Cursor (AI IDE)。</li>
+<li>用户反馈： 主要赞扬其易用性、速度和直观的界面。</li>
+</ul>
+<h2 id="结论">结论</h2>
+<p>Chat2Geo 代表了地理空间分析领域的一个重要进步，它利用 LLM 的力量，使复杂的任务变得易于访问和理解。通过关注用户体验、集成多样化的数据源以及适应快速发展的 AI 技术，Georina 正在积极地塑造地理空间数据科学的未来，使其更加民主化和高效。然而，有效的实施仍需要对系统功能和提示工程有一定的理解。</p>
+<h2 id="本博客信息">本博客信息</h2>
+<p>日期： 2023年10月27日</p>
+<div class="substack-post-embed"><p lang="en">Chat2Geo and the Power of LLMs by Robin Cole</p><p>with Shahab Jozdani</p><a data-post-link href="https://www.satellite-image-deep-learning.com/p/chat2geo-and-the-power-of-llms">Read on Substack</a></div><script async src="https://substack.com/embedjs/embed.js" charset="utf-8"></script>
+
+
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/chat2geo/">Chat2Geo</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/llm/">LLM</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/geo/">Geo</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E6%92%AD%E5%AE%A2%E7%AC%94%E8%AE%B0/">播客笔记</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/notes/">notes</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/podcast/">podcast</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/notellm/">notellm</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/satellite-image-deep-learning/">satellite-image-deep-learning</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fnotes%2fpodcast_chat2geo_llm%25E7%25AE%2580%25E5%258C%2596%25E5%259C%25B0%25E7%2590%2586%25E7%25A9%25BA%25E9%2597%25B4%25E5%2588%2586%25E6%259E%2590%25E5%25BA%2594%25E7%2594%25A8%2f&amp;text=%e3%80%90%e6%92%ad%e5%ae%a2%e7%ac%94%e8%ae%b0%e3%80%91Chat2Geo%20and%20the%20Power%20of%20LLMs%22&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fnotes%2fpodcast_chat2geo_llm%25E7%25AE%2580%25E5%258C%2596%25E5%259C%25B0%25E7%2590%2586%25E7%25A9%25BA%25E9%2597%25B4%25E5%2588%2586%25E6%259E%2590%25E5%25BA%2594%25E7%2594%25A8%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fnotes%2fpodcast_chat2geo_llm%25E7%25AE%2580%25E5%258C%2596%25E5%259C%25B0%25E7%2590%2586%25E7%25A9%25BA%25E9%2597%25B4%25E5%2588%2586%25E6%259E%2590%25E5%25BA%2594%25E7%2594%25A8%2f&amp;title=%e3%80%90%e6%92%ad%e5%ae%a2%e7%ac%94%e8%ae%b0%e3%80%91Chat2Geo%20and%20the%20Power%20of%20LLMs%22" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fnotes%2fpodcast_chat2geo_llm%25E7%25AE%2580%25E5%258C%2596%25E5%259C%25B0%25E7%2590%2586%25E7%25A9%25BA%25E9%2597%25B4%25E5%2588%2586%25E6%259E%2590%25E5%25BA%2594%25E7%2594%25A8%2f&amp;title=%e3%80%90%e6%92%ad%e5%ae%a2%e7%ac%94%e8%ae%b0%e3%80%91Chat2Geo%20and%20the%20Power%20of%20LLMs%22" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fnotes%2fpodcast_chat2geo_llm%25E7%25AE%2580%25E5%258C%2596%25E5%259C%25B0%25E7%2590%2586%25E7%25A9%25BA%25E9%2597%25B4%25E5%2588%2586%25E6%259E%2590%25E5%25BA%2594%25E7%2594%25A8%2f&amp;title=%e3%80%90%e6%92%ad%e5%ae%a2%e7%ac%94%e8%ae%b0%e3%80%91Chat2Geo%20and%20the%20Power%20of%20LLMs%22" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fnotes%2fpodcast_chat2geo_llm%25E7%25AE%2580%25E5%258C%2596%25E5%259C%25B0%25E7%2590%2586%25E7%25A9%25BA%25E9%2597%25B4%25E5%2588%2586%25E6%259E%2590%25E5%25BA%2594%25E7%2594%25A8%2f&amp;description=%e3%80%90%e6%92%ad%e5%ae%a2%e7%ac%94%e8%ae%b0%e3%80%91Chat2Geo%20and%20the%20Power%20of%20LLMs%22" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Xu Qiongjie</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/zh-cn/">琼洁的笔记</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
