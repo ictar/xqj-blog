@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Qiongjie&#39;s Notes</title>
+    <title>Tags on 琼洁的笔记</title>
     <link>http://localhost:1313/zh-cn/tags/</link>
-    <description>Recent content in Tags on Qiongjie&#39;s Notes</description>
+    <description>Recent content in Tags on 琼洁的笔记</description>
     <generator>Hugo</generator>
-    <language>zh-cn</language>
+    <language>zh-cm</language>
     <managingEditor>ele.qiong@gmail.com (Xu Qiongjie)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Xu Qiongjie)</webMaster>
     <atom:link href="http://localhost:1313/zh-cn/tags/index.xml" rel="self" type="application/rss+xml" />

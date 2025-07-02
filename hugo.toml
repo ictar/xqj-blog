@@ -5,13 +5,22 @@ title = "Qiongjie's Notes"
   path = "github.com/halogenica/beautifulhugo"
 
 [languages]
-  [languages.en] 
+  [languages.en]
+    languageCode = 'en-us'
+    languageName = 'English'
+    title = "Qiongjie's Notes"
     contentDir = "content/en" # English
+    [languages.en.params]
+        subtitle = "Spatial intelligence researcher | GIS developer | Data storyteller"
   [languages.zh-cn]
+    languageCode = 'zh-cm'
+    languageName = 'Simplified Chinese'
+    title = "琼洁的笔记"
     contentDir = "content/zh-CN" # Chinese
+    [languages.zh-cn.params]
+        subtitle = "空间智能研究者 | GIS开发者 | 数据 storyteller"
 
 [Params]
-    subtitle = "Spatial intelligence researcher | GIS developer | Data storyteller"
     mainSections = ["post","posts"]
     rss = true
     wordCount = true
