@@ -95,5 +95,7 @@
                 hreflang="zh-cm"
                 href="http://localhost:1313/zh-cn/categories/"
                 />
+  </url><url>
+    <loc>http://localhost:1313/maps/</loc>
   </url>
 </urlset>

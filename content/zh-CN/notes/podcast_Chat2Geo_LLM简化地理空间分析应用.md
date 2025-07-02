@@ -81,7 +81,7 @@ Chat2Geo 采用基于检索增强生成（RAG）的系统来处理和查询用�
 ## 结论
 Chat2Geo 代表了地理空间分析领域的一个重要进步，它利用 LLM 的力量，使复杂的任务变得易于访问和理解。通过关注用户体验、集成多样化的数据源以及适应快速发展的 AI 技术，Georina 正在积极地塑造地理空间数据科学的未来，使其更加民主化和高效。然而，有效的实施仍需要对系统功能和提示工程有一定的理解。
 
-## 本博客信息
+## 本播客信息
 日期： 2023年10月27日
 
 <div class="substack-post-embed"><p lang="en">Chat2Geo and the Power of LLMs by Robin Cole</p><p>with Shahab Jozdani</p><a data-post-link href="https://www.satellite-image-deep-learning.com/p/chat2geo-and-the-power-of-llms">Read on Substack</a></div><script async src="https://substack.com/embedjs/embed.js" charset="utf-8"></script>
