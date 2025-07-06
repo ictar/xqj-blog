@@ -52,6 +52,33 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -89,19 +116,13 @@
         
           
             <li>
-              <a title="About" href="/zh-cn/page/about/">About</a>
-            </li>
-          
-        
-          
-            <li>
               <a title="Tags" href="/zh-cn/tags">Tags</a>
             </li>
           
         
           
             <li>
-              <a title="Map" href="/zh-cn/maps/">Map</a>
+              <a title="About" href="/zh-cn/page/about/">About</a>
             </li>
           
         
@@ -227,8 +248,151 @@
         <div class="posts-list">
           
             <article class="post-preview">
+    <a href="http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/">
+        <h2 class="post-title">【课程笔记】概率论与数理统计｜随机事件及其概率</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 July 5, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;165&nbsp;个字
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        <h2 id="随机试验与随机事件">随机试验与随机事件</h2>
+<h3 id="定义">定义</h3>
+<p>在概率论中，将具有以下三个特点的<em>试验</em>叫做<strong>随机试验</strong>：</p>
+<ol>
+<li>相同条件下，可重复性</li>
+<li>多结果性</li>
+<li>不确定性</li>
+</ol>
+<p>而<strong>样本空间</strong>（$\Omega$）是一个随机试验所有可能结果的<em>集合</em>。</p>
+<ul>
+<li>随机试验中的每个可能的结果则称为<strong>样本点</strong>（$\omega$），即 $\omega \in \Omega$。</li>
+</ul>
+<p>样本空间的任何一个子集都被称为一个<strong>随机事件</strong>（$A$），即 $A \sub \Omega$</p>
+        <a href="http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/" class="post-read-more">[阅读全文]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/">数理统计</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6/">随机事件</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87/">概率</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E8%AF%95%E9%AA%8C/">随机试验</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title">【课程笔记】概率论与数理统计｜预备知识</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 July 5, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;62&nbsp;个字
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        <h2 id="加法原理和乘法原理">加法原理和乘法原理</h2>
+<p>根据<a href="https://zh.wikipedia.org/zh-cn/%E4%B9%98%E6%B3%95%E5%8E%9F%E7%90%86">维基百科</a>：</p>
+<ul>
+<li><strong>加法原理</strong>：若有a种方式做某事，b种方式做另一件事，但只能选其一，则共有$a+b$种选择。</li>
+<li><strong>乘法原理</strong>：若有a种方式做某事，b种方式做另一件事，则共有$a\times b$种方式做这两件事。</li>
+</ul>
+<h3 id="加法原理还是乘法原理">加法原理还是乘法原理？</h3>
+<p>取决于<strong>是否分步骤</strong>。分步则乘法，否则加法。</p>
+<h2 id="排列组合">排列组合</h2>
+<h3 id="排列">排列</h3>
+<h4 id="不可重复排列">不可重复排列</h4>
+<p>从$n$个不同的元素中任取m（$1\le m \le n$）个不同的元素，按顺序排成一列，排列方式有$P^m_n$种</p>
+        <a href="http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/" class="post-read-more">[阅读全文]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/">数理统计</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E5%8A%A0%E6%B3%95%E5%8E%9F%E7%90%86/">加法原理</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E4%B9%98%E6%B3%95%E5%8E%9F%E7%90%86/">乘法原理</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/">排列组合</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
     <a href="http://localhost:1313/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/">
-        <h2 class="post-title">【播客笔记】Chat2Geo and the Power of LLMs&#34;</h2>
+        <h2 class="post-title">【播客笔记】Chat2Geo and the Power of LLMs</h2>
         
         
         
@@ -245,10 +409,6 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;195&nbsp;个字
   
   
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Xu Qiongjie
-    
-  
   
 </span>
 
@@ -259,32 +419,6 @@
         <p>🎧 <a href="https://notebooklm.google.com/notebook/3396b39f-24fd-439e-8b27-90d28e866872/audio">点击这里访问 NotebookLM 中关于这篇播客的音频笔记</a></p>
 <hr>
 <p>本播客概述了 Shahab Jazdani 创立的 Georina 公司开发的 Chat2Geo 应用程序及其背后的理念。Chat2Geo 是一款基于网络的应用程序，旨在通过直观的聊天机器人界面简化基于遥感的地理空间分析。它利用大型语言模型 (LLM) 来实现地理空间分析的民主化，使没有地理空间背景的用户也能轻松使用。该应用程序的诞生源于对更简单界面的需求，并受到 ChatGPT 等流行的 LLM 模型的启发，旨在提供一种熟悉的、无障碍的用户体验。</p>
-<h2 id="主要主题与重要观点">主要主题与重要观点</h2>
-<h3 id="地理空间分析的民主化与简化">地理空间分析的民主化与简化</h3>
-<ul>
-<li>核心使命： Georina 和 Chat2Geo 的主要目标是“民主化和简化复杂的地理空间任务”。</li>
-<li>解决痛点： 现有的地理空间工具（如 QGIS）虽然功能强大，但缺乏易于使用的网络应用，尤其对于非专业用户而言。Chat2Geo 填补了这一空白，使“那些没有地理空间背景的人”也能进行分析。</li>
-</ul>
-<blockquote>
-<p>“我们发现人们不喜欢参与更复杂的界面，他们想要一些更简单的东西。”</p></blockquote>
-<blockquote>
-<p>“在地理地球科学、地理空间数据科学领域，最重要的事情之一是缺少一款首先是网络原生的软件，然后它拥有最终产品的所有主要组件。”</p></blockquote>
-<h3 id="受-llm-启发的直观用户界面">受 LLM 启发的直观用户界面</h3>
-<ul>
-<li>熟悉度是关键： Chat2Geo 的界面设计旨在模仿 ChatGPT 或 Cloud 等流行的聊天机器人。“体验非常非常熟悉，就像你打开 ChatGPT 或 Cloud 一样。”</li>
-<li>无缝用户入门： 目标是最大限度地缩短用户从“想要开始使用某个应用程序到真正使用它”的时间。“人们不需要任何培训，因为它只是一个简单的框和聊天机器人，然后他们就可以开始使用该应用程序。”</li>
-<li>单次提示操作： 用户可以通过“单个提示”执行分析任务，并提出后续问题，因为系统会保留上下文。</li>
-</ul>
-<blockquote>
-<p>“最积极的反馈之一是，使用这个系统有多么容易，它有多么快，以及这个系统有多么直观。”</p></blockquote>
-<h3 id="数据连接与集成">数据连接与集成</h3>
-<ul>
-<li>三大数据源：卫星数据： 主要来自 Google Earth Engine。</li>
-<li>用户上传数据： 包括用户定义的感兴趣区域（如 GeoJSON 或 Shapefile），以及非空间文本数据（如报告、政策等）。</li>
-<li>外部数据库： 能够连接到 Esri 的要素服务和即将推出的 PostgreSQL 连接。</li>
-</ul>
-<h3 id="知识库rag-系统">知识库（RAG 系统）</h3>
-<p>Chat2Geo 采用基于检索增强生成（RAG）的系统来处理和查询用户上传的大型非空间文档。</p>
         <a href="http://localhost:1313/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/" class="post-read-more">[阅读全文]</a>
         
     </div>

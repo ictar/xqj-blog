@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>随机事件 on 琼洁的笔记</title>
+    <link>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6/</link>
+    <description>Recent content in 随机事件 on 琼洁的笔记</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>ele.qiong@gmail.com (Xu Qiongjie)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Xu Qiongjie)</webMaster>
+    <lastBuildDate>Sat, 05 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【课程笔记】概率论与数理统计｜随机事件及其概率</title>
+      <link>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/</link>
+      <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
+      <guid>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/</guid>
+      <description>&lt;h2 id=&#34;随机试验与随机事件&#34;&gt;随机试验与随机事件&lt;/h2&gt;&#xA;&lt;h3 id=&#34;定义&#34;&gt;定义&lt;/h3&gt;&#xA;&lt;p&gt;在概率论中，将具有以下三个特点的&lt;em&gt;试验&lt;/em&gt;叫做&lt;strong&gt;随机试验&lt;/strong&gt;：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;相同条件下，可重复性&lt;/li&gt;&#xA;&lt;li&gt;多结果性&lt;/li&gt;&#xA;&lt;li&gt;不确定性&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;而&lt;strong&gt;样本空间&lt;/strong&gt;（$\Omega$）是一个随机试验所有可能结果的&lt;em&gt;集合&lt;/em&gt;。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;随机试验中的每个可能的结果则称为&lt;strong&gt;样本点&lt;/strong&gt;（$\omega$），即 $\omega \in \Omega$。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;样本空间的任何一个子集都被称为一个&lt;strong&gt;随机事件&lt;/strong&gt;（$A$），即 $A \sub \Omega$&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

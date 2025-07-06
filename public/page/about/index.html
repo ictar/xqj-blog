@@ -14,14 +14,7 @@
 
       <title>About Me - </title>
 
-  <meta name="description" content="👋 Hi, I&rsquo;m Xu Qiongjie — a researcher, developer, and content creator.
-I’m currently a research fellow at the GeoLab, Politecnico di Milano, where I work on high-resolution land cover mapping, Earth observation, and AI-based remote sensing analysis. I enjoy exploring how satellite data and geospatial models can help us better understand urban and environmental change.
-This blog is my digital garden — a space for:
-
-Sharing technical tutorials on GIS, remote sensing, and web development
-Posting notes from academic work, especially validation methods and dataset benchmarking
-
-You’ll find most of my content written in Markdown, versioned on GitHub, and deployed with ❤️ on Cloudflare Pages.">
+  <meta name="description" content="👋 Hi, I&rsquo;m Xu Qiongjie — a researcher, developer, and content creator.">
   <meta name="author" content="Xu Qiongjie"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -70,9 +63,9 @@ You’ll find most of my content written in Markdown, versioned on GitHub, and d
     "name" : "Xu Qiongjie"
   },
   "headline": "About Me",
-  "description" : "👋 Hi, I\u0026rsquo;m Xu Qiongjie — a researcher, developer, and content creator.\nI’m currently a research fellow at the GeoLab, Politecnico di Milano, where I work on high-resolution land cover mapping, Earth observation, and AI-based remote sensing analysis. I enjoy exploring how satellite data and geospatial models can help us better understand urban and environmental change.\nThis blog is my digital garden — a space for:\nSharing technical tutorials on GIS, remote sensing, and web development Posting notes from academic work, especially validation methods and dataset benchmarking You’ll find most of my content written in Markdown, versioned on GitHub, and deployed with ❤️ on Cloudflare Pages.\n",
+  "description" : "👋 Hi, I\u0026rsquo;m Xu Qiongjie — a researcher, developer, and content creator.\n",
   "inLanguage" : "en",
-  "wordCount":  141 ,
+  "wordCount":  143 ,
   "datePublished" : "2025-07-02T00:00:00\u002b00:00",
   "dateModified" : "2025-07-02T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
@@ -93,22 +86,14 @@ You’ll find most of my content written in Markdown, versioned on GitHub, and d
 
 
 <meta property="og:title" content="About Me" />
-<meta property="og:description" content="👋 Hi, I&rsquo;m Xu Qiongjie — a researcher, developer, and content creator.
-I’m currently a research fellow at the GeoLab, Politecnico di Milano, where I work on high-resolution land cover mapping, Earth observation, and AI-based remote sensing analysis. I enjoy exploring how satellite data and geospatial models can help us better understand urban and environmental change.
-This blog is my digital garden — a space for:
-
-Sharing technical tutorials on GIS, remote sensing, and web development
-Posting notes from academic work, especially validation methods and dataset benchmarking
-
-You’ll find most of my content written in Markdown, versioned on GitHub, and deployed with ❤️ on Cloudflare Pages.">
+<meta property="og:description" content="👋 Hi, I&rsquo;m Xu Qiongjie — a researcher, developer, and content creator.">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
 <meta property="og:url" content="http://localhost:1313/page/about/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Qiongjie&#39;s Notes" />
 
   <meta name="twitter:title" content="About Me" />
-  <meta name="twitter:description" content="👋 Hi, I&rsquo;m Xu Qiongjie — a researcher, developer, and content creator.
-I’m currently a research fellow at the GeoLab, Politecnico di Milano, where I work on high-resolution land cover mapping, …">
+  <meta name="twitter:description" content="👋 Hi, I&rsquo;m Xu Qiongjie — a researcher, developer, and content creator.">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -118,6 +103,33 @@ I’m currently a research fellow at the GeoLab, Politecnico di Milano, where I 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
 
   </head>
   <body>
@@ -156,19 +168,13 @@ I’m currently a research fellow at the GeoLab, Politecnico di Milano, where I 
         
           
             <li>
-              <a title="About" href="/page/about/">About</a>
-            </li>
-          
-        
-          
-            <li>
               <a title="Tags" href="/tags">Tags</a>
             </li>
           
         
           
             <li>
-              <a title="Map" href="/maps/">Map</a>
+              <a title="About" href="/page/about/">About</a>
             </li>
           
         
@@ -178,7 +184,7 @@ I’m currently a research fellow at the GeoLab, Politecnico di Milano, where I 
             <li>
               
                 
-                  <a href="http://localhost:1313/zh-cn/page/about/">Simplified Chinese</a>
+                  <a href="http://localhost:1313/zh-cn/page/about/">CH</a>
                 
               
             </li>
@@ -309,7 +315,116 @@ I’m currently a research fellow at the GeoLab, Politecnico di Milano, where I 
 🌐 Languages: Chinese (native), English (academic), Italian (learning A2)<br>
 📫 Contact: [ele.qiong@gmail.com]<br>
 🔗 GitHub: <a href="https://github.com/ictar">github.com/ictar</a></p>
+<h2 id="my-experience">My Experience</h2>
+<div id="map" style="height: 600px; margin-top: 2rem;"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 基础地图初始化
+        const map = L.map('map').setView([31.2304, 121.4737], 4);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 2,
+        }).addTo(map);
 
+        // 当前语言判断
+        const lang = document.documentElement.lang.includes('zh') ? 'zh-CN' : 'en';
+
+        // 自定义图标（按类型区分）
+        const iconMap = {
+            study: new L.Icon.Default(),
+            work: new L.Icon({
+                iconUrl: "https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-red.png",
+                shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            }),
+            travel: new L.Icon({
+                iconUrl: "https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-green.png",
+                shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            })
+        };
+
+        // 加载对应语言的 JSON 文件
+        fetch(`/data/places.${lang}.json`)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(place => {
+            const marker = L.marker(place.coords, { icon: iconMap[place.type] });
+            const popupHtml = `
+                <div style="min-width:180px">
+                <strong>${place.title}</strong><br/>
+                <span>${place.desc}</span><br/>
+                <small>${place.years}</small>
+                </div> `;
+            marker.bindPopup(popupHtml);
+            marker.addTo(map);
+            });
+        });
+
+        // 图例
+        const legend = L.control({ position: 'bottomright' });
+
+        legend.onAdd = function () {
+        const div = L.DomUtil.create('div', 'custom-legend');
+        div.innerHTML = `
+            <div class="legend-title">📍 My Experience</div>
+            <div class="legend-item">
+            <span class="legend-icon" style="background-color: #4A90E2;"></span> Study
+            </div>
+            <div class="legend-item">
+            <span class="legend-icon" style="background-color: #D0021B;"></span> Work
+            </div>
+            <div class="legend-item">
+            <span class="legend-icon" style="background-color: #7ED321;"></span> Travel
+            </div>
+        `;
+        return div;
+        };
+
+        legend.addTo(map);
+
+    })
+</script>
+<style>
+    .custom-legend {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+  max-width: 200px;
+}
+
+.custom-legend .legend-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #222;
+}
+
+.custom-legend .legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.custom-legend .legend-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  margin-right: 8px;
+  border-radius: 3px;
+}
+
+</style>
 
         
 

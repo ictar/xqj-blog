@@ -1,0 +1,43 @@
+<!--
+If you want to include any custom html just before </head>, put it in this file.
+Or you can delete these file if you don't need it.
+-->
+<!-- for example, you could insert this custom css, which makes the bigimg not stretch:
+<style>
+.intro-header.big-img, .intro-header.big-img  .big-img-transition {
+  -webkit-background-size: contain !important;
+  -moz-background-size: contain !important;
+  background-size: contain !important;
+  -o-background-size: contain !important;
+  background-color: lightgrey;
+}
+</style>
+-->
+<!-- or you could include some additional css libraries:
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.css" integrity="sha256-I1UoFd33KHIydu88R9owFaQWzwkiZV4hXXug5aYaM28=" crossorigin="anonymous" />
+-->
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+
+<!-- Leaflet JS -->
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<!-- KaTeX stylesheet -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<!-- KaTeX auto-render extension -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>

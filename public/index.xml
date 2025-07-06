@@ -15,7 +15,7 @@
       <link>http://localhost:1313/page/about/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Xu Qiongjie)</author>
       <guid>http://localhost:1313/page/about/</guid>
-      <description>&lt;p&gt;👋 Hi, I&amp;rsquo;m &lt;strong&gt;Xu Qiongjie&lt;/strong&gt; — a researcher, developer, and content creator.&lt;/p&gt;&#xA;&lt;p&gt;I’m currently a research fellow at the &lt;strong&gt;GeoLab, Politecnico di Milano&lt;/strong&gt;, where I work on high-resolution land cover mapping, Earth observation, and AI-based remote sensing analysis. I enjoy exploring how satellite data and geospatial models can help us better understand urban and environmental change.&lt;/p&gt;&#xA;&lt;p&gt;This blog is my digital garden — a space for:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Sharing &lt;strong&gt;technical tutorials&lt;/strong&gt; on GIS, remote sensing, and web development&lt;/li&gt;&#xA;&lt;li&gt;Posting notes from &lt;strong&gt;academic work&lt;/strong&gt;, especially validation methods and dataset benchmarking&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;You’ll find most of my content written in &lt;strong&gt;Markdown&lt;/strong&gt;, versioned on &lt;strong&gt;GitHub&lt;/strong&gt;, and deployed with ❤️ on &lt;strong&gt;Cloudflare Pages&lt;/strong&gt;.&lt;/p&gt;</description>
+      <description>&lt;p&gt;👋 Hi, I&amp;rsquo;m &lt;strong&gt;Xu Qiongjie&lt;/strong&gt; — a researcher, developer, and content creator.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

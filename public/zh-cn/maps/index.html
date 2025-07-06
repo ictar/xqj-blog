@@ -12,8 +12,11 @@
  
 
 
-      <title>琼洁的笔记 - </title>
+      <title>我的足迹 - </title>
 
+  <meta name="description" content="
+
+">
   <meta name="author" content="Xu Qiongjie"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -50,7 +53,7 @@
         "position": 3,
         "item": {
           "@id": "http:\/\/localhost:1313\/zh-cn\/maps\/",
-          "name": ""
+          "name": "我的足迹"
         }
     }]
 }
@@ -61,13 +64,13 @@
   "author": {
     "name" : "Xu Qiongjie"
   },
-  "headline": "",
-  "description" : "",
+  "headline": "我的足迹",
+  "description" : " ",
   "inLanguage" : "zh-cn",
   "wordCount":  0 ,
   "datePublished" : "0001-01-01T00:00:00\u002b00:00",
   "dateModified" : "0001-01-01T00:00:00\u002b00:00",
-  "image" : "http:\/\/localhost:1313\/",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
   "keywords" : [ "" ],
   "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/maps\/",
   "publisher" : {
@@ -75,7 +78,7 @@
     "name" : "http:\/\/localhost:1313\/",
     "logo" : {
         "@type" : "ImageObject",
-        "url" : "http:\/\/localhost:1313\/",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
         "height" :  60 ,
         "width" :  60
     }
@@ -84,19 +87,42 @@
 </script>
 
 
-<meta property="og:title" content="琼洁的笔记" />
+<meta property="og:title" content="我的足迹" />
+<meta property="og:description" content="
+
+">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
 <meta property="og:url" content="http://localhost:1313/zh-cn/maps/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="琼洁的笔记" />
 
-  <meta name="twitter:title" content="琼洁的笔记" />
+  <meta name="twitter:title" content="我的足迹" />
+  <meta name="twitter:description" content="
+">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta name="generator" content="Hugo 0.147.4">
   <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼洁的笔记"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
 
   </head>
   <body>
@@ -135,7 +161,7 @@
         
           
             <li>
-              <a title="About" href="/zh-cn/page/about/">About</a>
+              <a title="Map" href="/zh-cn/maps">Map</a>
             </li>
           
         
@@ -147,7 +173,7 @@
         
           
             <li>
-              <a title="Map" href="/zh-cn/maps/">Map</a>
+              <a title="About" href="/zh-cn/page/about/">About</a>
             </li>
           
         
@@ -155,6 +181,10 @@
         
           
             <li>
+              
+                
+                  <a href="http://localhost:1313/maps/">EN</a>
+                
               
             </li>
           
@@ -164,6 +194,15 @@
       </ul>
     </div>
 
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼洁的笔记" href="http://localhost:1313/zh-cn/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="琼洁的笔记" />
+           
+          </a>
+        </div>
+      </div>
     
 
   </div>
@@ -229,7 +268,31 @@
 
 
 
-  <div class="intro-header"></div>
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="page-heading">
+              
+                <h1>我的足迹</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
 
 
     
@@ -237,7 +300,115 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
+        <div id="map" style="height: 600px; margin-top: 2rem;"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 基础地图初始化
+        const map = L.map('map').setView([31.2304, 121.4737], 4);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        }).addTo(map);
+
+        // 当前语言判断
+        const lang = document.documentElement.lang.includes('zh') ? 'zh-CN' : 'en';
+
+        // 自定义图标（按类型区分）
+        const iconMap = {
+            study: new L.Icon.Default(),
+            work: new L.Icon({
+                iconUrl: "https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-red.png",
+                shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            }),
+            travel: new L.Icon({
+                iconUrl: "https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-green.png",
+                shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            })
+        };
+
+        // 加载对应语言的 JSON 文件
+        fetch(`/data/places.${lang}.json`)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(place => {
+            const marker = L.marker(place.coords, { icon: iconMap[place.type] });
+            const popupHtml = `
+                <div style="min-width:180px">
+                <strong>${place.title}</strong><br/>
+                <span>${place.desc}</span><br/>
+                <small>${place.years}</small>
+                </div>`;
+            marker.bindPopup(popupHtml);
+            marker.addTo(map);
+            });
+        });
+
+        // 图例
+        const legend = L.control({ position: 'bottomright' });
+
+        legend.onAdd = function () {
+        const div = L.DomUtil.create('div', 'custom-legend');
+        div.innerHTML = `
+            <div class="legend-title">📍 我的经历</div>
+            <div class="legend-item">
+            <span class="legend-icon" style="background-color: #4A90E2;"></span> 学习
+            </div>
+            <div class="legend-item">
+            <span class="legend-icon" style="background-color: #D0021B;"></span> 工作
+            </div>
+            <div class="legend-item">
+            <span class="legend-icon" style="background-color: #7ED321;"></span> 旅行
+            </div>
+        `;
+        return div;
+        };
+
+        legend.addTo(map);
+
+    })
+</script>
+<style>
+    .custom-legend {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+  max-width: 200px;
+}
+
+.custom-legend .legend-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #222;
+}
+
+.custom-legend .legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.custom-legend .legend-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  margin-right: 8px;
+  border-radius: 3px;
+}
+
+</style>
 
         
 
@@ -251,7 +422,7 @@
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;text=&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;text=%e6%88%91%e7%9a%84%e8%b6%b3%e8%bf%b9&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -265,28 +436,28 @@
   
       
       <li>
-        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;title=" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;title=%e6%88%91%e7%9a%84%e8%b6%b3%e8%bf%b9" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;title=" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;title=%e6%88%91%e7%9a%84%e8%b6%b3%e8%bf%b9" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;title=" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;title=%e6%88%91%e7%9a%84%e8%b6%b3%e8%bf%b9" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;description=" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fmaps%2f&amp;description=%e6%88%91%e7%9a%84%e8%b6%b3%e8%bf%b9" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>

@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>概率论 - </title>
+
+  <meta name="author" content="Xu Qiongjie"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼洁的笔记",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/localhost:1313\/"
+  
+  
+  
+  
+}
+</script>
+
+<meta property="og:title" content="概率论" />
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼洁的笔记" />
+
+  <meta name="twitter:title" content="概率论" />
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼洁的笔记"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/zh-cn/">琼洁的笔记</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/zh-cn/post">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Projects" href="/zh-cn/">Projects</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Notes" href="/zh-cn/notes">Notes</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/zh-cn/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/zh-cn/page/about/">About</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼洁的笔记" href="http://localhost:1313/zh-cn/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="琼洁的笔记" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="tags-heading">
+              
+                <h1>概率论</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <div class="posts-list">
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/">
+        <h2 class="post-title">【课程笔记】概率论与数理统计｜随机事件及其概率</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 July 5, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;165&nbsp;个字
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        <h2 id="随机试验与随机事件">随机试验与随机事件</h2>
+<h3 id="定义">定义</h3>
+<p>在概率论中，将具有以下三个特点的<em>试验</em>叫做<strong>随机试验</strong>：</p>
+<ol>
+<li>相同条件下，可重复性</li>
+<li>多结果性</li>
+<li>不确定性</li>
+</ol>
+<p>而<strong>样本空间</strong>（$\Omega$）是一个随机试验所有可能结果的<em>集合</em>。</p>
+<ul>
+<li>随机试验中的每个可能的结果则称为<strong>样本点</strong>（$\omega$），即 $\omega \in \Omega$。</li>
+</ul>
+<p>样本空间的任何一个子集都被称为一个<strong>随机事件</strong>（$A$），即 $A \sub \Omega$</p>
+        <a href="http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/" class="post-read-more">[阅读全文]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/">数理统计</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6/">随机事件</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87/">概率</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E8%AF%95%E9%AA%8C/">随机试验</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title">【课程笔记】概率论与数理统计｜预备知识</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 July 5, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;62&nbsp;个字
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        <h2 id="加法原理和乘法原理">加法原理和乘法原理</h2>
+<p>根据<a href="https://zh.wikipedia.org/zh-cn/%E4%B9%98%E6%B3%95%E5%8E%9F%E7%90%86">维基百科</a>：</p>
+<ul>
+<li><strong>加法原理</strong>：若有a种方式做某事，b种方式做另一件事，但只能选其一，则共有$a+b$种选择。</li>
+<li><strong>乘法原理</strong>：若有a种方式做某事，b种方式做另一件事，则共有$a\times b$种方式做这两件事。</li>
+</ul>
+<h3 id="加法原理还是乘法原理">加法原理还是乘法原理？</h3>
+<p>取决于<strong>是否分步骤</strong>。分步则乘法，否则加法。</p>
+<h2 id="排列组合">排列组合</h2>
+<h3 id="排列">排列</h3>
+<h4 id="不可重复排列">不可重复排列</h4>
+<p>从$n$个不同的元素中任取m（$1\le m \le n$）个不同的元素，按顺序排成一列，排列方式有$P^m_n$种</p>
+        <a href="http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/" class="post-read-more">[阅读全文]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/">数理统计</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E5%8A%A0%E6%B3%95%E5%8E%9F%E7%90%86/">加法原理</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E4%B9%98%E6%B3%95%E5%8E%9F%E7%90%86/">乘法原理</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/">排列组合</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          <li>
+            <a href="/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Xu Qiongjie</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/zh-cn/">琼洁的笔记</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

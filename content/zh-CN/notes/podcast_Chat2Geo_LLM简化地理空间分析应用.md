@@ -1,5 +1,5 @@
 ---
-title: 【播客笔记】Chat2Geo and the Power of LLMs"
+title: 【播客笔记】Chat2Geo and the Power of LLMs
 date: 2025-07-02
 description: "对一集关于“Chat2Geo以及地理空间分析的LLM赋能”的播客内容总结和思考"
 tags: ["Chat2Geo", "LLM", "Geo", "播客笔记", "notes", "podcast", "notellm", "satellite-image-deep-learning"]

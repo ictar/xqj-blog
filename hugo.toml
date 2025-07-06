@@ -1,33 +1,38 @@
 baseURL = 'https://www.xuqiongjie.com'
-languageCode = 'en-us'
+languageCode = 'zh-cn'
 title = "Qiongjie's Notes"
+summaryLength = 10
+
 [[module.imports]]
   path = "github.com/halogenica/beautifulhugo"
 
 [languages]
   [languages.en]
     languageCode = 'en-us'
-    languageName = 'English'
+    languageName = 'EN'
     title = "Qiongjie's Notes"
     contentDir = "content/en" # English
     [languages.en.params]
         subtitle = "Spatial intelligence researcher | GIS developer | Data storyteller"
   [languages.zh-cn]
-    languageCode = 'zh-cm'
-    languageName = 'Simplified Chinese'
+    languageCode = 'zh-cn'
+    languageName = 'CH'
     title = "琼洁的笔记"
     contentDir = "content/zh-CN" # Chinese
     [languages.zh-cn.params]
         subtitle = "空间智能研究者 | GIS开发者 | 数据 storyteller"
 
 [Params]
-    mainSections = ["post","posts"]
+    mainSections = ["post","posts","notes"]
     logo = "img/avatar-icon.png"
     favicon = "img/favicon.ico"
     rss = true
     wordCount = true
     socialShare = true
     showRelatedPosts = true
+    math = true
+    hideAuthor = true
+    
 
 [Params.author]
     name = "Xu Qiongjie"
@@ -55,19 +60,21 @@ title = "Qiongjie's Notes"
 [[menu.main]]
     name = "About"
     url = "page/about/"
-    weight = 4
+    weight = 6
 
 [[menu.main]]
     name = "Tags"
     url = "tags"
     weight = 4
 
-[[menu.main]]
-    name = "Map"
-    url = "/maps/"
-    weight = 5
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)'], ['$', '$']]

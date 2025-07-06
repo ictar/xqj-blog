@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Sun Yat-Sen University",
+    "desc": "I completed my undergraduate studies here and spent an unforgettable four years.",
+    "years": "2009 - 2013",
+    "coords": [23.0555, 113.3958],
+    "type": "study"
+  },
+  {
+    "title": "Politecnico di Milano",
+    "desc": "I completed my Master's degree here and am currently pursuing a PhD.",
+    "years": "2020 - Present",
+    "coords": [45.4782, 9.2276],
+    "type": "study"
+  },
+  {
+    "title": "Shenzhen",
+    "desc": "This is where I began my career as a software engineer.",
+    "years": "2013 - 2019",
+    "coords": [22.5411, 113.9514],
+    "type": "work"
+  },
+  {
+    "title": "Addis Ababa",
+    "desc": "During my time at Huawei, I traveled here for business to support local telecom network development.",
+    "years": "2014",
+    "coords": [9.02107, 38.7477],
+    "type": "work"
+  },
+  {
+    "title": "Vienna",
+    "desc": "I attended my first international conference here and gave my first academic presentation.",
+    "years": "2025",
+    "coords": [48.2092, 16.3728],
+    "type": "work"
+  }
+]
