@@ -31,12 +31,13 @@ tags: ["Chat2Geo", "LLM", "Geo", "播客笔记", "notes", "podcast", "notellm", 
 > “最积极的反馈之一是，使用这个系统有多么容易，它有多么快，以及这个系统有多么直观。”
 
 ### 数据连接与集成
-- 三大数据源：卫星数据： 主要来自 Google Earth Engine。
+三大数据源：
+- 卫星数据： 主要来自 Google Earth Engine。
 - 用户上传数据： 包括用户定义的感兴趣区域（如 GeoJSON 或 Shapefile），以及非空间文本数据（如报告、政策等）。
 - 外部数据库： 能够连接到 Esri 的要素服务和即将推出的 PostgreSQL 连接。
 
 ### 知识库（RAG 系统）
-Chat2Geo 采用基于检索增强生成（RAG）的系统来处理和查询用户上传的大型非空间文档。
+Chat2Geo 采用基于 **检索增强生成（RAG）** 的系统来处理和查询用户上传的大型非空间文档。
 
 - RAG 工作原理： 文档被 LLM 编码成二进制数字（向量），存储在向量数据库中。用户查询也被编码，用于从向量数据库中检索相关信息，然后解码以生成响应。
 - 可扩展性： RAG 系统“可以轻松扩展”。
@@ -47,7 +48,7 @@ Chat2Geo 采用基于检索增强生成（RAG）的系统来处理和查询用�
 > “我们称之为知识库，这是一个基于 RAG 的系统，可以轻松地为用户查询大型文档。”
 
 ### 应对快速发展的技术格局
-- MCP 协议： Chat2Geo 计划采用 MCP（多边形计算协议），这是一种“非常强大的协议”，可以自动更新 API，从而减少开发人员维护集成的工作量。“你不需要再担心这个问题了，因为那些 API 将自动更新。”
+- **MCP 协议**： Chat2Geo 计划采用 MCP（多边形计算协议），这是一种“非常强大的协议”，可以自动更新 API，从而减少开发人员维护集成的工作量。“你不需要再担心这个问题了，因为那些 API 将自动更新。”
 - 持续更新的挑战： 对于像 Georina 这样的小团队来说，跟上 AI 技术和新进展的步伐“非常具有挑战性”。
 - 选择性采用： 团队通过“精挑细选那些真正强大和有用的功能”来应对这一挑战，而不是盲目地引入所有新事物。
 
@@ -82,6 +83,6 @@ Chat2Geo 采用基于检索增强生成（RAG）的系统来处理和查询用�
 Chat2Geo 代表了地理空间分析领域的一个重要进步，它利用 LLM 的力量，使复杂的任务变得易于访问和理解。通过关注用户体验、集成多样化的数据源以及适应快速发展的 AI 技术，Georina 正在积极地塑造地理空间数据科学的未来，使其更加民主化和高效。然而，有效的实施仍需要对系统功能和提示工程有一定的理解。
 
 ## 本播客信息
-日期： 2023年10月27日
+日期： 2025年7月2日
 
 <div class="substack-post-embed"><p lang="en">Chat2Geo and the Power of LLMs by Robin Cole</p><p>with Shahab Jozdani</p><a data-post-link href="https://www.satellite-image-deep-learning.com/p/chat2geo-and-the-power-of-llms">Read on Substack</a></div><script async src="https://substack.com/embedjs/embed.js" charset="utf-8"></script>

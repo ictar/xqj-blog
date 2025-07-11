@@ -3,7 +3,7 @@ title: "About Me"
 date: 2025-07-02
 ---
 
-👋 Hi, I'm **Xu Qiongjie** — a researcher, developer, and content creator.
+👋 Hi, I'm a researcher, developer, and content creator.
 
 I’m currently a research fellow at the **GeoLab, Politecnico di Milano**, where I work on high-resolution land cover mapping, Earth observation, and AI-based remote sensing analysis. I enjoy exploring how satellite data and geospatial models can help us better understand urban and environmental change.
 
@@ -30,9 +30,9 @@ If you’d like to collaborate, chat, or just say hi, feel free to reach out!
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // 基础地图初始化
-        const map = L.map('map').setView([31.2304, 121.4737], 4);
+        const map = L.map('map').setView([45.4782, 9.2276], 4);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 2,
+        maxZoom: 12,
         }).addTo(map);
 
         // 当前语言判断

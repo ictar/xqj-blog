@@ -1,0 +1,14 @@
+---
+title: "用 Python 玩转遥感数据：栅格与矢量全解析"
+description: "从入门到实战，系统掌握使用 Python 操作遥感栅格与矢量数据的技能"
+date: 2025-07-11
+type: "docs"
+layout: "section"
+weight: 10
+---
+
+📌 本系列将系统介绍如何用 Python 处理遥感数据，包含从读取、裁剪、转换、统计到可视化的完整流程。每篇内容配有代码与数据，适合初学者和进阶读者。
+
+🗃️ 文章列表见下方。你也可以在每篇文章末尾找到“下一篇”导航。
+
+🧰 推荐 Python 库：`rasterio`, `rioxarray`, `geopandas`, `shapely`, `matplotlib`, `pyproj`, `rasterstats` 等。
