@@ -7,6 +7,7 @@ layout: "section"
 weight: 10
 ---
 ![](/img/contents/python_geodata_cover.png)
+
 📌 本系列将系统介绍如何用 Python 处理遥感数据，包含从读取、裁剪、转换、统计到可视化的完整流程。每篇内容配有代码与数据，适合初学者和进阶读者。
 
 🗃️ 文章列表见下方。你也可以在每篇文章末尾找到“下一篇”导航。

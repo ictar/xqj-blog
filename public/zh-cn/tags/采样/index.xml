@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>采样 on 琼呀</title>
+    <link>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</link>
+    <description>Recent content in 采样 on 琼呀</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Sat, 02 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>随机变量和采样</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</link>
+      <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</guid>
+      <description>了解随机变量、概率密度函数、期望等概念、常见采样方法以及简单分布（均匀、正态、指数）的采样方式</description>
+    </item>
+  </channel>
+</rss>

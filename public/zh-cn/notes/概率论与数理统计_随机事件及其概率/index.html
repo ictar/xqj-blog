@@ -65,7 +65,7 @@
   "headline": "【课程笔记】概率论与数理统计｜随机事件及其概率",
   "description" : "基于B站宋浩老师的《概率论与数理统计》课程：随机事件及其概率",
   "inLanguage" : "zh-cn",
-  "wordCount":  454 ,
+  "wordCount":  473 ,
   "datePublished" : "2025-07-05T00:00:00\u002b00:00",
   "dateModified" : "2025-07-05T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
@@ -154,6 +154,8 @@
               <div class="navlinks-children">
                 
                   <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
                 
               </div>
             </li>
@@ -420,6 +422,7 @@
 <li>加法公式：对任意事件 $A, B$，有 $P(A+B) = P(A) + P(B) - P(AB)$
 <ul>
 <li>证明：$P(A+B) = P(A+(B-AB)) = P(A) + P(B-AB) = P(A) + P(B) - P(AB)$</li>
+<li>$P(A+B+C) = P(A) + P(B) + P(C) - P(AB) - P(AC) - P(BC) + 2P(ABC)$</li>
 </ul>
 </li>
 <li>有限可加性：对可数个<strong>两两互斥</strong>事件 $A_1, A_2, ..., A_n$，$P\left(\bigcup _{i=1}^{n }A_{i}\right) = \sum _{i=1}^{n }P(A_{i})$
@@ -434,7 +437,10 @@
 </ul>
 </li>
 </ol>
-<h2></h2>
+<h2 id="古典概率与几何概型">古典概率与几何概型</h2>
+<h2 id="条件概率与乘法公式">条件概率与乘法公式</h2>
+<h2 id="全概率公式与贝叶斯公式">全概率公式与贝叶斯公式</h2>
+<h2 id="事件的独立性和伯努利实验">事件的独立性和伯努利实验</h2>
 <h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://zh.wikipedia.org/wiki/%E6%A0%B7%E6%9C%AC%E7%A9%BA%E9%97%B4">维基百科：样本空间</a></li>
@@ -534,6 +540,8 @@
                   <h4 class="see-also">也可以看看</h4>
                   <ul>
                 
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/random-variables/">随机变量和采样</a></li>
                 
                     <li><a href="/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/">【课程笔记】概率论与数理统计｜预备知识</a></li>
                 

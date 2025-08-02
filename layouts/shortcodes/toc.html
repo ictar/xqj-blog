@@ -1,0 +1,6 @@
+{{ if .Page.TableOfContents }}
+  <aside class="toc">
+    <h2>{{ i18n "tableOfContents" | default "目录" }}</h2>
+    {{ .Page.TableOfContents }}
+  </aside>
+{{ end }}

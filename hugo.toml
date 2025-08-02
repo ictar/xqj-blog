@@ -33,6 +33,11 @@ summaryLength = 6
         parent = "post"
         weight = 1
       [[languages.zh-cn.menus.main]]
+        name = "蒙特卡洛-马尔可夫链统计方法"
+        url = "post/mcmc-statics"
+        parent = "post"
+        weight = 2
+      [[languages.zh-cn.menus.main]]
         name = "项目"
         url = ""
         weight = 2
@@ -76,6 +81,17 @@ summaryLength = 6
     identifier = "post"
     weight = 1
 
+[[menus.main]]
+      name = "Remote Sensing with Python"
+      url = "post/python-geodata"
+      parent = "post"
+      weight = 1
+[[menus.main]]
+      name = "Monte Carlo–Markov Chains Statistical Methods"
+      url = "post/mcmc-statics"
+      parent = "post"
+      weight = 2
+
 [[menu.main]]
     name = "Projects"
     url = ""
@@ -107,6 +123,11 @@ summaryLength = 6
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['\[', '\]'], ['$$', '$$']]
           inline = [['\(', '\)'], ['$', '$']]
+    [markup.tableOfContents]
+      endLevel = 2
+      ordered = false
+      startLevel = 1
+
 
 [services]
   [services.disqus]
