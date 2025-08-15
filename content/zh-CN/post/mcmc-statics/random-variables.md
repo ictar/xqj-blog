@@ -1493,7 +1493,6 @@ verify_binomial_sample(n, p, samples)
     Empirical variance: 2.116, Theoretical variance: 2.100
 
 
-
     
 ![png](/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_63_1.png)
     
