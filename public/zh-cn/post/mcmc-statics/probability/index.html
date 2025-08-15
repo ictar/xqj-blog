@@ -12,8 +12,9 @@
  
 
 
-      <title>琼呀 - </title>
+      <title>什么是概率？ - </title>
 
+  <meta name="description" content="本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。">
   <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -50,7 +51,7 @@
         "position": 3,
         "item": {
           "@id": "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/probability\/",
-          "name": ""
+          "name": "什么是概率？"
         }
     }]
 }
@@ -61,14 +62,14 @@
   "author": {
     "name" : "Qiongjie.X"
   },
-  "headline": "",
-  "description" : "",
+  "headline": "什么是概率？",
+  "description" : "本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。",
   "inLanguage" : "zh-cn",
-  "wordCount":  0 ,
-  "datePublished" : "0001-01-01T00:00:00\u002b00:00",
-  "dateModified" : "0001-01-01T00:00:00\u002b00:00",
+  "wordCount":  2161 ,
+  "datePublished" : "2025-08-15T00:00:00\u002b00:00",
+  "dateModified" : "2025-08-15T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
-  "keywords" : [ "" ],
+  "keywords" : [ "概率论, 统计基础, 数学, python" ],
   "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/probability\/",
   "publisher" : {
     "@type": "Organization",
@@ -84,13 +85,15 @@
 </script>
 
 
-<meta property="og:title" content="琼呀" />
+<meta property="og:title" content="什么是概率？" />
+<meta property="og:description" content="本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
 <meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/probability/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="琼呀" />
 
-  <meta name="twitter:title" content="琼呀" />
+  <meta name="twitter:title" content="什么是概率？" />
+  <meta name="twitter:description" content="本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -269,7 +272,44 @@
 
 
 
-  <div class="intro-header"></div>
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>什么是概率？</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 August 15, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2161&nbsp;个字
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
 
 
     
@@ -278,7 +318,863 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         
+  <aside class="toc">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概率的三种解释">概率的三种解释</a>
+      <ul>
+        <li><a href="#-1-频率学派解释frequentist-interpretation">🔵 1. 频率学派解释（<a href="https://en.wikipedia.org/wiki/Frequentist_probability">Frequentist</a> Interpretation）</a></li>
+        <li><a href="#-2-贝叶斯学派解释bayesian-interpretation">🔴 2. 贝叶斯学派解释（<a href="https://en.wikipedia.org/wiki/Bayesian_probability">Bayesian</a> Interpretation）</a></li>
+        <li><a href="#-3-公理化定义kolmogorov-axiomatic-approach">⚫️ 3. 公理化定义（Kolmogorov Axiomatic Approach）</a></li>
+        <li><a href="#-总结">📌 总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#事件与样本空间">事件与样本空间</a>
+      <ul>
+        <li><a href="#样本空间sample-space">样本空间（Sample Space）</a></li>
+        <li><a href="#事件event">事件（Event）</a></li>
+        <li><a href="#三个常见示例">三个常见示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#概率的基本性质">概率的基本性质</a>
+      <ul>
+        <li><a href="#命题-1空事件概率为-0">命题 1：空事件概率为 0</a></li>
+        <li><a href="#命题-2单调性monotonicity">命题 2：单调性（Monotonicity）</a></li>
+        <li><a href="#命题-3补事件概率规则">命题 3：补事件概率规则</a></li>
+        <li><a href="#命题-4两个事件的加法公式包含交集修正项">命题 4：两个事件的加法公式（包含交集修正项）</a></li>
+        <li><a href="#命题-5容斥原理两个与三个事件的情况">命题 5：容斥原理（两个与三个事件的情况）</a></li>
+        <li><a href="#命题-6有限可加性从可列可加性退化而来">命题 6：有限可加性（从可列可加性退化而来）</a></li>
+        <li><a href="#命题-7并集的上界boole-不等式--union-bound">命题 7：并集的上界（Boole 不等式 / Union bound）</a></li>
+        <li><a href="#命题-8连续性从上与下">命题 8：连续性（从上与下）</a></li>
+      </ul>
+    </li>
+    <li><a href="#条件概率与乘法法则">条件概率与乘法法则</a>
+      <ul>
+        <li><a href="#条件概率-严格定义">条件概率 （严格定义）</a></li>
+        <li><a href="#联合概率--与乘法法则">联合概率  与乘法法则</a></li>
+        <li><a href="#示例">示例</a></li>
+        <li><a href="#小结">小结</a></li>
+      </ul>
+    </li>
+    <li><a href="#全概率公式与贝叶斯定理">全概率公式与贝叶斯定理</a>
+      <ul>
+        <li><a href="#全概率公式law-of-total-probability-ltp">全概率公式（Law of Total Probability, LTP）</a></li>
+        <li><a href="#贝叶斯定理bayes-theorem">贝叶斯定理（Bayes’ Theorem）</a></li>
+        <li><a href="#反转因果的力量diagnostic-vs-causal">“反转因果”的力量（diagnostic vs. causal）</a></li>
+        <li><a href="#应用示例">应用示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#独立性与条件独立">独立性与条件独立</a>
+      <ul>
+        <li><a href="#严谨定义与等价刻画">严谨定义与等价刻画</a></li>
+        <li><a href="#两个严谨小推论">两个严谨小推论</a></li>
+        <li><a href="#示例-1">示例</a></li>
+        <li><a href="#常见误区速记">常见误区速记</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </aside>
 
+<h1 id="概率的三种解释">概率的三种解释</h1>
+<h2 id="-1-频率学派解释frequentist-interpretation">🔵 1. 频率学派解释（<a href="https://en.wikipedia.org/wiki/Frequentist_probability">Frequentist</a> Interpretation）</h2>
+<h3 id="-核心思想">🌱 核心思想：</h3>
+<p>概率是<strong>长期频率的极限</strong>，是指在<strong>无限重复的独立实验中</strong>，某个事件发生的比例。</p>
+<blockquote>
+<p><strong>概率就是长期重复中事件发生的频率。</strong></p></blockquote>
+<h3 id="-数学表达">📌 数学表达：</h3>
+<p>如果我们独立重复实验 $n$ 次，事件 $A$ 发生了 $n_A$ 次，那么：</p>
+$$
+P(A) = \lim_{n \to \infty} \frac{n_A}{n}
+$$<h3 id="-关键特征">🧠 关键特征：</h3>
+<ul>
+<li>概率是<strong>客观存在</strong>，与观察者无关。</li>
+<li>概率只适用于<strong>可重复实验</strong>（如掷硬币、抽球、做测量）。</li>
+<li>不适用于一次性事件（例如预测明年是否会发生战争）。</li>
+</ul>
+<h3 id="-应用示例">🎯 应用示例：</h3>
+<ul>
+<li>抛硬币、掷骰子、抽样调查</li>
+<li>参数估计：最大似然估计（MLE）</li>
+<li>假设检验（p-value、置信区间等）</li>
+</ul>
+<h3 id="-缺点">⚠️ 缺点：</h3>
+<ul>
+<li>对<strong>一次性事件</strong>无能为力（无法定义频率）</li>
+<li>不能表达主观不确定性（如“我相信这幅画是毕加索的真迹”的概率）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 重新执行所需库导入和动画绘制代码</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.animation <span style="color:#66d9ef">as</span> animation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置随机种子以保证可重复性</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 模拟抛硬币 n 次（0 表示反面，1 表示正面）</span>
+</span></span><span style="display:flex;"><span>n_trials <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>
+</span></span><span style="display:flex;"><span>outcomes <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], size<span style="color:#f92672">=</span>n_trials)
+</span></span><span style="display:flex;"><span>cumulative_heads <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(outcomes)
+</span></span><span style="display:flex;"><span>frequencies <span style="color:#f92672">=</span> cumulative_heads <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, n_trials <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 创建动画图形</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
+</span></span><span style="display:flex;"><span>line, <span style="color:#f92672">=</span> ax<span style="color:#f92672">.</span>plot([], [], lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#ae81ff">0</span>, n_trials)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">0.5</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True Probability = 0.5&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;Number of Trials&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Frequency of Heads&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Frequency Converges to Probability&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>():
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data([], [])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(frame):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, frame <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> frequencies[:frame]
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data(x, y)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ani <span style="color:#f92672">=</span> animation<span style="color:#f92672">.</span>FuncAnimation(fig, update, frames<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">10</span>, n_trials, <span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>                              init_func<span style="color:#f92672">=</span>init, blit<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save as GIF</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> PillowWriter
+</span></span><span style="display:flex;"><span>ani<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;frequency_converges_to_probability.gif&#34;</span>, writer<span style="color:#f92672">=</span>PillowWriter(fps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>close(fig)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> Image
+</span></span><span style="display:flex;"><span>Image(filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;frequency_converges_to_probability.gif&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 随着实验次数增加，频率逐渐收敛于真实概率（红线）</span>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/1_probability/frequency_converges_to_probability.gif" alt="gif"></p>
+<h2 id="-2-贝叶斯学派解释bayesian-interpretation">🔴 2. 贝叶斯学派解释（<a href="https://en.wikipedia.org/wiki/Bayesian_probability">Bayesian</a> Interpretation）</h2>
+<h3 id="-核心思想-1">🌱 核心思想：</h3>
+<p>概率是<strong>主观信念的量化</strong>，用于表达观察者对某个事件发生的“相信程度”。</p>
+<blockquote>
+<p><strong>概率是你对事件不确定性的主观度量。</strong></p></blockquote>
+<h3 id="-数学表达-1">📌 数学表达：</h3>
+<p>根据<a href="https://zh.wikipedia.org/wiki/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86">贝叶斯公式</a>（Bayes’ Theorem），即 <code>后验概率 = 标准似然度*先验概率</code>，有：</p>
+$$
+P(\theta | \text{data}) = \frac{P(\text{data}|\theta) P(\theta)}{P(\text{data})} \propto P(\text{data}|\theta )P(\theta )
+$$<p>其中：</p>
+<ul>
+<li>$\theta$：一个随机变量</li>
+<li>$P(\theta)$：先验（你原本的信念）</li>
+<li>$P(\text{data}|\theta)$：似然（数据的生成机制）</li>
+<li>$P(\theta|\text{data})$：后验（观察数据后更新的信念）</li>
+<li>$\frac{P(\text{data}|\theta)}{P(\text{data})}$：标准似然度（standardised likelihood）</li>
+</ul>
+<h4 id="从条件概率推导贝叶斯理论">从条件概率推导贝叶斯理论</h4>
+<p>贝叶斯理论可以表示为 $P(A|B) = \frac{P(A)P(B|A)}{P(B)}$。根据<a href="https://zh.wikipedia.org/wiki/%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87">条件概率</a>的定义，我们有
+</p>
+$$
+P(A|B) = \frac{P(AB)}{P(B)} \rightarrow P(AB) = P(A|B)P(B)\\
+P(B|A) = \frac{P(AB)}{P(A)} \rightarrow P(AB) = P(B|A)P(A)
+$$<p>因此，
+</p>
+$$
+P(A|B)P(B) = P(B|A)P(A) \rightarrow P(A|B) = \frac{P(A)P(B|A)}{P(B)}
+$$<h3 id="-关键特征-1">🧠 关键特征：</h3>
+<ul>
+<li>概率是<strong>主观的</strong>，依赖于观察者的背景知识</li>
+<li>可以为任何事件赋予概率，包括一次性事件</li>
+<li>核心机制是<strong>更新信念</strong>：prior → posterior</li>
+</ul>
+<h3 id="-应用示例-1">🎯 应用示例：</h3>
+<ul>
+<li>医学诊断（医生对病人患病概率的判断）</li>
+<li>人工智能中的贝叶斯网络、决策系统</li>
+<li>参数估计：贝叶斯推断（MCMC 方法）</li>
+</ul>
+<h3 id="-缺点-1">⚠️ 缺点：</h3>
+<ul>
+<li><strong>先验的选择带有主观性</strong></li>
+<li>计算可能较复杂（尤其后验分布难以解析）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> FuncAnimation
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> beta
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置先验参数</span>
+</span></span><span style="display:flex;"><span>a_prior, b_prior <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># Prior ~ Beta(2,2)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 模拟观测数据（例如抛硬币）</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>true_p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>N_trials <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>binomial(<span style="color:#ae81ff">1</span>, true_p, size<span style="color:#f92672">=</span>N_trials)  <span style="color:#75715e"># 1 表示正面</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 创建 Beta 分布动画：从先验到后验</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>vlines(true_p, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;True probability = </span><span style="color:#e6db74">{</span>true_p<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0.01</span>, <span style="color:#ae81ff">0.99</span>, <span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>line, <span style="color:#f92672">=</span> ax<span style="color:#f92672">.</span>plot([], [], lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>title <span style="color:#f92672">=</span> ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">1.05</span>, <span style="color:#e6db74">&#34;&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>, transform<span style="color:#f92672">=</span>ax<span style="color:#f92672">.</span>transAxes, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>():
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#34;Density&#34;</span>)
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data([], [])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line, title
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(i):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        a_post, b_post <span style="color:#f92672">=</span> a_prior, b_prior
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        a_post <span style="color:#f92672">=</span> a_prior <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>sum(data[:i])
+</span></span><span style="display:flex;"><span>        b_post <span style="color:#f92672">=</span> b_prior <span style="color:#f92672">+</span> i <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>sum(data[:i])
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> beta<span style="color:#f92672">.</span>pdf(x, a_post, b_post)
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data(x, y)
+</span></span><span style="display:flex;"><span>    title<span style="color:#f92672">.</span>set_text(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Step </span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">: Posterior ~ Beta(</span><span style="color:#e6db74">{</span>a_post<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>b_post<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line, title
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ani <span style="color:#f92672">=</span> FuncAnimation(fig, update, frames<span style="color:#f92672">=</span>N_trials <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, init_func<span style="color:#f92672">=</span>init,
+</span></span><span style="display:flex;"><span>                    blit<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, interval<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save as GIF</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> PillowWriter
+</span></span><span style="display:flex;"><span>ani<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;probability_Bayesian_update_prior_to_posterior.gif&#34;</span>, writer<span style="color:#f92672">=</span>PillowWriter(fps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>close(fig)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> Image
+</span></span><span style="display:flex;"><span>Image(filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;probability_Bayesian_update_prior_to_posterior.gif&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 贝叶斯学派的核心思想：我们对概率的认识随着证据逐步更新，而概率本身反映了我们的主观不确定性。</span>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/1_probability/probability_Bayesian_update_prior_to_posterior.gif" alt="gif"></p>
+<h2 id="-3-公理化定义kolmogorov-axiomatic-approach">⚫️ 3. 公理化定义（Kolmogorov Axiomatic Approach）</h2>
+<h3 id="-核心思想-2">🌱 核心思想：</h3>
+<p>概率是一种满足特定公理体系的<strong>抽象数学结构</strong>，脱离主观或经验解释。</p>
+<blockquote>
+<p><strong>概率是定义在样本空间上的数学测度。</strong></p></blockquote>
+<h3 id="-三大公理kolmogorov-公理">📌 <a href="https://zh.wikipedia.org/wiki/%E6%A9%9F%E7%8E%87%E7%A9%BA%E9%96%93">三大公理（Kolmogorov 公理）</a>：</h3>
+<p>设 $\Omega$ 是样本空间，$\mathcal{F}$ 是事件集合（σ-代数），$P$ 是概率函数，则满足：</p>
+<ol>
+<li>
+<p><strong>非负性（Non-negativity）</strong>：</p>
+$$
+   \forall A \subseteq \Omega, \quad P(A) \geq 0
+   $$</li>
+<li>
+<p><strong>规范性（Normalization）</strong>：</p>
+$$
+   P(\Omega) = 1
+   $$</li>
+<li>
+<p><strong>可列可加性（Countable Additivity）</strong>：
+对任意两两不相交事件 $A_1, A_2, A_3, \ldots$：</p>
+$$
+   P\left( \bigcup_{i=1}^{\infty} A_i \right) = \sum_{i=1}^{\infty} P(A_i)
+   $$</li>
+</ol>
+<h4 id="样本空间">样本空间 $\Omega$</h4>
+<p>一个非空集合，其中的元素称为结果或者样本输出，记作 $\omega$。</p>
+<h4 id="事件集合">事件集合 $\mathcal{F}$</h4>
+<p>样本空间的一个子集我们称之为一个<em>事件</em>。而事件集合，顾名思义就是事件的一个集合，它是样本空间 $\Omega$ 幂集 $2^\Omega$ 的一个非空集合。而我们说 $\mathcal{F}$ 是一个σ-代数，则表示 $\mathcal{F}$ 必须满足下面性质：</p>
+<ol>
+<li>$\mathcal{F}$ 包含全集，即 $\Omega {\in }{\mathcal {F}}$</li>
+<li>$A \in \mathcal{F} \rightarrow {\bar {A}} \in \mathcal{F}$</li>
+<li>$A_{n}{\in }{\mathcal {F}}, n=1,2,... \rightarrow \bigcup _{n=1}^{\infty }A_{n}{\in }{\mathcal {F}}$</li>
+</ol>
+<blockquote>
+<p>注：要求事件集合是 σ-代数是为了保证“补集、可列并”运算结果仍然是事件，从而 $P$ 在这些运算下有意义。</p></blockquote>
+<h4 id="概率函数">概率函数 $P:{\mathcal {F}}{\to }\mathbb {R}$</h4>
+<h3 id="-关键特征-2">🧠 关键特征：</h3>
+<ul>
+<li>摆脱了频率与主观性，完全建立在集合论和测度论的基础上</li>
+<li>是现代概率论与随机过程的基础</li>
+<li>能兼容频率学派和贝叶斯解释</li>
+</ul>
+<h3 id="-应用示例-2">🎯 应用示例：</h3>
+<ul>
+<li>概率空间、期望、随机变量的严格定义</li>
+<li>支撑高等概率论与统计学（如马尔可夫过程、布朗运动）</li>
+<li>计算机随机模拟中的抽象建模</li>
+</ul>
+<h3 id="-缺点-2">⚠️ 缺点：</h3>
+<ul>
+<li>不解释“概率到底是什么”，只描述“概率应该满足什么规则”</li>
+<li>对初学者不够直观</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib_venn <span style="color:#f92672">import</span> venn2, venn3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.patches <span style="color:#66d9ef">as</span> patches
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置画布</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 显示一个全集 Ω</span>
+</span></span><span style="display:flex;"><span>omega <span style="color:#f92672">=</span> patches<span style="color:#f92672">.</span>Rectangle((<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.1</span>), <span style="color:#ae81ff">0.8</span>, <span style="color:#ae81ff">0.8</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>, facecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>add_patch(omega)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.92</span>, <span style="color:#ae81ff">0.92</span>, <span style="color:#e6db74">&#39;Ω (Sample Space)&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 两个事件 A 和 B（不相交）</span>
+</span></span><span style="display:flex;"><span>circle_A <span style="color:#f92672">=</span> patches<span style="color:#f92672">.</span>Circle((<span style="color:#ae81ff">0.35</span>, <span style="color:#ae81ff">0.5</span>), <span style="color:#ae81ff">0.15</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, facecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>circle_B <span style="color:#f92672">=</span> patches<span style="color:#f92672">.</span>Circle((<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.5</span>), <span style="color:#ae81ff">0.15</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, facecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>add_patch(circle_A)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>add_patch(circle_B)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.32</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#e6db74">&#39;A&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.63</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#e6db74">&#39;B&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 标注概率</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.65</span>, <span style="color:#e6db74">&#39;P(A) ≥ 0&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.65</span>, <span style="color:#e6db74">&#39;P(B) ≥ 0&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#e6db74">&#39;P(A ∪ B) = P(A) + P(B)&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 整个空间的概率为1</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.93</span>, <span style="color:#e6db74">&#39;P(Ω) = 1&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">13</span>, weight<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bold&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 去掉坐标轴</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Kolmogorov Probability Axioms - Visualized&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/1_probability/0_probability_6_0.png" alt="png"></p>
+<h2 id="-总结">📌 总结</h2>
+<table>
+  <thead>
+      <tr>
+          <th>解释方式</th>
+          <th>概率含义</th>
+          <th>适用场景</th>
+          <th>代表人物/思想</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>频率学派</td>
+          <td>长期频率</td>
+          <td>可重复实验</td>
+          <td>Von Mises, Fisher</td>
+      </tr>
+      <tr>
+          <td>贝叶斯学派</td>
+          <td>主观信念</td>
+          <td>单次事件、认知决策</td>
+          <td>Thomas Bayes, Laplace</td>
+      </tr>
+      <tr>
+          <td>公理化定义</td>
+          <td>抽象测度</td>
+          <td>理论建模、严谨数学推导</td>
+          <td>Andrey Kolmogorov</td>
+      </tr>
+  </tbody>
+</table>
+<ul>
+<li><strong>频率解释</strong>：概率是长期实验中的频率 → 客观经验主义。</li>
+<li><strong>贝叶斯解释</strong>：概率是主观信念的量化 → 信念更新机制。</li>
+<li><strong>公理定义</strong>：概率是满足一定规则的数学函数 → 抽象结构主义。</li>
+</ul>
+<h1 id="事件与样本空间">事件与样本空间</h1>
+<h2 id="样本空间sample-space">样本空间（Sample Space）</h2>
+<p><strong>（直观）定义</strong>：样本空间记作 $\Omega$，是一次随机试验<strong>所有可能结果</strong>的集合。</p>
+<ul>
+<li>
+<p><strong>离散样本空间</strong>：结果可数（或有限）。例如掷一个六面骰子：</p>
+$$
+  \Omega=\{1,2,3,4,5,6\}.
+  $$<p>再比如投三次硬币，所有可能序列共有 $2^3=8$ 个：$\{HHH, HHT,\dots, TTT\}$。</p>
+</li>
+<li>
+<p><strong>连续样本空间</strong>：结果是连续取值的区间或实数集合，不能一一列举。比如测量某人的身高（米）：</p>
+$$
+  \Omega = [0, +\infty) \quad\text{或更常用 } \Omega=\mathbb{R}.
+  $$<p>或者把位置视为 $[0,1]$ 上的一个实数（均匀分布例子）。</p>
+</li>
+</ul>
+<p><strong>要点</strong>：样本空间就是“我们列出所有可能发生的基本情况”的地方。离散可以数出来、连续不能数出来。</p>
+<h2 id="事件event">事件（Event）</h2>
+<p><strong>（直观）定义</strong>：事件就是样本空间的一个子集 —— 表示“满足某个条件”的所有样本点的集合。事件可以包含一个结果（原子事件）或许多结果。</p>
+<p><strong>常见事件类型</strong>：</p>
+<ul>
+<li><strong>基本事件（elementary event）</strong>：只包含<strong>一个</strong>结果。例如掷骰子得到 3：$\{3\}$。</li>
+<li><strong>复合事件（compound event）</strong>：包含<strong>多个</strong>结果，例如“掷出偶数”$= \{2,4,6\}$。</li>
+<li><strong>必然事件（certain event）</strong>：等于<strong>整个</strong>样本空间 $\Omega$（概率为 1）。</li>
+<li><strong>不可能事件（impossible / null event）</strong>：空集 $\varnothing$（概率为 0）。</li>
+</ul>
+<h3 id="事件的运算">事件的运算</h3>
+<p>给定事件 $A,B$，可以做</p>
+<ul>
+<li>并（$A\cup B$：发生 A 或 B）</li>
+<li>交（$A\cap B$：同时发生）</li>
+<li>补（$A^c$：不发生 A）</li>
+</ul>
+<p><strong>举例说明（掷骰子）</strong>：</p>
+<ul>
+<li>$A$：“掷出偶数” $=\{2,4,6\}$。</li>
+<li>$B$：“掷出大于 3” $=\{4,5,6\}$。</li>
+<li>则 $A\cap B=\{4,6\}$，$A\cup B=\{2,4,5,6\}$。</li>
+</ul>
+<h3 id="如何把概率分配到事件上">如何把“概率”分配到事件上</h3>
+<ul>
+<li>
+<p>对 <strong>离散</strong>：给每个基本结果 $\omega \in \Omega$ 赋一个概率 $P(\{\omega\})$，满足它们相加为 1。事件 $A$ 的概率就是其包含的基本概率之和：</p>
+$$
+  P(A)=\sum_{\omega\in A}P(\{\omega\}).
+  $$</li>
+<li>
+<p>对 <strong>连续</strong>：不能直接给单点概率（通常为 0），而是使用<strong>概率密度函数（PDF）</strong> $f(x)$，事件 $A$ 的概率是对 $A$ 积分：</p>
+$$
+  P(A)=\int_A f(x)\,dx.
+  $$</li>
+</ul>
+<h2 id="三个常见示例">三个常见示例</h2>
+<h3 id="a-掷骰子离散简单">A. 掷骰子（离散、简单）</h3>
+<ul>
+<li>样本空间 $\Omega=\{1,2,3,4,5,6\}$（若均匀，每面概率 $1/6$）。</li>
+<li>事件：$A=\{\text{偶数}\}=\{2,4,6\}$
+<ul>
+<li>则事件 $A$ 的概率是：$P(A)=3\times\frac{1}{6}=\frac{1}{2}$。</li>
+</ul>
+</li>
+</ul>
+<h3 id="b-天气预测有限离散但带概率">B. 天气预测（有限离散，但带概率）</h3>
+<ul>
+<li>样本空间可设 $\Omega=\{\text{晴},\text{阴},\text{雨}\}$。</li>
+<li>根据历史我们可能估计 $P(\text{晴})=0.6,\ P(\text{阴})=0.3,\ P(\text{雨})=0.1$。</li>
+<li>事件：明天“不下雨” $= \{\text{晴},\text{阴}\}$，概率 $0.9$。</li>
+</ul>
+<blockquote>
+<p>注：天气例子展示“概率是基于历史频率或模型估计”的情形（频率或贝叶斯都可以给出解释）。</p></blockquote>
+<h3 id="c-图像分类高维不可枚举离散">C. 图像分类（高维、不可枚举离散）</h3>
+<ul>
+<li>抽象地说：样本空间是“所有可能的数字图片集合”，记为 $ \Omega = \{\text{所有 } H\times W\times 3 \text{ 像素矩阵}\}$。</li>
+<li>事件例如“图像包含猫”是 $A\subset\Omega$：所有被标注为猫的图像集合。你无法列举或逐点赋值，但可以用模型（分类器）或数据集近似 $P(A)$。</li>
+<li>这展示：事件不必是“可枚举的集合”，它可以是非常大的集合（需要用概率模型、密度估计或经验频率来处理）。</li>
+</ul>
+<h1 id="概率的基本性质">概率的基本性质</h1>
+<blockquote>
+<p>由 Kolmogorov 公理导出的基本推论</p></blockquote>
+<h2 id="命题-1空事件概率为-0">命题 1：空事件概率为 0</h2>
+<p>$\displaystyle P(\varnothing)=0.$</p>
+<p><strong>证明</strong>：因为 $\Omega$ 与空集互补且 $\Omega=\varnothing\cup\Omega$，由<strong>可列可加性</strong>（取序列 $A_1=\Omega,A_2=\varnothing,A_3=\varnothing,\dots$），或更简单地注意到 $\Omega$ 与 $\varnothing$ 不相交并 $P(\Omega)=1$。而更标准的证明方法是利用可加性：</p>
+$$
+P(\Omega)=P(\varnothing\cup\Omega)=P(\varnothing)+P(\Omega)\Rightarrow P(\varnothing)=0.
+$$<p>（用<strong>非负性</strong>可得唯一解）</p>
+<h2 id="命题-2单调性monotonicity">命题 2：单调性（Monotonicity）</h2>
+<p>若 $A\subseteq B$（两者均为事件），则 $P(A)\le P(B)$。</p>
+<p><strong>证明</strong>：写 $B=A\cup (B\setminus A)$，且 $A$ 与 $B\setminus A$ 不相交。由<strong>可加性</strong>与<strong>非负性</strong>：</p>
+$$
+P(B)=P(A)+P(B\setminus A)\ge P(A).
+$$<h2 id="命题-3补事件概率规则">命题 3：补事件概率规则</h2>
+<p>$\displaystyle P(A^c)=1-P(A)$。</p>
+<p><strong>证明</strong>：由 $A\cup A^c=\Omega$ 且 $A\cap A^c=\varnothing$，应用<strong>可加性</strong>：</p>
+$$
+P(\Omega)=P(A)+P(A^c)=1\Rightarrow P(A^c)=1-P(A).
+$$<h2 id="命题-4两个事件的加法公式包含交集修正项">命题 4：两个事件的加法公式（包含交集修正项）</h2>
+$$
+P(A\cup B)=P(A)+P(B)-P(A\cap B).
+$$<p><strong>证明（分区法）</strong>：把 $A$ 与 $B$ 分为不相交三块：</p>
+$$
+A=(A\setminus B)\cup(A\cap B),\quad B=(B\setminus A)\cup(A\cap B).
+$$<p>并且</p>
+$$
+A\cup B=(A\setminus B)\cup(A\cap B)\cup(B\setminus A)
+$$<p>三部分两两不交，应用<strong>可加性</strong>可得：
+</p>
+$$
+P(A) = P(A\setminus B) + P(A\cap B) \rightarrow P(A\setminus B) = P(A) - P(A\cap B) \\
+P(B) = P(B\setminus A) + P(A\cap B) \rightarrow P(B\setminus A) = P(B) - P(A\cap B) \\
+P(A\cup B) =P(A\setminus B) + P(A\cap B) + (B\setminus A) = P(A) - P(A\cap B) + P(A\cap B) + P(B) - P(A\cap B) = P(A) + P(B) - P(A\cap B)
+$$<p>由此得证。</p>
+<h2 id="命题-5容斥原理两个与三个事件的情况">命题 5：容斥原理（两个与三个事件的情况）</h2>
+<ul>
+<li>两个事件：同上（加法公式）。</li>
+<li>三个事件：</li>
+</ul>
+$$
+\begin{aligned}
+P(A\cup B\cup C)&=P(A)+P(B)+P(C)\\
+&\quad -P(A\cap B)-P(A\cap C)-P(B\cap C)\\
+&\quad +P(A\cap B\cap C).
+\end{aligned}
+$$<p><strong>证明</strong>：把三集按互不相交的最小原子（8 个原子）分解，或从两集合的公式递推和减去多次计数得来（标准的容斥推导）。</p>
+<h2 id="命题-6有限可加性从可列可加性退化而来">命题 6：有限可加性（从可列可加性退化而来）</h2>
+<p>若 $A_1,\dots,A_n$ 两两不交，则</p>
+$$
+P\Big(\bigcup_{i=1}^n A_i\Big)=\sum_{i=1}^n P(A_i).
+$$<p>这是公理的直接特例（只取有限项即可）。</p>
+<h2 id="命题-7并集的上界boole-不等式--union-bound">命题 7：并集的上界（Boole 不等式 / Union bound）</h2>
+<p>对任意事件序列（不必互斥） $A_1,A_2,\dots$，有</p>
+$$
+P\Big(\bigcup_{i=1}^\infty A_i\Big)\le \sum_{i=1}^\infty P(A_i).
+$$<p><strong>证明要点</strong>：把并集拆成互不相交的子集或直接用单调性与可列可加性证明（可把并集写成不相交的并列或利用对序列 $B_1=A_1, B_2=A_2\setminus A_1, \dots$），从而求得上界。</p>
+<h2 id="命题-8连续性从上与下">命题 8：连续性（从上与下）</h2>
+<ul>
+<li><strong>从上连续性</strong>：若 $A_1\supseteq A_2\supseteq\cdots$ 且交集 $\bigcap_n A_n=\varnothing$，则 $P(A_n)\downarrow 0$（趋于 0）。</li>
+<li><strong>从下连续性</strong>：若 $A_1\subseteq A_2\subseteq\cdots$ 且并集 $\bigcup_n A_n=A$，则 $P(A_n)\uparrow P(A)$。</li>
+</ul>
+<p>这些都是可列可加性结合单调性直接给出的标准结论（可在教材中找到详尽证明）。</p>
+<h1 id="条件概率与乘法法则">条件概率与乘法法则</h1>
+<h2 id="条件概率-严格定义">条件概率 $P(A\mid B)$（严格定义）</h2>
+<p>在概率空间 $(\Omega,\mathcal F,P)$ 中，若 $P(B)>0$，定义</p>
+$$
+P(A\mid B)\;\;\stackrel{\text{def}}=\;\;\frac{P(A\cap B)}{P(B)}.
+$$<p>直观含义：在“已知 $B$ 发生”的世界里，$A$ 的相对概率。</p>
+<p><strong>严格性质</strong>（把 $P(\cdot\mid B)$ 看作固定 $B$ 后的“新概率测度”）：</p>
+<ul>
+<li>
+<p>非负性：$P(A\mid B)\ge 0$；</p>
+</li>
+<li>
+<p>规范化：$P(\Omega\mid B)=\dfrac{P(\Omega\cap B)}{P(B)}=\dfrac{P(B)}{P(B)}=1$；</p>
+</li>
+<li>
+<p>可列可加性：若 $\{A_i\}$ 两两不交，则</p>
+$$
+  P\Big(\bigcup_i A_i\;\Big|\;B\Big)=\frac{P\big((\bigcup_i A_i)\cap B\big)}{P(B)}
+  =\frac{\sum_i P(A_i\cap B)}{P(B)}=\sum_i P(A_i\mid B).
+  $$</li>
+</ul>
+<p>因此 $P(\cdot\mid B)$ 满足 Kolmogorov 公理，是条件下的概率测度。</p>
+<blockquote>
+<p>注：当 $P(B)=0$ 时，上式失效；更一般情形要用“正则条件概率”（Radon–Nikodym 定理给出存在性），离散情形无需担心。</p></blockquote>
+<h2 id="联合概率--与乘法法则">联合概率 $P(A\cap B)$ 与乘法法则</h2>
+<p>由定义立刻得到<strong>乘法法则</strong>：</p>
+$$
+\boxed{\,P(A\cap B)=P(A\mid B)\,P(B)\,}\qquad(P(B)>0)
+$$<p>同理也有 $P(A\cap B)=P(B\mid A)\,P(A)$（若 $P(A)>0$）。</p>
+<p><strong>链式法则（多事件）</strong>：对 $A_1,\dots,A_n$，若各条件概率有定义，</p>
+$$
+P\Big(\bigcap_{k=1}^n A_k\Big)
+= P(A_1)\cdot P(A_2\mid A_1)\cdot P(A_3\mid A_1\cap A_2)\cdots P(A_n\mid A_1\cap\cdots\cap A_{n-1}).
+$$<p><strong>连续/离散变量版</strong>：$f_{X,Y}(x,y)=f_{X\mid Y}(x\mid y)f_Y(y)$；离散时 $p_{X,Y}(x,y)=p_{X\mid Y}(x\mid y)p_Y(y)$。</p>
+<h2 id="示例">示例</h2>
+<h3 id="示例a抽牌不放回">示例A：抽牌（不放回）</h3>
+<p>标准 52 张牌，记</p>
+<ul>
+<li>$A_1=\{\text{第一张是 A(ace)}\}$</li>
+<li>$A_2=\{\text{第二张是 A}\}$</li>
+</ul>
+<p>目标：$P(A_1\cap A_2)$。</p>
+<p>按乘法法则：$P(A_1\cap A_2)=P(A_1)\cdot P(A_2\mid A_1)$。</p>
+<h3 id="示例-b医学检测bayes-由乘法法则引出">示例 B：医学检测（Bayes 由乘法法则引出）</h3>
+<p>设：</p>
+<ul>
+<li>患病先验（流行率）$\pi=P(D)$</li>
+<li>灵敏度 $Se=P(T^+\mid D)$</li>
+<li>特异度 $Sp=P(T^-\mid \bar D)\Rightarrow P(T^+\mid \bar D)=1-Sp$</li>
+</ul>
+<p><strong>阳性预测值（PPV）</strong>：</p>
+$$
+P(D\mid T^+)=\frac{P(T^+\mid D)P(D)}{P(T^+)}
+=\frac{Se\cdot \pi}{Se\cdot \pi+(1-Sp)\cdot (1-\pi)}.
+$$<p>这只是把乘法法则代回、并用全概率 $P(T^+)=P(T^+\mid D)\pi+P(T^+\mid \bar D)(1-\pi)$。</p>
+<h2 id="小结">小结</h2>
+<ul>
+<li><strong>定义</strong>：$P(A\mid B)=P(A\cap B)/P(B)$；它本身是概率测度。</li>
+<li><strong>乘法</strong>：$P(A\cap B)=P(A\mid B)P(B)$。推广成链式法则。</li>
+<li><strong>应用</strong>：抽牌/不放回、医学检测都直接用乘法法则；Bayes 公式=乘法法则 + 全概率。</li>
+</ul>
+<h1 id="全概率公式与贝叶斯定理">全概率公式与贝叶斯定理</h1>
+<h2 id="全概率公式law-of-total-probability-ltp">全概率公式（Law of Total Probability, LTP）</h2>
+<h3 id="严格表述离散可列划分">严格表述（离散/可列划分）</h3>
+<p>设 $(\Omega,\mathcal F,P)$ 为概率空间，$\{B_i\}_{i\in I}\subset\mathcal F$ 构成对 $\Omega$ 的<strong>可列划分</strong>（两两不交且并为 $\Omega$），并且 $P(B_i)>0$。对任意事件 $A\in\mathcal F$，</p>
+$$
+\boxed{P(A)=\sum_{i\in I} P(A\mid B_i)\,P(B_i).}
+$$<h3 id="证明由可列可加性--条件概率定义">证明（由可列可加性 + 条件概率定义）</h3>
+<p>因为 $\{B_i\}$ 划分 $\Omega$，有</p>
+$$
+A=\bigcup_{i}(A\cap B_i),\qquad (A\cap B_i)\ \text{两两不交}.
+$$<p>由可列可加性，</p>
+$$
+P(A)=\sum_i P(A\cap B_i)=\sum_i \frac{P(A\cap B_i)}{P(B_i)}\,P(B_i)=\sum_i P(A\mid B_i)\,P(B_i).
+$$<h3 id="连续型密度版常用等式">连续型/密度版（常用等式）</h3>
+<p>若 $(X,Y)$ 有联合密度 $f_{X,Y}$，则</p>
+$$
+\boxed{f_X(x)=\int f_{X\mid Y}(x\mid y)\,f_Y(y)\,dy,}
+$$<p>这是“对所有 $y$”的条件密度按边缘 $f_Y$ 加权的总和；对事件 $A$ 则</p>
+$$
+P(X\in A)=\int P(X\in A\mid Y=y)\,f_Y(y)\,dy.
+$$<p>（更一般地，条件概率可由 Radon–Nikodym 定理给出，这里不展开。）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 画一个概率树（tree diagram）来展示全概率公式的计算路径</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 数据</span>
+</span></span><span style="display:flex;"><span>labels <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;患病&#34;</span>, <span style="color:#e6db74">&#34;健康&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;阳性(病)&#34;</span>, <span style="color:#e6db74">&#34;阴性(病)&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;阳性(健康)&#34;</span>, <span style="color:#e6db74">&#34;阴性(健康)&#34;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>probs <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    p_disease, <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p_disease,
+</span></span><span style="display:flex;"><span>    p_test_pos_given_disease, <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p_test_pos_given_disease,
+</span></span><span style="display:flex;"><span>    p_test_pos_given_healthy, <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p_test_pos_given_healthy
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 简单画树</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#34;off&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 第一层</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#e6db74">&#34;总体&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.3</span>], [<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.7</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.3</span>], [<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.3</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 第二层</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.35</span>, <span style="color:#ae81ff">0.7</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;患病</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span>p_disease<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.35</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;健康</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p_disease<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>], [<span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.8</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>], [<span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.6</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>], [<span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.4</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>], [<span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.2</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 第三层</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.8</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;阳性</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span>p_test_pos_given_disease<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.6</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;阴性</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p_test_pos_given_disease<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.4</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;阳性</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span>p_test_pos_given_healthy<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.2</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;阴性</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p_test_pos_given_healthy<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/1_probability/0_probability_12_0.png" alt="png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 用医学检测的场景来模拟：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 疾病的先验概率很低</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 检测有一定的准确率</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 下面代码直接体现了 &#34;把总体划分为互斥的几类事件，然后求和&#34; 的思想。</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 参数</span>
+</span></span><span style="display:flex;"><span>p_disease <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>     <span style="color:#75715e"># 患病率：P(病)</span>
+</span></span><span style="display:flex;"><span>p_test_pos_given_disease <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.99</span>   <span style="color:#75715e"># 患病检测为阳性的概率：P(阳性|病)</span>
+</span></span><span style="display:flex;"><span>p_test_pos_given_healthy <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.05</span>   <span style="color:#75715e"># 健康误判为阳性的概率：P(阳性|健康)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 全概率公式：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># P(测试阳性) = P(阳性|病)P(病) + P(阳性|健康)P(健康)</span>
+</span></span><span style="display:flex;"><span>p_positive <span style="color:#f92672">=</span> (p_test_pos_given_disease <span style="color:#f92672">*</span> p_disease <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>              p_test_pos_given_healthy <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p_disease))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;P(测试阳性) = </span><span style="color:#e6db74">{</span>p_positive<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>P(测试阳性) = 0.0594
+</code></pre>
+<h2 id="贝叶斯定理bayes-theorem">贝叶斯定理（Bayes’ Theorem）</h2>
+<h3 id="基本式两事件">基本式（两事件）</h3>
+<p>若 $P(B)>0$，</p>
+$$
+\boxed{P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)}.}
+$$<p>由<strong>乘法法则</strong> $P(A\cap B)=P(A\mid B)P(B)=P(B\mid A)P(A)$ 直接得到。</p>
+<p>把分母用全概率展开（$\{A,\bar A\}$ 划分）：</p>
+$$
+P(B)=P(B\mid A)P(A)+P(B\mid \bar A)P(\bar A),
+$$<p>故</p>
+$$
+P(A\mid B)=\frac{P(B\mid A)P(A)}
+{P(B\mid A)P(A)+P(B\mid \bar A)(1-P(A))}.
+$$<h3 id="多假设版可列划分-">多假设版（可列划分 $\{H_i\}$）</h3>
+$$
+\boxed{P(H_i\mid E)=\frac{P(E\mid H_i)\,P(H_i)}{\sum_j P(E\mid H_j)\,P(H_j)}.}
+$$<h3 id="连续密度版">连续/密度版</h3>
+$$
+\boxed{f_{\Theta\mid X}(\theta\mid x)=\frac{f_{X\mid \Theta}(x\mid \theta)\,\pi(\theta)}{\int f_{X\mid \Theta}(x\mid t)\,\pi(t)\,dt}},
+$$<p>其中 $\pi(\theta)$ 为先验密度，分母是证据（边缘似然）。</p>
+<h2 id="反转因果的力量diagnostic-vs-causal">“反转因果”的力量（diagnostic vs. causal）</h2>
+<ul>
+<li><strong>似然 $P(E\mid H)$</strong>：<strong>因果向前</strong>（假设 $H$ 为真，会多大概率看到证据 $E$？）</li>
+<li><strong>后验 $P(H\mid E)$</strong>：<strong>诊断反推</strong>（观察到证据 $E$，究竟多大概率是由 $H$ 引起？）</li>
+</ul>
+<p>二者不对称：$P(E\mid H)$ 大并不意味着 $P(H\mid E)$ 大。必须结合<strong>先验</strong>（基率）用贝叶斯公式反转：</p>
+$$
+\text{后验 odds}=\text{先验 odds}\times \underbrace{\frac{P(E\mid H)}{P(E\mid \bar H)}}_{\text{Bayes 因子 / 似然比}}.
+$$<p>这就是为什么**基率忽视（base-rate fallacy）**会导致严重误判。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 用上一步算出来的 P(测试阳性)，再反推“阳性时真的有病的概率”：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 贝叶斯定理：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># P(病|阳性) = [P(阳性|病) * P(病)] / P(阳性)</span>
+</span></span><span style="display:flex;"><span>p_disease_given_positive <span style="color:#f92672">=</span> (p_test_pos_given_disease <span style="color:#f92672">*</span> p_disease) <span style="color:#f92672">/</span> p_positive
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;P(病|阳性) = </span><span style="color:#e6db74">{</span>p_disease_given_positive<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这个数值会明显比直觉的小（因为先验概率低 + 假阳性率存在），体现了 &#34;反转因果关系&#34; 的力量。</span>
+</span></span></code></pre></div><pre><code>P(病|阳性) = 0.1667
+</code></pre>
+<h2 id="应用示例">应用示例</h2>
+<h3 id="垃圾邮件识别naive-bayes-思想">垃圾邮件识别（Naive Bayes 思想）</h3>
+<p>设 $H\in\{\text{spam},\text{ham}\}$，特征 $E=(w_1,\dots,w_d)$ 表示邮件中若干词是否出现。朴素贝叶斯假设条件独立：</p>
+$$
+P(E\mid H)=\prod_{k=1}^d P(w_k\mid H).
+$$<p>后验：</p>
+$$
+P(\text{spam}\mid E)=\frac{\left(\prod_k P(w_k\mid \text{spam})\right)P(\text{spam})}
+{\sum_{h\in\{\text{spam},\text{ham}\}}\left(\prod_k P(w_k\mid h)\right)P(h)}.
+$$<blockquote>
+<p>直觉：某些“强指示词”让 $P(E\mid \text{spam})$ 远大于 $P(E\mid \text{ham})$，乘上先验 $P(\text{spam})$ 后使后验偏向 spam。</p></blockquote>
+<p><strong>小练习（先不算数值）</strong>：如果黑名单域名出现（特征 $w$），解释为何“似然比” $\frac{P(w\mid \text{spam})}{P(w\mid \text{ham})}$ 是判别力的关键？</p>
+<h3 id="故障诊断多假设贝叶斯">故障诊断（多假设贝叶斯）</h3>
+<p>假设设备有三种互斥故障 $H_1,H_2,H_3$ 和“正常” $H_0$，先验 $\{P(H_i)\}$ 已知。传感器读数 $E$ 的分布 $P(E\mid H_i)$ 已知（或可近似为正态、指数等）。观测到 $E=e$ 后：</p>
+$$
+P(H_i\mid e)=\frac{P(e\mid H_i)P(H_i)}{\sum_{j=0}^3 P(e\mid H_j)P(H_j)}.
+$$<blockquote>
+<p>直觉：哪一个 $H_i$ <strong>既</strong>更常发生（大先验），<strong>又</strong>更能产生当前观测（大似然），就占据更大后验。</p></blockquote>
+<h3 id="小结-1">小结</h3>
+<ul>
+<li><strong>全概率</strong>：把“情况”可列划分后，“总概率 = 条件概率 × 权重”的加权和。</li>
+<li><strong>贝叶斯</strong>：后验 $\propto$ 似然 × 先验；分母是证据的全概率。</li>
+<li><strong>反转因果</strong>：用 $P(E\mid H)$ 反推 $P(H\mid E)$，必须乘上先验；最好用似然比/odds 思考。</li>
+</ul>
+<h1 id="独立性与条件独立">独立性与条件独立</h1>
+<h2 id="严谨定义与等价刻画">严谨定义与等价刻画</h2>
+<h3 id="事件独立independence">事件独立（Independence）</h3>
+<p>在概率空间 $(\Omega,\mathcal F,P)$ 中，事件 $A,B\in\mathcal F$ <strong>独立</strong>指</p>
+$$
+\boxed{P(A\cap B)=P(A)\,P(B).}
+$$<p>若 $P(B)>0$，等价于</p>
+$$
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}=P(A).
+$$<blockquote>
+<p>指标函数刻画：令 $1_A,1_B$ 为指示函数，则独立 $\iff\ \mathbb E[1_A1_B]=\mathbb E[1_A]\mathbb E[1_B]$。</p></blockquote>
+<p><strong>多事件独立（mutual independence）</strong>：$\{A_i\}_{i=1}^n$ 互相独立指<strong>任何</strong>子集的交满足乘法，例如</p>
+$$
+P\!\Big(\bigcap_{i\in S} A_i\Big)=\prod_{i\in S}P(A_i)\quad(\forall S\subset\{1,\dots,n\},S\neq\varnothing).
+$$<blockquote>
+<p>注意：“两两独立”不等于“共同独立”。</p></blockquote>
+<p><strong>与“不相交”不同</strong>：若 $A\cap B=\varnothing$ 且 $P(A),P(B)>0$，则 $P(A\cap B)=0\ne P(A)P(B)$，故<strong>不可能独立</strong>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 一个简单例子：掷两个公平骰子，事件 A 是“第一个骰子是 6”，事件 B 是“第二个骰子是 6”。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 模拟次数</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1_000_000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 掷两个骰子</span>
+</span></span><span style="display:flex;"><span>die1 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, N)
+</span></span><span style="display:flex;"><span>die2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 定义事件</span>
+</span></span><span style="display:flex;"><span>A <span style="color:#f92672">=</span> (die1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>B <span style="color:#f92672">=</span> (die2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算概率</span>
+</span></span><span style="display:flex;"><span>P_A <span style="color:#f92672">=</span> A<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>P_B <span style="color:#f92672">=</span> B<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>P_A_and_B <span style="color:#f92672">=</span> (A <span style="color:#f92672">&amp;</span> B)<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A) =&#34;</span>, P_A)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(B) =&#34;</span>, P_B)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A ∩ B) =&#34;</span>, P_A_and_B)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A)*P(B) =&#34;</span>, P_A <span style="color:#f92672">*</span> P_B)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 理论上：P(A) = 1/6 = 0.1666666667, P(B) = 1/6 = 0.1666666667, P(A∩B) = 1/36 = 0.02777777778 = P(A)P(B)。</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 如果运行结果接近理论值，说明 A 和 B 独立。</span>
+</span></span></code></pre></div><pre><code>P(A) = 0.16706
+P(B) = 0.166036
+P(A ∩ B) = 0.02781
+P(A)*P(B) = 0.027737974159999994
+</code></pre>
+<h3 id="条件独立conditional-independence">条件独立（Conditional independence）</h3>
+<p>给定 σ-代数 $\mathcal G$（或给定随机变量/事件 $C$ 生成的 $\sigma(C)$），称<strong>在 $\mathcal G$ 条件下</strong> $A,B$ 独立，若</p>
+$$
+\boxed{\mathbb E[1_A1_B\,\mid\,\mathcal G]=\mathbb E[1_A\,\mid\,\mathcal G]\ \mathbb E[1_B\,\mid\,\mathcal G]\quad\text{a.s.}}
+$$<p>等价地（在 $P(C)>0$ 的离散情形常用）</p>
+$$
+\boxed{P(A\cap B\mid C)=P(A\mid C)\,P(B\mid C)\quad\text{（对几乎所有 }C\text{ 取值）}.}
+$$<p><strong>重要关系</strong>：</p>
+<ul>
+<li>条件独立 <strong>不蕴含</strong> 无条件独立；无条件独立也 <strong>不蕴含</strong> 条件独立。</li>
+<li>常见结构：<strong>共同原因</strong> $C$ 会让 $A,B$ 相关；对 $C$ 条件化后往往变得“更独立”。相反，对<strong>共同结果</strong>（collider）条件化会“引入”相关（Berkson 悖论）。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 假设我们有一个感应灯系统：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   事件 A：室内有人</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   事件 B：灯亮</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   条件 C：外面天黑</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 我们模拟一种情况：天黑时，灯亮与否只取决于“室内有人”这个条件，且在天黑情况下，人和灯的状态互不影响——这就是条件独立。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 模拟次数</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1_000_000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 条件 C：天黑</span>
+</span></span><span style="display:flex;"><span>C <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span>  <span style="color:#75715e"># 50% 概率天黑</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在天黑情况下，有人的概率和灯亮的概率</span>
+</span></span><span style="display:flex;"><span>A_given_C <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.6</span>  <span style="color:#75715e"># 天黑时有人概率 0.6</span>
+</span></span><span style="display:flex;"><span>B_given_C <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.7</span>  <span style="color:#75715e"># 天黑时灯亮概率 0.7</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在天亮情况下（~C），人为 0.3 概率，灯亮 0.1 概率</span>
+</span></span><span style="display:flex;"><span>A_given_notC <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.3</span>
+</span></span><span style="display:flex;"><span>B_given_notC <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 根据 C 赋值</span>
+</span></span><span style="display:flex;"><span>A <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(C, A_given_C, A_given_notC)
+</span></span><span style="display:flex;"><span>B <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(C, B_given_C, B_given_notC)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算条件概率</span>
+</span></span><span style="display:flex;"><span>mask_C <span style="color:#f92672">=</span> C  <span style="color:#75715e"># 只考虑天黑的情况</span>
+</span></span><span style="display:flex;"><span>P_A_and_B_given_C <span style="color:#f92672">=</span> (A <span style="color:#f92672">&amp;</span> B <span style="color:#f92672">&amp;</span> mask_C)<span style="color:#f92672">.</span>sum() <span style="color:#f92672">/</span> mask_C<span style="color:#f92672">.</span>sum() <span style="color:#75715e"># P(A ∩ B | C) = P(A ∩ B ∩ C) / P(C)</span>
+</span></span><span style="display:flex;"><span>P_A_given_C <span style="color:#f92672">=</span> (A <span style="color:#f92672">&amp;</span> mask_C)<span style="color:#f92672">.</span>sum() <span style="color:#f92672">/</span> mask_C<span style="color:#f92672">.</span>sum() <span style="color:#75715e"># P(A|C)</span>
+</span></span><span style="display:flex;"><span>P_B_given_C <span style="color:#f92672">=</span> (B <span style="color:#f92672">&amp;</span> mask_C)<span style="color:#f92672">.</span>sum() <span style="color:#f92672">/</span> mask_C<span style="color:#f92672">.</span>sum() <span style="color:#75715e"># P(B|C)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A ∩ B | C) =&#34;</span>, P_A_and_B_given_C)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A|C) * P(B|C) =&#34;</span>, P_A_given_C <span style="color:#f92672">*</span> P_B_given_C)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 如果 P(A ∩ B | C) ≈ P(A|C) * P(B|C)，说明 A 与 B 在 C 条件下是条件独立的。</span>
+</span></span></code></pre></div><pre><code>P(A ∩ B | C) = 0.420284111266571
+P(A|C) * P(B|C) = 0.4200211083400713
+</code></pre>
+<h2 id="两个严谨小推论">两个严谨小推论</h2>
+<p><strong>(i) 独立 ⇒ 条件概率不变</strong>
+若 $A\perp B$ 且 $P(B)>0$，则 $P(A\mid B)=P(A)$。</p>
+<p><strong>(ii) 条件独立 + 全概率</strong>
+若给定 $\mathcal G$ 有 $A\perp B\mid \mathcal G$，则</p>
+$$
+P(A\cap B)=\mathbb E\!\big[\,P(A\cap B\mid\mathcal G)\,\big]
+=\mathbb E\!\big[\,P(A\mid\mathcal G)\,P(B\mid\mathcal G)\,\big].
+$$<p>除非 $P(A\mid\mathcal G)$ 是常数（即与 $\mathcal G$ 无关），否则一般 $\mathbb E[XY]\neq \mathbb E[X]\mathbb E[Y]$，所以<strong>无条件通常不独立</strong>。</p>
+<h2 id="示例-1">示例</h2>
+<h3 id="示例-a遗传性状同因导致相关给定因独立">示例 A：遗传性状（“同因导致相关；给定因独立”）</h3>
+<p>设 $C$ 表示父母的基因型；$A$、$B$ 表示两个兄弟是否具有某隐性表型（事件）。经典遗传模型下，<strong>给定父母基因型 $C$</strong>，两个孩子的表型是<strong>条件独立</strong>的：</p>
+$$
+A\perp B\ \mid\ C,\qquad
+P(A\cap B)=\mathbb E\!\big[P(A\mid C)\,P(B\mid C)\big].
+$$<p>直觉：兄弟相似是因为“共同原因”——父母基因；一旦把父母基因固定，兄弟间剩下的是独立的孟德尔分离。</p>
+<blockquote>
+<p>但边际下 $A,B$ 往往相关（不独立）：不同家庭 $C$ 的分布不同，使 $P(A\mid C)$ 在总体上有波动。</p></blockquote>
+<h3 id="示例-b感应灯系统共同原因导致相关条件化后独立">示例 B：感应灯系统（“共同原因”导致相关；条件化后独立）</h3>
+<p>建模：</p>
+<ul>
+<li>$C\in\{0,1\}$：是否有人经过（先验 $P(C=1)=\pi$）。</li>
+<li>两个传感器事件：$A=\{\text{传感器1触发}\}$, $B=\{\text{传感器2触发}\}$。</li>
+<li>传感器性能：灵敏度 $Se=P(A=1\mid C=1)=P(B=1\mid C=1)=s$；误报率 $Fa=P(A=1\mid C=0)=P(B=1\mid C=0)=f$。条件上<strong>独立</strong>：</li>
+</ul>
+$$
+A\perp B\mid C.
+$$<p><strong>结论</strong>：</p>
+$$
+P(A\cap B)=s^2\pi + f^2(1-\pi),\quad
+P(A)=s\pi+f(1-\pi).
+$$<p>一般 $P(A\cap B)\ne P(A)P(B)$（所以 $A,B$ <strong>不独立</strong>）；但给定 $C$ 时</p>
+$$
+P(A\cap B\mid C)=P(A\mid C)\,P(B\mid C),
+$$<p>即<strong>条件独立</strong>成立。直觉：是否有人这个“共同原因”解释了两传感器一起响的相关性。</p>
+<h2 id="常见误区速记">常见误区速记</h2>
+<ul>
+<li><strong>互斥 ≠ 独立</strong>（除非至少一个概率为 0）。</li>
+<li><strong>两两独立 ≠ 共同独立</strong>（要检查所有交集）。</li>
+<li><strong>相关性</strong>（如协方差）为 0 并不保证独立（非高斯情形）。</li>
+<li>条件化可<strong>打破</strong>或<strong>产生</strong>独立性（取决于是“共同因”还是“共同果”）。</li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/">统计基础</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
+            
+          </div>
         
 
         
@@ -291,7 +1187,7 @@
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;text=&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;text=%e4%bb%80%e4%b9%88%e6%98%af%e6%a6%82%e7%8e%87%ef%bc%9f&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -305,28 +1201,28 @@
   
       
       <li>
-        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=%e4%bb%80%e4%b9%88%e6%98%af%e6%a6%82%e7%8e%87%ef%bc%9f" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=%e4%bb%80%e4%b9%88%e6%98%af%e6%a6%82%e7%8e%87%ef%bc%9f" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=%e4%bb%80%e4%b9%88%e6%98%af%e6%a6%82%e7%8e%87%ef%bc%9f" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;description=" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fprobability%2f&amp;description=%e4%bb%80%e4%b9%88%e6%98%af%e6%a6%82%e7%8e%87%ef%bc%9f" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -340,6 +1236,23 @@
 
         
           
+            
+          
+
+          
+                  <h4 class="see-also">也可以看看</h4>
+                  <ul>
+                
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/random-variables/">随机变量和采样</a></li>
+                
+                    <li><a href="/zh-cn/post/python-geodata/01-intro/">第 1 课：遥感数据与 Python 环境入门</a></li>
+                
+                    <li><a href="/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/">【课程笔记】概率论与数理统计｜随机事件及其概率</a></li>
+                
+                    <li><a href="/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/">【课程笔记】概率论与数理统计｜预备知识</a></li>
+                
+              </ul>
 
           
         
@@ -348,10 +1261,10 @@
       
         <ul class="pager blog-pager">
           
-          
-            <li class="next">
-              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/" data-toggle="tooltip" data-placement="top" title="随机变量和采样">后一篇 &rarr;</a>
+            <li class="previous">
+              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/" data-toggle="tooltip" data-placement="top" title="随机变量和采样">&larr; 前一篇</a>
             </li>
+          
           
         </ul>
       

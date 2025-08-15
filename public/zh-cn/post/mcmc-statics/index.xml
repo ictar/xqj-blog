@@ -8,21 +8,21 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Sat, 02 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 Aug 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/post/mcmc-statics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>什么是概率？</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</link>
+      <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</guid>
+      <description>本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。</description>
+    </item>
     <item>
       <title>随机变量和采样</title>
       <link>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</guid>
       <description>了解随机变量、概率密度函数、期望等概念、常见采样方法以及简单分布（均匀、正态、指数）的采样方式</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</guid>
-      <description></description>
     </item>
   </channel>
 </rss>

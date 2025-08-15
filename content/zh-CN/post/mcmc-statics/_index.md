@@ -6,7 +6,7 @@ layout: "section"
 weight: 2
 ---
 
-![](/img/contents/mcmc_statics_cover_zh.png)
+![](/img/contents/post/mcmc-statics/mcmc_statics_cover.png)
 
 欢迎来到 **蒙特卡洛-马尔可夫链统计方法** 系列，在这里你将学习从概率论基础到 MCMC 采样的原理与实践。本系列基于米兰理工大学的 [PhD课程：MONTECARLO-MARKOV CHAINS STATISTICAL METHODS](https://www11.ceda.polimi.it/manifestidott/manifestidott/controller/MainPublic.do?evn_dettaglioinsegnamento=evento&aa=2024&k_cf=82&k_corso_la=1378&ac_ins=0&lang=EN&c_insegn=095929&jaf_currentWFID=main)，借助 ChatGPT，结合 Python/Jupyter Notebook 代码与图示帮助理解。
 

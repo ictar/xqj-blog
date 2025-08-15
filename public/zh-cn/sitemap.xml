@@ -29,7 +29,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/zh-cn/post/</loc>
-    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
@@ -42,7 +42,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/python/</loc>
-    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
@@ -55,7 +55,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/</loc>
-    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
@@ -67,14 +67,11 @@
                 href="http://localhost:1313/zh-cn/tags/"
                 />
   </url><url>
-    <loc>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</loc>
-    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/</loc>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/zh-cn/</loc>
-    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
@@ -86,7 +83,19 @@
                 href="http://localhost:1313/zh-cn/"
                 />
   </url><url>
+    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</loc>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</loc>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</loc>
+    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2025-08-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/</loc>
@@ -155,9 +164,6 @@
     <loc>http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/</loc>
-    <lastmod>2025-07-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E5%8A%A0%E6%B3%95%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
   </url><url>
@@ -222,8 +228,6 @@
                 hreflang="zh-cn"
                 href="http://localhost:1313/zh-cn/page/about/"
                 />
-  </url><url>
-    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</loc>
   </url><url>
     <loc>http://localhost:1313/zh-cn/categories/</loc>
     <xhtml:link

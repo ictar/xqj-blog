@@ -5,7 +5,7 @@ layout: "section"
 weight: 2
 ---
 
-![](/img/contents/mcmc_statics_cover.png)
+![](/img/contents/post/mcmc-statics/mcmc_statics_cover.png)
 
 Welcome to the **Monte Carlo–Markov Chains Statistical Methods** series, where we explore the theory and practice of probabilistic inference and MCMC sampling.
 
