@@ -12,24 +12,26 @@ weight: 2
 
 ## 系列文章
 
-1. [什么是概率？](/mcmc/probability/)
-2. [随机变量与采样方法基础](/mcmc/random-variables/)
+1. [什么是概率？](/mcmc-statics/probability/)
+2. [随机变量与采样方法基础](/mcmc-statics/random-variables/)
    * 概率密度函数与期望
    * 简单分布的采样方法
    * 常用基础采样算法介绍
-3. [蒙特卡洛方法](/mcmc/monte-carlo/)
-4. [理解马尔可夫链](/mcmc/markov-chains/)
+3. [蒙特卡洛方法](/mcmc-statics/monte-carlo/)
+   * 重要性采样（Importance Sampling）
+   * 方差缩减技术
+4. [理解马尔可夫链](/mcmc-statics/markov-chains/)
    * 什么是马尔可夫过程
    * 平稳分布与收敛性
    * 构建简单的状态转移过程
-5. [MCMC 初识](/mcmc/intro-mcmc/)
+5. [MCMC 初识](/mcmc-statics/intro-mcmc/)
    * 为什么我们需要 MCMC？
    * 从马尔可夫链到抽样
    * 理论与直觉
-6. [Metropolis 算法](/mcmc/metropolis/)
-7. [Metropolis-Hastings 算法](/mcmc/metropolis-hastings/)
-8. [Gibbs 采样详解](/mcmc/gibbs/)
-9.  [收敛性诊断](/mcmc/convergence/)
-10. [Python 实战：MCMC 建模](/mcmc/python/)
+6. [Metropolis 算法](/mcmc-statics/metropolis/)
+7. [Metropolis-Hastings 算法](/mcmc-statics/metropolis-hastings/)
+8. [Gibbs 采样详解](/mcmc-statics/gibbs/)
+9.  [收敛性诊断](/mcmc-statics/convergence/)
+10. [Python 实战：MCMC 建模](/mcmc-statics/python/)
 
 ## 快速访问

@@ -8,13 +8,34 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Fri, 15 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 Aug 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Python</title>
       <link>http://localhost:1313/zh-cn/tags/python/</link>
-      <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <pubDate>Tue, 19 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>采样</title>
+      <link>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</link>
+      <pubDate>Tue, 19 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>蒙特卡洛</title>
+      <link>http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/</link>
+      <pubDate>Tue, 19 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>数学</title>
+      <link>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</link>
+      <pubDate>Tue, 19 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</guid>
       <description></description>
     </item>
     <item>
@@ -25,24 +46,10 @@
       <description></description>
     </item>
     <item>
-      <title>数学</title>
-      <link>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</link>
-      <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>统计基础</title>
       <link>http://localhost:1313/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>采样</title>
-      <link>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</link>
-      <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</guid>
       <description></description>
     </item>
     <item>

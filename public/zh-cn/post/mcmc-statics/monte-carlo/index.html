@@ -14,25 +14,7 @@
 
       <title>蒙特卡洛方法 - </title>
 
-  <meta name="description" content="
-    目录
-    
-  
-    
-      
-        基本概念
-        图示说明（Mermaid）
-        示例代码（可选）
-        小结
-        延伸阅读
-      
-    
-  
-
-  
-
-基本概念
-这里介绍该部分的定义、背景、公式。">
+  <meta name="description" content="蒙特卡洛方法 = “随机试验 &#43; 统计规律”">
   <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -81,13 +63,13 @@
     "name" : "Qiongjie.X"
   },
   "headline": "蒙特卡洛方法",
-  "description" : " 目录 基本概念 图示说明（Mermaid） 示例代码（可选） 小结 延伸阅读 基本概念 这里介绍该部分的定义、背景、公式。\n",
+  "description" : "蒙特卡洛方法 = “随机试验 \u002b 统计规律”",
   "inLanguage" : "zh-cn",
-  "wordCount":  30 ,
-  "datePublished" : "2025-08-02T00:00:00\u002b00:00",
-  "dateModified" : "2025-08-02T00:00:00\u002b00:00",
+  "wordCount":  170 ,
+  "datePublished" : "2025-08-19T00:00:00\u002b00:00",
+  "dateModified" : "2025-08-19T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
-  "keywords" : [ "" ],
+  "keywords" : [ "采样, 蒙特卡洛, 数学, python" ],
   "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/monte-carlo\/",
   "publisher" : {
     "@type": "Organization",
@@ -104,50 +86,14 @@
 
 
 <meta property="og:title" content="蒙特卡洛方法" />
-<meta property="og:description" content="
-    目录
-    
-  
-    
-      
-        基本概念
-        图示说明（Mermaid）
-        示例代码（可选）
-        小结
-        延伸阅读
-      
-    
-  
-
-  
-
-基本概念
-这里介绍该部分的定义、背景、公式。">
+<meta property="og:description" content="蒙特卡洛方法 = “随机试验 &#43; 统计规律”">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
 <meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="琼呀" />
 
   <meta name="twitter:title" content="蒙特卡洛方法" />
-  <meta name="twitter:description" content="
-    目录
-    
-  
-    
-      
-        基本概念
-        图示说明（Mermaid）
-        示例代码（可选）
-        小结
-        延伸阅读
-      
-    
-  
-
-  
-
-基本概念
-这里介绍该部分的定义、背景、公式。">
+  <meta name="twitter:description" content="蒙特卡洛方法 = “随机试验 &#43; 统计规律”">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -345,11 +291,11 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 2, 2025
+  <i class="fas fa-calendar"></i>&nbsp;发表于 August 19, 2025
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;30&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;170&nbsp;个字
   
   
   
@@ -376,37 +322,1454 @@
     <h2>目录</h2>
     <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#蒙特卡罗方法的基本形式">蒙特卡罗方法的基本形式</a>
       <ul>
-        <li><a href="#基本概念">基本概念</a></li>
-        <li><a href="#图示说明mermaid">图示说明（Mermaid）</a></li>
-        <li><a href="#示例代码可选">示例代码（可选）</a></li>
-        <li><a href="#小结">小结</a></li>
-        <li><a href="#延伸阅读">延伸阅读</a></li>
+        <li><a href="#均匀采样区间区域上的均匀采样">均匀采样：区间/区域上的均匀采样</a></li>
+        <li><a href="#接受-拒绝采样rejection-sampling">接受-拒绝采样（Rejection Sampling）</a></li>
+        <li><a href="#重要性采样importance-sampling-is">重要性采样（Importance Sampling, IS）</a></li>
+        <li><a href="#方差缩减技术">方差缩减技术</a></li>
       </ul>
     </li>
+    <li><a href="#参考阅读更多">参考/阅读更多</a></li>
   </ul>
 </nav>
   </aside>
 
-<h2 id="基本概念">基本概念</h2>
-<p>这里介绍该部分的定义、背景、公式。</p>
-<h2 id="图示说明mermaid">图示说明（Mermaid）</h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">flowchart TD
-    Start --&gt; Step1 --&gt; Step2 --&gt; End
-</code></pre><h2 id="示例代码可选">示例代码（可选）</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 示例代码</span>
-</span></span></code></pre></div><h2 id="小结">小结</h2>
-<p>本节简要回顾。</p>
-<hr>
-<h2 id="延伸阅读">延伸阅读</h2>
+<h1 id="概述">概述</h1>
+<p><strong>蒙特卡洛方法</strong>是一类利用 <strong>随机数（概率统计方法）</strong> 来求解数学问题、数值积分或复杂模型近似解的算法。
+其基本思想是：</p>
+$$
+\text{用大量随机样本的统计特性来逼近问题的真实解。}
+$$<p>换句话说：</p>
 <ul>
-<li>文献1</li>
-<li>博客2</li>
+<li><strong>随机试验 → 统计规律 → 近似解</strong></li>
+</ul>
+<p>名字来源于摩纳哥的 <strong>Monte Carlo 赌场</strong> 🎲，因为方法核心是 <strong>“随机抽样”</strong>。</p>
+<p>假设我们要求一个积分：</p>
+$$
+I = \int_a^b f(x)\, dx
+$$<p>普通数值积分（梯形法、辛普森法）在高维时非常复杂。
+但蒙特卡洛方法的想法是：</p>
+<ol>
+<li>
+<p>在 $[a,b]$ 上随机生成 $N$ 个样本 $x_1, x_2, \dots, x_N$。</p>
+</li>
+<li>
+<p>计算函数值的平均：</p>
+$$
+   \hat{I} = (b-a)\cdot \frac{1}{N}\sum_{i=1}^N f(x_i)
+   $$</li>
+<li>
+<p>根据大数定律，当 $N \to \infty$，$\hat{I} \to I$。</p>
+</li>
+</ol>
+<p>蒙特卡洛方法的<strong>主要特点</strong>是：</p>
+<ul>
+<li><strong>维度不敏感</strong>：在高维积分、复杂概率分布下依然适用（相比传统数值方法不爆炸）。</li>
+<li><strong>简单易实现</strong>：只要能生成随机数，就能用。</li>
+<li><strong>误差随样本数衰减</strong>：</li>
+</ul>
+$$
+\text{误差} \sim \mathcal{O}\left(\frac{1}{\sqrt{N}}\right)
+$$<p>与维度无关，但收敛速度较慢。</p>
+<ul>
+<li><strong>普适性强</strong>：可用于积分、优化、概率模拟、物理建模、统计推断等。</li>
+</ul>
+<p><strong>蒙特卡洛方法的常见应用有：</strong></p>
+<ul>
+<li><strong>积分估计</strong>（尤其是高维积分，如贝叶斯后验概率）</li>
+<li><strong>π 的估计</strong>（经典例子：随机撒点看落在圆内比例）</li>
+<li><strong>随机模拟</strong>（金融期权定价、排队论、风险分析）</li>
+<li><strong>统计推断</strong>（MCMC，重要性采样，Bootstrap）</li>
+<li><strong>物理建模</strong>（粒子输运、热传导、蒙特卡洛光线追踪）</li>
+</ul>
+<p>总而言之，</p>
+<p><strong>蒙特卡洛方法 = “随机试验 + 统计规律”</strong>
+它不是某一个具体算法，而是一整类算法。核心在于：</p>
+<ul>
+<li>用随机数来模拟问题</li>
+<li>用统计平均来逼近答案</li>
+<li>利用大数定律和中心极限定理保证正确性</li>
+</ul>
+<h1 id="蒙特卡罗方法的基本形式">蒙特卡罗方法的基本形式</h1>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>均匀采样</td>
+          <td>最基本，理解“扔飞镖”</td>
+      </tr>
+      <tr>
+          <td>接受-拒绝采样</td>
+          <td>复杂分布采样的万能工具</td>
+      </tr>
+      <tr>
+          <td>重要性采样</td>
+          <td>积分估计的核心技巧</td>
+      </tr>
+      <tr>
+          <td>方差缩减</td>
+          <td>提高效率的必修课</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="均匀采样区间区域上的均匀采样">均匀采样：区间/区域上的均匀采样</h2>
+<p><strong>思想</strong>：把样本空间限制在某个<strong>有限测度</strong>的集合 $S$（即长度/面积/体积可数，且 $0<\mu(S)<\infty$）。
+<strong>连续情形的“均匀分布”</strong> 就是：对任意事件 $A$,</p>
+$$
+P(X\in A)=\frac{\mu(A\cap S)}{\mu(S)}.
+$$<blockquote>
+<p>在概率论里，我们要把“几何大小”和“概率”对应起来。这个“几何大小”一般记作 测度（measure），符号常用 $\mu$ 来表示。
+在<strong>一维</strong>区间里，$\mu$ 就是<strong>长度</strong>；在<strong>二维</strong>平面里，$\mu$ 就是<strong>面积</strong>；在<strong>三维</strong>空间里，$\mu$ 就是<strong>体积</strong>。
+当我们说“均匀分布”，意思是 $P(\text{落在 } A) \propto \mu(A)$。即：概率只和区域的大小成正比，而不依赖它的位置或形状。
+但为了保证整个空间的概率总和 = 1，我们要做归一化：$P(X \in A) = \frac{\mu(A \cap S)}{\mu(S)}$。
+例如，在 $[2,5]$ 上：总长度 $\mu(S)=3$。如果 $A=[2,3]$，长度 $\mu(A)=1$，所以概率是 $1/3$。</p></blockquote>
+<p>也就是说，<strong>概率正比于几何测度</strong>。等价地，它的密度是</p>
+$$
+f_X(x)=\frac{1}{\mu(S)}\ \text{(在 }x\in S\text{ 时)},\quad 0\ \text{(否则)}.
+$$<p>
+离散情形：若 $S=\{1,\dots,n\}$，则每个点的质量都是 $1/n$。</p>
+<blockquote>
+<p>直觉：像往 $S$ 里“等可能地扔飞镖”，命中哪块区域的机会只取决于这块区域的“大小”。</p></blockquote>
+<p>又见http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/#反函数法inverse-transform-sampling</p>
+<h3 id="为什么能从--得到别处的均匀">为什么能从 $U(0,1)$ 得到别处的均匀</h3>
+<p>关键是<strong>测度保持</strong>的变换。</p>
+<ul>
+<li>
+<p><strong>区间上的仿射变换</strong>
+若 $U\sim \mathrm{Uniform}(0,1)$，设</p>
+$$
+  X=a+(b-a)\,U\qquad (a<b),
+  $$<p>则 $X\sim \mathrm{Uniform}(a,b)$。
+证明（两种方式都很短）：</p>
+<ul>
+<li>
+<p><strong>CDF 法</strong>：对任意 $x\in[a,b]$,</p>
+$$
+    P(X\le x)=P\!\Big(U\le \frac{x-a}{b-a}\Big)=\frac{x-a}{b-a}.
+    $$<p>这正是 $\mathrm{Uniform}(a,b)$ 的 CDF。</p>
+</li>
+<li>
+<p><strong>换元/密度法</strong>：$u=(x-a)/(b-a)\Rightarrow f_X(x)=f_U(u)\,\bigl|\frac{du}{dx}\bigr|=1\cdot \frac{1}{b-a}$。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>更高维的线性/仿射变换</strong>：把 $(U_1,\dots,U_d)\sim \mathrm{Uniform}([0,1]^d)$ 线性映到一个长方体，就得到该长方体上的均匀分布（Jacobian 是常数）。</p>
+</li>
+<li>
+<p><strong>一般区域 $S$ 上</strong>：如果没有现成的测度保持映射，常用<strong>接受-拒绝</strong>，见下一个方法。</p>
+</li>
+</ul>
+<h4 id="示例在区间--上均匀采样并证明为何可行">示例：在区间 $[2,5]$ 上均匀采样（并证明为何可行）</h4>
+<p><strong>构造</strong>：取 $U\sim \mathrm{Uniform}(0,1)$，令</p>
+$$
+X=2+3U.
+$$<p><strong>为什么可行（严格）</strong>：</p>
+<ul>
+<li>
+<p><strong>CDF 证明</strong>：对任意 $x\in[2,5]$,</p>
+$$
+  P(X\le x)=P\!\Big(U\le \frac{x-2}{3}\Big)=\frac{x-2}{3}.
+  $$<p>这正是 $\mathrm{Uniform}(2,5)$ 的分布函数；区间外概率为 0 或 1。</p>
+</li>
+<li>
+<p><strong>密度证明</strong>：由换元 $u=(x-2)/3$ 得</p>
+$$
+  f_X(x)=f_U(u)\left|\frac{du}{dx}\right|=1\cdot \frac{1}{3}=\frac{1}{3},\quad x\in[2,5],
+  $$<p>其他地方为 0。和“长度比例”一致：任意子区间 $A\subset[2,5]$ 有</p>
+$$
+  P(X\in A)=\frac{|A|}{|[2,5]|}=\frac{|A|}{3}.
+  $$</li>
+</ul>
+<blockquote>
+<p>这就是“从 $U(0,1)$ 通过仿射变换得到任意区间上的均匀”的标准做法；背后就是测度按常数缩放的换元公式。</p></blockquote>
+<h3 id="区域上的均匀采样">区域上的均匀采样</h3>
+<p>对一个有“体积”（面积/体积）可度量的集合 $S$，均匀分布的密度就是在 $S$ 内为常数、外面为 0。要从 $U(0,1)$ 构造出 $S$ 上的均匀样本，可以利用几何构造（用正确的变量变换）（也可用下面要讲到的<strong>接受-拒绝</strong>方法）：</p>
+<p>以<strong>单位圆盘</strong> $D=\{(x,y): x^2+y^2\le 1\}$ 为例。极坐标变换</p>
+$$
+(x,y)=(r\cos\theta,\ r\sin\theta),\quad r\in[0,1],\ \theta\in[0,2\pi)
+$$<p>的面积元（Jacobian）是 $r\,dr\,d\theta$。想让 $(x,y)$ 在圆盘内<strong>均匀</strong>，等价于让 $(r,\theta)$ 的联合密度与 $r$ 成正比：</p>
+$$
+f_{R,\Theta}(r,\theta)=\frac{1}{\pi}\cdot r,\quad (0\le r\le 1,\ 0\le\theta<2\pi).
+$$<p>这意味着：</p>
+<ul>
+<li>$\Theta\sim \mathrm{Uniform}[0,2\pi)$；</li>
+<li>$R$ 的分布满足 $P(R\le r)=\int_0^{r}\int_0^{2\pi}(\tfrac{1}{\pi} s)\,d\theta\,ds=r^2$（正好对应圆盘内面积比例：$\text{Area}(r) / \text{Area}(1) = \pi r^2 / \pi = r^2$），
+所以 $R$ 的 CDF 是 $F_R(r)=r^2$（$0\le r\le1$），即 $R=\sqrt{U}$（其中 $U\sim U(0,1)$）。</li>
+</ul>
+<p><strong>采样步骤（单位圆盘均匀）</strong>：</p>
+<ol>
+<li>$\Theta\sim U(0,2\pi)$；</li>
+<li>$U\sim U(0,1)$，令 $R=\sqrt{U}$；</li>
+<li>$X=R\cos\Theta,\ Y=R\sin\Theta$。</li>
+</ol>
+<blockquote>
+<p>直觉：面积环带的面积 ∝ $r$。如果直接取 $R\sim U(0,1)$，会让点过度集中在中心（因为内圈环带面积更小），这就<strong>不是</strong>均匀分布。取 $R=\sqrt{U}$ 才能补偿 Jacobian 的“拉伸”。</p></blockquote>
+<p><strong>扩展到 3D 球体</strong>：体积元是 $r^2\sin\phi\,dr\,d\phi\,d\theta$，于是
+$\Theta\sim U(0,2\pi)$、$\cos\Phi\sim U(-1,1)$、$R=U^{1/3}$。</p>
+<h4 id="单位圆盘上的均匀采样为何可行简证">单位圆盘上的均匀采样为何可行（简证）</h4>
+<p>按上面的构造取 $R=\sqrt{U},\ \Theta\sim U(0,2\pi)$，变换到 $(X,Y)$。
+联合密度换元：</p>
+$$
+f_{X,Y}(x,y)=f_{R,\Theta}(r,\theta)\,\Big|\det \frac{\partial(r,\theta)}{\partial(x,y)}\Big|
+= \Big(\tfrac{1}{\pi} r\Big)\cdot \frac{1}{r}=\frac{1}{\pi},\quad x^2+y^2\le1,
+$$<p>域外为 0。密度常数 $1/\pi$ 正是“单位圆盘面积”的倒数，故为<strong>均匀</strong>。</p>
+<h4 id="示例均匀采样估计圆周率">示例：均匀采样估计圆周率</h4>
+<p><strong>目标</strong>：理解最基础的“随机点 → 近似面积/概率”。</p>
+<ul>
+<li>
+<p><strong>方法</strong>：在单位正方形 <code>[0,1] × [0,1]</code> （面积为$1$）里均匀采样点，看多少点落在单位圆的 1/4 内。</p>
+<ul>
+<li>单位圆（$r=1$）的面积是 $\pi r^2 = \pi \rightarrow \text{1/4 个单位圆的面积} = \frac{1}{4}\pi$</li>
+<li>$P(\text{落在单位圆的 1/4 内}) = \frac{\text{1/4 个单位圆的面积}}{\text{单位正方形的面积}} = \frac{1}{4}\pi \rightarrow \pi=4*P(\text{落在单位圆的 1/4 内})$</li>
+<li>$P(\text{落在单位圆的 1/4 内}) = \frac{\text{落在圆的 1/4 内的点数}}{\text{总点数}}$</li>
+</ul>
+</li>
+<li>
+<p><strong>公式</strong>：</p>
+$$
+  \pi \approx 4 \cdot \frac{\#\{(x,y): x^2+y^2 \le 1\}}{N}
+  $$</li>
+<li>
+<p><strong>思考点</strong>：</p>
+<ul>
+<li>采样点数 N 越大，结果越接近 π。</li>
+<li>采样误差大约是 $O(1/\sqrt{N})$。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 均匀采样估计圆周率：看 π 如何随着采样数变多收敛。</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">estimate_pi</span>(N):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    使用均匀采样估计 π 的值。
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    参数:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    N -- 采样点数
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    返回:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    估计的 π 值
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 在正方形 [0,1]×[0,1] 采样</span>
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N)
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 判断是否落在圆的 1/4 内</span>
+</span></span><span style="display:flex;"><span>    inside <span style="color:#f92672">=</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    pi_est <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>mean(inside)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pi_est, x, y, inside
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 验证采样数 N 越大，结果越接近 π</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> N <span style="color:#f92672">in</span> [<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">10000</span>, <span style="color:#ae81ff">100000</span>]:
+</span></span><span style="display:flex;"><span>    pi_est, x, y, inside <span style="color:#f92672">=</span> estimate_pi(N)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;采样点数 N=</span><span style="color:#e6db74">{</span>N<span style="color:#e6db74">}</span><span style="color:#e6db74"> 时，估计的 π ≈ </span><span style="color:#e6db74">{</span>pi_est<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 可视化</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(x[<span style="color:#f92672">~</span>inside], y[<span style="color:#f92672">~</span>inside], s<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, c<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;red&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Outside&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(x[inside], y[inside], s<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, c<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Inside&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hlines(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">1.1</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>vlines(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">1.1</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>circle <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>Circle((<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>), <span style="color:#ae81ff">1</span>, fill<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;black&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>gca()<span style="color:#f92672">.</span>add_patch(circle)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Monte Carlo 估计圆周率 （N=</span><span style="color:#e6db74">{</span>N<span style="color:#e6db74">}</span><span style="color:#e6db74">，估计的 π ≈ </span><span style="color:#e6db74">{</span>pi_est<span style="color:#e6db74">}</span><span style="color:#e6db74">）&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>采样点数 N=10 时，估计的 π ≈ 2.800000
+采样点数 N=100 时，估计的 π ≈ 3.200000
+采样点数 N=1000 时，估计的 π ≈ 3.120000
+采样点数 N=10000 时，估计的 π ≈ 3.135200
+采样点数 N=100000 时，估计的 π ≈ 3.139360
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_7_1.png" alt="png"></p>
+<h4 id="延伸半径为--的圆盘上的采样">延伸：半径为 $a$ 的圆盘上的采样</h4>
+<p>现在圆盘半径不是 1，而是 $a>0$。</p>
+<ul>
+<li>
+<p>面积 = $\pi a^2$。</p>
+</li>
+<li>
+<p>半径 $\le r$ 的子圆盘面积 = $\pi r^2$。</p>
+</li>
+<li>
+<p>所以概率分布函数应该是：</p>
+$$
+  P(R \le r) = \frac{\pi r^2}{\pi a^2} = \left(\frac{r}{a}\right)^2, \quad 0 \le r \le a.
+  $$</li>
+</ul>
+<p>换句话说：</p>
+$$
+F_R(r) = \left(\frac{r}{a}\right)^2.
+$$<p><strong>如何从 $U(0,1)$ 构造？</strong></p>
+<p>让 $U\sim U(0,1)$，设</p>
+$$
+R = a\sqrt{U}.
+$$<p>这样就得到：</p>
+$$
+P(R \le r) = P\big(a\sqrt{U} \le r\big) = P\big(\sqrt{U} \le r/a\big) = P\big(U \le (r/a)^2\big) = \left(\frac{r}{a}\right)^2.
+$$<p>就是我们想要的分布。</p>
+<p><strong>结论</strong>：在半径为 $a$ 的圆盘上，半径要取</p>
+$$
+R = a\sqrt{U},\quad U\sim U(0,1).
+$$<h2 id="接受-拒绝采样rejection-sampling">接受-拒绝采样（Rejection Sampling）</h2>
+<p><strong>目标</strong>：我们想从目标密度（可能<strong>未标准化</strong>） $f(x)$ 采样。若 $f$ 已标准化，记 $\pi(x)=f(x)$ 且 $\int f(x)\,dx =1$。若 $f$ 未标准化，设其正规化常数为</p>
+$$
+  Z=\int f(x)\,dx\quad(0<Z<\infty),
+  $$<p>则真正的目标密度为 $\pi(x)=f(x)/Z$.</p>
+<h3 id="原理与方法">原理与方法</h3>
+<ul>
+<li>
+<p>提议（proposal）密度： $q(x)$，可直接采样，且要求对所有 $x$ 满足</p>
+$$
+  q(x)>0 \quad \text{whenever}\quad f(x)>0,
+  $$<p>否则目标支持上的点无法被提议到。</p>
+</li>
+<li>
+<p>常数 $M>0$ 满足</p>
+$$
+  f(x)\le M\,q(x)\quad\text{对所有 }x.
+  $$<p>（当 $f$ 已标准化，可把 $f$ 记作 $\pi$ ，条件为 $\pi(x)\le M q(x)$。）</p>
+</li>
+<li>
+<p>算法（逐次）：</p>
+<ol>
+<li>从 $q$ 采样 $X$.</li>
+<li>生成 $U\sim\text{Uniform}(0,1)$（独立于 $X$）。</li>
+<li>如果 $U \le \dfrac{f(X)}{M q(X)}$，接受 $X$；否则拒绝并重复。</li>
+</ol>
+</li>
+</ul>
+<p><strong>直观类比</strong>：
+想象你有一堆“候选点”来自 $g(x)$，但分布跟目标 $f(x)$ 不匹配。于是你在每个候选点上“掷骰子”，留下一部分，丢掉另一部分。这个筛选概率正好让留下来的点符合 $f(x)$。</p>
+<p><strong>几何解释</strong>：
+在二维坐标系里，横轴是 $x$，纵轴是概率密度。你在曲线 $c g(x)$ 下均匀撒点，只留下落在 $f(x)$ 下的点。</p>
+<p>详情可见http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/#采样连续分布</p>
+<h4 id="必要条件与注意事项">必要条件与注意事项</h4>
+<ol>
+<li><strong>支持匹配</strong>：必须有 $q(x)>0$ 所有 $x$ 使得 $f(x)>0$，否则那些 $x$ 无法被采到（会导致目标分布的某些质量永远无法出现）。</li>
+<li><strong>存在有限的 $M$</strong>：需要 $\sup_x \dfrac{f(x)}{q(x)} < \infty$。若这个上确界不存在或为无穷大，则无法用单一常数 $M$ 覆盖（拒绝采样不可行或接受率为 0）。</li>
+<li><strong>接受率（效率）与 M 的角色</strong>
+<ul>
+<li>理论接受率 = $P(accept) = \frac{Z}{M}$。当 π 已标准化时，$P(accept) = \frac{1}{M}$。</li>
+<li>为了高效率，要让 M 尽可能小，也就是让 q 覆盖并“贴近” π；理想情况下 M = sup_x π(x)/q(x)。
+<ul>
+<li>若 $M$ 很大（即 $q$ 与 $f$ 不匹配），接受率很低，算法耗时大。</li>
+</ul>
+</li>
+<li>在高维空间中找到好的$q$与合理小的 $M$ 很难 —— 这是拒绝采样在高维受限的主因之一。</li>
+</ul>
+</li>
+<li><strong>数值稳定性</strong>：实际实现时要避免除以零或浮点下溢，且对于未标准化的 $f$ 直接用 $f(X)/(M q(X))$ 即可，不需要先计算 $Z$。</li>
+</ol>
+<h4 id="使用建议">使用建议</h4>
+<ul>
+<li>选 $q$ 尽量与 $\pi$ 同形（相同支撑、相似尾部），最好 $q$ 的尾部不比 $\pi$ 窄（否则 M 会很大）。</li>
+<li>若只能得到未标准化的目标密度 $f(x)$，也可以用拒绝采样（只要能找到 M）。</li>
+<li>如果接受率很低（M 很大），考虑改用重要采样、变分、或 MCMC（如 Metropolis–Hastings）。</li>
+<li>对离散目标分布也可使用相同思想（把密度换成概率质量函数）。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rejection_sampler</span>(target_pdf, proposal_sampler, proposal_pdf, M, n_samples, batch<span style="color:#f92672">=</span><span style="color:#ae81ff">10000</span>):
+</span></span><span style="display:flex;"><span>    np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">42</span>)  <span style="color:#75715e"># 设置随机种子以确保结果可重复</span>
+</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    total_draws <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> len(samples) <span style="color:#f92672">&lt;</span> n_samples:
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> proposal_sampler(batch)
+</span></span><span style="display:flex;"><span>        u <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(batch)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 防止 proposal_pdf 为 0 导致除零</span>
+</span></span><span style="display:flex;"><span>        denom <span style="color:#f92672">=</span> M <span style="color:#f92672">*</span> proposal_pdf(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 若 denom 为 0，则 accept_prob 视为 0（因为 proposal 在该点没有质量）</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">with</span> np<span style="color:#f92672">.</span>errstate(divide<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>, invalid<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>):
+</span></span><span style="display:flex;"><span>            accept_prob <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(denom<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>, target_pdf(x) <span style="color:#f92672">/</span> denom, <span style="color:#ae81ff">0.0</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 把数值误差之外的 accept_prob 截断到 [0,1]</span>
+</span></span><span style="display:flex;"><span>        accept_prob <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>clip(accept_prob, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>        accept <span style="color:#f92672">=</span> u <span style="color:#f92672">&lt;</span> accept_prob
+</span></span><span style="display:flex;"><span>        accepted <span style="color:#f92672">=</span> x[accept]
+</span></span><span style="display:flex;"><span>        samples<span style="color:#f92672">.</span>extend(accepted<span style="color:#f92672">.</span>tolist())
+</span></span><span style="display:flex;"><span>        total_draws <span style="color:#f92672">+=</span> batch
+</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(samples[:n_samples])
+</span></span><span style="display:flex;"><span>    acceptance_empirical <span style="color:#f92672">=</span> n_samples <span style="color:#f92672">/</span> total_draws
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> samples, acceptance_empirical, total_draws
+</span></span></code></pre></div><h3 id="正确性证明">正确性证明</h3>
+<p><strong>证明目标</strong>：被接受的 $X$ 的条件分布正好是 $\pi(x)=f(x)/Z$。并给出接受概率。</p>
+<h4 id="a-代数积分证明--连续情形">A. 代数（积分）证明 —— 连续情形</h4>
+<p>令事件 $A$ 表示“此次提议被接受”。我们先计算<strong>接受的概率</strong>，再计算被接受时 $X$ 的条件密度。</p>
+<h5 id="1-接受概率">1) 接受概率 $P(A)$</h5>
+<p>按全概率（对 $X$ 积分）：</p>
+$$
+\begin{aligned}
+P(A)
+&=\int \Pr(A\mid X=x)\,q(x)\,dx \\
+&=\int \frac{f(x)}{M q(x)}\,q(x)\,dx \quad(\text{因为接受概率是 } f(x)/(M q(x)))\\
+&=\int \frac{f(x)}{M}\,dx \\
+&=\frac{1}{M}\int f(x)\,dx=\frac{Z}{M}.
+\end{aligned}
+$$<p>若 $f$ 已标准化（$Z=1$），则 $P(A)=1/M$。</p>
+<blockquote>
+<p>结论1（接受概率）： $P(\text{accept})=Z/M$（或 $1/M$ 若 $f$ 已正规化）。</p></blockquote>
+<h5 id="2-条件密度">2) 条件密度 $p_{X\mid A}(x)$</h5>
+<p>计算被接受并且 $X$ 落在 $dx$ 的联合“质量”（密度）：</p>
+$$
+\Pr(X\in dx,\;A) = q(x)\cdot \Pr(A\mid X=x)\,dx
+= q(x)\cdot \frac{f(x)}{M q(x)}\,dx =\frac{f(x)}{M}\,dx.
+$$<p>因此被接受时 $X$ 的条件密度为</p>
+$$
+p_{X\mid A}(x)
+= \frac{\Pr(X\in dx, A)}{P(A)} \quad\text{(以密度除以标度)} 
+= \frac{(f(x)/M)}{(Z/M)} = \frac{f(x)}{Z} = \pi(x).
+$$<p>这正是我们要的结论：<strong>被接受的 $X$ 按目标密度 $\pi$ 分布</strong>。</p>
+<h4 id="b-几何区域证明--直观图像">B. 几何（区域）证明 —— 直观图像</h4>
+<p>另一种常见且直观的证明方式，把随机过程看成在 $(x,y)$ 平面上从矩形/区域中均匀抽点：</p>
+<ol>
+<li>
+<p>考虑区域 $R=\{(x,y): 0\le y \le M q(x)\}$。如果我们以以下方式抽点 $(X,Y)$：</p>
+<ul>
+<li>先从 $q$ 抽 $X$（概率密度为 $q(x)$）；</li>
+<li>再从 $ \text{Uniform}(0,M q(X))$ 抽 $Y$（即在竖条 $[0,M q(X)]$ 上均匀，概率密度为 $\frac{1}{M q(x)}$）；
+则 $(X,Y)$ 在区域 $R$ 上为<strong>均匀分布</strong>。原因：联合密度为</li>
+</ul>
+$$
+   q(x)\cdot\frac{1}{M q(x)}=\frac{1}{M},
+   $$<p>在 $R$ 上恒为常数 $1/M$。</p>
+</li>
+<li>
+<p>接受条件 $U \le f(X)/(M q(X))$ 等价于 $Y \le f(X)$。因此被接受的点对应的子区域</p>
+$$
+   S=\{(x,y): 0\le y \le f(x)\},
+   $$<p>即“在 $x$ 处 $y$ 落在目标密度曲线下方”的区域。</p>
+</li>
+<li>
+<p>因为 $(X,Y)$ 在 $R$ 上均匀，当条件为“落在 $S$”时，$X$ 的边缘密度与竖直方向上在 $S$ 的垂直长度成正比，即</p>
+$$
+   p_{X\mid (X,Y)\in S}(x)\propto \int_{0}^{f(x)} dy = f(x).
+   $$<p>归一化后得到 $f(x)/\int f = f(x)/Z = \pi(x)$。</p>
+</li>
+<li>
+<p>同时接受概率等于面积比</p>
+$$
+   P(A)=\frac{\operatorname{Area}(S)}{\operatorname{Area}(R)}=\frac{\int f(x)\,dx}{\int M q(x)\,dx}=\frac{Z}{M}.
+   $$</li>
+</ol>
+<p>这给出直观的“在包络 $M q(x)$ 下均匀抽点，挑出位于目标下方的点” 的几何解释。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> beta, norm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">2025</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_rejection_geometry_beta</span>(n_points<span style="color:#f92672">=</span><span style="color:#ae81ff">5000</span>):
+</span></span><span style="display:flex;"><span>    a, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    xs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">400</span>)
+</span></span><span style="display:flex;"><span>    f_vals <span style="color:#f92672">=</span> beta<span style="color:#f92672">.</span>pdf(xs, a, b)
+</span></span><span style="display:flex;"><span>    q_vals <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones_like(xs)
+</span></span><span style="display:flex;"><span>    M <span style="color:#f92672">=</span> f_vals<span style="color:#f92672">.</span>max()
+</span></span><span style="display:flex;"><span>    X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(n_points)
+</span></span><span style="display:flex;"><span>    Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(n_points) <span style="color:#f92672">*</span> M
+</span></span><span style="display:flex;"><span>    accept_mask <span style="color:#f92672">=</span> Y <span style="color:#f92672">&lt;=</span> beta<span style="color:#f92672">.</span>pdf(X, a, b)
+</span></span><span style="display:flex;"><span>    accepted <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(accept_mask)
+</span></span><span style="display:flex;"><span>    empirical_accept <span style="color:#f92672">=</span> accepted <span style="color:#f92672">/</span> n_points
+</span></span><span style="display:flex;"><span>    theoretical_accept <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> M
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>scatter(X[<span style="color:#f92672">~</span>accept_mask], Y[<span style="color:#f92672">~</span>accept_mask], s<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;rejected&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>scatter(X[accept_mask], Y[accept_mask], s<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;accepted&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(xs, f_vals, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;target f(x)=Beta(2,5)&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(xs, M<span style="color:#f92672">*</span>q_vals, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;M q(x) (envelope)&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.8</span>, <span style="color:#e6db74">&#39;Beta(2,5) 的目标密度 f(x)（实线）和包络 Mq(x)（虚线），</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">q 为 Uniform(0,1)）以及在区域 R={0≤y≤Mq(x)} 内的随机点。</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">橙色点表示被接受（落在 y≤f(x)），蓝色点表示被拒绝。</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">图上也显示了经验接受率与理论接受率。&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Beta(2,5) rejection geometry: empirical accept=</span><span style="color:#e6db74">{</span>empirical_accept<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, theoretical=</span><span style="color:#e6db74">{</span>theoretical_accept<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;x&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;y (height)&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylim(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.02</span>, M<span style="color:#f92672">*</span><span style="color:#ae81ff">1.05</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_rejection_geometry_normal</span>(n_points<span style="color:#f92672">=</span><span style="color:#ae81ff">8000</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">2.0</span>):
+</span></span><span style="display:flex;"><span>    xs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">600</span>)
+</span></span><span style="display:flex;"><span>    f_vals <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>pdf(xs, loc<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, scale<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>    q_vals <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>pdf(xs, loc<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, scale<span style="color:#f92672">=</span>sigma)
+</span></span><span style="display:flex;"><span>    ratio <span style="color:#f92672">=</span> f_vals <span style="color:#f92672">/</span> q_vals
+</span></span><span style="display:flex;"><span>    M <span style="color:#f92672">=</span> ratio<span style="color:#f92672">.</span>max()
+</span></span><span style="display:flex;"><span>    X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(loc<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, scale<span style="color:#f92672">=</span>sigma, size<span style="color:#f92672">=</span>n_points)
+</span></span><span style="display:flex;"><span>    qX <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>pdf(X, loc<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, scale<span style="color:#f92672">=</span>sigma)
+</span></span><span style="display:flex;"><span>    Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(n_points) <span style="color:#f92672">*</span> (M <span style="color:#f92672">*</span> qX)
+</span></span><span style="display:flex;"><span>    accept_mask <span style="color:#f92672">=</span> Y <span style="color:#f92672">&lt;=</span> norm<span style="color:#f92672">.</span>pdf(X, loc<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, scale<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>    accepted <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(accept_mask)
+</span></span><span style="display:flex;"><span>    empirical_accept <span style="color:#f92672">=</span> accepted <span style="color:#f92672">/</span> n_points
+</span></span><span style="display:flex;"><span>    theoretical_accept <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> M
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    mask_plot <span style="color:#f92672">=</span> (X <span style="color:#f92672">&gt;=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>) <span style="color:#f92672">&amp;</span> (X <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>scatter(X[mask_plot <span style="color:#f92672">&amp;</span> <span style="color:#f92672">~</span>accept_mask], Y[mask_plot <span style="color:#f92672">&amp;</span> <span style="color:#f92672">~</span>accept_mask], s<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;rejected&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>scatter(X[mask_plot <span style="color:#f92672">&amp;</span> accept_mask], Y[mask_plot <span style="color:#f92672">&amp;</span> accept_mask], s<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;accepted&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(xs, f_vals, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;target f(x)=N(0,1)&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(xs, M<span style="color:#f92672">*</span>q_vals, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;M q(x), M≈</span><span style="color:#e6db74">{</span>M<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>text(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.11</span>, <span style="color:#e6db74">&#39;Normal(0,1) 目标与 Normal(0,2²) 提议的对应可视化（仅显示 x∈[−4,4]），</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">同样以点的上/下位置区分接受与拒绝，并标出理论/经验接受率。&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Normal(0,1) vs Normal(0,</span><span style="color:#e6db74">{</span>sigma<span style="color:#e6db74">}</span><span style="color:#e6db74">^2) proposal: empirical accept=</span><span style="color:#e6db74">{</span>empirical_accept<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, theoretical=</span><span style="color:#e6db74">{</span>theoretical_accept<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;x&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;y (height)&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylim(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.01</span>, (M <span style="color:#f92672">*</span> q_vals)<span style="color:#f92672">.</span>max()<span style="color:#f92672">*</span><span style="color:#ae81ff">1.05</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlim(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plot_rejection_geometry_beta(n_points<span style="color:#f92672">=</span><span style="color:#ae81ff">6000</span>)
+</span></span><span style="display:flex;"><span>plot_rejection_geometry_normal(n_points<span style="color:#f92672">=</span><span style="color:#ae81ff">12000</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">2.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">summary</span>():
+</span></span><span style="display:flex;"><span>    a,b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    xs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">10001</span>)
+</span></span><span style="display:flex;"><span>    M_beta <span style="color:#f92672">=</span> beta<span style="color:#f92672">.</span>pdf(xs,a,b)<span style="color:#f92672">.</span>max()
+</span></span><span style="display:flex;"><span>    sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>    xs2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">20001</span>)
+</span></span><span style="display:flex;"><span>    M_normal <span style="color:#f92672">=</span> (norm<span style="color:#f92672">.</span>pdf(xs2,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>) <span style="color:#f92672">/</span> norm<span style="color:#f92672">.</span>pdf(xs2,<span style="color:#ae81ff">0</span>,sigma))<span style="color:#f92672">.</span>max()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#34;beta&#34;</span>: {<span style="color:#e6db74">&#34;M&#34;</span>:float(M_beta), <span style="color:#e6db74">&#34;theoretical_accept&#34;</span>: float(<span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span>M_beta)},
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;normal&#34;</span>: {<span style="color:#e6db74">&#34;sigma&#34;</span>:sigma, <span style="color:#e6db74">&#34;M&#34;</span>:float(M_normal), <span style="color:#e6db74">&#34;theoretical_accept&#34;</span>: float(<span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span>M_normal)}}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>summary()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_12_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_12_1.png" alt="png"></p>
+<pre><code>{'beta': {'M': 2.4575999999999993, 'theoretical_accept': 0.4069010416666668},
+ 'normal': {'sigma': 2.0, 'M': 2.0, 'theoretical_accept': 0.5}}
+</code></pre>
+<h4 id="c-离散情形概率质量函数的对应证明">C. 离散情形（概率质量函数）的对应证明</h4>
+<p>离散情形把积分换成求和。设目标的未标准化质量函数为 $f(i)$（$i$ 属于离散集合），正规化常数 $Z=\sum_i f(i)$，目标 pmf $\pi(i)=f(i)/Z$。提议 pmf 为 $q(i)$，并要求 $f(i)\le M q(i)$ 对所有 $i$。</p>
+<p>按算法：从 $q$ 采样 $I$，以概率 $f(I)/(M q(I))$ 接受。</p>
+<ul>
+<li>
+<p>接受概率：</p>
+$$
+  P(A)=\sum_i q(i)\cdot\frac{f(i)}{M q(i)}=\frac{1}{M}\sum_i f(i)=\frac{Z}{M}.
+  $$</li>
+<li>
+<p>被接受时 $I$ 的条件概率：</p>
+$$
+  P(I=i\mid A)=\frac{q(i)\cdot \frac{f(i)}{M q(i)}}{P(A)}=\frac{f(i)/M}{Z/M}=\frac{f(i)}{Z}=\pi(i).
+  $$</li>
+</ul>
+<p>与连续情形完全对应。</p>
+<h3 id="被接受样本是独立同分布iid吗">被接受样本是独立同分布（i.i.d.）吗？</h3>
+<p>常见问题：重复运行拒绝采样得到多个接受样本，它们是否独立且服从相同分布 $\pi$？</p>
+<ul>
+<li><strong>相同分布</strong>：上面的证明给出“<strong>一次成功（被接受）时</strong>，该样本的分布是 $\pi$”。每次得到一个接受样本，都是在相同的 $q,M,f$ 下进行的，故分布相同。</li>
+<li><strong>独立性</strong>：算法的采样过程可以看成由若干段（blocks）组成：每个被接受的样本由“若干次提议（失败）+一次成功”构成。各个提议（采样 $X$ 与 $U$）在时间上是相互独立的；因此每个 block 中产生的随机变量集合与不同 block 的集合相互独立。已接受的样本 $X^{(1)},X^{(2)},\dots$ 分别只依赖各自 block 中的随机数，blocks 之间独立，故接受的样本相互独立。于是被接受样本序列是<strong>独立同分布</strong> $ \mathrm{i.i.d.}\sim\pi$。</li>
+</ul>
+<p>（更形式化的写法可以引入“几何次数直到成功”的随机时间并用独立区间论证；直观上：每次接受样本的取得过程都从同一分布 $q$ 与独立的 uniforms 启动，并在成功后重启，故相互独立。）</p>
+<h4 id="总结">总结</h4>
+<p>在满足 $f(x)\le M q(x)$ 且 $q(x)>0$（目标支持内）的条件下，按照拒绝采样算法接受的 $X$ 的条件分布恰好是目标分布 $\pi(x)=f(x)/Z$，接受概率为 $Z/M$。重复独立执行该过程产生的接受样本是 i.i.d. 的 $\pi$-分布样本。</p>
+<h3 id="示例">示例</h3>
+<h4 id="示例-a目标-beta25提议-uniform01">示例 A：目标 Beta(2,5)，提议 Uniform(0,1)</h4>
+<ul>
+<li>目标 pdf（标准形式）： π(x) = 30 x (1−x)^4, x∈[0,1]。</li>
+<li>提议 q(x)=1 在 [0,1]。</li>
+<li>因此 M = sup_x π(x)（因为 q=1）。用细网格数值计算得到 M ≈ 2.4576。</li>
+<li>理论接受率 = 1 / M ≈ 0.4069（约 40.7%）。</li>
+<li>仿真（我要求 5000 个接受样本）得到的经验接受率（按实现代码统计的方法）显示约 0.25（这次实验中 draws_used=20000，采集 5000 个接受样本 =&gt; 0.25）。经验值会受实现细节（每次批量生成大小）和随机性影响，但应接近理论标量 1/M in expectation（在大样本下收敛）。直方图与目标密度叠合，接受样本分布与目标 pdf 匹配良好。</li>
+</ul>
+<blockquote>
+<p>备注：理论与经验的偏差来源于我们的 draws 统计方式（我在示例代码中以固定批次产生 proposal，可能导致 draws 被四舍五入到批次大小，导致经验率有差异）。若逐点严格统计，长期平均应接近期望 1/M。</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ---------- Beta(2,5) target, Uniform(0,1) proposal ----------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">beta25_pdf</span>(x):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(x)
+</span></span><span style="display:flex;"><span>    pdf <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(x, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>    mask <span style="color:#f92672">=</span> (x<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">&amp;</span> (x<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    pdf[mask] <span style="color:#f92672">=</span> <span style="color:#ae81ff">30.0</span> <span style="color:#f92672">*</span> x[mask] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">-</span> x[mask])<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">uniform01_sampler</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">uniform01_pdf</span>(x):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(x)
+</span></span><span style="display:flex;"><span>    pdf <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(x, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>    mask <span style="color:#f92672">=</span> (x<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">&amp;</span> (x<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    pdf[mask] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 用细网格数值求最大值（严格做法通常需要解析，但网格足够细即可）</span>
+</span></span><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">10001</span>)
+</span></span><span style="display:flex;"><span>p_vals <span style="color:#f92672">=</span> beta25_pdf(xs)
+</span></span><span style="display:flex;"><span>p_max <span style="color:#f92672">=</span> p_vals<span style="color:#f92672">.</span>max()
+</span></span><span style="display:flex;"><span>M_beta <span style="color:#f92672">=</span> p_max  <span style="color:#75715e"># q(x)=1, 因此 M = max_x p(x)</span>
+</span></span><span style="display:flex;"><span>theoretical_accept_beta <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> M_beta
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>samples_beta, acc_emp_beta, draws_beta <span style="color:#f92672">=</span> rejection_sampler(beta25_pdf, uniform01_sampler, uniform01_pdf, M_beta, <span style="color:#ae81ff">5000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples_beta, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>xx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(xx, beta25_pdf(xx))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Beta(2,5) target with Uniform(0,1) proposal</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">M=</span><span style="color:#e6db74">{</span>M_beta<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, theoretical accept=</span><span style="color:#e6db74">{</span>theoretical_accept_beta<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, empirical accept~</span><span style="color:#e6db74">{</span>acc_emp_beta<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;x&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;density&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Beta example: M=</span><span style="color:#e6db74">{:.6f}</span><span style="color:#e6db74">, theoretical_accept=</span><span style="color:#e6db74">{:.6f}</span><span style="color:#e6db74">, empirical_accept~</span><span style="color:#e6db74">{:.6f}</span><span style="color:#e6db74">, draws_used=</span><span style="color:#e6db74">{:d}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(M_beta, theoretical_accept_beta, acc_emp_beta, draws_beta))
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_15_0.png" alt="png"></p>
+<pre><code>Beta example: M=2.457600, theoretical_accept=0.406901, empirical_accept~0.250000, draws_used=20000
+</code></pre>
+<h4 id="示例-b目标-normal01提议-normal0σσ2">示例 B：目标 Normal(0,1)，提议 Normal(0,σ²)（σ=2）</h4>
+<ul>
+<li>目标 π(x) = N(0,1)。提议 q(x)=N(0,σ²) 且均值相同。</li>
+<li>比值 π(0)/q(0) = (1/√(2π)) / (1/(√(2π)σ)) = σ。所以 M = σ（当均值相同且 q 的方差 ≥ π 的方差时）。</li>
+<li>这里 σ=2，所以 M=2，理论接受率 = 1/2 = 0.5（50%）。</li>
+<li>仿真同样要求 5000 个接受样本，经验接受率在本次运行中显示约 0.25（同样受批次统计方式影响，长期会趋于 0.5）。直方图与目标 pdf 叠合良好。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ---------- 标准正态 target N(0,1), proposal N(0,σ^2) ----------</span>
+</span></span><span style="display:flex;"><span>sigma <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normal_pdf</span>(x, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(x)
+</span></span><span style="display:flex;"><span>    coef <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>sqrt(<span style="color:#ae81ff">2.0</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>pi <span style="color:#f92672">*</span> sigma<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> coef <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> ((x <span style="color:#f92672">-</span> mu) <span style="color:#f92672">/</span> sigma)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normal_sampler</span>(n, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(loc<span style="color:#f92672">=</span>mu, scale<span style="color:#f92672">=</span>sigma, size<span style="color:#f92672">=</span>n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normal_proposal_pdf</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> normal_pdf(x, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, sigma<span style="color:#f92672">=</span>sigma)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 数值求 M（理论上若同均值且 sigma&gt;1, M = sigma）</span>
+</span></span><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">20001</span>)
+</span></span><span style="display:flex;"><span>ratio <span style="color:#f92672">=</span> normal_pdf(xs, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>) <span style="color:#f92672">/</span> normal_proposal_pdf(xs)
+</span></span><span style="display:flex;"><span>M_normal <span style="color:#f92672">=</span> ratio<span style="color:#f92672">.</span>max()
+</span></span><span style="display:flex;"><span>theoretical_accept_normal <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> M_normal
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 运行采样（注意 target_pdf 的参数要正确）</span>
+</span></span><span style="display:flex;"><span>samples_norm, acc_emp_norm, draws_norm <span style="color:#f92672">=</span> rejection_sampler(<span style="color:#66d9ef">lambda</span> x: normal_pdf(x, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>),
+</span></span><span style="display:flex;"><span>                                                           <span style="color:#66d9ef">lambda</span> n: normal_sampler(n, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, sigma<span style="color:#f92672">=</span>sigma),
+</span></span><span style="display:flex;"><span>                                                           normal_proposal_pdf,
+</span></span><span style="display:flex;"><span>                                                           M_normal,
+</span></span><span style="display:flex;"><span>                                                           <span style="color:#ae81ff">5000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples_norm, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>xx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">400</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(xx, normal_pdf(xx, mu<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Normal(0,1) target with Normal(0,</span><span style="color:#e6db74">{</span>sigma<span style="color:#e6db74">}</span><span style="color:#e6db74">^2) proposal</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">M=</span><span style="color:#e6db74">{</span>M_normal<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, theoretical accept=</span><span style="color:#e6db74">{</span>theoretical_accept_normal<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, empirical accept~</span><span style="color:#e6db74">{</span>acc_emp_norm<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;x&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;density&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Normal example: sigma=</span><span style="color:#e6db74">{:.2f}</span><span style="color:#e6db74">, M=</span><span style="color:#e6db74">{:.6f}</span><span style="color:#e6db74">, theoretical_accept=</span><span style="color:#e6db74">{:.6f}</span><span style="color:#e6db74">, empirical_accept~</span><span style="color:#e6db74">{:.6f}</span><span style="color:#e6db74">, draws_used=</span><span style="color:#e6db74">{:d}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(sigma, M_normal, theoretical_accept_normal, acc_emp_norm, draws_norm))
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_17_0.png" alt="png"></p>
+<pre><code>Normal example: sigma=2.00, M=2.000000, theoretical_accept=0.500000, empirical_accept~0.250000, draws_used=20000
+</code></pre>
+<h4 id="示例-c估算圆周率">示例 C：估算圆周率</h4>
+<p>使用用<strong>接受–拒绝采样</strong>实现经典的“正方形点打靶估计 π”：</p>
+<ul>
+<li>提议 $q$：在 $[-1,1]^2$ 上<strong>均匀</strong>采样；</li>
+<li>接受条件：$x^2+y^2 \le 1$（落入单位圆）；</li>
+<li>接受概率 $p=\frac{\text{Area(circle)}}{\text{Area(square)}}=\frac{\pi}{4}$，估计 $\hat\pi = 4\hat p$。</li>
+</ul>
+<p>这次实验（N=250,000）得到：</p>
+<ul>
+<li>$\hat\pi = 3.143536$</li>
+<li>95% Wilson 置信区间 $[3.137087,\; 3.149950]$</li>
+</ul>
+<p>图1：正方形内的提议点（蓝=拒绝，橙=接受）和单位圆边界；
+图2：$\hat\pi$ 的<strong>运行估计</strong>随样本量收敛到 $\pi$。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 重新执行（内核已重置）</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">2025</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rejection_sampling_pi</span>(N<span style="color:#f92672">=</span><span style="color:#ae81ff">250000</span>):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, size<span style="color:#f92672">=</span>N)
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, size<span style="color:#f92672">=</span>N)
+</span></span><span style="display:flex;"><span>    inside <span style="color:#f92672">=</span> (x<span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> y<span style="color:#f92672">*</span>y) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>    k <span style="color:#f92672">=</span> inside<span style="color:#f92672">.</span>sum()
+</span></span><span style="display:flex;"><span>    p_hat <span style="color:#f92672">=</span> k <span style="color:#f92672">/</span> N
+</span></span><span style="display:flex;"><span>    pi_hat <span style="color:#f92672">=</span> <span style="color:#ae81ff">4.0</span> <span style="color:#f92672">*</span> p_hat
+</span></span><span style="display:flex;"><span>    z <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.959963984540054</span>  <span style="color:#75715e"># 95%</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> N
+</span></span><span style="display:flex;"><span>    denom <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> z<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">/</span> n
+</span></span><span style="display:flex;"><span>    center <span style="color:#f92672">=</span> (p_hat <span style="color:#f92672">+</span> (z<span style="color:#f92672">*</span>z)<span style="color:#f92672">/</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>n)) <span style="color:#f92672">/</span> denom
+</span></span><span style="display:flex;"><span>    halfwidth <span style="color:#f92672">=</span> z <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sqrt((p_hat<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p_hat) <span style="color:#f92672">+</span> (z<span style="color:#f92672">*</span>z)<span style="color:#f92672">/</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>n)) <span style="color:#f92672">/</span> n) <span style="color:#f92672">/</span> denom
+</span></span><span style="display:flex;"><span>    p_low, p_high <span style="color:#f92672">=</span> center <span style="color:#f92672">-</span> halfwidth, center <span style="color:#f92672">+</span> halfwidth
+</span></span><span style="display:flex;"><span>    pi_low, pi_high <span style="color:#f92672">=</span> <span style="color:#ae81ff">4.0</span> <span style="color:#f92672">*</span> p_low, <span style="color:#ae81ff">4.0</span> <span style="color:#f92672">*</span> p_high
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#34;N&#34;</span>: N, <span style="color:#e6db74">&#34;k_inside&#34;</span>: int(k), <span style="color:#e6db74">&#34;p_hat&#34;</span>: p_hat, <span style="color:#e6db74">&#34;pi_hat&#34;</span>: pi_hat,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;pi_CI95&#34;</span>: (pi_low, pi_high), <span style="color:#e6db74">&#34;x&#34;</span>: x, <span style="color:#e6db74">&#34;y&#34;</span>: y, <span style="color:#e6db74">&#34;inside&#34;</span>: inside}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>res <span style="color:#f92672">=</span> rejection_sampling_pi(N<span style="color:#f92672">=</span><span style="color:#ae81ff">30000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;N=</span><span style="color:#e6db74">{</span>res[<span style="color:#e6db74">&#39;N&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">, inside=</span><span style="color:#e6db74">{</span>res[<span style="color:#e6db74">&#39;k_inside&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74"> -&gt; p_hat=</span><span style="color:#e6db74">{</span>res[<span style="color:#e6db74">&#39;p_hat&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;π̂ = </span><span style="color:#e6db74">{</span>res[<span style="color:#e6db74">&#39;pi_hat&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;95% Wilson CI for π: [</span><span style="color:#e6db74">{</span>res[<span style="color:#e6db74">&#39;pi_CI95&#39;</span>][<span style="color:#ae81ff">0</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>res[<span style="color:#e6db74">&#39;pi_CI95&#39;</span>][<span style="color:#ae81ff">1</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">]&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> <span style="color:#ae81ff">6000</span>
+</span></span><span style="display:flex;"><span>xv <span style="color:#f92672">=</span> res[<span style="color:#e6db74">&#34;x&#34;</span>][:m]
+</span></span><span style="display:flex;"><span>yv <span style="color:#f92672">=</span> res[<span style="color:#e6db74">&#34;y&#34;</span>][:m]
+</span></span><span style="display:flex;"><span>insv <span style="color:#f92672">=</span> res[<span style="color:#e6db74">&#34;inside&#34;</span>][:m]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>theta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>pi, <span style="color:#ae81ff">600</span>)
+</span></span><span style="display:flex;"><span>cx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cos(theta)
+</span></span><span style="display:flex;"><span>cy <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sin(theta)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(xv[<span style="color:#f92672">~</span>insv], yv[<span style="color:#f92672">~</span>insv], s<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;rejected (outside circle)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(xv[insv], yv[insv], s<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;accepted (inside circle)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(cx, cy, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;unit circle boundary&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.2</span>, <span style="color:#e6db74">&#39;正方形内的提议点（蓝=拒绝，橙=接受）和单位圆边界&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Rejection Sampling for π: points in square, accept if x²+y² ≤ 1&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>gca()<span style="color:#f92672">.</span>set_aspect(<span style="color:#e6db74">&#39;equal&#39;</span>, <span style="color:#e6db74">&#39;box&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlim(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>); plt<span style="color:#f92672">.</span>ylim(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>inside_prefix <span style="color:#f92672">=</span> res[<span style="color:#e6db74">&#34;inside&#34;</span>]<span style="color:#f92672">.</span>astype(float)
+</span></span><span style="display:flex;"><span>running_p <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(inside_prefix) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, res[<span style="color:#e6db74">&#34;N&#34;</span>]<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>running_pi <span style="color:#f92672">=</span> <span style="color:#ae81ff">4.0</span> <span style="color:#f92672">*</span> running_p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(running_pi)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(np<span style="color:#f92672">.</span>pi, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;π (true)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1.5</span>, <span style="color:#e6db74">&#39;π 的运行估计随样本量收敛到 π&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Running estimate of π via rejection sampling (Uniform on square)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;N (number of proposals)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;estimate of π&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{<span style="color:#e6db74">&#34;pi_hat&#34;</span>: float(res[<span style="color:#e6db74">&#34;pi_hat&#34;</span>]), <span style="color:#e6db74">&#34;pi_CI95&#34;</span>: [float(res[<span style="color:#e6db74">&#34;pi_CI95&#34;</span>][<span style="color:#ae81ff">0</span>]), float(res[<span style="color:#e6db74">&#34;pi_CI95&#34;</span>][<span style="color:#ae81ff">1</span>])], <span style="color:#e6db74">&#34;N&#34;</span>: int(res[<span style="color:#e6db74">&#34;N&#34;</span>]), <span style="color:#e6db74">&#34;accepted_ratio&#34;</span>: float(res[<span style="color:#e6db74">&#34;k_inside&#34;</span>]<span style="color:#f92672">/</span>res[<span style="color:#e6db74">&#34;N&#34;</span>])}
+</span></span></code></pre></div><pre><code>N=30000, inside=23506 -&gt; p_hat=0.783533
+π̂ = 3.134133
+95% Wilson CI for π: [3.115348, 3.152629]
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_19_1.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_19_2.png" alt="png"></p>
+<pre><code>{'pi_hat': 3.134133333333333,
+ 'pi_CI95': [3.1153476481228877, 3.1526286072973955],
+ 'N': 30000,
+ 'accepted_ratio': 0.7835333333333333}
+</code></pre>
+<h3 id="小结">小结</h3>
+<ul>
+<li>拒绝采样是从复杂分布采样的直接、明确的方法，只靠目标密度的相对值即可（可以是未标准化）。</li>
+<li>正确性简单且直接：被接受样本的条件分布等于目标分布。</li>
+<li>性能瓶颈是需要找到一个合适的提议 $q$ 和较小的 M；在高维空间这一点通常很难，因而在高维时更常用 MCMC 或其他方法。</li>
+<li>代码实现时要注意数值稳定性（避免除以 0），以及统计经验接受率时计数方式对估计的影响。</li>
+</ul>
+<h2 id="重要性采样importance-sampling-is">重要性采样（Importance Sampling, IS）</h2>
+<h3 id="目标与核心想法">目标与核心想法</h3>
+<p><strong>目标</strong>：想计算（或估计）某个期望/积分</p>
+$$
+I \;=\; \mathbb{E}_{\pi}[h(X)] \;=\; \int h(x)\,\pi(x)\,dx,
+$$<p>其中 $\pi(x)$ 是目标密度（可已知或只知到未标准化形式 $f(x)=Z\pi(x)$）。</p>
+<p><strong>想法</strong>：直接从 $\pi$ 抽样困难时，选择一个容易采样的<strong>提议分布</strong> $q(x)$ 抽样，并用<strong>权重</strong>修正：</p>
+$$
+I \;=\; \int h(x)\,\frac{\pi(x)}{q(x)}\,q(x)\,dx \;\\
+令\quad w(x)=\frac{\pi(x)}{q(x)} \\
+则有\quad I \;=\; \int h(x)\,\frac{\pi(x)}{q(x)}\,q(x)\,dx \;=\; \int h(x)\,w(x)\,q(x)\,dx \;=\; \int [h(x)\,w(x)]\,q(x)\,dx \;=\; \mathbb{E}_q\!\big[h(X)\,w(X)\big],
+$$<p>1️⃣ 当 $\pi$ 已标准化时，<strong>IS 估计器</strong>：</p>
+$$
+\widehat I_{\text{IS}} \;=\; \frac{1}{n}\sum_{i=1}^n h(X_i)\,w(X_i),\quad X_i\overset{iid}{\sim}q.
+$$<p>它是<strong>无偏</strong>的：</p>
+$$
+\mathbb{E}_q[\hat I_{\text{IS}}] = \mathbb{E}_q[h(X)w(X)] = \int h(x)\pi(x)\,dx=I.
+$$<p>而方差则是：</p>
+$$
+\operatorname{Var}(\widehat I_{\text{IS}})=\frac{1}{n}\,\operatorname{Var}_q\big(h(X)w(X)\big).
+$$<blockquote>
+<p>因此 Var 由 $w(x)h(x)$ 在 $q$ 下的波动决定。</p></blockquote>
+<p>2️⃣ 当只知道<strong>未标准化</strong>目标 $f(x)=Z\pi(x)$（$Z$ 未知）时，用<strong>自归一重要性采样（SNIS）</strong>：</p>
+$$
+\widehat I_{\text{SNIS}}
+=\frac{\sum_{i=1}^n h(X_i)\,\tilde w_i}{\sum_{i=1}^n \tilde w_i},
+\qquad \tilde w_i=\frac{f(X_i)}{q(X_i)} \;\propto\; \frac{\pi(X_i)}{q(X_i)}.
+$$<p>SNIS 一般<strong>有微小偏差</strong>（有限样本），但<strong>一致</strong>且大样本正态：</p>
+$$
+\sqrt{n}\big(\widehat I_{\text{SNIS}}-I\big)\;\xrightarrow{d}\; 
+\mathcal N\!\Big(0,\ \sigma^2\Big),\quad
+\sigma^2=\frac{\operatorname{Var}_q\!\big((h(X)-I)\tilde w(X)\big)}{(\mathbb{E}_q[\tilde w])^{2}}\Big.
+$$<p>当 $\pi$ 已正规化時 $\mathbb{E}_q[\tilde w]=1$，简化为
+$\sigma^2 = \operatorname{Var}_q\big(w(X)(h(X)- I)\big)$。</p>
+<h3 id="直觉为什么有效">直觉（为什么有效）</h3>
+<p>把 $\pi$ 下的积分改写成在 $q$ 下的期望；“抽谁”与“怎么加权”分开：</p>
+<ul>
+<li>$q$ 负责<strong>把样本撒到重要区域</strong>（$h\pi$ 大的地方）。</li>
+<li>$w=\pi/q$ 负责<strong>校正密度差异</strong>，确保估计仍然是 $\pi$ 的期望。</li>
+</ul>
+<p>这也是减少方差的关键：只要 $q$ 更关注“高贡献”的区域，$\operatorname{Var}(h\,w)$ 就会显著下降。</p>
+<blockquote>
+<p>理论上，最小化 $ \operatorname{Var}_q(w h)$ 等价于最小化 $\int \dfrac{\pi(x)^2 h(x)^2}{q(x)} dx$（忽略常数）。通过<strong>变分法</strong>可得到最优解：</p>
+$$
+> q^{\star}(x)\ \propto\ |h(x)|\,\pi(x),
+> $$<p>这会让 $h(x)w(x)$ 成常数（如果 $h\ge 0$），方差为 0。
+这意味着最优的 $q$ 是“把采样重点放在 $|h|\cdot\pi$ 大的区域”。注意在很多场景下该 $q^*$ 不可直接采样（或含未知常数），但它指导我们如何选择或构造 q（例如加权混合、重参数化、重要性倾斜等）。</p></blockquote>
+<h3 id="算法与伪码">算法与伪码</h3>
+<p><strong>输入</strong>：想估计 $I=\mathbb{E}_\pi[h(X)]$；可采样的提议 $q$；样本量 $n$。</p>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>采样 $X_1,\dots,X_n \sim q$ i.i.d.</li>
+<li>计算权重 $w_i = \pi(X_i)/q(X_i)$（或 $\tilde w_i = f(X_i)/q(X_i)$）。</li>
+<li>若 $\pi$ 已标准化：$\widehat I = \frac{1}{n}\sum h(X_i)w_i$。
+若只有未标准化 $f$：$\widehat I = \frac{\sum h(X_i)\tilde w_i}{\sum \tilde w_i}$。</li>
+<li>误差评估：用样本方差估计 $\operatorname{Var}_q(h\,w)$（或 SNIS 的比率方差近似），构造置信区间。</li>
+<li>诊断：看<strong>权重退化</strong>与<strong>有效样本量（ESS）</strong>：</li>
+</ol>
+$$
+\mathrm{ESS}=\frac{\big(\sum_i w_i\big)^2}{\sum_i w_i^2} \quad \text{（未归一化权重）}
+\quad\text{或}\quad 
+\mathrm{ESS}=\frac{1}{\sum_i \bar w_i^2},\;\bar w_i=\frac{w_i}{\sum_j w_j} \quad \text{（归一化权重）}.
+$$<p>经验法则：</p>
+<ul>
+<li>ESS 越接近 $n$，越好；</li>
+<li>ESS 越小表示权重越集中（少数样本主导估计），方差较大；</li>
+<li>若 q 的尾部比 π 窄（miss tails），权重可能爆炸，ESS 接近 1。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> norm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">2025</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">importance_estimate</span>(samples, target_pdf, proposal_pdf, h):
+</span></span><span style="display:flex;"><span>    qx <span style="color:#f92672">=</span> proposal_pdf(samples)
+</span></span><span style="display:flex;"><span>    px <span style="color:#f92672">=</span> target_pdf(samples)
+</span></span><span style="display:flex;"><span>    w <span style="color:#f92672">=</span> px <span style="color:#f92672">/</span> qx
+</span></span><span style="display:flex;"><span>    wh <span style="color:#f92672">=</span> w <span style="color:#f92672">*</span> h(samples)
+</span></span><span style="display:flex;"><span>    is_hat <span style="color:#f92672">=</span> wh<span style="color:#f92672">.</span>mean() <span style="color:#75715e"># 计算 IS 估计</span>
+</span></span><span style="display:flex;"><span>    sn_hat <span style="color:#f92672">=</span> wh<span style="color:#f92672">.</span>sum() <span style="color:#f92672">/</span> w<span style="color:#f92672">.</span>sum() <span style="color:#75715e">#  自归一化估计</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> is_hat, sn_hat, w
+</span></span></code></pre></div><h3 id="示例-1">示例</h3>
+<h4 id="示例估计-平滑情形">示例：估计 $E_{N(0,1)}[X^2]$（平滑情形）</h4>
+<ul>
+<li>目标 $\pi=N(0,1)$</li>
+<li>估计 $E[X^2]$</li>
+<li>提议 $q=N(0,2^2)$</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>N1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+</span></span><span style="display:flex;"><span>sigma_prop <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>x_prop <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.0</span>, sigma_prop, size<span style="color:#f92672">=</span>N1)
+</span></span><span style="display:flex;"><span>target_pdf <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: norm<span style="color:#f92672">.</span>pdf(x, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>proposal_pdf <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: norm<span style="color:#f92672">.</span>pdf(x, <span style="color:#ae81ff">0.0</span>, sigma_prop)
+</span></span><span style="display:flex;"><span>h <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>is_hat1, sn_hat1, w1 <span style="color:#f92672">=</span> importance_estimate(x_prop, target_pdf, proposal_pdf, h)
+</span></span><span style="display:flex;"><span>x_target <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, size<span style="color:#f92672">=</span>N1)
+</span></span><span style="display:flex;"><span>ref_est <span style="color:#f92672">=</span> (x_target<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>w_norm <span style="color:#f92672">=</span> w1 <span style="color:#f92672">/</span> w1<span style="color:#f92672">.</span>sum()
+</span></span><span style="display:flex;"><span>ESS1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>sum(w_norm<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;=== 示例：估计 E_{N(0,1)}[X^2] ===&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;目标真实值（理论） = 1.0&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">IS (未归一) 估计 (1/n Σ w h) = </span><span style="color:#e6db74">{</span>is_hat1<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">IS（自归一） 估计 = </span><span style="color:#e6db74">{</span>sn_hat1<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">直接在 target 上采样的估计 (参照) = </span><span style="color:#e6db74">{</span>ref_est<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;-&gt; 检查两种 IS 估计（未归一与自归一）是否都接近真实值 1.0。&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;样本数 N = </span><span style="color:#e6db74">{</span>N1<span style="color:#e6db74">}</span><span style="color:#e6db74">, ESS (approx) = </span><span style="color:#e6db74">{</span>ESS1<span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> （接近 N 则说明 q 与 π 匹配较好，权重并不太集中）&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">6.5</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(w1, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">80</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.5</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">120</span>, <span style="color:#e6db74">&#39;重要性权重 w = π(x)/q(x) 的直方图，</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">注意权重分布的集中程度：</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">- 是否有少数样本主导估计？</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">- 权重分布是否集中在有限范围？</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">- 是否出现极端爆炸？&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Importance weights histogram&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;weight w = π(x)/q(x)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;count&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>running_sn <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(w1 <span style="color:#f92672">*</span> h(x_prop)) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>cumsum(w1)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(running_sn)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">1.0</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;true E[X^2]=1&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1.2</span>, <span style="color:#e6db74">&#39;E[X^2] 的运行自归一化 IS 估计随样本量收敛到 1&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Running self-normalized IS estimate of E[X^2]&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;n (number of proposals used)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;estimate&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>=== 示例：估计 E_{N(0,1)}[X^2] ===
+目标真实值（理论） = 1.0
+	IS (未归一) 估计 (1/n Σ w h) = 0.988525
+	IS（自归一） 估计 = 0.995838
+	直接在 target 上采样的估计 (参照) = 0.975626
+-&gt; 检查两种 IS 估计（未归一与自归一）是否都接近真实值 1.0。
+样本数 N = 5000, ESS (approx) = 3272.6 （接近 N 则说明 q 与 π 匹配较好，权重并不太集中）
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_24_1.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_24_2.png" alt="png"></p>
+<h4 id="示例估计概率">示例：估计概率 $p=P(Z>3)$</h4>
+<blockquote>
+<p>该例说明 IS 在估计稀有事件时能大幅降低方差。</p></blockquote>
+<p>对比普通 Monte Carlo（naive）与两个 IS 提议 $q=N(\mu,1)$（$\mu=3.0,2.5$）在方差与 ESS 上的表现。</p>
+<ul>
+<li>真实尾概率 $p = 1 - \Phi(3) \approx 1.3499\times 10^{-3}$。</li>
+<li>使用设置 N=2000, reps=300（重复实验 300 次来估计方差），得到结果</li>
+</ul>
+<p>在这个例子中，</p>
+<ul>
+<li>ESS 显示<strong>平均有效样本数远小于 N</strong>（例如 ~18 或 ~35），但即使 ESS 很小，IS 仍旧远比 naive 稳定。这是因为 IS 把采样“集中”到重要的尾部，使得对于感兴趣的事件，抽到的样本更有信息量。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>p_true <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">-</span> norm<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">3.0</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;=== 示例：估计尾概率 p = P(Z&gt;3) ===&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;真实 p = </span><span style="color:#e6db74">{</span>p_true<span style="color:#e6db74">:</span><span style="color:#e6db74">.6e</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">single_run_compare</span>(N, mu_shift):
+</span></span><span style="display:flex;"><span>    xs_naive <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, size<span style="color:#f92672">=</span>N)
+</span></span><span style="display:flex;"><span>    p_naive <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(xs_naive <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">3.0</span>)
+</span></span><span style="display:flex;"><span>    xs_is <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(loc<span style="color:#f92672">=</span>mu_shift, scale<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, size<span style="color:#f92672">=</span>N)
+</span></span><span style="display:flex;"><span>    qx <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>pdf(xs_is, loc<span style="color:#f92672">=</span>mu_shift, scale<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>    px <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>pdf(xs_is, loc<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, scale<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>    w <span style="color:#f92672">=</span> px <span style="color:#f92672">/</span> qx
+</span></span><span style="display:flex;"><span>    indicators <span style="color:#f92672">=</span> (xs_is <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">3.0</span>)<span style="color:#f92672">.</span>astype(float)
+</span></span><span style="display:flex;"><span>    p_is <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(w <span style="color:#f92672">*</span> indicators)
+</span></span><span style="display:flex;"><span>    ess <span style="color:#f92672">=</span> (w<span style="color:#f92672">.</span>sum()<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">/</span> (np<span style="color:#f92672">.</span>sum(w<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1e-300</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p_naive, p_is, ess, w, xs_is
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>
+</span></span><span style="display:flex;"><span>reps <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span>mus <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">2.5</span>]
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mu <span style="color:#f92672">in</span> mus:
+</span></span><span style="display:flex;"><span>    p_naive_list <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    p_is_list <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    ess_list <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(reps):
+</span></span><span style="display:flex;"><span>        p_naive, p_is, ess, w, xs_is <span style="color:#f92672">=</span> single_run_compare(N, mu_shift<span style="color:#f92672">=</span>mu)
+</span></span><span style="display:flex;"><span>        p_naive_list<span style="color:#f92672">.</span>append(p_naive)
+</span></span><span style="display:flex;"><span>        p_is_list<span style="color:#f92672">.</span>append(p_is)
+</span></span><span style="display:flex;"><span>        ess_list<span style="color:#f92672">.</span>append(ess)
+</span></span><span style="display:flex;"><span>    p_naive_arr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(p_naive_list)
+</span></span><span style="display:flex;"><span>    p_is_arr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(p_is_list)
+</span></span><span style="display:flex;"><span>    results[mu] <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;p_naive_mean&#34;</span>: p_naive_arr<span style="color:#f92672">.</span>mean(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;p_naive_std&#34;</span>: p_naive_arr<span style="color:#f92672">.</span>std(ddof<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;p_is_mean&#34;</span>: p_is_arr<span style="color:#f92672">.</span>mean(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;p_is_std&#34;</span>: p_is_arr<span style="color:#f92672">.</span>std(ddof<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;ESS_mean&#34;</span>: np<span style="color:#f92672">.</span>mean(ess_list),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;p_naive_arr&#34;</span>: p_naive_arr,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;p_is_arr&#34;</span>: p_is_arr
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;比较结果（使用 N=2000, reps=300）：&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mu <span style="color:#f92672">in</span> mus:
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">=</span> results[mu]
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">proposal N(</span><span style="color:#e6db74">{</span>mu<span style="color:#e6db74">}</span><span style="color:#e6db74">,1):&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;  naive: mean=</span><span style="color:#e6db74">{</span>r[<span style="color:#e6db74">&#39;p_naive_mean&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.3e</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, std=</span><span style="color:#e6db74">{</span>r[<span style="color:#e6db74">&#39;p_naive_std&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.3e</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (naive Monte Carlo（直接从 N(0,1) 采样）估计的标准差)&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;  IS   : mean=</span><span style="color:#e6db74">{</span>r[<span style="color:#e6db74">&#39;p_is_mean&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.3e</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, std=</span><span style="color:#e6db74">{</span>r[<span style="color:#e6db74">&#39;p_is_std&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.3e</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (IS 得到的标准差)&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;  mean ESS (IS) ~ </span><span style="color:#e6db74">{</span>r[<span style="color:#e6db74">&#39;ESS_mean&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (out of N=</span><span style="color:#e6db74">{</span>N<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> r[<span style="color:#e6db74">&#39;p_is_std&#39;</span>]<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;  variance reduction factor (naive_var / IS_var) ≈ </span><span style="color:#e6db74">{</span>(r[<span style="color:#e6db74">&#39;p_naive_std&#39;</span>]<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">/</span>(r[<span style="color:#e6db74">&#39;p_is_std&#39;</span>]<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (观察是否 IS 显著减少了方差，若有大幅度降低，则说明 IS 在估计稀有事件（尾概率）时非常有效。)&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;  IS variance is (near) zero&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># single-run running plots for visual comparison</span>
+</span></span><span style="display:flex;"><span>xs_naive <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, size<span style="color:#f92672">=</span>N)
+</span></span><span style="display:flex;"><span>running_naive <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum((xs_naive <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">3.0</span>)<span style="color:#f92672">.</span>astype(float)) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, N<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>xs_is <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(loc<span style="color:#f92672">=</span><span style="color:#ae81ff">3.0</span>, scale<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, size<span style="color:#f92672">=</span>N)
+</span></span><span style="display:flex;"><span>qx <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>pdf(xs_is, loc<span style="color:#f92672">=</span><span style="color:#ae81ff">3.0</span>, scale<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>); px <span style="color:#f92672">=</span> norm<span style="color:#f92672">.</span>pdf(xs_is, loc<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, scale<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>w <span style="color:#f92672">=</span> px<span style="color:#f92672">/</span>qx; inds <span style="color:#f92672">=</span> (xs_is <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">3.0</span>)<span style="color:#f92672">.</span>astype(float)
+</span></span><span style="display:flex;"><span>running_is <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(w<span style="color:#f92672">*</span>inds) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, N<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(running_naive, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;naive running estimate&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(running_is, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;IS running estimate (mu=3)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(p_true, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;true p&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Running estimates: naive vs IS (single realization)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;n&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;estimate of P(Z&gt;3)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(w, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">80</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">1020</span>, <span style="color:#e6db74">&#39;权重直方图说明权重并非完全集中到一个点，但有一定变异；</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">若权重过于尖锐，会造成估计数值不稳定。&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Importance weights histogram (IS for tail prob, mu=3)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;w = π(x)/q(x)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;count&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>=== 示例：估计尾概率 p = P(Z&gt;3) ===
+真实 p = 1.349898e-03
+比较结果（使用 N=2000, reps=300）：
+
+proposal N(3.0,1):
+  naive: mean=1.372e-03, std=7.776e-04 (naive Monte Carlo（直接从 N(0,1) 采样）估计的标准差)
+  IS   : mean=1.353e-03, std=5.413e-05 (IS 得到的标准差)
+  mean ESS (IS) ~ 18.6 (out of N=2000)
+  variance reduction factor (naive_var / IS_var) ≈ 206.352 (观察是否 IS 显著减少了方差，若有大幅度降低，则说明 IS 在估计稀有事件（尾概率）时非常有效。)
+
+proposal N(2.5,1):
+  naive: mean=1.412e-03, std=8.001e-04 (naive Monte Carlo（直接从 N(0,1) 采样）估计的标准差)
+  IS   : mean=1.352e-03, std=6.596e-05 (IS 得到的标准差)
+  mean ESS (IS) ~ 35.6 (out of N=2000)
+  variance reduction factor (naive_var / IS_var) ≈ 147.125 (观察是否 IS 显著减少了方差，若有大幅度降低，则说明 IS 在估计稀有事件（尾概率）时非常有效。)
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_26_1.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_26_2.png" alt="png"></p>
+<h3 id="如何根据目标与任务选择">如何根据目标与任务选择 $q$</h3>
+<ol>
+<li><strong>若估计形如 $\mu=\mathbb{E}_\pi[h]$</strong>，考虑 q(x) ∝ |h(x)|π(x)（理论最优，实践上可用近似或分段混合实现）。</li>
+<li><strong>对于尾概率或稀有事件</strong>，使用倾斜/平移（exponential tilting / shift）把质心移入稀有事件区域（示例2 即把 N(0,1) 平移到 N(μ,1)，μ≈3）。</li>
+<li><strong>混合提议</strong>：若单一 q 难以覆盖所有重要区域，使用混合分布 q = Σ α_j q_j（多重重要性采样）。</li>
+<li><strong>数值稳定</strong>：用 log 权重处理并进行常数移位（例如 subtract max(log w)）再 exponentiate 以得到稳定的归一化权重。</li>
+<li><strong>诊断</strong>：查看权重的 CV（coef. of variation）、ESS、最大权重占比（是否有一个或极少数权重占据大部分质量）。如果 ESS 很小（比如  &lt; 10% of N），需小心结果的稳健性。</li>
+<li><strong>若可行，做自适应</strong>：先用粗略 q 估计重要区域，然后调整 q（例如参数化 q 的均值/方差或混合权重）再做第二轮采样（adaptive IS / adaptive importance sampling）。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 重要性采样估计积分：比较不同 proposal 的效果，体会“好 proposal 分布 = 更低方差”。</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 积分函数</span>
+</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 提议分布 1：均匀(0,1)</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N)  <span style="color:#75715e"># g(x)=1</span>
+</span></span><span style="display:flex;"><span>weights <span style="color:#f92672">=</span> f(x) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>I_est_uniform <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(weights)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 提议分布 2：Beta(0.5,0.5) → 偏向 0 和 1，贴合 f(x) 的形状</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> beta
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> beta<span style="color:#f92672">.</span>rvs(<span style="color:#ae81ff">0.5</span>,<span style="color:#ae81ff">0.5</span>,size<span style="color:#f92672">=</span>N)
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">=</span> beta<span style="color:#f92672">.</span>pdf(x,<span style="color:#ae81ff">0.5</span>,<span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>weights <span style="color:#f92672">=</span> f(x)<span style="color:#f92672">/</span>g
+</span></span><span style="display:flex;"><span>I_est_beta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(weights)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;真实值: </span><span style="color:#e6db74">{</span>np<span style="color:#f92672">.</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span><span style="color:#e6db74">:</span><span style="color:#e6db74">.5f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;均匀 proposal 估计: </span><span style="color:#e6db74">{</span>I_est_uniform<span style="color:#e6db74">:</span><span style="color:#e6db74">.5f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Beta proposal 估计: </span><span style="color:#e6db74">{</span>I_est_beta<span style="color:#e6db74">:</span><span style="color:#e6db74">.5f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>真实值: 0.78540
+均匀 proposal 估计: 0.78474
+Beta proposal 估计: 0.78740
+</code></pre>
+<h3 id="与拒绝采样其它方法的关系">与拒绝采样/其它方法的关系</h3>
+<ul>
+<li><strong>拒绝采样</strong>要求找到 $M$ 使 $\pi\le Mq$，接受率 $1/M$，在高维常困难。</li>
+<li><strong>IS</strong>不需要 $M$，只需能算 $\pi/q$（或 $f/q$）。但如果 $q$ 与 $\pi$ 差别太大，权重会<strong>退化</strong>。</li>
+<li><strong>SMC/粒子滤波</strong>等会在 IS 上加入<strong>重采样</strong>与<strong>序贯更新</strong>来缓解退化。</li>
+</ul>
+<h2 id="方差缩减技术">方差缩减技术</h2>
+<p>在蒙特卡罗中，核心问题是<strong>样本方差大，收敛慢</strong>。因此，我们希望在<strong>相同样本预算</strong>下，把估计方差尽可能压低，从而更快地得到更准的结果。</p>
+<h3 id="方法1-对偶变量antithetic-variates">方法1️⃣ 对偶变量（Antithetic Variates）</h3>
+<p><strong>想法</strong>：构造带<strong>负相关</strong>的样本对，使样本平均的方差减小。
+对对称分布（如 $N(0,1)$），常用成对样本 $(X,-X)$。若被积函数 $g$ <em>单调</em>，通常 $g(X)$ 与 $g(-X)$ 负相关。</p>
+<p><strong>估计量</strong>（以两点为一对）：</p>
+$$
+\hat\mu_{\text{anti}}=\frac{1}{m}\sum_{i=1}^m \frac{g(X_i)+g(-X_i)}{2}.
+$$<p><strong>方差</strong>：</p>
+$$
+\operatorname{Var}(\hat\mu_{\text{anti}})=\frac{1}{m}\frac{\operatorname{Var}(g(X))+ \operatorname{Var}(g(-X))+2\operatorname{Cov}(g(X),g(-X))}{4}.
+$$<p>若协方差为负，方差自然下降。示例中 $g(x)=e^x$、$X\sim N(0,1)$，确有显著负协方差。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"></code></pre></div><h3 id="方法2-控制变量control-variates">方法2️⃣ 控制变量（Control Variates）</h3>
+<p><strong>想法</strong>：找一个与目标函数高度相关、且<strong>期望已知</strong>的变量 $Y$，用它纠偏：</p>
+$$
+\hat\mu_{\text{cv}}=\bar{h}-\beta(\bar{Y}-\mathbb{E}[Y]),
+\quad \beta^*=\frac{\operatorname{Cov}(h,Y)}{\operatorname{Var}(Y)}.
+$$<p>直觉：$\bar{Y}$若高于其真均值，往往意味着$\bar{h}$也偏高，用$\beta(\bar{Y}-\mathbb{E}[Y])$把它拉回去。
+实际使用时 $\beta^*$未知，用样本协方差/方差估计即可（几乎无偏且一致）。</p>
+<h4 id="示例估计-">示例：估计 $\mu_1=E[e^X]$，$X\sim N(0,1)$</h4>
+<p>真值 $e^{1/2}\approx 1.6487$。</p>
+<ul>
+<li><strong>Naive</strong>：sd ≈ 0.0475</li>
+<li><strong>对偶变量法（Antithetic）</strong>：sd ≈ 0.0362，<strong>VRF ≈ 1.72</strong>（方差降到 ~58%）</li>
+<li><strong>控制变量法（Control Variates）</strong>（用 $Y=X^2-1$）：sd ≈ 0.0395，<strong>VRF ≈ 1.45</strong>
+<ul>
+<li>这里，$h(X)=e^X$、控制变量 $Y=X^2-1$（其均值 0 已知），二者强相关，能显著降方差。</li>
+</ul>
+</li>
+<li>估出来的最佳 $\beta$ 在多次重复中平均约 <strong>0.839</strong>。</li>
+</ul>
+<blockquote>
+<p>下图中，能看到三条“运行中估计”曲线都围着真值虚线收敛；
+对偶变量和控制变量的曲线抖动明显更小。</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> exp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">2025</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mu1_true <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(<span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mc_naive_expX</span>(N):
+</span></span><span style="display:flex;"><span>    X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, size<span style="color:#f92672">=</span>N)
+</span></span><span style="display:flex;"><span>    g <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(X)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> g<span style="color:#f92672">.</span>mean(), X, g
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mc_antithetic_expX</span>(N):
+</span></span><span style="display:flex;"><span>    M <span style="color:#f92672">=</span> (N <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    Z <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, size<span style="color:#f92672">=</span>M)
+</span></span><span style="display:flex;"><span>    Y <span style="color:#f92672">=</span> (np<span style="color:#f92672">.</span>exp(Z) <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>Z)) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Y<span style="color:#f92672">.</span>mean(), Z, Y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mc_controlvar_expX</span>(N):
+</span></span><span style="display:flex;"><span>    X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, size<span style="color:#f92672">=</span>N)
+</span></span><span style="display:flex;"><span>    h <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(X)
+</span></span><span style="display:flex;"><span>    Y <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>    Y_mean <span style="color:#f92672">=</span> Y<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#print(f&#34;Control variates: Y (=X^2-1) mean = {Y_mean:.6f}&#34;)</span>
+</span></span><span style="display:flex;"><span>    h_mean <span style="color:#f92672">=</span> h<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>    cov_hY <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean((h <span style="color:#f92672">-</span> h_mean)<span style="color:#f92672">*</span>(Y <span style="color:#f92672">-</span> Y_mean))
+</span></span><span style="display:flex;"><span>    var_Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>var(Y, ddof<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    beta_hat <span style="color:#f92672">=</span> cov_hY <span style="color:#f92672">/</span> (var_Y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1e-12</span>)
+</span></span><span style="display:flex;"><span>    est <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(h <span style="color:#f92672">-</span> beta_hat <span style="color:#f92672">*</span> Y) <span style="color:#75715e"># here, E[Y] = 0, so we can use h directly</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> est, X, h, Y, beta_hat
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N_run <span style="color:#f92672">=</span> <span style="color:#ae81ff">4000</span>
+</span></span><span style="display:flex;"><span>val_naive, Xn, gn <span style="color:#f92672">=</span> mc_naive_expX(N_run)
+</span></span><span style="display:flex;"><span>running_naive <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(gn) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, N_run<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>val_anti, Za, Ya <span style="color:#f92672">=</span> mc_antithetic_expX(N_run)
+</span></span><span style="display:flex;"><span>running_anti <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(Ya) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, Ya<span style="color:#f92672">.</span>size<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>val_cv, Xc, hc, Yc, beta_hat <span style="color:#f92672">=</span> mc_controlvar_expX(N_run)
+</span></span><span style="display:flex;"><span>cv_terms <span style="color:#f92672">=</span> hc <span style="color:#f92672">-</span> beta_hat <span style="color:#f92672">*</span> Yc
+</span></span><span style="display:flex;"><span>running_cv <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(cv_terms) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, N_run<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(running_naive, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Naive running mean&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(mu1_true, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True E[e^X]&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Running estimate (Naive) for E[e^X], X~N(0,1)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;n&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;estimate&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(running_anti, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Antithetic running mean&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(mu1_true, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True E[e^X]&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Running estimate (Antithetic) for E[e^X], X~N(0,1)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;pairs&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;estimate&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(running_cv, label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Control-Variates running mean (beta≈</span><span style="color:#e6db74">{</span>beta_hat<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(mu1_true, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True E[e^X]&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Running estimate (Control Variates) for E[e^X], X~N(0,1)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;n&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;estimate&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">replicate_stats</span>(mu_true, N, reps<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>):
+</span></span><span style="display:flex;"><span>    naive_vals <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    anti_vals <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    cv_vals <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    betas <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(reps):
+</span></span><span style="display:flex;"><span>        v1, <span style="color:#f92672">*</span>_ <span style="color:#f92672">=</span> mc_naive_expX(N)
+</span></span><span style="display:flex;"><span>        v2, <span style="color:#f92672">*</span>_ <span style="color:#f92672">=</span> mc_antithetic_expX(N)
+</span></span><span style="display:flex;"><span>        v3, <span style="color:#f92672">*</span>rest <span style="color:#f92672">=</span> mc_controlvar_expX(N)
+</span></span><span style="display:flex;"><span>        beta_hat_r <span style="color:#f92672">=</span> rest[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>        naive_vals<span style="color:#f92672">.</span>append(v1)
+</span></span><span style="display:flex;"><span>        anti_vals<span style="color:#f92672">.</span>append(v2)
+</span></span><span style="display:flex;"><span>        cv_vals<span style="color:#f92672">.</span>append(v3)
+</span></span><span style="display:flex;"><span>        betas<span style="color:#f92672">.</span>append(beta_hat_r)
+</span></span><span style="display:flex;"><span>    naive_vals <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(naive_vals)
+</span></span><span style="display:flex;"><span>    anti_vals  <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(anti_vals)
+</span></span><span style="display:flex;"><span>    cv_vals    <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(cv_vals)
+</span></span><span style="display:flex;"><span>    betas      <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(betas)
+</span></span><span style="display:flex;"><span>    sd_naive <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>std(naive_vals, ddof<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    sd_anti  <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>std(anti_vals,  ddof<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    sd_cv    <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>std(cv_vals,    ddof<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    vrf_anti <span style="color:#f92672">=</span> (sd_naive<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">/</span> (sd_anti<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1e-12</span>)
+</span></span><span style="display:flex;"><span>    vrf_cv   <span style="color:#f92672">=</span> (sd_naive<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">/</span> (sd_cv<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>   <span style="color:#f92672">+</span> <span style="color:#ae81ff">1e-12</span>)
+</span></span><span style="display:flex;"><span>    bias_naive <span style="color:#f92672">=</span> naive_vals<span style="color:#f92672">.</span>mean() <span style="color:#f92672">-</span> mu_true
+</span></span><span style="display:flex;"><span>    bias_anti  <span style="color:#f92672">=</span> anti_vals<span style="color:#f92672">.</span>mean()  <span style="color:#f92672">-</span> mu_true
+</span></span><span style="display:flex;"><span>    bias_cv    <span style="color:#f92672">=</span> cv_vals<span style="color:#f92672">.</span>mean()    <span style="color:#f92672">-</span> mu_true
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;naive_mean&#34;</span>: naive_vals<span style="color:#f92672">.</span>mean(), <span style="color:#e6db74">&#34;naive_sd&#34;</span>: sd_naive, <span style="color:#e6db74">&#34;naive_bias&#34;</span>: bias_naive,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;anti_mean&#34;</span>: anti_vals<span style="color:#f92672">.</span>mean(),   <span style="color:#e6db74">&#34;anti_sd&#34;</span>: sd_anti,   <span style="color:#e6db74">&#34;anti_bias&#34;</span>: bias_anti, <span style="color:#e6db74">&#34;VRF_anti&#34;</span>: vrf_anti,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;cv_mean&#34;</span>: cv_vals<span style="color:#f92672">.</span>mean(),       <span style="color:#e6db74">&#34;cv_sd&#34;</span>: sd_cv,       <span style="color:#e6db74">&#34;cv_bias&#34;</span>: bias_cv,     <span style="color:#e6db74">&#34;VRF_cv&#34;</span>: vrf_cv,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;beta_hat_mean&#34;</span>: betas<span style="color:#f92672">.</span>mean(),   <span style="color:#e6db74">&#34;beta_hat_sd&#34;</span>: betas<span style="color:#f92672">.</span>std(ddof<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>stats_A <span style="color:#f92672">=</span> replicate_stats(mu1_true, N<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>, reps<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dfA <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame({
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;method&#34;</span>: [<span style="color:#e6db74">&#34;Naive&#34;</span>, <span style="color:#e6db74">&#34;Antithetic&#34;</span>, <span style="color:#e6db74">&#34;Control Variates&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;mean_estimate&#34;</span>: [stats_A[<span style="color:#e6db74">&#34;naive_mean&#34;</span>], stats_A[<span style="color:#e6db74">&#34;anti_mean&#34;</span>], stats_A[<span style="color:#e6db74">&#34;cv_mean&#34;</span>]],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;std_over_reps&#34;</span>: [stats_A[<span style="color:#e6db74">&#34;naive_sd&#34;</span>], stats_A[<span style="color:#e6db74">&#34;anti_sd&#34;</span>], stats_A[<span style="color:#e6db74">&#34;cv_sd&#34;</span>]],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;bias&#34;</span>: [stats_A[<span style="color:#e6db74">&#34;naive_bias&#34;</span>], stats_A[<span style="color:#e6db74">&#34;anti_bias&#34;</span>], stats_A[<span style="color:#e6db74">&#34;cv_bias&#34;</span>]],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;VRF_vs_Naive&#34;</span>: [<span style="color:#ae81ff">1.0</span>, stats_A[<span style="color:#e6db74">&#34;VRF_anti&#34;</span>], stats_A[<span style="color:#e6db74">&#34;VRF_cv&#34;</span>]]
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>display(dfA)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;=== 示例: E[e^X], X~N(0,1) ===&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;True value = </span><span style="color:#e6db74">{</span>mu1_true<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Naive   : mean=</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;naive_mean&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, sd=</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;naive_sd&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Anti    : mean=</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;anti_mean&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, sd=</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;anti_sd&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, VRF≈</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;VRF_anti&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Control : mean=</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;cv_mean&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, sd=</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;cv_sd&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, VRF≈</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;VRF_cv&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;(beta_hat across reps: mean≈</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;beta_hat_mean&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, sd≈</span><span style="color:#e6db74">{</span>stats_A[<span style="color:#e6db74">&#39;beta_hat_sd&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;&#34;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_34_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_34_1.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_34_2.png" alt="png"></p>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>method</th>
+      <th>mean_estimate</th>
+      <th>std_over_reps</th>
+      <th>bias</th>
+      <th>VRF_vs_Naive</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Naive</td>
+      <td>1.649034</td>
+      <td>0.047489</td>
+      <td>0.000313</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Antithetic</td>
+      <td>1.648440</td>
+      <td>0.036174</td>
+      <td>-0.000281</td>
+      <td>1.723407</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Control Variates</td>
+      <td>1.651178</td>
+      <td>0.039462</td>
+      <td>0.002457</td>
+      <td>1.448168</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<pre><code>=== 示例: E[e^X], X~N(0,1) ===
+True value = 1.648721
+Naive   : mean=1.649034, sd=0.047489
+Anti    : mean=1.648440, sd=0.036174, VRF≈1.72
+Control : mean=1.651178, sd=0.039462, VRF≈1.45
+(beta_hat across reps: mean≈0.839, sd≈0.137)
+</code></pre>
+<h3 id="方法3-分层抽样stratified-sampling-1dlhs">方法3️⃣ 分层抽样（Stratified Sampling, 1D≈LHS）</h3>
+<p>我们要算一个积分，比如：</p>
+$$
+I = \int_0^1 f(x) \, dx
+$$<p>最朴素的 <strong>蒙特卡洛估计</strong> 是：</p>
+<ul>
+<li>
+<p>在 $[0,1]$ 区间均匀随机抽样 $N$ 个点 $U_i \sim \text{Uniform}(0,1)$，</p>
+</li>
+<li>
+<p>然后取平均：</p>
+$$
+  \hat{I}_{\text{MC}} = \frac{1}{N} \sum_{i=1}^N f(U_i).
+  $$</li>
+</ul>
+<p>问题：点可能“挤在一起”或“漏掉某个区域”，导致估计波动大（方差大）。</p>
+<p><strong>✨ 分层抽样的想法</strong></p>
+<p>把区间 <strong>分成若干层（小区间）</strong>，保证每个小区间都被覆盖。</p>
+<p>例子：$N=10$，把 $[0,1]$ 均分成 10 段：</p>
+$$
+[0,0.1), [0.1,0.2), \ldots, [0.9,1.0)
+$$<p>做法：</p>
+<ol>
+<li>在每个小区间里，各抽 <strong>一个随机点</strong>；</li>
+<li>计算函数值；</li>
+<li>最后取平均。</li>
+</ol>
+<p>这样：</p>
+<ul>
+<li>每个小区间都被采样，不会“漏掉”某部分；</li>
+<li>抽样更均匀，方差大大降低。</li>
+</ul>
+<p><strong>数学上：</strong></p>
+$$
+\hat{I}_{\text{strat}} = \frac{1}{N} \sum_{j=1}^N f\Big(U_j^*\Big), \quad U_j^* \sim \text{Uniform}\Big(\tfrac{j-1}{N}, \tfrac{j}{N}\Big).
+$$<p>👉 <strong>直观理解：</strong></p>
+<ul>
+<li>普通 MC 有可能随机点集中在区间一部分 → 估计不稳定；</li>
+<li>分层抽样强制每个子区间都取样 → 保证全覆盖 → 方差极小。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 普通 MC 和分层采样在区间 [0,1] 的采样点分布</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>  <span style="color:#75715e"># 分层数量</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 普通蒙特卡洛采样</span>
+</span></span><span style="display:flex;"><span>mc_samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 分层采样</span>
+</span></span><span style="display:flex;"><span>strata <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, N<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>u <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N)
+</span></span><span style="display:flex;"><span>strat_samples <span style="color:#f92672">=</span> strata[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> u <span style="color:#f92672">*</span> (strata[<span style="color:#ae81ff">1</span>:] <span style="color:#f92672">-</span> strata[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘图</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 普通 MC</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(mc_samples, np<span style="color:#f92672">.</span>zeros(N), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">80</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;MC samples&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hlines(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dashed&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.5</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.05</span>, <span style="color:#e6db74">&#39;普通MC的点分布</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">可能随机聚在某些地方。&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Plain Monte Carlo (N=10)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x in [0,1]&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>yticks([])
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 分层采样</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(strat_samples, np<span style="color:#f92672">.</span>zeros(N), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;green&#34;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">80</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Stratified samples&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(N<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>axvline(strata[i], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dashed&#34;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>)  <span style="color:#75715e"># 画出分层边界</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hlines(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;black&#34;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dashed&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.5</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.05</span>, <span style="color:#e6db74">&#39;分层采样的点在每个小区间都有一个，</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">均匀覆盖整个 [0,1]&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Stratified Sampling (N=10)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x in [0,1]&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>yticks([])
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_36_0.png" alt="png"></p>
+<h4 id="示例估计">示例：估计 $\mu_2=\int_0^1 e^u\,du=e-1$</h4>
+<p>我们来对比一下 <strong>普通蒙特卡洛</strong> 和 <strong>分层抽样</strong>，用目标积分：</p>
+$$
+I = \int_0^1 e^x \, dx = e - 1 \approx 1.718.
+$$<p>结果显示得很清楚：</p>
+<ul>
+<li><strong>普通蒙特卡洛 (MC)</strong>：均值 ≈ 1.7171，标准差 ≈ 0.016</li>
+<li><strong>分层抽样 (Stratified)</strong>：均值 ≈ 1.7183，标准差 ≈ 0.000016（几乎没波动！）</li>
+</ul>
+<p>图里蓝色直方图（MC）很宽，橙色直方图（分层）非常窄（几乎看不到），几乎精确落在真值 $e-1$ 上。</p>
+<blockquote>
+<p>这正是分层在“平滑一维积分”里非常猛的经典现象：等距分层+每层均匀取点，极大降低了“运气”带来的波动。</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 积分目标函数</span>
+</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: np<span style="color:#f92672">.</span>exp(x)
+</span></span><span style="display:flex;"><span>true_val <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>e <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mc_integral</span>(N<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> f(x)<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">stratified_integral</span>(N<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 将区间[0,1]均匀分成N个子区间。例如，当N=4时，strata=[0.0,0.25,0.5,0.75,1.0]， 即分成 [0,0.25),[0.25,0.5),[0.5,0.75),[0.75,1.0)</span>
+</span></span><span style="display:flex;"><span>    strata <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, N<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 每个区间采样一个点，即生成 N 个在 [0,1] 区间的随机数。</span>
+</span></span><span style="display:flex;"><span>    u <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 把这些随机数“缩放到”各自的小区间</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># strata[:-1] 是所有小区间的 左端点，例如，[0,0.25,0.5,0.75]。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># strata[1:] 是所有小区间的 右端点，例如，[0.25,0.5,0.75,1.0]。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># u * (strata[1:] - strata[:-1]) 是每个小区间的长度乘以随机数 u，得到在每个小区间内的随机点。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 最终得到的 x 是在 [0,1] 区间内均匀分布的 N 个点。</span>
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> strata[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> u <span style="color:#f92672">*</span> (strata[<span style="color:#ae81ff">1</span>:] <span style="color:#f92672">-</span> strata[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> f(x)<span style="color:#f92672">.</span>mean() <span style="color:#75715e"># 计算积分估计</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 多次实验比较方差</span>
+</span></span><span style="display:flex;"><span>R <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>mc_vals <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([mc_integral(N) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(R)])
+</span></span><span style="display:flex;"><span>strat_vals <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([stratified_integral(N) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(R)])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;True value = </span><span style="color:#e6db74">{</span>true_val<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;MC: mean=</span><span style="color:#e6db74">{</span>mc_vals<span style="color:#f92672">.</span>mean()<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, std=</span><span style="color:#e6db74">{</span>mc_vals<span style="color:#f92672">.</span>std()<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Stratified: mean=</span><span style="color:#e6db74">{</span>strat_vals<span style="color:#f92672">.</span>mean()<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, std=</span><span style="color:#e6db74">{</span>strat_vals<span style="color:#f92672">.</span>std()<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 可视化分布</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(mc_vals, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Plain MC&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(strat_vals, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Stratified Sampling&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axvline(true_val, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;red&#34;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;True value&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;MC vs Stratified Sampling (Integral of exp(x) on [0,1])&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Estimate value&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Frequency&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>True value = 1.718282
+MC: mean=1.717769, std=0.015955
+Stratified: mean=1.718282, std=0.000016
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_38_1.png" alt="png"></p>
+<h3 id="实战指南">实战指南</h3>
+<ol>
+<li><strong>优先匹配场景</strong></li>
+</ol>
+<ul>
+<li>单调/对称分布：先试<strong>对偶变量</strong>。</li>
+<li>有天然“近似线性/已知均值”的特征可利用：上<strong>控制变量</strong>。</li>
+<li>积分域结构清晰、函数平滑：试<strong>分层/LHS</strong>；高维也能用 LHS 逐维分层。</li>
+</ul>
+<ol start="2">
+<li><strong>如何挑控制变量</strong></li>
+</ol>
+<ul>
+<li>与目标 $h(X)$ <strong>强相关</strong>（|ρ| 越大越好）。</li>
+<li>均值 $\mathbb{E}[Y]$ <strong>已知</strong>或容易精确求。</li>
+<li>例：期权定价里，选取易定价的近似产品作为控制变量。</li>
+</ul>
+<ol start="3">
+<li><strong>分层怎么分</strong></li>
+</ol>
+<ul>
+<li>1D：等距分层通常就很强。</li>
+<li>多维：用 <strong>LHS</strong>（每一维都分层并做随机置换），既省事又有效。</li>
+<li>若知道某些维/区域更重要，可做<strong>非等距</strong>分层、对关键层多分配样本（比例与层内方差/重要度匹配）。</li>
+</ul>
+<ol start="4">
+<li><strong>和重要性采样的关系</strong></li>
+</ol>
+<ul>
+<li>IS 也是方差缩减方法之一，但常用于<strong>稀有事件/尾部</strong>；而对偶/控制/分层在“正常、平滑”的任务上更通用、稳健。</li>
+<li>实战可<strong>组合</strong>：如“分层 + IS”、“控制变量 + IS”。</li>
+</ul>
+<ol start="5">
+<li><strong>诊断与稳健性</strong></li>
+</ol>
+<ul>
+<li>多做重复试验估计标准差/VRF（我在代码里就这么做）。</li>
+<li>观察“运行中估计”曲线是否更稳、更快贴近真值。</li>
+<li>控制变量里，$\beta$ 可在小试后固定，避免“一边估 $\beta$ 一边用”带来的轻微有限样本偏差（虽说通常很小）。</li>
+</ul>
+<h1 id="参考阅读更多">参考/阅读更多</h1>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/369099011">蒙特卡罗方法详解</a></li>
 </ul>
 
 
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/">蒙特卡洛</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
+            
+          </div>
         
 
         
@@ -468,6 +1831,25 @@
 
         
           
+            
+          
+
+          
+                  <h4 class="see-also">也可以看看</h4>
+                  <ul>
+                
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/probability/">什么是概率？</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/random-variables/">随机变量和采样</a></li>
+                
+                    <li><a href="/zh-cn/post/python-geodata/01-intro/">第 1 课：遥感数据与 Python 环境入门</a></li>
+                
+                    <li><a href="/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/">【课程笔记】概率论与数理统计｜随机事件及其概率</a></li>
+                
+                    <li><a href="/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/">【课程笔记】概率论与数理统计｜预备知识</a></li>
+                
+              </ul>
 
           
         

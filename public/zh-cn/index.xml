@@ -8,8 +8,15 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Fri, 15 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 Aug 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>蒙特卡洛方法</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</link>
+      <pubDate>Tue, 19 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</guid>
+      <description>蒙特卡洛方法 = “随机试验 + 统计规律”</description>
+    </item>
     <item>
       <title>什么是概率？</title>
       <link>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</link>

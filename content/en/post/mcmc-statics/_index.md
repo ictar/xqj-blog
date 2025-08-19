@@ -12,13 +12,13 @@ Welcome to the **Monte Carlo–Markov Chains Statistical Methods** series, where
 
 ## Articles
 
-1. [What is Probability?](/mcmc/probability/)
-2. [Random Variables and Sampling](/mcmc/random-variables/)
-3. [Monte Carlo Methods](/mcmc/monte-carlo/)
-4. [Understanding Markov Chains](/mcmc/markov-chains/)
-5. [Introducing MCMC](/mcmc/intro-mcmc/)
-6. [The Metropolis Algorithm](/mcmc/metropolis/)
-7. [The Metropolis-Hastings Algorithm](/mcmc/metropolis-hastings/)
-8. [Gibbs Sampling Explained](/mcmc/gibbs/)
-9. [Convergence Diagnostics](/mcmc/convergence/)
-10. [MCMC in Practice with Python](/mcmc/python/)
+1. [What is Probability?](/mcmc-statics/probability/)
+2. [Random Variables and Sampling](/mcmc-statics/random-variables/)
+3. [Monte Carlo Methods](/mcmc-statics/monte-carlo/)
+4. [Understanding Markov Chains](/mcmc-statics/markov-chains/)
+5. [Introducing MCMC](/mcmc-statics/intro-mcmc/)
+6. [The Metropolis Algorithm](/mcmc-statics/metropolis/)
+7. [The Metropolis-Hastings Algorithm](/mcmc-statics/metropolis-hastings/)
+8. [Gibbs Sampling Explained](/mcmc-statics/gibbs/)
+9. [Convergence Diagnostics](/mcmc-statics/convergence/)
+10. [MCMC in Practice with Python](/mcmc-statics/python/)
