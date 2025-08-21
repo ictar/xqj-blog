@@ -14,25 +14,7 @@
 
       <title>理解马尔可夫链 - </title>
 
-  <meta name="description" content="
-    目录
-    
-  
-    
-      
-        基本概念
-        图示说明（Mermaid）
-        示例代码（可选）
-        小结
-        延伸阅读
-      
-    
-  
-
-  
-
-基本概念
-这里介绍该部分的定义、背景、公式。">
+  <meta name="description" content="了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性">
   <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -81,13 +63,13 @@
     "name" : "Qiongjie.X"
   },
   "headline": "理解马尔可夫链",
-  "description" : " 目录 基本概念 图示说明（Mermaid） 示例代码（可选） 小结 延伸阅读 基本概念 这里介绍该部分的定义、背景、公式。\n",
+  "description" : "了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性",
   "inLanguage" : "zh-cn",
-  "wordCount":  30 ,
-  "datePublished" : "2025-08-02T00:00:00\u002b00:00",
-  "dateModified" : "2025-08-02T00:00:00\u002b00:00",
+  "wordCount":  1819 ,
+  "datePublished" : "2025-08-21T00:00:00\u002b00:00",
+  "dateModified" : "2025-08-21T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
-  "keywords" : [ "" ],
+  "keywords" : [ "马尔可夫链, 数学, python" ],
   "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/markov-chains\/",
   "publisher" : {
     "@type": "Organization",
@@ -104,50 +86,14 @@
 
 
 <meta property="og:title" content="理解马尔可夫链" />
-<meta property="og:description" content="
-    目录
-    
-  
-    
-      
-        基本概念
-        图示说明（Mermaid）
-        示例代码（可选）
-        小结
-        延伸阅读
-      
-    
-  
-
-  
-
-基本概念
-这里介绍该部分的定义、背景、公式。">
+<meta property="og:description" content="了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
 <meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="琼呀" />
 
   <meta name="twitter:title" content="理解马尔可夫链" />
-  <meta name="twitter:description" content="
-    目录
-    
-  
-    
-      
-        基本概念
-        图示说明（Mermaid）
-        示例代码（可选）
-        小结
-        延伸阅读
-      
-    
-  
-
-  
-
-基本概念
-这里介绍该部分的定义、背景、公式。">
+  <meta name="twitter:description" content="了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -345,11 +291,11 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 2, 2025
+  <i class="fas fa-calendar"></i>&nbsp;发表于 August 21, 2025
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;30&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1819&nbsp;个字
   
   
   
@@ -376,37 +322,720 @@
     <h2>目录</h2>
     <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#马尔可夫链的基本概念">马尔可夫链的基本概念</a>
       <ul>
-        <li><a href="#基本概念">基本概念</a></li>
-        <li><a href="#图示说明mermaid">图示说明（Mermaid）</a></li>
-        <li><a href="#示例代码可选">示例代码（可选）</a></li>
+        <li><a href="#随机过程stochastic-process">随机过程（Stochastic Process）</a></li>
+        <li><a href="#马尔可夫性质markov-property">马尔可夫性质（Markov Property）</a></li>
+        <li><a href="#转移概率矩阵transition-matrix">转移概率矩阵（Transition Matrix）</a></li>
+        <li><a href="#示例">示例</a></li>
         <li><a href="#小结">小结</a></li>
-        <li><a href="#延伸阅读">延伸阅读</a></li>
+      </ul>
+    </li>
+    <li><a href="#马尔可夫链的长期行为和收敛性">马尔可夫链的长期行为和收敛性</a>
+      <ul>
+        <li><a href="#平稳分布-stationary-distribution">平稳分布 (Stationary Distribution)</a></li>
+        <li><a href="#状态分类">状态分类</a></li>
+        <li><a href="#遍历定理-ergodic-theorem">遍历定理 (Ergodic Theorem)</a></li>
+        <li><a href="#混合时间-mixing-time">混合时间 (Mixing Time)</a></li>
+        <li><a href="#示例-1">示例</a></li>
       </ul>
     </li>
   </ul>
 </nav>
   </aside>
 
-<h2 id="基本概念">基本概念</h2>
-<p>这里介绍该部分的定义、背景、公式。</p>
-<h2 id="图示说明mermaid">图示说明（Mermaid）</h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">flowchart TD
-    Start --&gt; Step1 --&gt; Step2 --&gt; End
-</code></pre><h2 id="示例代码可选">示例代码（可选）</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 示例代码</span>
-</span></span></code></pre></div><h2 id="小结">小结</h2>
-<p>本节简要回顾。</p>
-<hr>
-<h2 id="延伸阅读">延伸阅读</h2>
+<h1 id="马尔可夫链的基本概念">马尔可夫链的基本概念</h1>
+<h2 id="随机过程stochastic-process">随机过程（Stochastic Process）</h2>
+<h3 id="什么是随机过程">什么是随机过程</h3>
 <ul>
-<li>文献1</li>
-<li>博客2</li>
+<li>随机过程就是一组按“时间/索引”排列的随机变量 $\{X_t: t\in \mathcal{T}\}$。</li>
+<li>$\mathcal{T}$ 是索引集合：可以是离散的（$t=0,1,2,\dots$）也可以是连续的（$t\in \mathbb{R}_{\ge 0}$）。</li>
+<li>每个 $X_t$ 取值于一个<strong>状态空间</strong> $\mathcal{S}$（可离散/连续）。</li>
 </ul>
+<h3 id="离散时间-vs-连续时间">离散时间 vs 连续时间</h3>
+<ul>
+<li><strong>离散时间（DT）</strong>：$t=0,1,2,\dots$。本节主要讲<strong>离散时间马尔可夫链（DTMC）</strong>。</li>
+<li><strong>连续时间（CT）</strong>：$t\in\mathbb{R}_{\ge 0}$，对应<strong>连续时间马尔可夫链（CTMC）</strong>，用生成元而非转移矩阵描述。</li>
+</ul>
+<h2 id="马尔可夫性质markov-property">马尔可夫性质（Markov Property）</h2>
+<blockquote>
+<p><strong>无记忆性</strong>：下一步只取决于当前，不取决于更久远的历史。</p></blockquote>
+<p>离散时间、<strong>齐次</strong>马尔可夫链（时间不变）定义为：</p>
+$$
+\mathbb{P}(X_{t+1}=j \mid X_t=i, X_{t-1},\dots,X_0)=\mathbb{P}(X_{t+1}=j\mid X_t=i)=p_{ij},
+$$<p>其中 $p_{ij}$ 与 $t$ 无关（齐次）。如果允许随时间变化，就是<strong>非齐次</strong>马尔可夫链。</p>
+<p><strong>推论（Chapman–Kolmogorov）</strong>：多步转移概率满足</p>
+$$
+P^{(n+m)} = P^{(n)}P^{(m)},
+$$<p>特别地，$n$ 步转移矩阵 $P^{(n)}=P^n$。</p>
+<h2 id="转移概率矩阵transition-matrix">转移概率矩阵（Transition Matrix）</h2>
+<h3 id="定义与性质">定义与性质</h3>
+<ul>
+<li>
+<p>对于有限状态空间 $\mathcal{S}=\{1,\dots, S\}$，定义<strong>转移矩阵</strong> $P=[p_{ij}]_{S\times S}$，其中</p>
+$$
+  p_{ij}=\mathbb{P}(X_{t+1}=j\mid X_t=i).
+  $$</li>
+<li>
+<p><strong>行随机（row-stochastic）</strong>：每一行是一组概率</p>
+$$
+  p_{ij}\ge 0,\quad \sum_{j=1}^S p_{ij}=1\quad(\forall i).
+  $$</li>
+<li>
+<p>记分布向量为行向量 $\pi_t=[\mathbb{P}(X_t=1),\dots,\mathbb{P}(X_t=S)]$，则</p>
+$$
+  \pi_{t+1}=\pi_t P,\quad \pi_t=\pi_0 P^t.
+  $$</li>
+</ul>
+<h2 id="示例">示例</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ============ 基础工具 ============</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_row_stochastic</span>(P, tol<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-12</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;检查转移矩阵是否“行随机”（每行和约为1，元素&gt;=0）&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(P, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>    nonneg <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>all(P <span style="color:#f92672">&gt;=</span> <span style="color:#f92672">-</span>tol) <span style="color:#75715e"># 检查非负性</span>
+</span></span><span style="display:flex;"><span>    rowsum_one <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>allclose(P<span style="color:#f92672">.</span>sum(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">1.0</span>, atol<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-10</span>) <span style="color:#75715e"># 检查每行和是否约为1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> bool(nonneg <span style="color:#f92672">and</span> rowsum_one), P<span style="color:#f92672">.</span>sum(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">n_step_transition</span>(P, n):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;n 步转移矩阵：P^n&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>matrix_power(np<span style="color:#f92672">.</span>asarray(P, dtype<span style="color:#f92672">=</span>float), n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simulate_markov_chain</span>(P, init_state, n_steps, rng<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    从单个初始状态模拟一条马尔可夫链路径。
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    P: 行随机矩阵；init_state: int (0..S-1)；返回数组 shape=(n_steps+1,)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> rng <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng()
+</span></span><span style="display:flex;"><span>    P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(P, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>    S <span style="color:#f92672">=</span> P<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>] <span style="color:#75715e"># 状态数</span>
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>empty(n_steps<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, dtype<span style="color:#f92672">=</span>int) <span style="color:#75715e"># 初始化路径</span>
+</span></span><span style="display:flex;"><span>    path[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> int(init_state) <span style="color:#75715e"># 确保初始状态是整数</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(n_steps): <span style="color:#75715e"># 逐步生成路径</span>
+</span></span><span style="display:flex;"><span>        i <span style="color:#f92672">=</span> path[t]
+</span></span><span style="display:flex;"><span>        path[t<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>choice(S, p<span style="color:#f92672">=</span>P[i]) <span style="color:#75715e"># 从当前状态 i 选择下一个状态</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simulate_many</span>(P, pi0, n_steps, n_runs<span style="color:#f92672">=</span><span style="color:#ae81ff">10000</span>, rng<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    模拟多条路径，估计各时刻的经验分布（与理论 pi0 P^t 对比）。
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    返回：
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      emp_dist: shape=(n_steps+1, S) 经验分布
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      th_dist : shape=(n_steps+1, S) 理论分布
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> rng <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng()
+</span></span><span style="display:flex;"><span>    P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(P, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>    S <span style="color:#f92672">=</span> P<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 理论分布随时间演化</span>
+</span></span><span style="display:flex;"><span>    th <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_steps<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, S))
+</span></span><span style="display:flex;"><span>    th[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> pi0
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(n_steps):
+</span></span><span style="display:flex;"><span>        th[t<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> th[t] <span style="color:#f92672">@</span> P
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 经验分布</span>
+</span></span><span style="display:flex;"><span>    counts <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_steps<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, S), dtype<span style="color:#f92672">=</span>int)
+</span></span><span style="display:flex;"><span>    init_states <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>choice(S, size<span style="color:#f92672">=</span>n_runs, p<span style="color:#f92672">=</span>pi0)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(n_runs):
+</span></span><span style="display:flex;"><span>        s0 <span style="color:#f92672">=</span> init_states[r]
+</span></span><span style="display:flex;"><span>        path <span style="color:#f92672">=</span> simulate_markov_chain(P, s0, n_steps, rng<span style="color:#f92672">=</span>rng)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(n_steps<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            counts[t, path[t]] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    emp <span style="color:#f92672">=</span> counts <span style="color:#f92672">/</span> n_runs
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> emp, th
+</span></span></code></pre></div><h3 id="示例-1两状态天气示例晴s雨r">示例 1：两状态（天气示例：晴=S，雨=R）</h3>
+<h4 id="模型设定两状态天气链">模型设定（两状态天气链）</h4>
+<p>状态：0=晴 (Sunny)，1=雨 (Rainy)
+转移矩阵：</p>
+$$
+P=\begin{bmatrix}
+\text{晴→晴} & \text{晴→雨}\\
+\text{雨→晴} & \text{雨→雨}
+\end{bmatrix}=\begin{bmatrix}
+0.8 & 0.2\\
+0.4 & 0.6
+\end{bmatrix}
+$$<p>含义：晴→晴 0.8、晴→雨 0.2；雨→晴 0.4、雨→雨 0.6。</p>
+<ul>
+<li><strong>行随机</strong>：每行和为 1（合法概率矩阵）。</li>
+<li><strong>不可约</strong>：每个状态都能到达另一个状态（两行都含非零对向转移）。</li>
+<li><strong>非周期</strong>：对角元 $p_{00},p_{11}>0$（有自环），周期为 1。
+⇒ <strong>链是遍历的（ergodic）</strong>：存在唯一平稳分布，且从任意初值都会收敛到它。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ============ 示例 1：两状态（晴/雨） ============</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 状态编码：0=晴(S), 1=雨(R)</span>
+</span></span><span style="display:flex;"><span>P2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">0.8</span>, <span style="color:#ae81ff">0.2</span>],
+</span></span><span style="display:flex;"><span>               [<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>]], dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ok, rowsums <span style="color:#f92672">=</span> is_row_stochastic(P2)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P2 行随机性检查：&#34;</span>, ok, <span style="color:#e6db74">&#34; 行和=&#34;</span>, rowsums)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 单一路径模拟与可视化</span>
+</span></span><span style="display:flex;"><span>rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng(<span style="color:#ae81ff">2025</span>)
+</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> simulate_markov_chain(P2, init_state<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, n_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, rng<span style="color:#f92672">=</span>rng)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(range(len(path)), path, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;o&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hlines(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, len(path)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dashed&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Sunny&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hlines(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, len(path)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;yellow&#39;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dashed&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Rainy&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">10</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.4</span>, <span style="color:#e6db74">&#34;样本路径（状态随时间跳变的折线）&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Sample path of 2-state Markov chain (0=Sunny, 1=Rainy)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;time t&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;state&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 多路径统计 vs 理论分布</span>
+</span></span><span style="display:flex;"><span>pi0 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>])  <span style="color:#75715e"># 初始分布</span>
+</span></span><span style="display:flex;"><span>emp, th <span style="color:#f92672">=</span> simulate_many(P2, pi0, n_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, n_runs<span style="color:#f92672">=</span><span style="color:#ae81ff">5000</span>, rng<span style="color:#f92672">=</span>rng)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 画“处于 Sunny 的概率”随时间变化：理论 vs 经验</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(th[:,<span style="color:#ae81ff">0</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;theory P(X_t=Sunny)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(emp[:,<span style="color:#ae81ff">0</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;empirical P(X_t=Sunny)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0.6</span>, <span style="color:#e6db74">&#34;理论分布与模拟经验分布几乎重合（随样本数增大吻合更好）。&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Distribution evolution in 2-state chain&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;time t&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;probability of Sunny&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># n 步转移矩阵示例</span>
+</span></span><span style="display:flex;"><span>P2_5 <span style="color:#f92672">=</span> n_step_transition(P2, <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P2^5 =</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, np<span style="color:#f92672">.</span>round(P2_5, <span style="color:#ae81ff">4</span>))
+</span></span></code></pre></div><pre><code>P2 行随机性检查： True  行和= [1. 1.]
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_6_1.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_6_2.png" alt="png"></p>
+<pre><code>P2^5 =
+ [[0.6701 0.3299]
+ [0.6598 0.3402]]
+</code></pre>
+<h3 id="示例-2三状态含吸收态-c">示例 2：三状态（含吸收态 C）</h3>
+$$
+P_3=
+\begin{bmatrix}
+0.6 & 0.4 & 0.0\\
+0.2 & 0.5 & 0.3\\
+0.0 & 0.0 & 1.0
+\end{bmatrix},
+$$<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ============ 示例 2：三状态（含吸收态 C） ============</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 状态编码：0=A, 1=B, 2=C(吸收)</span>
+</span></span><span style="display:flex;"><span>P3 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">0.6</span>, <span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.0</span>],
+</span></span><span style="display:flex;"><span>               [<span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.3</span>],
+</span></span><span style="display:flex;"><span>               [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>]], dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ok3, rowsums3 <span style="color:#f92672">=</span> is_row_stochastic(P3)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P3 行随机性检查：&#34;</span>, ok3, <span style="color:#e6db74">&#34; 行和=&#34;</span>, rowsums3)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>path3 <span style="color:#f92672">=</span> simulate_markov_chain(P3, init_state<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, n_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">40</span>, rng<span style="color:#f92672">=</span>rng)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(range(len(path3)), path3, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;o&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">1.5</span>, <span style="color:#e6db74">&#34;样本路径（状态随时间跳变的折线）</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">状态 C 一旦进入就不离开（吸收态）。&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Sample path of 3-state chain (2 is absorbing)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;time t&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;state (0=A, 1=B, 2=C)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 多路径统计：观测吸收到 C 的概率随时间变化</span>
+</span></span><span style="display:flex;"><span>pi0_3 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>])  <span style="color:#75715e"># 从 A 起步</span>
+</span></span><span style="display:flex;"><span>emp3, th3 <span style="color:#f92672">=</span> simulate_many(P3, pi0_3, n_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, n_runs<span style="color:#f92672">=</span><span style="color:#ae81ff">5000</span>, rng<span style="color:#f92672">=</span>rng)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(th3[:,<span style="color:#ae81ff">2</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;theory P(X_t=C)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(emp3[:,<span style="color:#ae81ff">2</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;empirical P(X_t=C)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.2</span>, <span style="color:#e6db74">&#34;理论分布与模拟经验分布几乎重合（随样本数增大吻合更好）。</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">吸收态 C 的概率随时间单调上升&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Absorption probability into state C over time&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;time t&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;probability in C&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># n 步转移矩阵示例</span>
+</span></span><span style="display:flex;"><span>P3_5 <span style="color:#f92672">=</span> n_step_transition(P3, <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P3^5 =</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, np<span style="color:#f92672">.</span>round(P3_5, <span style="color:#ae81ff">4</span>))
+</span></span></code></pre></div><pre><code>P3 行随机性检查： True  行和= [1. 1. 1.]
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_8_1.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_8_2.png" alt="png"></p>
+<pre><code>P3^5 =
+ [[0.242  0.2856 0.4724]
+ [0.1428 0.1706 0.6866]
+ [0.     0.     1.    ]]
+</code></pre>
+<h2 id="小结">小结</h2>
+<ul>
+<li><strong>随机过程</strong>：按时间索引的一族随机变量。</li>
+<li><strong>离散/连续时间</strong>：本节以离散时间链为主。</li>
+<li><strong>马尔可夫性质</strong>：下一步只依赖当前；齐次链的转移概率与时间无关。</li>
+<li><strong>转移矩阵</strong>：行随机矩阵；多步转移用幂 $P^n$；分布随时间演化 $\pi_t=\pi_0 P^t$。</li>
+<li><strong>例子</strong>：两状态（天气）、三状态（含吸收态）展示了基本计算与模拟。</li>
+</ul>
+<h1 id="马尔可夫链的长期行为和收敛性">马尔可夫链的长期行为和收敛性</h1>
+<h2 id="平稳分布-stationary-distribution">平稳分布 (Stationary Distribution)</h2>
+<ul>
+<li>
+<p><strong>定义</strong>：一个概率向量 $\pi$，如果</p>
+$$
+  \pi P = \pi, \quad \sum_i \pi_i = 1, \; \pi_i \geq 0
+  $$<p>那么 $\pi$ 称为该马尔可夫链的 <strong>平稳分布</strong>。</p>
+</li>
+<li>
+<p><strong>意义</strong>：如果链在某个时刻的分布是 $\pi$，那么在之后任意时刻仍然保持 $\pi$。它描述了 <strong>长期状态分布</strong>。</p>
+</li>
+</ul>
+<h2 id="状态分类">状态分类</h2>
+<ul>
+<li>
+<p><strong>可达性 (Reachability)</strong>：状态 $i \to j$ 如果存在某个 $n$，使得 $(P^n)_{ij} > 0$。</p>
+</li>
+<li>
+<p><strong>常返/暂留</strong>：</p>
+<ul>
+<li><strong>常返 (Recurrent)</strong>：从 $i$ 出发，最终必然返回 $i$。</li>
+<li><strong>暂留 (Transient)</strong>：有非零概率永远不返回。</li>
+</ul>
+</li>
+<li>
+<p><strong>不可约 (Irreducible)</strong>：所有状态两两可达 → 链是一个整体。</p>
+</li>
+<li>
+<p><strong>周期性 (Periodicity)</strong>：</p>
+<ul>
+<li>状态 $i$ 的周期：$\gcd\{ n : (P^n)_{ii} > 0 \}$。</li>
+<li>若周期 = 1，则为 <strong>非周期 (aperiodic)</strong>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="遍历定理-ergodic-theorem">遍历定理 (Ergodic Theorem)</h2>
+<ul>
+<li>
+<p><strong>定理</strong>：
+对一个有限马尔可夫链，如果它是 <strong>不可约</strong> 且 <strong>非周期</strong>，则存在唯一平稳分布 $\pi$，并且：</p>
+$$
+  \lim_{n \to \infty} P(X_n = j \mid X_0 = i) = \pi_j \quad \forall i,j
+  $$<p>同时，时间平均收敛到概率平均：</p>
+$$
+  \frac{1}{N}\sum_{t=1}^N \mathbf{1}_{\{X_t=j\}} \to \pi_j
+  $$</li>
+</ul>
+<h2 id="混合时间-mixing-time">混合时间 (Mixing Time)</h2>
+<blockquote>
+<p>收敛速度的度量</p></blockquote>
+<ul>
+<li>
+<p><strong>定义</strong>：链从初始分布 $\mu$ 到接近平稳分布所需的时间。</p>
+</li>
+<li>
+<p>常用距离：<strong>全变差距离 (total variation distance)</strong></p>
+$$
+  d(t) = \max_\mu \| \mu P^t - \pi \|_{TV}
+  $$</li>
+<li>
+<p>混合时间：最小 $t$，使得 $d(t) \leq \epsilon$。</p>
+</li>
+</ul>
+<h2 id="示例-1">示例</h2>
+<h3 id="示例-1两状态马尔可夫链">示例 1：两状态马尔可夫链</h3>
+<blockquote>
+<p>最简单的演示，清晰看到收敛到平稳分布。</p></blockquote>
+<p>转移矩阵：</p>
+$$
+P = \begin{bmatrix}
+0.9 & 0.1 \\
+0.5 & 0.5
+\end{bmatrix}
+$$<h4 id="a-平稳分布">(a) 平稳分布</h4>
+<p>解方程：</p>
+$$
+\pi P = \pi
+$$<p>即：</p>
+$$
+\pi_0 = 0.9\pi_0 + 0.5\pi_1 \quad\Rightarrow\quad 0.1\pi_0 = 0.5\pi_1
+$$<p>结合 $\pi_0 + \pi_1 = 1$，解得：</p>
+$$
+\pi = (0.833..., \; 0.166...)
+$$<h4 id="b-性质分析">(b) 性质分析</h4>
+<ul>
+<li><strong>不可约</strong>。因为两个状态互相可达（两行都含非零对向转移）。</li>
+<li><strong>非周期</strong>：因为 $P_{00}>0, P_{11}>0$（有自环），可保持在原状态 → 周期 = 1</li>
+</ul>
+<p>综上，根据<strong>遍历定理</strong>，该有限马尔可夫链是<strong>遍历的（ergodic）</strong>，即存在唯一平稳分布，且从任意初值都会收敛到它。</p>
+<h4 id="c-收敛过程">(c) 收敛过程</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">0.9</span>, <span style="color:#ae81ff">0.1</span>],
+</span></span><span style="display:flex;"><span>              [<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>]])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 初始分布</span>
+</span></span><span style="display:flex;"><span>mu <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>])  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>distributions <span style="color:#f92672">=</span> [mu]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">20</span>):
+</span></span><span style="display:flex;"><span>    mu <span style="color:#f92672">=</span> mu <span style="color:#f92672">@</span> P
+</span></span><span style="display:flex;"><span>    distributions<span style="color:#f92672">.</span>append(mu)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>distributions <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(distributions)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(distributions[:,<span style="color:#ae81ff">0</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Pr[state=0]&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(distributions[:,<span style="color:#ae81ff">1</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Pr[state=1]&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">0.833</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;π0&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">0.167</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;π1&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">0.7</span>, <span style="color:#e6db74">&#34;从状态 0 出发，概率分布逐步收敛到 (0.833, 0.167)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Step&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Convergence to Stationary Distribution&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_13_0.png" alt="png"></p>
+<h3 id="示例-2三状态马尔可夫链">示例 2：三状态马尔可夫链</h3>
+<blockquote>
+<p>展示了更复杂链中平稳分布的存在性和唯一性。</p></blockquote>
+<p>转移矩阵：</p>
+$$
+P = \begin{bmatrix}
+0.5 & 0.5 & 0.0 \\
+0.2 & 0.5 & 0.3 \\
+0.0 & 0.3 & 0.7
+\end{bmatrix}
+$$<ul>
+<li><strong>不可约</strong>：所有状态可互相到达。</li>
+<li><strong>非周期</strong>：存在自循环概率 $P_{ii} > 0$。</li>
+<li><strong>平稳分布</strong>：解 $\pi P = \pi$，得到唯一 $\pi$。</li>
+<li><strong>长期行为</strong>：所有初始分布都会收敛到 $\pi$。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 三状态马尔可夫链转移矩阵</span>
+</span></span><span style="display:flex;"><span>P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.0</span>],
+</span></span><span style="display:flex;"><span>              [<span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.3</span>],
+</span></span><span style="display:flex;"><span>              [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.7</span>]])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 初始分布（全部在状态0）</span>
+</span></span><span style="display:flex;"><span>mu <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算平稳分布：解 pi P = pi</span>
+</span></span><span style="display:flex;"><span>eigvals, eigvecs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>eig(P<span style="color:#f92672">.</span>T)
+</span></span><span style="display:flex;"><span>stat_dist <span style="color:#f92672">=</span> eigvecs[:, np<span style="color:#f92672">.</span>isclose(eigvals, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>stat_dist <span style="color:#f92672">=</span> stat_dist[:,<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>stat_dist <span style="color:#f92672">=</span> stat_dist <span style="color:#f92672">/</span> stat_dist<span style="color:#f92672">.</span>sum()  <span style="color:#75715e"># 归一化</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Stationary distribution:&#34;</span>, stat_dist<span style="color:#f92672">.</span>real)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 迭代分布演化</span>
+</span></span><span style="display:flex;"><span>distributions <span style="color:#f92672">=</span> [mu]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">30</span>):
+</span></span><span style="display:flex;"><span>    mu <span style="color:#f92672">=</span> mu <span style="color:#f92672">@</span> P
+</span></span><span style="display:flex;"><span>    distributions<span style="color:#f92672">.</span>append(mu)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>distributions <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(distributions)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘图</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(distributions[:, i], label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Pr[state=</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">]&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>axhline(stat_dist[i]<span style="color:#f92672">.</span>real, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.8</span>, <span style="color:#e6db74">&#34;从初始状态全在 0 出发，</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">随着步数增加，概率分布逐渐收敛到这组平稳分布；</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">横虚线表示平稳分布值。&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Step&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Convergence of 3-State Markov Chain&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Stationary distribution: [0.16666667 0.41666667 0.41666667]
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_15_1.png" alt="png"></p>
+<h3 id="示例-3环形随机游走-random-walk-on-a-cycle">示例 3：环形随机游走 (Random Walk on a Cycle)</h3>
+<blockquote>
+<p>展示了 <strong>周期性</strong> 对收敛性的影响。</p></blockquote>
+<ul>
+<li>
+<p>状态：$\{0,1,2,\dots,n-1\}$。</p>
+</li>
+<li>
+<p>转移规则：从当前位置 $i$，以概率 0.5 移动到 $(i−1)\bmod n$，以概率 0.5 移动到 $(i+1)\bmod n$。即</p>
+$$
+  P(i \to i+1 \bmod n) = 0.5, \quad P(i \to i-1 \bmod n) = 0.5
+  $$</li>
+<li>
+<p><strong>不可约</strong>：从任意状态可到任意状态。</p>
+</li>
+<li>
+<p><strong>周期性</strong>：如果 $n$ 是偶数，则周期 = 2；如果 $n$ 是奇数，则非周期。</p>
+</li>
+<li>
+<p><strong>平稳分布</strong>：均匀分布 $\pi_i = 1/n$。</p>
+</li>
+<li>
+<p><strong>收敛性</strong>：</p>
+<ul>
+<li>若 $n$ 奇数 → 链是不可约且非周期 → 收敛到均匀分布。</li>
+<li>若 $n$ 偶数 → 链有周期性（周期=2） → 链会在“奇数/偶数类”之间来回跳，无法收敛到均匀分布。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ring_rw_transition_matrix</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;生成 n 状态的环形随机游走转移矩阵&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n, n))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        P[i, (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span>n] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>        P[i, (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span>n] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> P
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simulate_chain</span>(P, steps<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, start_state<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;从单点分布开始，计算分布演化&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> P<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    mu <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(n)
+</span></span><span style="display:flex;"><span>    mu[start_state] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>    distributions <span style="color:#f92672">=</span> [mu]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(steps):
+</span></span><span style="display:flex;"><span>        mu <span style="color:#f92672">=</span> mu <span style="color:#f92672">@</span> P
+</span></span><span style="display:flex;"><span>        distributions<span style="color:#f92672">.</span>append(mu)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(distributions)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 参数</span>
+</span></span><span style="display:flex;"><span>steps <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>P5 <span style="color:#f92672">=</span> ring_rw_transition_matrix(<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>P6 <span style="color:#f92672">=</span> ring_rw_transition_matrix(<span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 模拟</span>
+</span></span><span style="display:flex;"><span>dist5 <span style="color:#f92672">=</span> simulate_chain(P5, steps)
+</span></span><span style="display:flex;"><span>dist6 <span style="color:#f92672">=</span> simulate_chain(P6, steps)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 平稳分布（对于奇数 n，均匀分布；偶数情况不存在唯一收敛）</span>
+</span></span><span style="display:flex;"><span>pi5 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">5</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>pi6 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">6</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘图</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">8</span>), sharex<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># n=5</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+</span></span><span style="display:flex;"><span>    axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>plot(dist5[:, i], label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;state </span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>hlines(pi5, <span style="color:#ae81ff">0</span>, steps, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Ring Random Walk (n=5, odd → converges to uniform)&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># n=6</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">6</span>):
+</span></span><span style="display:flex;"><span>    axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>plot(dist6[:, i], label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;state </span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>hlines(pi6, <span style="color:#ae81ff">0</span>, steps, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Ring Random Walk (n=6, even → oscillates)&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#34;Step&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_17_0.png" alt="png"></p>
+<h3 id="示例-4-混合时间-mixing-time-的数值度量比如-total-variation-distance-收敛速度">示例 4: 混合时间 (Mixing Time) 的数值度量（比如 total variation distance 收敛速度）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Simulate Markov chains and compute total variation distance (TV) to the stationary distribution.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># We will:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define several transition matrices (fast/slow 3-state, cycle random walks n=5 and n=6).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Compute TV distance over time starting from state 0.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Compute mixing times tau(epsilon) for epsilons = [0.1, 0.01, 0.001].</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Plot TV vs time for comparisons and show a table of mixing times.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Note: Plots use matplotlib (no seaborn) and each figure is a single plot as requested.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">stationary_from_P</span>(P):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># solve pi = pi P  with sum(pi)=1  -&gt; transpose eigenvector of P^T for eigenvalue 1</span>
+</span></span><span style="display:flex;"><span>    w, v <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>eig(P<span style="color:#f92672">.</span>T)
+</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>argmin(np<span style="color:#f92672">.</span>abs(w <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.0</span>))
+</span></span><span style="display:flex;"><span>    pi <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>real(v[:, idx])
+</span></span><span style="display:flex;"><span>    pi <span style="color:#f92672">=</span> pi <span style="color:#f92672">/</span> pi<span style="color:#f92672">.</span>sum()
+</span></span><span style="display:flex;"><span>    pi <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>maximum(pi, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    pi <span style="color:#f92672">=</span> pi <span style="color:#f92672">/</span> pi<span style="color:#f92672">.</span>sum()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pi
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tv_distance</span>(p, q):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sum(np<span style="color:#f92672">.</span>abs(p <span style="color:#f92672">-</span> q))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tv_curve</span>(P, p0, t_max):
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> P<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    pis <span style="color:#f92672">=</span> stationary_from_P(P)
+</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> p0<span style="color:#f92672">.</span>copy()
+</span></span><span style="display:flex;"><span>    tvs <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(t_max <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        tvs<span style="color:#f92672">.</span>append(tv_distance(p, pis))
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> p <span style="color:#f92672">@</span> P
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(tvs), pis
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mixing_time_from_tvs</span>(tvs, eps):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># minimal t such that tvs[t] &lt;= eps</span>
+</span></span><span style="display:flex;"><span>    below <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(tvs <span style="color:#f92672">&lt;=</span> eps)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> int(below[<span style="color:#ae81ff">0</span>]) <span style="color:#66d9ef">if</span> below<span style="color:#f92672">.</span>size <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> np<span style="color:#f92672">.</span>nan
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define chains</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3-state fast chain</span>
+</span></span><span style="display:flex;"><span>P_fast <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.6</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.1</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.6</span>, <span style="color:#ae81ff">0.2</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.6</span>]
+</span></span><span style="display:flex;"><span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3-state slow chain (more &#34;sticky&#34; on state 0)</span>
+</span></span><span style="display:flex;"><span>P_slow <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.9</span>, <span style="color:#ae81ff">0.08</span>, <span style="color:#ae81ff">0.02</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.1</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.15</span>, <span style="color:#ae81ff">0.15</span>, <span style="color:#ae81ff">0.7</span>]
+</span></span><span style="display:flex;"><span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Cycle random walk</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cycle_P</span>(n):
+</span></span><span style="display:flex;"><span>    P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n, n))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        P[i, (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> n] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>        P[i, (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> n] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> P
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>P_cycle5 <span style="color:#f92672">=</span> cycle_P(<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>P_cycle6 <span style="color:#f92672">=</span> cycle_P(<span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># initial distribution: start at state 0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">e0</span>(n): 
+</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(n); v[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>; <span style="color:#66d9ef">return</span> v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t_max <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># compute tv curves</span>
+</span></span><span style="display:flex;"><span>tvs_fast, pi_fast <span style="color:#f92672">=</span> tv_curve(P_fast, e0(<span style="color:#ae81ff">3</span>), t_max)
+</span></span><span style="display:flex;"><span>tvs_slow, pi_slow <span style="color:#f92672">=</span> tv_curve(P_slow, e0(<span style="color:#ae81ff">3</span>), t_max)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tvs_c5, pi_c5 <span style="color:#f92672">=</span> tv_curve(P_cycle5, e0(<span style="color:#ae81ff">5</span>), t_max)
+</span></span><span style="display:flex;"><span>tvs_c6, pi_c6 <span style="color:#f92672">=</span> tv_curve(P_cycle6, e0(<span style="color:#ae81ff">6</span>), t_max)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># compute mixing times for selected epsilons</span>
+</span></span><span style="display:flex;"><span>epsilons <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1e-1</span>, <span style="color:#ae81ff">1e-2</span>, <span style="color:#ae81ff">1e-3</span>]
+</span></span><span style="display:flex;"><span>rows <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> name, tvs <span style="color:#f92672">in</span> [
+</span></span><span style="display:flex;"><span>    (<span style="color:#e6db74">&#34;3-state fast&#34;</span>, tvs_fast),
+</span></span><span style="display:flex;"><span>    (<span style="color:#e6db74">&#34;3-state slow&#34;</span>, tvs_slow),
+</span></span><span style="display:flex;"><span>    (<span style="color:#e6db74">&#34;cycle n=5&#34;</span>, tvs_c5),
+</span></span><span style="display:flex;"><span>    (<span style="color:#e6db74">&#34;cycle n=6&#34;</span>, tvs_c6)
+</span></span><span style="display:flex;"><span>]:
+</span></span><span style="display:flex;"><span>    entry <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;chain&#34;</span>: name}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> eps <span style="color:#f92672">in</span> epsilons:
+</span></span><span style="display:flex;"><span>        entry[<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;tau(</span><span style="color:#e6db74">{</span>eps<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>] <span style="color:#f92672">=</span> mixing_time_from_tvs(tvs, eps)
+</span></span><span style="display:flex;"><span>    rows<span style="color:#f92672">.</span>append(entry)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df_mix <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(rows)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot 1: 3-state fast vs slow</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(tvs_fast, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;3-state fast&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(tvs_slow, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;3-state slow&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>yscale(<span style="color:#e6db74">&#39;log&#39;</span>)  <span style="color:#75715e"># show both fast and slow clearly on log scale</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;time t&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;TV distance (log scale)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Total Variation distance: 3-state fast vs slow (start at state 0)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot 2: cycle n=5 vs n=6</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(tvs_c5, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cycle n=5&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(tvs_c6, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cycle n=6&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>yscale(<span style="color:#e6db74">&#39;log&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;time t&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;TV distance (log scale)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Total Variation distance: cycle random walk n=5 vs n=6 (start at state 0)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Also print stationary distributions for reference</span>
+</span></span><span style="display:flex;"><span>pi_table <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame({
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;chain&#34;</span>: [<span style="color:#e6db74">&#34;3-state fast&#34;</span>, <span style="color:#e6db74">&#34;3-state slow&#34;</span>, <span style="color:#e6db74">&#34;cycle n=5&#34;</span>, <span style="color:#e6db74">&#34;cycle n=6&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;stationary&#34;</span>: [pi_fast, pi_slow, pi_c5, pi_c6]
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>pi_table[<span style="color:#e6db74">&#39;stationary_str&#39;</span>] <span style="color:#f92672">=</span> pi_table[<span style="color:#e6db74">&#39;stationary&#39;</span>]<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> x: np<span style="color:#f92672">.</span>array2string(x, precision<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, separator<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;, &#39;</span>))
+</span></span><span style="display:flex;"><span>pi_table <span style="color:#f92672">=</span> pi_table[[<span style="color:#e6db74">&#39;chain&#39;</span>,<span style="color:#e6db74">&#39;stationary_str&#39;</span>]]
+</span></span><span style="display:flex;"><span>display(<span style="color:#e6db74">&#34;Stationary distributions&#34;</span>, pi_table)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_19_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_19_1.png" alt="png"></p>
+<pre><code>'Stationary distributions'
+</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>chain</th>
+      <th>stationary_str</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3-state fast</td>
+      <td>[0.2857, 0.4286, 0.2857]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3-state slow</td>
+      <td>[0.6466, 0.2328, 0.1207]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>cycle n=5</td>
+      <td>[0.2, 0.2, 0.2, 0.2, 0.2]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>cycle n=6</td>
+      <td>[0.1667, 0.1667, 0.1667, 0.1667, 0.1667, 0.1667]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
+            
+          </div>
         
 
         
@@ -468,6 +1097,25 @@
 
         
           
+            
+          
+
+          
+                  <h4 class="see-also">也可以看看</h4>
+                  <ul>
+                
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/monte-carlo/">蒙特卡洛方法</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/probability/">什么是概率？</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/random-variables/">随机变量和采样</a></li>
+                
+                    <li><a href="/zh-cn/post/python-geodata/01-intro/">第 1 课：遥感数据与 Python 环境入门</a></li>
+                
+                    <li><a href="/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/">【课程笔记】概率论与数理统计｜随机事件及其概率</a></li>
+                
+              </ul>
 
           
         
@@ -480,10 +1128,6 @@
               <a href="http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/" data-toggle="tooltip" data-placement="top" title="蒙特卡洛方法">&larr; 前一篇</a>
             </li>
           
-          
-            <li class="next">
-              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/" data-toggle="tooltip" data-placement="top" title="Metropolis-Hastings 算法">后一篇 &rarr;</a>
-            </li>
           
         </ul>
       
