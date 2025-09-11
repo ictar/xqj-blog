@@ -14,25 +14,7 @@
 
       <title>MCMC 初识 - </title>
 
-  <meta name="description" content="
-    目录
-    
-  
-    
-      
-        基本概念
-        图示说明（Mermaid）
-        示例代码（可选）
-        小结
-        延伸阅读
-      
-    
-  
-
-  
-
-基本概念
-这里介绍该部分的定义、背景、公式。">
+  <meta name="description" content="我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。">
   <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -81,13 +63,13 @@
     "name" : "Qiongjie.X"
   },
   "headline": "MCMC 初识",
-  "description" : " 目录 基本概念 图示说明（Mermaid） 示例代码（可选） 小结 延伸阅读 基本概念 这里介绍该部分的定义、背景、公式。\n",
+  "description" : "我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样\/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。",
   "inLanguage" : "zh-cn",
-  "wordCount":  30 ,
-  "datePublished" : "2025-08-02T00:00:00\u002b00:00",
-  "dateModified" : "2025-08-02T00:00:00\u002b00:00",
+  "wordCount":  677 ,
+  "datePublished" : "2025-08-22T00:00:00\u002b00:00",
+  "dateModified" : "2025-08-22T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
-  "keywords" : [ "" ],
+  "keywords" : [ "蒙特卡洛, 马尔可夫链, 采样, 数学, python" ],
   "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/intro-mcmc\/",
   "publisher" : {
     "@type": "Organization",
@@ -104,50 +86,14 @@
 
 
 <meta property="og:title" content="MCMC 初识" />
-<meta property="og:description" content="
-    目录
-    
-  
-    
-      
-        基本概念
-        图示说明（Mermaid）
-        示例代码（可选）
-        小结
-        延伸阅读
-      
-    
-  
-
-  
-
-基本概念
-这里介绍该部分的定义、背景、公式。">
+<meta property="og:description" content="我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
 <meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="琼呀" />
 
   <meta name="twitter:title" content="MCMC 初识" />
-  <meta name="twitter:description" content="
-    目录
-    
-  
-    
-      
-        基本概念
-        图示说明（Mermaid）
-        示例代码（可选）
-        小结
-        延伸阅读
-      
-    
-  
-
-  
-
-基本概念
-这里介绍该部分的定义、背景、公式。">
+  <meta name="twitter:description" content="我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -345,11 +291,11 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 2, 2025
+  <i class="fas fa-calendar"></i>&nbsp;发表于 August 22, 2025
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;30&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;677&nbsp;个字
   
   
   
@@ -376,37 +322,389 @@
     <h2>目录</h2>
     <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#为什么我们需要-mcmc">为什么我们需要 MCMC？</a>
       <ul>
-        <li><a href="#基本概念">基本概念</a></li>
-        <li><a href="#图示说明mermaid">图示说明（Mermaid）</a></li>
-        <li><a href="#示例代码可选">示例代码（可选）</a></li>
-        <li><a href="#小结">小结</a></li>
-        <li><a href="#延伸阅读">延伸阅读</a></li>
+        <li><a href="#示例">示例</a></li>
       </ul>
     </li>
+    <li><a href="#从马尔可夫链到抽样">从马尔可夫链到抽样</a>
+      <ul>
+        <li><a href="#把抽样问题变成造一条链">把抽样问题变成“造一条链”</a></li>
+        <li><a href="#保证能到达无周期会遗忘起点">保证“能到达、无周期、会遗忘起点”</a></li>
+        <li><a href="#为什么未归一化也行">为什么“未归一化也行”</a></li>
+        <li><a href="#示例-1">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#理论与直觉">理论与直觉</a>
+      <ul>
+        <li><a href="#详细平衡reversibility与平稳">详细平衡（reversibility）与平稳</a></li>
+        <li><a href="#收敛遍历定理llnclt">收敛：遍历定理、LLN、CLT</a></li>
+        <li><a href="#混合时间谱间隙与几何收敛">混合时间、谱间隙与几何收敛</a></li>
+        <li><a href="#burn-inthinning诊断从理论到实践">Burn-in、Thinning、诊断（从理论到实践）</a></li>
+        <li><a href="#为什么-mcmc-会既能走又能停在高密度区">为什么 MCMC 会“既能走、又能停在高密度区”</a></li>
+        <li><a href="#示例-2">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#实践层面的关键信号灯不涉及具体算法">实践层面的关键信号灯（不涉及具体算法）</a></li>
+    <li><a href="#小结">小结</a></li>
   </ul>
 </nav>
   </aside>
 
-<h2 id="基本概念">基本概念</h2>
-<p>这里介绍该部分的定义、背景、公式。</p>
-<h2 id="图示说明mermaid">图示说明（Mermaid）</h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">flowchart TD
-    Start --&gt; Step1 --&gt; Step2 --&gt; End
-</code></pre><h2 id="示例代码可选">示例代码（可选）</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 示例代码</span>
-</span></span></code></pre></div><h2 id="小结">小结</h2>
-<p>本节简要回顾。</p>
-<hr>
-<h2 id="延伸阅读">延伸阅读</h2>
+<h1 id="为什么我们需要-mcmc">为什么我们需要 MCMC？</h1>
+<blockquote>
+<p>一言蔽之，因为很多分布只知道未归一化形式，传统抽样/积分方法失效。</p></blockquote>
+<p><strong>目标</strong>：从复杂分布 $\pi(x)$（常常只是“<strong>未归一化</strong>”的 $\tilde\pi(x)\propto \pi(x)$）中抽样，或计算期望/边际：</p>
+$$
+\mathbb{E}_\pi[f(X)] \;=\; \int f(x)\,\pi(x)\,dx.
+$$<p><strong>现实里难点</strong>：</p>
 <ul>
-<li>文献1</li>
-<li>博客2</li>
+<li><strong>高维性</strong>：维度一高，网格/数值积分指数爆炸；</li>
+<li><strong>归一化常数未知</strong>：贝叶斯里后验 $\pi(\theta\mid y)\propto p(y\mid \theta)p(\theta)$ 的分母 $p(y)=\int p(y\mid \theta)p(\theta)\,d\theta$ 常算不出；</li>
+<li><strong>多峰/强相关</strong>：拒绝采样、重要性采样的方差会非常大或“权重退化”。</li>
+</ul>
+<p><strong>Monte Carlo 的核心思路</strong>：有了样本 $x^{(1)},\dots,x^{(T)}\sim \pi$，就能用样本均值</p>
+$$
+\frac{1}{T}\sum_{t=1}^T f\!\big(x^{(t)}\big)
+$$<p>近似 $\mathbb{E}_\pi[f(X)]$。问题是<strong>如何从 $\pi$ 抽样</strong>？这正是 <strong>MCMC</strong> 要解决的：<strong>不要求知道归一化常数、只需能计算 $\tilde\pi(x)$（或其对数）</strong>，就能构造一个“会长期停在 $\pi$”的随机过程来取样。</p>
+<p><strong>MCMC 与其它路线的对比</strong>（直觉层面）：</p>
+<ul>
+<li><strong>变分推断（VI）</strong>：快、可扩展，但用“可解的近似族”逼近，存在<strong>近似偏差</strong>；</li>
+<li><strong>SMC/粒子法</strong>：适合序贯问题，但设计与退火/重采样较复杂；</li>
+<li><strong>MCMC</strong>：<strong>渐近无偏</strong>（跑得够久可以任意逼近 $\pi$），但样本<strong>相关</strong>、计算可能昂贵，需要诊断与调参。</li>
+</ul>
+<h2 id="示例">示例</h2>
+<p>假设我们想从下面的分布采样：</p>
+$$
+\pi(x) \propto e^{-x^4}, \quad x \in \mathbb{R}.
+$$<ul>
+<li>这是个“超级尖”的单峰分布。</li>
+<li>没有归一化常数 $Z=\int e^{-x^4}\,dx$，手工算不出来。</li>
+<li>想计算期望 $\mathbb{E}[X^2]$。</li>
+</ul>
+<p>👉 <strong>问题</strong>：</p>
+<ul>
+<li>直接积分没法做（解析不可解）。</li>
+<li>拒绝采样需要一个“合适的包络函数”，但这里分布尾部特别重，难找。</li>
+</ul>
+<p>👉 <strong>直观结论</strong>：
+这就是 <strong>MCMC 登场的场景</strong>：我们只要能计算 $\tilde\pi(x)=e^{-x^4}$，即未归一化密度，就能设计一个马尔可夫链来收敛到它。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 画出e^{-x^4} 分布的图像</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 自变量范围（-5 到 5 基本能看到主要形状）</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4001</span>) 
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>x<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x, y, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Curve of $e^{-x^4}$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;$e^{-x^4}$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, ls<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 归一化 e^{-x^4} 使其成为概率密度函数 (PDF)</span>
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>trapezoid(y, x)                    <span style="color:#75715e"># 数值积分</span>
+</span></span><span style="display:flex;"><span>pdf <span style="color:#f92672">=</span> y <span style="color:#f92672">/</span> Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x, pdf, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Normalized $e^{-x^4}$ (PDF)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Normalized PDF from $e^{-x^4}$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Density&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, ls<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/5_intro-mcmc/5_mcmc_intro_3_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/5_intro-mcmc/5_mcmc_intro_3_1.png" alt="png"></p>
+<h1 id="从马尔可夫链到抽样">从马尔可夫链到抽样</h1>
+<blockquote>
+<blockquote>
+<p>一言蔽之，通过构造“正确的马尔可夫链”，让它的平稳分布就是目标分布；轨迹的长期分布 ≈ 目标分布。</p></blockquote></blockquote>
+<h2 id="把抽样问题变成造一条链">把抽样问题变成“造一条链”</h2>
+<p>设状态空间 $\mathsf{X}$，想要样本来自目标分布 $\pi$。我们不直接抽样，而是<strong>构造转移核</strong> $P(x,A)=\Pr(X_{t+1}\in A\mid X_t=x)$，使得 $\pi$ 是它的<strong>平稳分布</strong>（stationary/invariant）：</p>
+$$
+\pi(A) \;=\; \int_{\mathsf{X}} \pi(dx)\,P(x,A),\quad \forall A.
+$$<p>直觉：<strong>如果你在 $\pi$ 下随机抽一个起点，然后按 $P$ 走一步，分布不变</strong>。如此“分布不变”的随机游走，一直走、一直停留在 $\pi$ 上。</p>
+<h2 id="保证能到达无周期会遗忘起点">保证“能到达、无周期、会遗忘起点”</h2>
+<p>仅有“平稳”不够；我们还需要这条链<strong>收敛到</strong> $\pi$。常见充分条件：</p>
+<ul>
+<li><strong>不可约</strong>（irreducible）：从任何地方都有正概率在有限步内到达任何“有质量”的区域；</li>
+<li><strong>非周期</strong>（aperiodic）：不被固定的周期卡住；</li>
+<li>合理的“返归/复现性”（Harris recurrence 等技术条件）。</li>
+</ul>
+<p>有了这些，经典结果告诉我们：无论初始分布如何，随着时间 $t\to\infty$，分布 $P^t(x_0,\cdot)$ <strong>在 total variation 距离下</strong>收敛到 $\pi$：</p>
+$$
+\big\|P^t(x_0,\cdot)-\pi\big\|_{\mathrm{TV}}\to 0.
+$$<p>于是，<strong>丢掉前期样本（burn-in）</strong>，后续轨迹近似来自 $\pi$。</p>
+<h2 id="为什么未归一化也行">为什么“未归一化也行”</h2>
+<p>很多 MCMC 构造只需要比例 $\tilde\pi(x)\propto \pi(x)$。原因在于<strong>详细平衡/可逆性</strong>（见下一节）：只用<strong>比值</strong> $\tilde\pi(y)/\tilde\pi(x)$ 就能保证“对称流量”相等，从而得到 $\pi$ 为平稳分布。<strong>无需 $Z$</strong> 是 MCMC 的关键优势。</p>
+<h2 id="示例-1">示例</h2>
+<p>为了避免引入具体算法，我们先用<strong>最熟悉的分布：均匀分布</strong>来说明。</p>
+<p>设目标分布是</p>
+$$
+\pi(x) = \text{Uniform}\{1,2,3\}.
+$$<p>我们设计一个马尔可夫链：</p>
+<ul>
+<li>从 1、2、3 这三个状态中游走；</li>
+<li>在每个位置，都等概率跳到另一个位置；</li>
+<li>例如在 1 时，以 0.5 概率跳到 2，以 0.5 概率跳到 3。</li>
+</ul>
+<p>👉 这个转移矩阵 P：</p>
+$$
+P=\begin{bmatrix}
+0 & 0.5 & 0.5 \\
+0.5 & 0 & 0.5 \\
+0.5 & 0.5 & 0
+\end{bmatrix}.
+$$<p>我们来跑一下，看它分布如何演化。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 转移矩阵 P</span>
+</span></span><span style="display:flex;"><span>P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.5</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.0</span>]
+</span></span><span style="display:flex;"><span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 初始分布：全在 state 1</span>
+</span></span><span style="display:flex;"><span>dist <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>])
+</span></span><span style="display:flex;"><span>history <span style="color:#f92672">=</span> [dist]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 演化 20 步</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">20</span>):
+</span></span><span style="display:flex;"><span>    dist <span style="color:#f92672">=</span> dist <span style="color:#f92672">@</span> P
+</span></span><span style="display:flex;"><span>    history<span style="color:#f92672">.</span>append(dist)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>history <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(history)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 理论平稳分布（均匀）</span>
+</span></span><span style="display:flex;"><span>pi <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘图</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(history[:,i], label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;State </span><span style="color:#e6db74">{</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(pi[<span style="color:#ae81ff">0</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;k&#34;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Stationary dist.&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Step&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Markov chain approaching uniform distribution&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/5_intro-mcmc/5_mcmc_intro_6_0.png" alt="png"></p>
+<p>可以看到：</p>
+<ul>
+<li>一开始分布全在 <strong>state 1</strong>；</li>
+<li>随着转移步数增加，三条曲线逐渐趋近于 $1/3$；</li>
+<li>最终收敛到平稳分布（均匀分布）。</li>
+</ul>
+<p>👉 <strong>直觉</strong>：
+马尔可夫链的“走动”让我们即使不直接从 $\pi$ 抽样，也能靠“<strong>长期停留比例</strong>”实现从 $\pi$ 取样。</p>
+<h1 id="理论与直觉">理论与直觉</h1>
+<blockquote>
+<p>为什么可行、为何会收敛</p>
+<p>一言蔽之，</p>
+<ul>
+<li>平稳分布存在，且满足详细平衡 → 正确性。</li>
+<li>收敛速度（混合时间）影响样本质量。</li>
+<li>自相关越小，ESS 越大，链越“高效”。</li>
+</ul></blockquote>
+<h2 id="详细平衡reversibility与平稳">详细平衡（reversibility）与平稳</h2>
+<p>若存在 $\pi$ 使得</p>
+$$
+\pi(dx)\,P(x,dy) \;=\; \pi(dy)\,P(y,dx) \quad (\text{对称流量})
+$$<p>则称链对 $\pi$ <strong>可逆</strong>，并可推出 $\pi$ 为平稳分布。</p>
+<p><strong>直觉</strong>：从 $\pi$ 出发，正向一步与“反向一步”的联合分布相同，整体“无净流”，所以稳态“不会被扰动”。</p>
+<blockquote>
+<p>许多 MCMC 算法（MH、Gibbs、HMC 等）都在显式或隐式地构造这种可逆性/不变性。</p></blockquote>
+<h2 id="收敛遍历定理llnclt">收敛：遍历定理、LLN、CLT</h2>
+<p>当链是<strong>遍历的</strong>（不可约、非周期且适当返归），有：</p>
+<ul>
+<li>
+<p><strong>遍历定理 / 马尔可夫链大数定律</strong></p>
+$$
+  \frac{1}{T}\sum_{t=1}^T f(X_t) \;\xrightarrow{a.s.}\; \mathbb{E}_\pi[f(X)].
+  $$<p>这保证了用轨迹均值估计期望是<strong>一致</strong>的。</p>
+</li>
+<li>
+<p><strong>中心极限定理（CLT）</strong>（在几何遍历等条件下）</p>
+$$
+  \sqrt{T}\Big(\bar f_T-\mathbb{E}_\pi[f]\Big)\ \Rightarrow\ \mathcal N\!\Big(0,\ \sigma_f^2\Big),
+  $$<p>其中</p>
+$$
+  \sigma_f^2 \;=\; \mathrm{Var}_\pi(f)\Big(1+2\sum_{k=1}^\infty \rho_k\Big),
+  $$<p>$\rho_k$ 是滞后 $k$ 的自相关。定义<strong>积分自相关时间</strong>（IACT）</p>
+$$
+  \tau_{\text{int}} \;=\; 1+2\sum_{k\ge1}\rho_k,
+  $$<p>则<strong>有效样本量</strong> $\mathrm{ESS}\approx T/\tau_{\text{int}}$。
+<strong>直觉</strong>：相关越强（$\rho_k$ 衰减慢），每个样本<strong>信息量越低</strong>，ESS 越小。</p>
+</li>
+</ul>
+<h2 id="混合时间谱间隙与几何收敛">混合时间、谱间隙与几何收敛</h2>
+<ul>
+<li>
+<p><strong>混合时间</strong>（mixing time）刻画 $P^t$ 到 $\pi$ 的<strong>接近速度</strong>，常用 TV 距离定义：</p>
+$$
+  \tau(\varepsilon)\;=\;\min\{t:\ \sup_{x_0}\|P^t(x_0,\cdot)-\pi\|_{\mathrm{TV}}\le \varepsilon\}.
+  $$</li>
+<li>
+<p>对<strong>有限可逆</strong>链，收敛速度与<strong>谱间隙</strong> $\gamma=1-\lambda_\star$（除 1 外最大特征值 $\lambda_\star$）密切相关：$\tau(\varepsilon)$ 典型地与 $\frac{1}{\gamma}\log(1/\varepsilon)$ 同阶。
+<strong>直觉</strong>：$\gamma$ 大 ⇒ “回忆性弱、遗忘快”，混合更快。</p>
+</li>
+<li>
+<p><strong>导通/瓶颈</strong>（conductance）刻画“跨区穿越难度”，与 $\gamma$ 通过 Cheeger 不等式相关。
+<strong>直觉</strong>：分布多峰、峰间“峡谷”很深 ⇒ 导通小 ⇒ 混合慢（易“困在一个峰”）。</p>
+</li>
+</ul>
+<h2 id="burn-inthinning诊断从理论到实践">Burn-in、Thinning、诊断（从理论到实践）</h2>
+<ul>
+<li>
+<p><strong>Burn-in</strong>：前期“还没靠近 $\pi$”的样本会带偏估计，丢弃一段通常更稳妥。</p>
+</li>
+<li>
+<p><strong>Thinning</strong>：为减存储/相关常“隔点取样”，但从方差最小化角度<strong>不一定必要</strong>；很多情况下保留全部样本再用 IACT/ESS 做正确方差估计更好。</p>
+</li>
+<li>
+<p><strong>诊断</strong>（直觉导向）：</p>
+<ul>
+<li><strong>Trace</strong> 是否“游走自如”且无明显漂移；</li>
+<li><strong>ACF/ESS</strong>：相关衰减是否够快；</li>
+<li><strong>多链 R-hat</strong>：多初值链是否混到一起；</li>
+<li><strong>多峰问题</strong>：是否出现“卡峰”（长滞留 + 突然跳峰）的模式。</li>
+</ul>
+</li>
+</ul>
+<h2 id="为什么-mcmc-会既能走又能停在高密度区">为什么 MCMC 会“既能走、又能停在高密度区”</h2>
+<p>把 $\pi$ 看成玻尔兹曼分布：$\pi(x)\propto e^{-U(x)}$，$U(x)=-\log \tilde\pi(x)$ 类似“能量地形”。MCMC 像在地形里<strong>随机热运动</strong>：</p>
+<ul>
+<li>在**低能量（高密度）**区域更愿意停留；</li>
+<li>但通过“扰动/动量/接受-拒绝”等机制，仍有机会<strong>跨越能垒</strong>去探索其它区域；</li>
+<li>只要机制保证<strong>不变分布是 $\pi$</strong>，且链<strong>遍历</strong>，长期统计就会正确。</li>
+</ul>
+<h2 id="示例-2">示例</h2>
+<p>我们造一个“慢混合”的链：</p>
+<ul>
+<li>状态 $\{0,1\}$，</li>
+<li>从 0 出发，以 0.95 概率留在原地，0.05 概率跳到 1；</li>
+<li>从 1 出发同理。</li>
+</ul>
+<p>👉 虽然它的平稳分布仍是均匀 $[0.5,0.5]$，但“相关性”很强。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 构造二状态链（黏滞性强）</span>
+</span></span><span style="display:flex;"><span>P_slow <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.95</span>, <span style="color:#ae81ff">0.05</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.95</span>]
+</span></span><span style="display:flex;"><span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 模拟轨迹</span>
+</span></span><span style="display:flex;"><span>T <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(T, dtype<span style="color:#f92672">=</span>int)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, T):
+</span></span><span style="display:flex;"><span>    x[t] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice([<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], p<span style="color:#f92672">=</span>P_slow[x[t<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算自相关函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">autocorr</span>(x, lag):
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(x)
+</span></span><span style="display:flex;"><span>    x_mean <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(x)
+</span></span><span style="display:flex;"><span>    num <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum((x[:n<span style="color:#f92672">-</span>lag]<span style="color:#f92672">-</span>x_mean)<span style="color:#f92672">*</span>(x[lag:]<span style="color:#f92672">-</span>x_mean)) <span style="color:#75715e"># 自协方差</span>
+</span></span><span style="display:flex;"><span>    den <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum((x<span style="color:#f92672">-</span>x_mean)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#75715e"># 方差</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> num<span style="color:#f92672">/</span>den
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>lags <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>acfs <span style="color:#f92672">=</span> [autocorr(x, lag) <span style="color:#66d9ef">for</span> lag <span style="color:#f92672">in</span> lags]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘图</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>bar(lags, acfs)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Lag&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Autocorrelation&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;ACF of slow-mixing 2-state chain&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/5_intro-mcmc/5_mcmc_intro_10_0.png" alt="png"></p>
+<p>这里你能看到：</p>
+<ul>
+<li>自相关函数 (ACF) <strong>衰减非常慢</strong>；</li>
+<li>意味着相邻样本高度依赖，<strong>有效样本数 (ESS)</strong> 远小于总步数。</li>
+</ul>
+<p>👉 <strong>直觉总结</strong>：</p>
+<ul>
+<li>马尔可夫链一定能收敛到平稳分布（如果条件满足）；</li>
+<li>但“混合速度”不同：有的链走几步就均衡，有的链拖很久；</li>
+<li>在 MCMC 中，<strong>慢混合链的效率差</strong>，得到的样本“信息量少”。</li>
+</ul>
+<h1 id="实践层面的关键信号灯不涉及具体算法">实践层面的关键信号灯（不涉及具体算法）</h1>
+<ol>
+<li>
+<p><strong>只需 $\tilde\pi(x)$</strong>：能算对数密度 up to constant，就能上 MCMC。</p>
+</li>
+<li>
+<p><strong>三件事必须兼顾</strong>：</p>
+<ul>
+<li><strong>不变性</strong>（$\pi$ 是平稳）——不变则长期正确；</li>
+<li><strong>可到达</strong>（不可约/非周期）——到不了就谈不上；</li>
+<li><strong>混合快</strong>（谱间隙/导通/IACT 小）——否则 ESS 太低、代价太大。</li>
+</ul>
+</li>
+<li>
+<p><strong>误差评估</strong>：用 IACT/ESS + 马尔可夫链 CLT 给 MC 方差和置信区间。</p>
+</li>
+<li>
+<p><strong>多峰警告</strong>：多峰 + 高维相关常导致<strong>亚稳态</strong>（metastability），这时要用更“会爬山过谷”的算法或策略（退火、平行温度、梯度方法等）提升导通。</p>
+</li>
+</ol>
+<h1 id="小结">小结</h1>
+<ul>
+<li>
+<p><strong>目的</strong>：从复杂 $\pi$ 估计期望/抽样；<strong>不需要归一化常数</strong>。</p>
+</li>
+<li>
+<p><strong>方法</strong>：造一个链 $P$ 使 $\pi$ 不变（常用<strong>详细平衡</strong>）。</p>
+</li>
+<li>
+<p><strong>条件</strong>：不可约 + 非周期 + 适当返归 ⇒ $P^t\to\pi$。</p>
+</li>
+<li>
+<p><strong>评估</strong>：</p>
+<ul>
+<li>收敛（burn-in 后） + 混合（IACT/ESS、谱间隙、导通）</li>
+<li>诊断：Trace、ACF、R-hat、多链一致性</li>
+</ul>
+</li>
+<li>
+<p><strong>误差</strong>：$\mathrm{ESS}\approx T/\tau_{\text{int}}$，CLT 给置信区间。</p>
+</li>
+<li>
+<p><strong>难点</strong>：多峰/高维相关 ⇒ 混合慢；需要更好的“移动策略”。</p>
+</li>
 </ul>
 
 
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/">蒙特卡洛</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
+            
+          </div>
         
 
         
@@ -468,6 +766,25 @@
 
         
           
+            
+          
+
+          
+                  <h4 class="see-also">也可以看看</h4>
+                  <ul>
+                
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/markov-chains/">理解马尔可夫链</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/monte-carlo/">蒙特卡洛方法</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/probability/">什么是概率？</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/random-variables/">随机变量和采样</a></li>
+                
+                    <li><a href="/zh-cn/post/python-geodata/01-intro/">第 1 课：遥感数据与 Python 环境入门</a></li>
+                
+              </ul>
 
           
         
@@ -477,7 +794,7 @@
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/" data-toggle="tooltip" data-placement="top" title="Metropolis 算法">&larr; 前一篇</a>
+              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/" data-toggle="tooltip" data-placement="top" title="理解马尔可夫链">&larr; 前一篇</a>
             </li>
           
           

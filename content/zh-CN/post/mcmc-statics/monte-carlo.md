@@ -14,7 +14,8 @@ tags: ["采样", "蒙特卡洛", "数学", "python"]
 # 概述
 
 
-**蒙特卡洛方法**是一类利用 **随机数（概率统计方法）** 来求解数学问题、数值积分或复杂模型近似解的算法。
+**蒙特卡洛方法（Monte Carlo）**，也称为统计模拟方法或者随机抽样方法，是一类利用 **随机数（概率统计方法）** 来求解数学问题、数值积分或复杂模型近似解的算法。
+
 其基本思想是：
 
 $$
@@ -286,6 +287,8 @@ plt.show()
 ![png](/img/contents/post/mcmc-statics/3_monte-carlo/3_mcmc_monte-carlo_7_1.png)
     
 
+* 阅读更多
+  * [B站：06-1-蒙特卡罗基本原理](https://www.bilibili.com/video/BV1bE4XeREg1/?share_source=copy_web&vd_source=9cd22f8af6c42d1be5d8dfb23617aae6)
 
 #### 延伸：半径为 $a$ 的圆盘上的采样
 现在圆盘半径不是 1，而是 $a>0$。
