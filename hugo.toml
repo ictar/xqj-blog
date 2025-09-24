@@ -38,6 +38,16 @@ summaryLength = 6
         parent = "post"
         weight = 2
       [[languages.zh-cn.menus.main]]
+        name = "AI 基础系列"
+        url = "post/ai-fundamentals"
+        parent = "post"
+        weight = 3
+      [[languages.zh-cn.menus.main]]
+        name = "GeoAI 系列"
+        url = "post/geoai"
+        parent = "post"
+        weight = 4
+      [[languages.zh-cn.menus.main]]
         name = "项目"
         url = ""
         weight = 2
@@ -91,6 +101,11 @@ summaryLength = 6
       url = "post/mcmc-statics"
       parent = "post"
       weight = 2
+[[menus.main]]
+      name = "GeoAI"
+      url = "post/geoai"
+      parent = "post"
+      weight = 3
 
 [[menu.main]]
     name = "Projects"

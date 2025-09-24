@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>自监督学习 on 琼呀</title>
+    <link>http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/</link>
+    <description>Recent content in 自监督学习 on 琼呀</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

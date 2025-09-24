@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>自监督学习 - </title>
+
+  <meta name="description" content="探索自监督学习方法，如对比学习、聚类、蒸馏与掩码建模，以及它们在 EO 中的应用。">
+  <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼呀",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/localhost:1313\/"
+  
+  
+  
+  
+}
+</script>
+
+<meta property="og:title" content="自监督学习" />
+<meta property="og:description" content="探索自监督学习方法，如对比学习、聚类、蒸馏与掩码建模，以及它们在 EO 中的应用。">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼呀" />
+
+  <meta name="twitter:title" content="自监督学习" />
+  <meta name="twitter:description" content="探索自监督学习方法，如对比学习、聚类、蒸馏与掩码建模，以及它们在 EO 中的应用。">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/zh-cn/">琼呀</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0">文章</a>
+              <div class="navlinks-children">
+                
+                  <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
+                
+                  <a href="/zh-cn/post/ai-fundamentals">AI 基础系列</a>
+                
+                  <a href="/zh-cn/post/geoai">GeoAI 系列</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="项目" href="/zh-cn/">项目</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="笔记" href="/zh-cn/notes">笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="标签" href="/zh-cn/tags">标签</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="关于我" href="/zh-cn/page/about/">关于我</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼呀" href="http://localhost:1313/zh-cn/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="琼呀" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="docs-heading">
+              
+                <h1>自监督学习</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+          <div class="well">
+            <p><img src="/img/contents/post/ai-fundamentals/ssl/ssl_cover.png" alt=""></p>
+<blockquote>
+<p><strong>自监督学习（SSL）<strong>是一种</strong>利用数据的内在特征</strong>（包括光谱、空间和时间特征）<strong>从未标注数据中预训练模型</strong>的方法，它通过设计<strong>借口任务（Pretext Tasks）</strong>（即对数据应用转换并让网络预测数据是如何被转换），从而使模型能够学习有意义的表示（representation）。</p></blockquote>
+<p><strong>为什么要使用自监督学习（SSL）？</strong></p>
+<ul>
+<li>深度学习通常需要大量的标注数据，但是标注数据存在稀缺、获取成本高昂、标注过程繁琐等问题。</li>
+<li>相比之下，<strong>未标注数据非常丰富</strong>，例如卫星档案拥有 PB 级别的数据。</li>
+<li><strong>可迁移性（Transferability）</strong>：预训练模型可以迁移到下游任务中。</li>
+</ul>
+<p><img src="https://miro.medium.com/v2/resize:fit:904/format:webp/1*H550h-HFfQRwKMl7ZcPiFg.png" alt="可迁移性（Transferability）图示"></p>
+<h2 id="ssl-模型">SSL 模型</h2>
+<p>SSL 有<strong>三种主要范式</strong>：</p>
+<h3 id="1-联合嵌入-ssl-joint-embedding-ssl">1. 联合嵌入 SSL (Joint Embedding SSL)</h3>
+<blockquote>
+<p><strong>核心思想</strong>：使用共享参数的 Siamese 架构。通过<strong>数据增强</strong>生成相似图像（视图），强制对增强操作保持不变性（invariance）。</p></blockquote>
+<p><strong>问题</strong>：可能会发生模型<text style="background-color: yellow;">坍塌（Collapsing）</text>，即所有输入映射到几乎相同的向量。</p>
+<p><strong>联合嵌入的自监督学习方法</strong>：</p>
+<ul>
+<li><strong>对比学习方法 (Contrastive Methods)</strong>
+<ul>
+<li>核心思想：将正样本对（同一图像的不同视图/增强）在嵌入空间中拉近，将负样本（不同图像）推开。</li>
+<li>关键特性：需要负样本或大批次大小。</li>
+<li>示例
+<ul>
+<li><strong>SimCLR</strong></li>
+<li><strong>MoCo</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>聚类方法 (Clustering Methods)</strong>
+<ul>
+<li>核心思想：通过将相似样本分组为聚类来学习嵌入，无需明确的负样本。</li>
+<li>关键特性：联合学习表示和聚类分配。</li>
+<li>示例：
+<ul>
+<li><strong>SwAV</strong></li>
+<li><strong>Deep Cluster（非联合嵌入）</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>蒸馏方法 (Distillation Methods)</strong>
+<ul>
+<li>核心思想：一个“<strong>学生</strong>”编码器匹配“<strong>教师</strong>”编码器在增强数据上的输出分布，教师通常通过 EMA (指数移动平均) 更新。</li>
+<li>关键特性：无需负样本，依赖于非对称架构（教师 vs. 学生）来避免坍塌。</li>
+<li>示例：
+<ul>
+<li><strong>BYOL</strong></li>
+<li><strong>DINO</strong>、<strong>DINOv2</strong> 和 <strong>DINOv3</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>正则化方法 (Regularization Methods)</strong>
+<ul>
+<li>核心思想：鼓励嵌入在不同维度之间去相关（maximize information per feature）。</li>
+<li>关键特性：通过惩罚嵌入维度之间的相关性来避免坍塌，无需负样本。</li>
+<li>示例：
+<ul>
+<li><strong>Barlow Twins</strong></li>
+<li><strong>VICReg</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-掩码图像建模-masked-image-modeling-mim">2. 掩码图像建模 (Masked Image Modeling, MIM)</h3>
+<blockquote>
+<p><strong>核心思想</strong>：将图像拆分为图像块，掩盖一个子集 $\mathcal{M}$，并从可见上下文 $x_{\sim \mathcal{M}}$ 中学习。</p>
+<ul>
+<li>一般想法：从可见的图像块中预测缺失的图像块。</li>
+<li>通常使用高掩码比例（约 75%）。</li>
+</ul></blockquote>
+<p><strong>预测目标</strong>：</p>
+<ul>
+<li>像素重构：<strong>MAE (Masked Autoencoders)</strong>、<strong>SimMIM</strong>。</li>
+<li>特征回归：<strong>MaskFeat</strong>。</li>
+<li>Token 预测：<strong>BEiT</strong>。</li>
+</ul>
+<p><strong>特点对比</strong>：</p>
+<ul>
+<li><strong>优点</strong>：概念简单，高效，适合低级下游任务（如去噪、超分辨率）。</li>
+<li><strong>缺点</strong>：对于高级任务（如分类）较弱。</li>
+</ul>
+<h3 id="3-混合掩码--联合嵌入hybrid-masking--joint-embedding">3. 混合（掩码 + 联合嵌入）(Hybrid (Masking + Joint Embedding))</h3>
+<p><strong>示例：</strong></p>
+<ul>
+<li><strong>I-JEPA (Image-based Joint Embedding Predictive Architecture)</strong>。
+<ul>
+<li>核心思想：预测（重构）抽象表示而不是像素。</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        
+        <div class="posts-list">
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          <li>
+            <a href="/zh-cn/post/ai-fundamentals/ssl/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/zh-cn/">琼呀</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

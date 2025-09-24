@@ -12,9 +12,9 @@
     <atom:link href="http://localhost:1313/zh-cn/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>玩转 TerraMind：从理解到微调</title>
-      <link>http://localhost:1313/zh-cn/post/geofm-intro-terramind/</link>
+      <link>http://localhost:1313/zh-cn/post/geoai/geofm-intro-terramind/</link>
       <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/geofm-intro-terramind/</guid>
+      <guid>http://localhost:1313/zh-cn/post/geoai/geofm-intro-terramind/</guid>
       <description>TerraMind 是首个针对地球观测 (EO) 领域提出的大规模、任意到任意（any-to-any）生成式多模态基础模型，它通过结合令牌级别和像素级别的双尺度表示进行预训练，以学习高层上下文信息和精细的空间细节。该模型旨在促进多模态数据整合、提供强大的生成能力并支持零样本和少样本应用，同时在地球观测基准测试中超越现有模型，并通过引入“模态思维”（TiM）进一步提升性能。</description>
     </item>
   </channel>

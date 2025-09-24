@@ -33,5 +33,12 @@
     "years": "2025",
     "coords": [48.2092, 16.3728],
     "type": "work"
+  },
+  {
+    "title": "Benevento",
+    "desc": "I attended the Fourth IADF School on Computer Vision for Earth Observation at the Sant’Agostino campus of the University of Sannio. The program covered topics including Machine Learning in Remote Sensing, Big Geo-Data, Multi-source Image Analysis, SAR Image Analysis, Deep and Interpretable Remote Sensing, Quantum Computing for Earth Observation, Super-resolution, and Sustainable Development Goals.",
+    "years": "2025",
+    "coords": [41.1305, 14.7819],
+    "type": "study"
   }
 ]

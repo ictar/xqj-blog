@@ -1,0 +1,882 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>玩转 TerraMind：从理解到微调 - </title>
+
+  <meta name="description" content="TerraMind 是首个针对地球观测 (EO) 领域提出的大规模、任意到任意（any-to-any）生成式多模态基础模型，它通过结合令牌级别和像素级别的双尺度表示进行预训练，以学习高层上下文信息和精细的空间细节。该模型旨在促进多模态数据整合、提供强大的生成能力并支持零样本和少样本应用，同时在地球观测基准测试中超越现有模型，并通过引入“模态思维”（TiM）进一步提升性能。">
+  <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼呀",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/localhost:1313\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/zh-cn\/post\/geoai\/geofm-intro-terramind\/",
+          "name": "玩转 terra mind：从理解到微调"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "玩转 TerraMind：从理解到微调",
+  "description" : "TerraMind 是首个针对地球观测 (EO) 领域提出的大规模、任意到任意（any-to-any）生成式多模态基础模型，它通过结合令牌级别和像素级别的双尺度表示进行预训练，以学习高层上下文信息和精细的空间细节。该模型旨在促进多模态数据整合、提供强大的生成能力并支持零样本和少样本应用，同时在地球观测基准测试中超越现有模型，并通过引入“模态思维”（TiM）进一步提升性能。",
+  "inLanguage" : "zh-cn",
+  "wordCount":  798 ,
+  "datePublished" : "2025-09-10T00:00:00\u002b00:00",
+  "dateModified" : "2025-09-10T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "GeoFM, terramind, 遥感, AI, 大模型, EO" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/geoai\/geofm-intro-terramind\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+<meta property="og:title" content="玩转 TerraMind：从理解到微调" />
+<meta property="og:description" content="TerraMind 是首个针对地球观测 (EO) 领域提出的大规模、任意到任意（any-to-any）生成式多模态基础模型，它通过结合令牌级别和像素级别的双尺度表示进行预训练，以学习高层上下文信息和精细的空间细节。该模型旨在促进多模态数据整合、提供强大的生成能力并支持零样本和少样本应用，同时在地球观测基准测试中超越现有模型，并通过引入“模态思维”（TiM）进一步提升性能。">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/post/geoai/geofm-intro-terramind/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼呀" />
+
+  <meta name="twitter:title" content="玩转 TerraMind：从理解到微调" />
+  <meta name="twitter:description" content="TerraMind 是首个针对地球观测 (EO) 领域提出的大规模、任意到任意（any-to-any）生成式多模态基础模型，它通过结合令牌级别和像素级别的双尺度表示进行预训练，以学习高层上下文信息和精细的空间细节。该模型旨在促进多模态数据整合、提供强大的生成能力并支持零样本和少样本应用，同时在地球观测基准测试中超越现有模型，并通过引入“模态思维”（TiM）进一步提升性能。">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/zh-cn/">琼呀</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0">文章</a>
+              <div class="navlinks-children">
+                
+                  <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
+                
+                  <a href="/zh-cn/post/ai-fundamentals">AI 基础系列</a>
+                
+                  <a href="/zh-cn/post/geoai">GeoAI 系列</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="项目" href="/zh-cn/">项目</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="笔记" href="/zh-cn/notes">笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="标签" href="/zh-cn/tags">标签</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="关于我" href="/zh-cn/page/about/">关于我</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼呀" href="http://localhost:1313/zh-cn/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="琼呀" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>玩转 TerraMind：从理解到微调</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 September 10, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;798&nbsp;个字
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+  <aside class="toc">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么要有-terramind">为什么要有 TerraMind？</a></li>
+    <li><a href="#terramind-从何而来">TerraMind 从何而来？</a>
+      <ul>
+        <li><a href="#输入terramesh-数据集">输入：TerraMesh 数据集</a></li>
+        <li><a href="#双尺度预训练dual-scale-pretraining">双尺度预训练（Dual-Scale Pretraining）</a></li>
+        <li><a href="#两阶段预训练">两阶段预训练</a></li>
+      </ul>
+    </li>
+    <li><a href="#terramind-能做什么">TerraMind 能做什么？</a></li>
+    <li><a href="#编码与重建tokenizer">编码与重建（Tokenizer）</a></li>
+    <li><a href="#跨模态生成generation">跨模态生成（Generation）</a>
+      <ul>
+        <li><a href="#单-patch-示例">单 patch 示例</a></li>
+        <li><a href="#分块推理tiled-inference">分块推理（Tiled Inference）</a></li>
+      </ul>
+    </li>
+    <li><a href="#微调任务fine-tuning-with-terratorch">微调任务（Fine-tuning with TerraTorch）</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#了解更多">了解更多</a></li>
+  </ul>
+</nav>
+  </aside>
+
+<p>过去几年，地球观测（Earth Observation, EO）正在进入一个“模型为王”的时代。卫星影像的数据量越来越大，模态越来越多（光学、雷达、气候指数、地理文本描述……），但如何真正把这些信息用起来，却始终是个挑战。</p>
+<p>这时，<strong>TerraMind</strong> 出现了。它是<strong>第一个端到端生成式、多模态地球观测基础模型</strong>，由 IBM Research、ETH Zurich、Forschungszentrum Jülich 和 ESA Φ-Lab 联合开发。它不仅能整合不同模态的数据，还具备生成能力和出色的泛化能力。换句话说，它试图扮演“大一统模型”的角色，为各种下游任务（如土地覆盖分类、灾害监测、气候研究等）提供一个强大的“起点”。</p>
+<h1 id="为什么要有-terramind">为什么要有 TerraMind？</h1>
+<p>TerraMind 的提出主要是为了<strong>解决 EO 领域中多模态数据集成、生成以及现有模型泛化能力不足等问题</strong>。更具体地说，它针对以下几个痛点：</p>
+<ul>
+<li>
+<p><strong>多模态数据利用不足</strong>
+传统模型往往只针对某些特定模态（比如只用光学影像），或只服务于某个任务（比如分割）。TerraMind 则通过整合雷达、光学、土地覆盖图、NDVI、DEM、坐标元数据甚至自然语言描述，打通了“模态壁垒”。</p>
+</li>
+<li>
+<p><strong>缺乏生成式多模态能力</strong>
+这是 TerraMind 的杀手锏。它是首个“大规模、任意到任意（any-to-any）”的生成式多模态 EO 模型。它不仅能完成传统分析任务，还能生成新的数据，支持零样本、少样本学习，降低标注成本。</p>
+</li>
+<li>
+<p><strong>泛化与数据效率挑战</strong>
+过去的 EO 模型很容易“过拟合”到某个区域或某个任务，难以迁移。TerraMind 通过在海量无标注数据上的自监督预训练，加上小规模的有标注微调，实现了更强的空间、时间泛化。</p>
+</li>
+<li>
+<p><strong>现有地理空间基础模型的局限</strong>
+很多 GFM（Geo-Foundation Model）其实是把计算机视觉的套路硬套过来，没考虑遥感数据的特殊性。TerraMind 在架构上专门做了优化，例如 <strong>双尺度预训练</strong>（token-level + pixel-level 表示），既能抓全局语义，又保留局部空间细节。</p>
+</li>
+<li>
+<p><strong>加速气候与可持续性应用</strong>
+它不仅是个模型，还配套了分布式数据处理和采样框架，能直接连接卫星数据源，让开发者在气候和可持续性场景中更快落地应用。</p>
+</li>
+</ul>
+<p>简而言之，TerraMind 的目标是：<strong>做一个通用、强大、能整合多模态的基础模型，为 EO 研究和应用提供更高效的“起点”。</strong></p>
+<h1 id="terramind-从何而来">TerraMind 从何而来？</h1>
+<p><img src="https://huggingface.co/ibm-esa-geospatial/TerraMind-1.0-base/resolve/main/assets%2Fterramind_architecture.png" alt=""></p>
+<h2 id="输入terramesh-数据集">输入：TerraMesh 数据集</h2>
+<p>TerraMind 在定制的全球大规模地理空间数据集 <strong>TerraMesh</strong> 上进行预训练，包含 <strong>900 万个样本和九种地理空间模态</strong>：</p>
+<ul>
+<li>光学卫星图像：Copernicus Sentinel-2 L1C 和 L2A (RGB)。</li>
+<li>雷达卫星图像：Copernicus Sentinel-1 GRD 和 RTC。</li>
+<li>任务特定模态：土地利用/土地覆盖 (LULC) 和归一化植被指数 (NDVI) 图。</li>
+<li>元数据：数字高程模型 (DEM) 和地理坐标（离散化为字符串）。</li>
+<li>自然语言：通过 LLaVA-Next 从 Sentinel-2 RGB 图像合成的图像描述 (captions)。</li>
+</ul>
+<h2 id="双尺度预训练dual-scale-pretraining">双尺度预训练（Dual-Scale Pretraining）</h2>
+<p>TerraMind 在像素级别和 token 级别上结合数据，是其核心创新。</p>
+<ul>
+<li><strong>Token 级别</strong>：编码高层上下文信息，学习跨模态关系，并实现扩展性。</li>
+<li><strong>像素级别</strong>：利用细粒度表示，捕捉关键的空间细微之处。</li>
+</ul>
+<p>这种双尺度早期融合方法优于其他融合方法，能够实现人工数据生成、零样本和少样本应用。</p>
+<h2 id="两阶段预训练">两阶段预训练</h2>
+<ol>
+<li><strong>单模态分词器（Tokenizer）预训练</strong>：为每种模态开发特定的分词器，将数据编码为离散 token 序列，或从 token 序列解码回原始形式。图像类模态（S-1, S-2, LULC, NDVI, DEM）使用<strong>基于自编码器和有限标量量化 (FSQ) 的架构</strong>。序列类模态（描述、地理位置）使用基于 WordPiece 的文本分词器。</li>
+<li><strong>TerraMind 编码器-解码器预训练</strong>：使用对称 Transformer 架构处理多模态 token 序列，并接受像素级别的跨模态输入。预训练目标是跨模态补丁分类问题，通过交叉熵损失来重建被遮蔽的目标 token。</li>
+</ol>
+<h1 id="terramind-能做什么">TerraMind 能做什么？</h1>
+<p>它的强项可以归结为三点：</p>
+<ol>
+<li><strong>整合（Integration）</strong>：把雷达、光学、DEM、LULC 等多模态放到一个统一表示里。</li>
+<li><strong>生成（Generation）</strong>：任意模态之间的生成任务（例如从雷达合成光学影像，或从 DEM 预测 NDVI）。
+<ul>
+<li>从 Sentinel-2 L2A 光学数据开始，TerraMind 能高质量地生成雷达数据、土地利用图和数字高程图。</li>
+<li>即使从低信息量的地理位置信息开始，模型也能生成与上下文相关的光学图像（例如，从中东的地理位置生成沙漠图像），尽管结构上可能与真实值不同。</li>
+</ul>
+</li>
+<li><strong>泛化（Generalization）</strong>：下游任务只需少量标注，就能快速适配，比如土地覆盖分类、灾害监测等。
+<ul>
+<li><strong>零样本学习</strong>
+<ul>
+<li><strong>水体测绘</strong>：TerraMindv1-B 在零样本设置下 IoU 达到 45.4%，若使用 DynamicWorld LULC 数据进行 ablation 实验，可提升至 69.8%，接近微调 SOTA 性能（84.4%）。</li>
+<li>地理定位：能够准确预测特定数据实例的地理位置，例如预测“裸地”类别的概率分布，并识别出撒哈拉、中东等区域。</li>
+</ul>
+</li>
+<li><strong>少样本学习</strong>：在 EuroSAT 和 METER-ML 数据集上的 1-shot 5-way 分类任务中，TerraMind 的平均准确度至少比其他基准高出 10pp，表明其潜在空间结构良好。</li>
+</ul>
+</li>
+</ol>
+<p>此外，TerraMind 还引入了 <strong>“多模态思维” (Thinking in Modalities, TiM)</strong> 的创新概念，类似于大型语言模型中的“思维链 (chain-of-thought)”。通过在微调和推理过程中注入生成的人工数据，模型输出性能得以提升。例如，在水体测绘任务中，通过生成额外的 LULC 数据，TiM 微调比标准微调的 mIoU 提升了 2pp。</p>
+<h1 id="编码与重建tokenizer">编码与重建（Tokenizer）</h1>
+<p>首先要理解 TerraMind 的 <strong>Tokenizer</strong>。它的工作原理类似“压缩—解压”：</p>
+<ul>
+<li>输入影像 → 转换成 token 表示</li>
+<li>token 捕捉空间细节和上下文信息</li>
+<li>再通过解码器重建影像 → 检验模型是否“理解”了输入</li>
+</ul>
+<p>这部分主要是 <strong>验证模型的信息保留能力</strong>。</p>
+<p>下面是一段实际的 Python 脚本（基于 Sentinel-2 L2A 数据），参考<a href="https://github.com/IBM/terramind/blob/main/notebooks/terramind_tokenizer_reconstruction.ipynb">IBM/terramind/notebooks/terramind_tokenizer_reconstruction.ipynb</a>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 构建 tokenizer 模型</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> FULL_MODEL_REGISTRY<span style="color:#f92672">.</span>build(<span style="color:#e6db74">&#39;terramind_v1_tokenizer_s2l2a&#39;</span>, pretrained<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加载示例影像并构造成张量</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load an example Sentinel-2 image</span>
+</span></span><span style="display:flex;"><span>examples <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;../examples/S2L2A/38D_378R_2_3.tif&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;../examples/S2L2A/282D_485L_3_3.tif&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;../examples/S2L2A/433D_629L_3_1.tif&#39;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> rxr<span style="color:#f92672">.</span>open_rasterio(examples[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Convert to [B, C, 224, 224]</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor(data<span style="color:#f92672">.</span>values, device<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cpu&#39;</span>)<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 归一化（标准化）</span>
+</span></span><span style="display:flex;"><span>mean <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor(v1_pretraining_mean[<span style="color:#e6db74">&#39;untok_sen2l2a@224&#39;</span>])
+</span></span><span style="display:flex;"><span>std <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor(v1_pretraining_std[<span style="color:#e6db74">&#39;untok_sen2l2a@224&#39;</span>])
+</span></span><span style="display:flex;"><span>input <span style="color:#f92672">=</span> (data <span style="color:#f92672">-</span> mean[<span style="color:#66d9ef">None</span>, :, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>]) <span style="color:#f92672">/</span> std[<span style="color:#66d9ef">None</span>, :, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 运行模型（编码→解码）</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+</span></span><span style="display:flex;"><span>    reconstruction <span style="color:#f92672">=</span> model(input, timesteps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 反标准化（恢复到原始数量级）</span>
+</span></span><span style="display:flex;"><span>reconstruction <span style="color:#f92672">=</span> reconstruction<span style="color:#f92672">.</span>cpu()
+</span></span><span style="display:flex;"><span>reconstruction <span style="color:#f92672">=</span> (reconstruction <span style="color:#f92672">*</span> std[<span style="color:#66d9ef">None</span>, :, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>]) <span style="color:#f92672">+</span> mean[<span style="color:#66d9ef">None</span>, :, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 解码出来的 reconstruction 要乘以 std 加上 mean 把数值带回“真实”量纲（与原始数据同一取值范围），否则看起来会像“均值为 0 的小数”。</span>
+</span></span></code></pre></div><p>在可视化时，可以对比输入影像与重建影像的 RGB 表达：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Input RGB</span>
+</span></span><span style="display:flex;"><span>rgb_input <span style="color:#f92672">=</span> data[<span style="color:#ae81ff">0</span>, [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>]]<span style="color:#f92672">.</span>permute(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">0</span>)<span style="color:#f92672">.</span>cpu()<span style="color:#f92672">.</span>numpy()
+</span></span><span style="display:flex;"><span>ax[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>imshow((rgb_input<span style="color:#f92672">/</span><span style="color:#ae81ff">2000</span>)<span style="color:#f92672">.</span>clip(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>ax[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Input&#34;</span>); ax[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#34;off&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Reconstructed RGB</span>
+</span></span><span style="display:flex;"><span>rgb_recon <span style="color:#f92672">=</span> reconstruction[<span style="color:#ae81ff">0</span>, [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>]]<span style="color:#f92672">.</span>permute(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">0</span>)<span style="color:#f92672">.</span>cpu()<span style="color:#f92672">.</span>numpy()
+</span></span><span style="display:flex;"><span>ax[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>imshow((rgb_recon<span style="color:#f92672">/</span><span style="color:#ae81ff">2000</span>)<span style="color:#f92672">.</span>clip(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>ax[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Reconstruction&#34;</span>); ax[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#34;off&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p>效果：左边是原始 Sentinel-2 输入，右边是 Tokenizer 解码后的重建结果。</p>
+<p>👉 这证明 <strong>TerraMind 能用 token 表示影像，并且很好地保留信息</strong>。</p>
+<h1 id="跨模态生成generation">跨模态生成（Generation）</h1>
+<p>令人兴奋的是 TerraMind 的 <strong>生成能力</strong>。
+它不仅能“重建”输入，还能实现 <strong>跨模态生成 (Any-to-Any)</strong>：</p>
+<ul>
+<li>光学影像 → 生成雷达影像</li>
+<li>DEM → 生成光学或 NDVI</li>
+<li>影像 → 生成 LULC 地图</li>
+<li>甚至还能做 图像 ↔ 文本</li>
+</ul>
+<p>这种 <strong>任意模态到任意模态的生成能力</strong>，是 TerraMind 相比传统模型的最大突破。
+它意味着：即便某些数据缺失，也能通过生成补齐；即便标注有限，也能通过生成增强训练。</p>
+<h2 id="单-patch-示例">单 patch 示例</h2>
+<ul>
+<li>输入：单个 patch，可以是S2-L2A的数据 (224×224)</li>
+<li>输出：多个目标模态，如 S1GRD、DEM、LULC 等。</li>
+<li>特点：
+<ul>
+<li>每个输出模态对应自己的 tokenizer（增加了内存消耗）。</li>
+<li>使用 diffusion steps（如 10 步）生成结果 → 保证输出的多样性与质量。</li>
+<li>可以直接对输入做标准化（standardize=True）。</li>
+</ul>
+</li>
+<li>步骤：
+<ol>
+<li>构建模型</li>
+</ol>
+<ul>
+<li>从 <code>FULL_MODEL_REGISTRY</code> 中实例化 TerraMind 模型。</li>
+<li>指定 <strong>输入模态</strong>（例如 <code>S2L2A</code>）和 <strong>输出模态</strong>（例如 <code>S1GRD, DEM, LULC</code>）。</li>
+<li>选择是否加载预训练权重（<code>pretrained=True</code>）。</li>
+<li>配置标准化（<code>standardize=True</code>，会自动应用预训练时的均值/方差）。</li>
+</ul>
+<ol start="2">
+<li>准备数据</li>
+</ol>
+<ul>
+<li>加载raster数据</li>
+<li>使用 <code>rioxarray.open_rasterio</code> 读取为数组。</li>
+<li>转换成模型要求的输入形状 [Batch, Channels, Height, Width]，例如 [1, C, 224, 224]。</li>
+</ul>
+<ol start="3">
+<li>加载输入数据：将输入数据绘制成 RGB 图像（帮助理解输入内容）。</li>
+<li>执行扩散生成</li>
+</ol>
+<ul>
+<li>把输入送入 GPU/CPU（<code>input.to(device)</code>）。</li>
+<li>在 <code>torch.no_grad()</code> 下运行 扩散生成（<code>model(input, timesteps=10)</code>）</li>
+<li><code>timesteps</code> 控制扩散过程的迭代次数（步数越多，生成结果越精细但耗时更长）。</li>
+</ul>
+<ol start="5">
+<li>得到多模态输出</li>
+</ol>
+<ul>
+<li>模型会返回一个字典（<code>{模态名: 生成结果}</code>）</li>
+<li>每个输出模态有对应的 <strong>生成张量</strong>。</li>
+</ul>
+<ol start="6">
+<li>可视化结果。</li>
+</ol>
+<ul>
+<li>遍历输出模态，调用 <code>plot_modality()</code> 绘制每个结果。</li>
+<li>与输入图像并排显示，方便比较。</li>
+</ul>
+</li>
+</ul>
+<p>下面python片段实现了用 S-2 输入去生成其他模态（S-1、DEM、LULC……），参考 <a href="https://github.com/IBM/terramind/blob/main/notebooks/terramind_generation.ipynb">IBM/terramind/notebooks/terramind_generation.ipynb</a>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># 载入示例 S-2 L2A 并构成模型输入</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> rxr<span style="color:#f92672">.</span>open_rasterio(examples[example_id])          <span style="color:#75715e"># rioxarray DataArray</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor(data<span style="color:#f92672">.</span>values, device<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cpu&#39;</span>)<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">0</span>)  <span style="color:#75715e"># -&gt; [B, C, H, W]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 构建模型</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> FULL_MODEL_REGISTRY<span style="color:#f92672">.</span>build(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;terramind_v1_base_generate&#39;</span>,
+</span></span><span style="display:flex;"><span>    modalities<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;S2L2A&#39;</span>],
+</span></span><span style="display:flex;"><span>    output_modalities<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;S1GRD&#39;</span>, <span style="color:#e6db74">&#39;DEM&#39;</span>, <span style="color:#e6db74">&#39;LULC&#39;</span>],
+</span></span><span style="display:flex;"><span>    pretrained<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    standardize<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 移到设备</span>
+</span></span><span style="display:flex;"><span>_ <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>to(device)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 运行生成（diffusion steps）</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+</span></span><span style="display:flex;"><span>  generated <span style="color:#f92672">=</span> model(input, verbose<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, timesteps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><p>本质上，这是 跨模态翻译：<strong>给你一个 Sentinel-2 的 patch，我可以“想象”出 SAR、DEM、NDVI 等其他模态。</strong></p>
+<h2 id="分块推理tiled-inference">分块推理（Tiled Inference）</h2>
+<p><strong>为什么要用 tiled_inference？</strong></p>
+<p>大瓦片（full tile）通常超出 GPU 内存，故把大图切成许多小 tile（patch）分别在 GPU 上推理，然后合并回整图。tiled_inference 是一个工具函数（TerraTorch/用户库提供），负责切 patch、按 batch 调用模型、并把 patch 输出合并成整幅输出。</p>
+<p>总而言之：</p>
+<ul>
+<li>输入：整块 tile（比如 Singapore, Santiago，可能是 1000×1000 或更大）。</li>
+<li>问题：GPU 内存不够放下整张图。</li>
+<li>步骤：
+<ol>
+<li>载入并（可选）裁剪大瓦片</li>
+<li>转换为 [B,C,H,W]</li>
+<li>构建生成模型（指定输出模态、timesteps）</li>
+<li>用 tiled_inference 切 patch 并批量调用 model_forward</li>
+<li>合并回整图得到 [C_total,H,W]</li>
+<li>切分各模态通道</li>
+<li>对连续模态反标准化、对分类模态 argmax</li>
+<li>保存 GeoTIFF / 可视化 / 指标评估。</li>
+</ol>
+</li>
+</ul>
+<p>下面是一段实际的 Python 脚本，参考 <a href="https://github.com/IBM/terramind/blob/main/notebooks/large_tile_generation.ipynb">IBM/terramind/notebooks/large_tile_generation.ipynb</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># 输入准备（crop / batch dim）</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> rxr<span style="color:#f92672">.</span>open_rasterio(<span style="color:#e6db74">&#39;examples/S2L2A/Santiago.tif&#39;</span>)<span style="color:#f92672">.</span>values
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> data[:, <span style="color:#ae81ff">500</span>:<span style="color:#ae81ff">1500</span>]           <span style="color:#75715e"># 可选裁剪以加速</span>
+</span></span><span style="display:flex;"><span>input <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor(data, dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>float, device<span style="color:#f92672">=</span>device)<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 构建并准备生成模型：以 S2L2A 为条件输入，生成 S1GRD 和 LULC</span>
+</span></span><span style="display:flex;"><span>output_modalities <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;S1GRD&#39;</span>, <span style="color:#e6db74">&#39;LULC&#39;</span>]
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> FULL_MODEL_REGISTRY<span style="color:#f92672">.</span>build(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;terramind_v1_base_generate&#39;</span>,
+</span></span><span style="display:flex;"><span>    modalities<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;S2L2A&#39;</span>],
+</span></span><span style="display:flex;"><span>    output_modalities<span style="color:#f92672">=</span>output_modalities,
+</span></span><span style="display:flex;"><span>    pretrained<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    standardize<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    timesteps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>to(device)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 从 dict → tensor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">model_forward</span>(x):
+</span></span><span style="display:flex;"><span>    generated <span style="color:#f92672">=</span> model(x)                       <span style="color:#75715e"># dict: {modality: tensor}</span>
+</span></span><span style="display:flex;"><span>    out <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>concat([generated[m] <span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> output_modalities], dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> out
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># tiled_inference 的输出与去批次维</span>
+</span></span><span style="display:flex;"><span>pred <span style="color:#f92672">=</span> tiled_inference(model_forward, input, crop<span style="color:#f92672">=</span><span style="color:#ae81ff">256</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">192</span>, batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>, verbose<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>pred <span style="color:#f92672">=</span> pred<span style="color:#f92672">.</span>squeeze(<span style="color:#ae81ff">0</span>)   <span style="color:#75715e"># 从 [1, C, H, W] -&gt; [C, H, W]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 把拼接的通道切回各模态</span>
+</span></span><span style="display:flex;"><span>num_channels <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;S2L2A&#39;</span>:<span style="color:#ae81ff">12</span>, <span style="color:#e6db74">&#39;S1GRD&#39;</span>:<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;S1RTC&#39;</span>:<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;DEM&#39;</span>:<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;LULC&#39;</span>:<span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#39;NDVI&#39;</span>:<span style="color:#ae81ff">1</span>}
+</span></span><span style="display:flex;"><span>num_channels <span style="color:#f92672">=</span> {m: num_channels[m] <span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> output_modalities}
+</span></span><span style="display:flex;"><span>start_idx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum([<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> list(num_channels<span style="color:#f92672">.</span>values()))
+</span></span><span style="display:flex;"><span>generated <span style="color:#f92672">=</span> {m: pred[i:i<span style="color:#f92672">+</span>c]<span style="color:#f92672">.</span>cpu() <span style="color:#66d9ef">for</span> m, i, c <span style="color:#f92672">in</span> zip(output_modalities, start_idx, num_channels<span style="color:#f92672">.</span>values())}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># LULC 的后处理（从概率 -&gt; 离散类别）</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;LULC&#39;</span> <span style="color:#f92672">in</span> generated<span style="color:#f92672">.</span>keys():
+</span></span><span style="display:flex;"><span>    generated[<span style="color:#e6db74">&#39;LULC&#39;</span>] <span style="color:#f92672">=</span> generated[<span style="color:#e6db74">&#39;LULC&#39;</span>]<span style="color:#f92672">.</span>argmax(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span></code></pre></div><p>故而，让 TerraMind 不只是小 patch demo，而是能够被应用到真实地球大范围场景。</p>
+<h1 id="微调任务fine-tuning-with-terratorch">微调任务（Fine-tuning with TerraTorch）</h1>
+<p>TerraMind 的另一大亮点，就是能很方便地在下游任务（如语义分割）上微调。我们以<a href="https://github.com/IBM/terramind/blob/main/notebooks/terramind_v1_base_sen1floods11.ipynb">IBM/terramind/notebooks/terramind_v1_base_sen1floods11.ipynb</a>为例，讲讲微调的主要流程：</p>
+<ol>
+<li>
+<p><strong>数据准备（DataModule）</strong>
+使用 <code>GenericMultiModalDataModule</code> 来定义模态、路径、split 文件、标准化参数。例如：</p>
+<ul>
+<li>模态：<code>[&quot;S2L1C&quot;, &quot;S1GRD&quot;]</code></li>
+<li>标签：<code>*_LabelHand.tif</code></li>
+<li>训练/验证/测试划分：<code>flood_train_data.txt</code> 等</li>
+</ul>
+<p>这样做的好处是，不管你用的是光学+雷达，还是加 DEM、LULC，都能快速配置。</p>
+</li>
+<li>
+<p><strong>加载预训练 Backbone</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model <span style="color:#f92672">=</span> BACKBONE_REGISTRY<span style="color:#f92672">.</span>build(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;terramind_v1_base&#34;</span>,
+</span></span><span style="display:flex;"><span>    modalities<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;S2L1C&#34;</span>, <span style="color:#e6db74">&#34;S1GRD&#34;</span>],
+</span></span><span style="display:flex;"><span>    pretrained<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div></li>
+<li>
+<p><strong>定义下游任务（SemanticSegmentationTask）</strong></p>
+<ul>
+<li>Backbone：TerraMind</li>
+<li>Neck：特征提取和 reshape</li>
+<li>Decoder：UNetDecoder</li>
+<li>Loss：Dice 或 CE</li>
+</ul>
+<p>同时支持冻结/解冻 backbone，调节学习率（1e-5 ~ 1e-4）。</p>
+</li>
+<li>
+<p><strong>训练与测试</strong>
+通过 PyTorch Lightning 的 <code>Trainer.fit()</code> 启动训练，保存最佳 checkpoint。
+然后在 <code>Trainer.test()</code> 上评估，最后就能进行预测和可视化。</p>
+</li>
+</ol>
+<p>整个微调脚本跑下来，就可以从“预训练基础模型”得到一个“适配任务的模型”，哪怕只训练了几个 epoch，就能看到效果。</p>
+<h1 id="总结">总结</h1>
+<ul>
+<li>
+<p><strong>TerraMind 是什么？</strong> 一个面向地球观测的多模态基础模型。</p>
+</li>
+<li>
+<p><strong>它能干什么？</strong> 多模态整合、生成任务、下游泛化。</p>
+</li>
+<li>
+<p><strong>怎么玩？</strong></p>
+<ul>
+<li>先体验生成能力：输入影像 → tokens → 重建影像。</li>
+<li>再做下游微调：配置 DataModule，加载预训练模型，定义任务，训练/测试。</li>
+</ul>
+</li>
+</ul>
+<p>它不仅仅是一个模型，更像是一个 <strong>面向 EO 的通用 AI 平台</strong>。未来不论是气候研究、灾害响应，还是土地覆盖监测，都能借助它快速落地。</p>
+<h1 id="了解更多">了解更多</h1>
+<ul>
+<li><a href="https://github.com/IBM/terramind/tree/main">Github: IBM/terramind</a></li>
+<li><a href="https://huggingface.co/ibm-esa-geospatial/TerraMind-1.0-base">Hugging Face: ibm-esa-geospatial/TerraMind-1.0-base</a></li>
+<li><a href="https://doi.org/10.48550/arXiv.2504.11171">Paper (arxiv): TerraMind: Large-Scale Generative Multimodality for Earth Observation</a></li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/geofm/">GeoFM</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/terramind/">terramind</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E9%81%A5%E6%84%9F/">遥感</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/ai/">AI</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">大模型</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/zh-cn/tags/eo/">EO</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fgeoai%2fgeofm-intro-terramind%2f&amp;text=%e7%8e%a9%e8%bd%ac%20TerraMind%ef%bc%9a%e4%bb%8e%e7%90%86%e8%a7%a3%e5%88%b0%e5%be%ae%e8%b0%83&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fgeoai%2fgeofm-intro-terramind%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fgeoai%2fgeofm-intro-terramind%2f&amp;title=%e7%8e%a9%e8%bd%ac%20TerraMind%ef%bc%9a%e4%bb%8e%e7%90%86%e8%a7%a3%e5%88%b0%e5%be%ae%e8%b0%83" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fgeoai%2fgeofm-intro-terramind%2f&amp;title=%e7%8e%a9%e8%bd%ac%20TerraMind%ef%bc%9a%e4%bb%8e%e7%90%86%e8%a7%a3%e5%88%b0%e5%be%ae%e8%b0%83" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fgeoai%2fgeofm-intro-terramind%2f&amp;title=%e7%8e%a9%e8%bd%ac%20TerraMind%ef%bc%9a%e4%bb%8e%e7%90%86%e8%a7%a3%e5%88%b0%e5%be%ae%e8%b0%83" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fgeoai%2fgeofm-intro-terramind%2f&amp;description=%e7%8e%a9%e8%bd%ac%20TerraMind%ef%bc%9a%e4%bb%8e%e7%90%86%e8%a7%a3%e5%88%b0%e5%be%ae%e8%b0%83" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">也可以看看</h4>
+                  <ul>
+                
+                
+                    <li><a href="/zh-cn/post/python-geodata/01-intro/">第 1 课：遥感数据与 Python 环境入门</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/zh-cn/">琼呀</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
