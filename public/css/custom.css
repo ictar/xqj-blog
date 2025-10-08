@@ -1,0 +1,36 @@
+
+.model-card {
+  background: #fafafa;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+}
+
+.model-card h3 {
+  margin-top: 0.4rem;
+  color: #2b3a42;
+}
+
+.model-card strong {
+  color: #2a6f97;
+}
+
+.model-card blockquote {
+  border-left: 4px solid #89c2d9;
+  background: #f1f9ff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: #2b3a42;
+  font-style: italic;
+}
+
+.model-card a {
+  color: #1d6f93;
+  text-decoration: none;
+}
+.model-card a:hover {
+  text-decoration: underline;
+}

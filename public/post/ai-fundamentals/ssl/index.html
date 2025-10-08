@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>Self-Supervised Learning - </title>
+
+  <meta name="description" content="Explore self-supervised learning methods such as contrastive learning, clustering, distillation, and mask modeling, and their applications to EO.">
+  <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/localhost:1313\/"
+  
+  
+  
+  
+}
+</script>
+
+<meta property="og:title" content="Self-Supervised Learning" />
+<meta property="og:description" content="Explore self-supervised learning methods such as contrastive learning, clustering, distillation, and mask modeling, and their applications to EO.">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/ai-fundamentals/ssl/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="Self-Supervised Learning" />
+  <meta name="twitter:description" content="Explore self-supervised learning methods such as contrastive learning, clustering, distillation, and mask modeling, and their applications to EO.">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="PROJECT" href="/">PROJECT</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0">post</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/">CH</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Self-Supervised Learning</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 7, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;475&nbsp;words
+  
+  
+  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/" lang="zh-cn">CH</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+          <div class="well">
+            <blockquote>
+<p><strong>Self-Supervised Learning (SSL)</strong> is a family of techniques for converting an unsupervised learning problem into a supervised one by creating surrogate labels from the unlabeled dataset.</p></blockquote>
+<hr>
+<h2 id="core-paradigms-of-self-supervised-learning">Core Paradigms of Self-Supervised Learning</h2>
+<p>Three primary paradigms dominate the SSL landscape: Joint Embedding, Masked Image Modeling, and a hybrid approach that combines elements of both.</p>
+<p><strong>Joint Embedding vs. MIM:</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Joint Embedding</th>
+          <th>Masked Image Modeling (MIM)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Pros:</strong></td>
+          <td><strong>Pros:</strong></td>
+      </tr>
+      <tr>
+          <td>✓ Produces highly semantic features, great for classification.</td>
+          <td>✓ Conceptually simple, with no need for positive/negative pairs.</td>
+      </tr>
+      <tr>
+          <td>✓ Architecture agnostic.</td>
+          <td>✓ Masking reduces pre-training time.</td>
+      </tr>
+      <tr>
+          <td>✓ Achieves competitive results in linear probing evaluations.</td>
+          <td>✓ Achieves competitive results with fine-tuning.</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>✓ Stronger fit for low-level tasks (e.g., denoising, super-resolution).</td>
+      </tr>
+      <tr>
+          <td><strong>Cons:</strong></td>
+          <td><strong>Cons:</strong></td>
+      </tr>
+      <tr>
+          <td>✗ May require very large batch sizes (e.g., SimCLR).</td>
+          <td>✗ Requires a Vision Transformer (ViT) backbone.</td>
+      </tr>
+      <tr>
+          <td>✗ Requires careful tuning of data augmentations.</td>
+          <td>✗ Weaker performance on abstract, high-level tasks like classification.</td>
+      </tr>
+      <tr>
+          <td>✗ Requires special mechanisms to handle negative samples or avoid collapse.</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>✗ Not well-suited for low-level tasks.</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="1-joint-embedding-architectures">1. Joint Embedding Architectures</h3>
+<blockquote>
+<p><strong>Central idea</strong>: Enforce invariance to data augmentations. <text style="color: violet;">A <a href="https://en.wikipedia.org/wiki/Siamese_neural_network">Siamese network</a> architecture</text> with shared parameters processes two different augmented &ldquo;views&rdquo; of the same image and trains the model to produce similar or identical embeddings for both.</p></blockquote>
+<p><strong>Challenge</strong>: <text style="background-color: yellow;">model collapse</text>, where the network learns a trivial solution by mapping all inputs to the same constant vector.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Method Category</th>
+          <th>Core Idea</th>
+          <th>Key Characteristics</th>
+          <th>Examples</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Contrastive</strong></td>
+          <td>Pull positive pairs (views of the same image) close in the embedding space while pushing negative pairs (views of different images) apart.</td>
+          <td>Requires negative samples, which can necessitate large batch sizes. Good for multimodal data.</td>
+          <td><a href="/post/ai-fundamentals/ssl/simclr/">SimCLR</a>, <a href="/post/ai-fundamentals/ssl/moco/">MoCo</a></td>
+      </tr>
+      <tr>
+          <td><strong>Clustering</strong></td>
+          <td>Learn embeddings by grouping similar samples into clusters without using explicit negative pairs.</td>
+          <td>Jointly learns feature representations and cluster assignments.</td>
+          <td><a href="/post/ai-fundamentals/ssl/swav/">SwAV</a>, Deep Cluster</td>
+      </tr>
+      <tr>
+          <td><strong>Distillation</strong></td>
+          <td>A &ldquo;student&rdquo; network is trained to match the output distribution of a &ldquo;teacher&rdquo; network on different augmented views.</td>
+          <td>Avoids collapse via an asymmetric architecture (student vs. teacher). The teacher is often updated via an Exponential Moving Average (EMA) of the student&rsquo;s weights. Does not require negative samples.</td>
+          <td><a href="/post/ai-fundamentals/ssl/byol/">BYOL</a>, <a href="/post/ai-fundamentals/ssl/dino/">DINO</a></td>
+      </tr>
+      <tr>
+          <td><strong>Regularization</strong></td>
+          <td>Avoids collapse by imposing regularization terms on the embeddings, such as decorrelating feature dimensions.</td>
+          <td>Maximizes the information content of the embeddings by penalizing redundancy. No negative samples required.</td>
+          <td>Barlow Twins, VICReg</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="2-masked-image-modeling-mim">2. Masked Image Modeling (MIM)</h3>
+<blockquote>
+<p><strong>Central idea</strong>: Reconstruction. The input image is split into patches, a significant portion of which (often ~75%) are masked. The model is then trained to predict the content of the masked patches based on the visible ones.</p></blockquote>
+<p><strong>Prediction Targets</strong>: The model can be trained to predict various targets for the masked regions:</p>
+<ul>
+<li>Pixel Reconstruction: Reconstructing the raw pixel values (e.g., <a href="/post/ai-fundamentals/ssl/mae/">MAE</a>, SimMIM).</li>
+<li>Feature Regression: Predicting abstract feature representations (e.g., MaskFeat).</li>
+<li>Token Prediction: Predicting discrete visual tokens (e.g., BEiT).</li>
+</ul>
+<h3 id="3-hybrid-architectures">3. Hybrid Architectures</h3>
+<blockquote>
+<p><strong>Central idea</strong>: Combine the principles of masking and joint embedding</p></blockquote>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><strong>Image-based Joint Embedding Predictive Architecture (I-JEPA)</strong></li>
+</ul>
+
+          </div>
+        
+        <div class="posts-list">
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/post/ai-fundamentals/ssl/byol/">
+        <h2 class="post-title">BYOL</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 8, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;952&nbsp;words
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        BYOL: Bootstrap Your Own Latent
+        <a href="http://localhost:1313/post/ai-fundamentals/ssl/byol/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/distillation-methods/">Distillation Methods</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/post/ai-fundamentals/ssl/dino/">
+        <h2 class="post-title">DINO</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 8, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1257&nbsp;words
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        DINO: Self-Distillation with No Labels
+        <a href="http://localhost:1313/post/ai-fundamentals/ssl/dino/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/distillation-methods/">Distillation Methods</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/post/ai-fundamentals/ssl/mae/">
+        <h2 class="post-title">MAE</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 8, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1330&nbsp;words
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        MAE: Masked Autoencoders Are Scalable Vision Learners
+        <a href="http://localhost:1313/post/ai-fundamentals/ssl/mae/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/masked-image-modeling/">Masked Image Modeling</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/post/ai-fundamentals/ssl/swav/">
+        <h2 class="post-title">SwAV</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 8, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1276&nbsp;words
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        SwAV: Swapping Assignments between Views
+        <a href="http://localhost:1313/post/ai-fundamentals/ssl/swav/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/clustering-methods/">Clustering Methods</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/post/ai-fundamentals/ssl/moco/">
+        <h2 class="post-title">Momentum Contrast (MoCo) </h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 7, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1055&nbsp;words
+  
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        MoCo: Momentum Contrast for Unsupervised Visual Representation Learning
+        <a href="http://localhost:1313/post/ai-fundamentals/ssl/moco/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/contrastive-methods/">Contrastive Methods</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/post/ai-fundamentals/ssl/simclr/">
+        <h2 class="post-title">SimCLR</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 7, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1029&nbsp;words
+  
+  
+  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/" lang="zh-cn">CH</a>
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        SimCLR: A Simple Framework for Contrastive Learning of Visual Representations
+        <a href="http://localhost:1313/post/ai-fundamentals/ssl/simclr/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/tags/contrastive-methods/">Contrastive Methods</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          <li>
+            <a href="/post/ai-fundamentals/ssl/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

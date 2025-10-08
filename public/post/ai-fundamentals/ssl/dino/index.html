@@ -1,0 +1,633 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>DINO - </title>
+
+  <meta name="description" content="DINO: Self-Distillation with No Labels">
+  <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/localhost:1313\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/dino\/",
+          "name": "Dino"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "DINO",
+  "description" : "DINO: Self-Distillation with No Labels",
+  "inLanguage" : "en",
+  "wordCount":  1257 ,
+  "datePublished" : "2025-10-08T00:00:00\u002b00:00",
+  "dateModified" : "2025-10-08T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "SSL, Vision, Representation Learning, Joint Embedding, Distillation Methods" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/dino\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+<meta property="og:title" content="DINO" />
+<meta property="og:description" content="DINO: Self-Distillation with No Labels">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/ai-fundamentals/ssl/dino/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="DINO" />
+  <meta name="twitter:description" content="DINO: Self-Distillation with No Labels">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="PROJECT" href="/">PROJECT</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0">post</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>DINO</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 8, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1257&nbsp;words
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <div class="model-card">
+<h2 id="-model-name">🏷️ Model Name</h2>
+<p><strong>DINO – Self-Distillation with No Labels</strong></p>
+<h2 id="-core-idea">🧠 Core Idea</h2>
+<blockquote>
+<p>A student network learns from a teacher network using self-distillation, producing emergent semantic attention maps.</p></blockquote>
+<p><img src="https://github.com/facebookresearch/dino/blob/main/.github/dino.gif?raw=true" alt="DINO architecture"></p>
+<h2 id="-architecture">🖼️ Architecture</h2>
+<p>DINO PyTorch pseudocode w/o multi-crop:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># gs, gt: student and teacher networks</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># C: center (K)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># tps, tpt: student and teacher temperatures</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># l, m: network and center momentum rates</span>
+</span></span><span style="display:flex;"><span>gt<span style="color:#f92672">.</span>params <span style="color:#f92672">=</span> gs<span style="color:#f92672">.</span>params
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> loader: <span style="color:#75715e"># load a minibatch x with n samples</span>
+</span></span><span style="display:flex;"><span>    x1, x2 <span style="color:#f92672">=</span> augment(x), augment(x) <span style="color:#75715e"># random views</span>
+</span></span><span style="display:flex;"><span>    s1, s2 <span style="color:#f92672">=</span> gs(x1), gs(x2) <span style="color:#75715e"># student output n-by-K</span>
+</span></span><span style="display:flex;"><span>    t1, t2 <span style="color:#f92672">=</span> gt(x1), gt(x2) <span style="color:#75715e"># teacher output n-by-K</span>
+</span></span><span style="display:flex;"><span>    loss <span style="color:#f92672">=</span> H(t1, s2)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> H(t2, s1)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    loss<span style="color:#f92672">.</span>backward() <span style="color:#75715e"># back-propagate</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># student, teacher and center updates</span>
+</span></span><span style="display:flex;"><span>    update(gs) <span style="color:#75715e"># SGD</span>
+</span></span><span style="display:flex;"><span>    gt<span style="color:#f92672">.</span>params <span style="color:#f92672">=</span> l<span style="color:#f92672">*</span>gt<span style="color:#f92672">.</span>params <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>l)<span style="color:#f92672">*</span>gs<span style="color:#f92672">.</span>params
+</span></span><span style="display:flex;"><span>    C <span style="color:#f92672">=</span> m<span style="color:#f92672">*</span>C <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>m)<span style="color:#f92672">*</span>cat([t1, t2])<span style="color:#f92672">.</span>mean(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">H</span>(t, s):
+</span></span><span style="display:flex;"><span>    t <span style="color:#f92672">=</span> t<span style="color:#f92672">.</span>detach() <span style="color:#75715e"># stop gradient</span>
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> softmax(s <span style="color:#f92672">/</span> tps, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    t <span style="color:#f92672">=</span> softmax((t <span style="color:#f92672">-</span> C) <span style="color:#f92672">/</span> tpt, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e"># center + sharpen</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span> (t <span style="color:#f92672">*</span> log(s))<span style="color:#f92672">.</span>sum(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>mean()
+</span></span></code></pre></div><p>DINO employs two networks with the same underlying architecture ($g$) but with different parameter sets: <text style="color:green">a student network</text> ($g_{\theta_s}$) and <text style="color:green">a teacher network</text> ($g_{\theta_t}$). Each network $g$ consists of a backbone ($f$) (e.g., a Vision Transformer (ViT) or ResNet) and a projection head ($h$) such that $g = h \circ f$.</p>
+<ul>
+<li><strong>Projection Head</strong>: The projection head typically comprises <text style="color:purple">a 3-layer Multi-Layer Perceptron (MLP)</text>, followed by $\ell_2$ normalization and a final weight-normalized fully connected layer outputting $K$ dimensions.</li>
+</ul>
+<p>Unlike some related methods (e.g., <a href="/post/ai-fundamentals/ssl/byol/">BYOL</a>), DINO operates effectively without needing an explicit predictor head in the student branch, resulting in the <strong>exact same architecture for both the student and teacher</strong>.</p>
+<h3 id="1-data-augmentation-and-input-views">1️⃣ Data Augmentation and Input Views</h3>
+<p>DINO utilizes a <text style="color:purple">multi-crop training strategy</text> to generate multiple views of a single input image $x$. From one input image, a set of augmented views $V$ is generated.</p>
+<ul>
+<li><strong>Global Views</strong>: The set $V$ includes at least two high-resolution global views ($x_{g1}, x_{g2}$), which typically cover a large area (e.g., greater than 50%) of the original image at a resolution like $224 \times 224$ pixels.</li>
+<li><strong>Local Views</strong>: $V$ also includes several low-resolution local views (e.g., $96 \times 96$ pixels) that cover smaller areas (e.g., less than 50%).</li>
+</ul>
+<p>View Distribution:</p>
+<ul>
+<li>The <strong>student network</strong> ($g_{\theta_s}$) processes <strong>all</strong> views (global and local).</li>
+<li>The <strong>teacher network</strong> ($g_{\theta_t}$) processes <strong>only the global</strong> views ($x_{g1}, x_{g2}$). This encourages &ldquo;local-to-global&rdquo; correspondence learning.</li>
+</ul>
+<h3 id="2-output-processing-and-collapse-avoidance">2️⃣ Output Processing and Collapse Avoidance</h3>
+<p>The networks output $K$-dimensional features, which are then converted into <strong>probability distributions</strong> using a <text style="color:purple">softmax function with a temperature parameter</text>.</p>
+<ul>
+<li>Student Output ($P_s$): The student output is normalized using a softmax function with a temperature $\tau_s$ (e.g., $\tau_s = 0.1$).</li>
+<li>Teacher Output ($P_t$): The teacher output undergoes two critical operations designed to prevent representation collapse (where the model outputs the same vector regardless of input):
+<ul>
+<li><text style="color:purple">Centering</text>: A bias term $c$ is subtracted from the teacher&rsquo;s output. This center $c$ is continuously updated via an <a href="https://en.wikipedia.org/wiki/Exponential_smoothing">Exponential Moving Average (EMA)</a> calculated over the batch outputs. Centering helps prevent one dimension from dominating the output.</li>
+<li><text style="color:purple">Sharpening</text>: A low temperature $\tau_t$ (e.g., linearly warmed up from $0.04$ to $0.07$ during training) is used in the teacher&rsquo;s softmax normalization. Sharpening encourages the opposite effect of centering, and the balance of the two avoids collapse.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-loss-and-optimization">3️⃣ Loss and Optimization</h3>
+<p>The objective is to <strong>minimize the cross-entropy loss between the teacher&rsquo;s sharp distribution and the student&rsquo;s distribution, across different views</strong>.</p>
+<ul>
+<li>Loss Formulation: The training minimizes the <text style="color:purple">cross-entropy loss</text> $H(P_t(x), P_s(x'))$ between the teacher distribution $P_t(x)$ of a global view $x$, and the student distribution $P_s(x')$ of any other view $x'$ (global or local) in the set $V$.</li>
+<li>Gradient Flow Control: A <text style="color:purple">stop-gradient (sg) operator</text> is applied to the teacher output, ensuring that the loss gradient only flows back to the student parameters $\theta_s$.</li>
+<li>Student Parameter Update ($\theta_s$): The student parameters $\theta_s$ are updated via <text style="color:purple">standard stochastic gradient descent (SGD), such as the AdamW optimizer</text>.</li>
+<li>Teacher Parameter Update ($\theta_t$): The teacher parameters $\theta_t$ are updated using an <text style="color:purple">Exponential Moving Average (EMA)</text> of the student parameters, following the rule $$\theta_t \leftarrow \lambda\theta_t + (1-\lambda)\theta_s$$ This update mimics a momentum encoder and ensures the teacher evolves smoothly, guiding the student training.
+<ul>
+<li>The momentum rate $\lambda$ often follows a cosine schedule, increasing from a base rate (e.g., 0.996) towards 1 during training.</li>
+</ul>
+</li>
+</ul>
+<h2 id="-downstream-tasks">🎯 Downstream Tasks</h2>
+<ul>
+<li>Classification and Representation Quality Evaluation</li>
+<li>Transfer Learning (Fine-tuning)</li>
+<li>Similarity, Retrieval, and Dense Prediction Tasks</li>
+</ul>
+<h2 id="-strengths">💡 Strengths</h2>
+<ul>
+<li><strong>Simplicity and Architecture</strong>: DINO presents a simple self-supervised approach that streamlines training by using a standard cross-entropy loss to predict the teacher network&rsquo;s output. It effectively works without needing a predictor head in the student branch, leading to the exact same architecture for both student and teacher networks.</li>
+<li><strong>Effective Collapse Avoidance</strong>: DINO avoids model collapse using just centering and sharpening of the momentum teacher outputs. The centering operation only depends on first-order batch statistics.</li>
+<li><strong>Superior ViT Performance</strong>: DINO demonstrates strong synergy with Vision Transformers (ViT). It achieves competitive performance, reaching 80.1% top-1 linear classification accuracy on ImageNet with a ViT-Base architecture.</li>
+<li><strong>High-Quality Features for k-NN</strong>: DINO features are particularly effective when used with simple retrieval mechanisms. ViT features trained with DINO are excellent k-NN classifiers, achieving results nearly on par with or exceeding linear classifiers (e.g., 78.3% top-1 accuracy on ImageNet with a small ViT). The k-NN performance gain with DINO is substantially larger for ViT architectures compared to ResNet-50.</li>
+<li><strong>Emergent Segmentation Properties</strong>: Self-supervised ViT features, when trained with DINO, explicitly contain information about the semantic segmentation of an image, including object boundaries. This scene layout information is directly accessible in the self-attention modules of the last block.</li>
+<li><strong>BN-Free Capability</strong>: When applied to ViT architectures, the entire DINO system can be designed to be entirely Batch Normalization (BN)-free, including the projection heads. This is advantageous because training with BN, especially synchronized BN, can slow down training considerably.</li>
+<li><strong>Training Efficiency and Scalability</strong>: DINO is computationally efficient, allowing high performance to be reached with a significant reduction of computational requirements compared to similar convnet-based SSL systems. It can also train models to high performance using small batch sizes (e.g., batch size 128 running on a single GPU).</li>
+<li><strong>Multi-Crop Effectiveness</strong>: The multi-crop training strategy dramatically improves the accuracy/running-time tradeoff for DINO. For example, using additional small crops improved performance by +2% while reducing training time by half compared to the base two-crop setting.</li>
+<li><strong>Beneficial Teacher Dynamics</strong>: The momentum teacher in DINO consistently outperforms the student during training. This momentum-based teacher performs a form of model ensembling (similar to Polyak-Ruppert averaging) that guides the student network by providing higher-quality target features.</li>
+</ul>
+<h2 id="-limitations">⚠️ Limitations</h2>
+<ul>
+<li><text style="background-color:yellow">Dependence on Momentum Teacher</text>: The DINO framework requires a stabilizing mechanism and does not work in the complete absence of a momentum encoder. A simple attempt to stabilize the system by copying the student weights for the teacher fails to converge.</li>
+<li><text style="background-color:yellow">Sensitivity to Hyperparameters (Collapse Risk)</text>: The collapse avoidance mechanism relies on the balance between centering and sharpening. If either centering or sharpening is missing, the training suffers convergence issues (KL divergence converges to zero, indicating collapse).</li>
+<li><text style="background-color:yellow">Increased Computational Cost for Optimal ViT Results</text>: While ViT training is fast, achieving the highest performance often involves using smaller patch sizes (e.g., ViT-S/8 or ViT-B/8), which leads to a significant reduction in throughput (running time) and larger memory usage compared to larger patch sizes (e.g., ViT-S/16).</li>
+<li><text style="background-color:yellow">Reduced Performance with Minimal Batches</text>: While DINO supports small batches, the performance of runs utilizing very small batches (e.g., batch size 128) is slightly below that of the standard training setup (bs=1024).</li>
+</ul>
+<h2 id="-reference">📚 Reference</h2>
+<ul>
+<li><em>Caron et al., 2021</em>  <em>[Emerging Properties in Self-Supervised Vision Transformers]</em>  🔗 <a href="https://arxiv.org/abs/2104.14294">arXiv:2104.14294</a></li>
+<li><a href="https://github.com/facebookresearch/dino">Github:</a></li>
+</ul>
+</div>
+
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/distillation-methods/">Distillation Methods</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fdino%2f&amp;text=DINO&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fdino%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fdino%2f&amp;title=DINO" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fdino%2f&amp;title=DINO" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fdino%2f&amp;title=DINO" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fdino%2f&amp;description=DINO" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/ai-fundamentals/ssl/byol/">BYOL</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/swav/">SwAV</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/moco/">Momentum Contrast (MoCo) </a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/simclr/">SimCLR</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/post/ai-fundamentals/ssl/swav/" data-toggle="tooltip" data-placement="top" title="SwAV">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://localhost:1313/post/ai-fundamentals/ssl/byol/" data-toggle="tooltip" data-placement="top" title="BYOL">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

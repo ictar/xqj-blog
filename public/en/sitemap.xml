@@ -2,6 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/post/ai-fundamentals/</loc>
+    <lastmod>2025-10-07T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/ai-fundamentals/"
+                />
+  </url><url>
     <loc>http://localhost:1313/post/mcmc-statics/</loc>
     <xhtml:link
                 rel="alternate"
@@ -12,6 +25,19 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="http://localhost:1313/post/mcmc-statics/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/</loc>
+    <lastmod>2025-10-07T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/ai-fundamentals/ssl/"
                 />
   </url><url>
     <loc>http://localhost:1313/post/python-geodata/</loc>
@@ -27,8 +53,29 @@
                 href="http://localhost:1313/post/python-geodata/"
                 />
   </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/byol/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/clustering-methods/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/dino/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/distillation-methods/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/joint-embedding/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/mae/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/masked-image-modeling/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2025-07-11T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -41,7 +88,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-07-11T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -51,6 +98,50 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="http://localhost:1313/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/representation-learning/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/ssl/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/swav/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/vision/</loc>
+    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/contrastive-methods/</loc>
+    <lastmod>2025-10-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/moco/</loc>
+    <lastmod>2025-10-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</loc>
+    <lastmod>2025-10-07T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/ai-fundamentals/ssl/simclr/"
                 />
   </url><url>
     <loc>http://localhost:1313/page/about/</loc>
@@ -120,19 +211,6 @@
   </url><url>
     <loc>http://localhost:1313/tags/remote-sensing/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2025-07-02T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/tags/"
-                />
   </url><url>
     <loc>http://localhost:1313/tags/vector/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>

@@ -1,0 +1,660 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>SwAV - </title>
+
+  <meta name="description" content="SwAV: Swapping Assignments between Views">
+  <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/localhost:1313\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/swav\/",
+          "name": "Sw av"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "SwAV",
+  "description" : "SwAV: Swapping Assignments between Views",
+  "inLanguage" : "en",
+  "wordCount":  1276 ,
+  "datePublished" : "2025-10-08T00:00:00\u002b00:00",
+  "dateModified" : "2025-10-08T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "SSL, Vision, Representation Learning, Joint Embedding, Clustering Methods" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/swav\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+<meta property="og:title" content="SwAV" />
+<meta property="og:description" content="SwAV: Swapping Assignments between Views">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/ai-fundamentals/ssl/swav/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="SwAV" />
+  <meta name="twitter:description" content="SwAV: Swapping Assignments between Views">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="PROJECT" href="/">PROJECT</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0">post</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>SwAV</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 8, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1276&nbsp;words
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <div class="model-card">
+<h2 id="-model-name">🏷️ Model Name</h2>
+<p><strong>SwAV – Swapping Assignments between Views</strong></p>
+<h2 id="-core-idea">🧠 Core Idea</h2>
+<blockquote>
+<p>Simultaneously cluster the data and learn visual representations by enforcing consistency between cluster assignments, or &ldquo;codes,&rdquo; generated from different augmented views of the same image.</p></blockquote>
+<p><img src="https://camo.githubusercontent.com/2c3692e53bcdb1c2ca52962521731db030d62068842587dacefebb8ebbb46582/68747470733a2f2f646c2e666261697075626c696366696c65732e636f6d2f64656570636c75737465722f616e696d617465642e676966" alt="SwAV architecture"></p>
+<h2 id="-architecture">🖼️ Architecture</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>Input Image x
+</span></span><span style="display:flex;"><span> ├──&gt; Augmentation 1 (x₁)
+</span></span><span style="display:flex;"><span> │     └──&gt; Encoder f_θ
+</span></span><span style="display:flex;"><span> │            └──&gt; Projection g_θ
+</span></span><span style="display:flex;"><span> │                   └──&gt; Feature z₁
+</span></span><span style="display:flex;"><span> │                          └──&gt; Compute assignment q₁ to prototypes C
+</span></span><span style="display:flex;"><span> │
+</span></span><span style="display:flex;"><span> └──&gt; Augmentation 2 (x₂)
+</span></span><span style="display:flex;"><span>       └──&gt; Encoder f_θ
+</span></span><span style="display:flex;"><span>              └──&gt; Projection g_θ
+</span></span><span style="display:flex;"><span>                     └──&gt; Feature z₂
+</span></span><span style="display:flex;"><span>                            └──&gt; Compute assignment q₂ to prototypes C
+</span></span></code></pre></div><p>Then</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>Predict q₂ <span style="color:#f92672">from</span> z₁, <span style="color:#f92672">and</span> predict q₁ <span style="color:#f92672">from</span> z₂
+</span></span><span style="display:flex;"><span>Loss <span style="color:#f92672">=</span> cross_entropy(pred₁<span style="color:#960050;background-color:#1e0010">→</span>q₂) <span style="color:#f92672">+</span> cross_entropy(pred₂<span style="color:#960050;background-color:#1e0010">→</span>q₁)
+</span></span></code></pre></div><p>The SwAV architecture consists of two main components that are trained jointly:</p>
+<ul>
+<li><strong>Image Encoder</strong> ($f_{\theta}$): This is the <text style="color: purple">convolutional network (e.g., ResNet)</text> used to extract features from the input images. The features are then passed through a projection head, typically a <text style="color: purple">Multi-Layer Perceptron (MLP)</text>, to produce a feature vector $z$.</li>
+<li><strong>Prototypes</strong> ($C$): A set of $K$ trainable prototype vectors, $C = {c_1, \dots, c_K}$, which act as cluster centers. The matrix $C$ contains these vectors as columns.</li>
+</ul>
+<h3 id="1-multi-crop-data-augmentation">1️⃣ Multi-Crop Data Augmentation</h3>
+<p>The input image ($x$) is transformed into multiple augmented views ($V+2$ views). This strategy is called <text style="color: purple">multi-crop</text>:</p>
+<ul>
+<li><strong>Global Views</strong>: Two standard resolution crops (e.g., $2 \times 224 \times 224$ pixels) are sampled.</li>
+<li><strong>Small Views</strong>: $V$ additional low-resolution crops (e.g., $V \times 96 \times 96$ pixels) are sampled, which cover only small parts of the image.</li>
+<li>The resulting views are $x^{t_1}, x^{t_2}, \dots, x^{t_{V+2}}$</li>
+</ul>
+<h3 id="2-feature-extraction--and-normalization-">2️⃣ Feature Extraction ($f_{\theta}$) and Normalization ($\ell_2$)</h3>
+<p>All $V+2$ augmented views are passed through the image encoder $f_{\theta}$:</p>
+<ol>
+<li>For any augmented view $x^{n t}$, the encoder produces a feature representation $f_{\theta}(x^{n t})$.</li>
+<li>This feature is then <text style="color: purple">$\ell_2$-normalized</text> (projected to the unit sphere) to yield the final feature vector $z^{n t}$.</li>
+</ol>
+<h3 id="3-online-code-cluster-assignment-computation">3️⃣ Online Code (Cluster Assignment) Computation</h3>
+<p>SwAV computes <text style="color: green">image &ldquo;codes&rdquo; or soft cluster assignments ($Q$)</text> for the features in the current batch ($B$) by <text style="color: purple">mapping them to the prototypes ($C$)</text>.</p>
+<ol>
+<li><strong>Similarity Calculation</strong>: The features of the batch ($Z = [z_1, \dots, z_B]$) are compared to the prototypes ($C$).</li>
+<li><strong>Optimal Transport</strong>: The assignment process <text style="color: purple">maximizes the similarity between features and prototypes</text> while enforcing an equipartition constraint.
+<ul>
+<li>This constraint ensures that, on average, each prototype is selected equally often in the batch, preventing trivial solutions where all samples receive the same code.</li>
+</ul>
+</li>
+<li><strong>Sinkhorn-Knopp Algorithm</strong>: The soft assignment matrix $Q^*$ (the codes) is obtained by solving this optimal transport problem using a few iterations (e.g., 3 iterations) of the iterative Sinkhorn-Knopp algorithm.</li>
+<li><strong>Code Input Restriction</strong>: Importantly, the codes ($q$) are typically computed using only the full-resolution crops (the two global views), not the small crops, to avoid degrading assignment quality due to partial information.</li>
+</ol>
+<h3 id="4-swapped-prediction-loss">4️⃣ Swapped Prediction Loss</h3>
+<p>The core of SwAV is <text style="color: red">the &ldquo;swapped&rdquo; prediction problem</text>, where the code generated by one augmented view is predicted by the feature representation of another augmented view of the same image.</p>
+<ol>
+<li><strong>Swapped Loss Components</strong>: For any pair of features ($z^t, z^s$) and their corresponding codes ($q^t, q^s$), the loss minimizes the cross-entropy between:
+<ul>
+<li>The prediction derived from feature $z^t$ and the target code $q^s$.</li>
+<li>The prediction derived from feature $z^s$ and the target code $q^t$. $$L(z^t, z^s) = \mathcal{L}(z^t, q^s) + \mathcal{L}(z^s, q^t)$$</li>
+</ul>
+</li>
+<li><strong>Generalization to Multi-Crop</strong>: The total loss generalizes this concept across all $V+2$ views. For the views $z^{t_1}, \dots, z^{t_{V+2}}$, the loss ensures that every view $z^{t_v}$ can predict the code $q^{t_i}$ of the full-resolution crops (where $i \in {1, 2}$).</li>
+</ol>
+<h3 id="5-joint-parameter-optimization">5️⃣ Joint Parameter Optimization</h3>
+<p>The loss function is jointly minimized using <text style="color: purple">stochastic optimization (e.g., SGD with LARS optimizer)</text>:</p>
+<ol>
+<li><strong>Encoder Update</strong> ($\theta$): The parameters of the image encoder ($f_{\theta}$) are updated via backpropagation to minimize the swapped prediction loss.</li>
+<li><strong>Prototype Update</strong> ($C$): The prototype vectors ($C$) are also learned by backpropagation and updated jointly with the ConvNet parameters.</li>
+<li><strong>Prototype Normalization</strong>: After the update, the prototype vectors $C$ are normalized.</li>
+</ol>
+<h2 id="-downstream-tasks">🎯 Downstream Tasks</h2>
+<ul>
+<li>ImageNet Evaluation Protocols</li>
+<li>Transfer Learning (Linear Classification on Frozen Features)</li>
+<li>Object Detection and Instance Segmentation (Finetuning)</li>
+</ul>
+<h2 id="-strengths">💡 Strengths</h2>
+<ul>
+<li>Architectural and Efficiency Advantages
+<ul>
+<li><strong>Avoids Pairwise Comparisons</strong>: SwAV takes advantage of contrastive learning concepts but does not require the computation of explicit pairwise feature comparisons. This simplifies the objective and improves tractability compared to classical contrastive methods.</li>
+<li><strong>Memory Efficiency</strong>: The method is more memory efficient because it does <em>not require a large memory bank</em> (like NPID or MoCo).</li>
+<li><strong>No Momentum Encoder Required</strong>: SwAV does not require a special momentum network (like MoCo).</li>
+<li><strong>Scalability</strong>: SwAV is an online algorithm that allows features and codes to be learned online, enabling the method to scale to unlimited amounts of data.</li>
+<li><strong>Batch Size Flexibility</strong>: SwAV can be trained effectively with both large and small batches. When trained with a small batch size (256), it only needs to store a small queue of features (around 3,840 vectors), compared to 65,536 features required by MoCov2 for good performance.</li>
+</ul>
+</li>
+<li>Performance and Training Speed
+<ul>
+<li><strong>State-of-the-Art Performance</strong>: SwAV achieves 75.3% top-1 accuracy on ImageNet with a standard ResNet-50 under the linear evaluation protocol, outperforming the prior state of the art by +4.2%.</li>
+<li><strong>Outperforms Supervised Pretraining</strong>: SwAV is the first self-supervised method reported to surpass supervised ImageNet pretraining on all considered transfer tasks (including linear classification tasks like Places205 and object detection tasks like VOC07+12 and COCO).</li>
+<li><strong>Faster Training Convergence</strong>: SwAV learns much faster than contrastive methods, reaching higher performance in four times fewer epochs than MoCov2 in the small batch setting. SwAV achieves strong performance (72.1% top-1 accuracy) after just 100 epochs (approx. 6 hours 15 minutes).</li>
+<li><strong>Scales with Architecture Capacity</strong>: The performance of SwAV consistently increases with the width and capacity of the model, shrinking the gap with supervised training to 0.6% for large architectures.</li>
+</ul>
+</li>
+<li>Multi-Crop Augmentation
+<ul>
+<li><strong>Effective Data Augmentation Strategy</strong>: SwAV proposes the multi-crop strategy which uses a mix of views with different resolutions (e.g., two full-resolution crops and several low-resolution crops).</li>
+<li><strong>Consistent Performance Boost</strong>: Multi-crop consistently improves the performance of SwAV and other self-supervised methods (like SimCLR, DeepCluster, and SeLa) by a significant margin of 2% to 4% top-1 accuracy on ImageNet without increasing memory or computational requirements.</li>
+</ul>
+</li>
+</ul>
+<h2 id="-limitations">⚠️ Limitations</h2>
+<ul>
+<li>Computational and Speed Constraints
+<ul>
+<li><text style="background-color:yellow">Slower Wall Clock Time Per Epoch</text>: Although SwAV converges faster in terms of epochs, one epoch of SwAV is generally slower in wall clock time (1.2× to 1.4× slower) than an epoch of SimCLR or MoCov2, due to the additional back-propagation step and the Sinkhorn algorithm calculation.</li>
+<li><text style="background-color:yellow">Increased Computation with More Prototypes</text>: While the number of prototypes has little influence on final accuracy (as long as there are &ldquo;enough&rdquo;), using more prototypes increases the computational time needed for both the Sinkhorn algorithm and back-propagation.</li>
+</ul>
+</li>
+<li>Dependence on Assignment Details
+<ul>
+<li><text style="background-color:yellow">Soft vs. Hard Codes</text>: Using the default soft assignments (continuous codes) performs better than using hard (discrete) assignments; hard assignments lead to a faster but worse solution.</li>
+<li><text style="background-color:yellow">Trivial Solution Risk</text>: Like other clustering methods, SwAV must actively prevent the trivial solution where every image has the same code. This is managed by enforcing an equipartition constraint via the Sinkhorn-Knopp algorithm.</li>
+<li><text style="background-color:yellow">Sensitivity to Sinkhorn Iterations</text>: If too few iterations are used in the Sinkhorn-Knopp algorithm (e.g., 1 iteration), the loss fails to converge.</li>
+<li><text style="background-color:yellow">Sensitivity to Regularization Parameter</text>: A strong entropy regularization (high $\epsilon$) generally leads to a trivial solution where all samples collapse into an unique representation, requiring the parameter $\epsilon$ to be kept low in practice.</li>
+<li><text style="background-color:yellow">Code Quality Degradation with Small Crops</text>: When using the multi-crop strategy, codes must be computed only using the full-resolution crops. Computing codes using the low-resolution crops (partial information) degrades the assignment quality and consequently alters the transfer performance of the resulting network.</li>
+</ul>
+</li>
+</ul>
+<h3 id="-reference">📚 Reference</h3>
+<ul>
+<li><em>Caron et al., 2020</em>  <em>[Unsupervised Learning of Visual Features by Contrasting Cluster Assignments]</em>  🔗 <a href="https://arxiv.org/abs/2006.09882">arXiv:2006.09882</a></li>
+<li><a href="https://github.com/facebookresearch/swav">Github: facebookresearch/swav</a></li>
+</ul>
+</div>
+
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/clustering-methods/">Clustering Methods</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fswav%2f&amp;text=SwAV&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fswav%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fswav%2f&amp;title=SwAV" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fswav%2f&amp;title=SwAV" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fswav%2f&amp;title=SwAV" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fswav%2f&amp;description=SwAV" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/ai-fundamentals/ssl/byol/">BYOL</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/dino/">DINO</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/moco/">Momentum Contrast (MoCo) </a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/simclr/">SimCLR</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/post/ai-fundamentals/ssl/moco/" data-toggle="tooltip" data-placement="top" title="Momentum Contrast (MoCo) ">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://localhost:1313/post/ai-fundamentals/ssl/dino/" data-toggle="tooltip" data-placement="top" title="DINO">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

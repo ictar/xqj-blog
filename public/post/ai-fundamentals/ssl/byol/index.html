@@ -1,0 +1,646 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>BYOL - </title>
+
+  <meta name="description" content="BYOL: Bootstrap Your Own Latent">
+  <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/localhost:1313\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/byol\/",
+          "name": "Byol"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "BYOL",
+  "description" : "BYOL: Bootstrap Your Own Latent",
+  "inLanguage" : "en",
+  "wordCount":  952 ,
+  "datePublished" : "2025-10-08T00:00:00\u002b00:00",
+  "dateModified" : "2025-10-08T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "SSL, Vision, Representation Learning, Joint Embedding, Distillation Methods" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/byol\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+<meta property="og:title" content="BYOL" />
+<meta property="og:description" content="BYOL: Bootstrap Your Own Latent">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/ai-fundamentals/ssl/byol/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="BYOL" />
+  <meta name="twitter:description" content="BYOL: Bootstrap Your Own Latent">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="PROJECT" href="/">PROJECT</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0">post</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>BYOL</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 8, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;952&nbsp;words
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <div class="model-card">
+<h2 id="-model-name">🏷️ Model Name</h2>
+<p><strong>BYOL – Bootstrap Your Own Latent</strong></p>
+<h2 id="-core-idea">🧠 Core Idea</h2>
+<blockquote>
+<p>Two interacting neural networks—the <text style="color: green">online network</text> and the <text style="color: green">target network </text> —— learn representations by predicting each other&rsquo;s outputs, <strong>without using negative samples</strong>.</p>
+<p>Objective: train the online network to <text style="color: red">predict the target network&rsquo;s projection</text> of the same image under a different augmented view.</p></blockquote>
+<p><img src="https://raw.githubusercontent.com/deepmancer/byol-pytorch/main/images/Byol.jpg" alt="BYOL architecture"></p>
+<h2 id="-architecture">🖼️ Architecture</h2>
+<p>BYOL employs two parallel neural networks: the online network (parameters $\theta$) and the target network (parameters $\xi$).</p>
+<ul>
+<li><text style="color: green">Online Network</text> $(\theta)$: This network is comprised of three sequential stages:
+<ul>
+<li>An <strong>encoder</strong> ($f_{\theta}$): a convolutional neural network (such as <text style="color: purple">ResNet</text>) used to extract image feature representation $y_{\theta}$.</li>
+<li>A <strong>projector</strong> ($g_{\theta}$): a <text style="color: purple">multi-layer perceptron (MLP)</text> projecting the encoder output $y_{\theta}$ into a smaller latent space to obtain the projection $z_{\theta}$.</li>
+<li>A <strong>predictor</strong> ($q_{\theta}$): another <text style="color: purple">MLP</text>, with the same structure as the projector, is used to predict the projection of the target network.</li>
+</ul>
+</li>
+<li><text style="color: green">Target Network</text> $(\xi)$: This network has the same encoder ($f_{\xi}$) and projector ($g_{\xi}$) architecture as the online network, but it <strong>does not have a predictor</strong>. The target network weights $\xi$ are initialized to match the online network weights $\theta$.</li>
+</ul>
+<p>And the pseudocode of BYOL&rsquo;s main learning algorithm:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"></code></pre></div><h3 id="1-data-augmentation-and-view-generation">1️⃣ Data Augmentation and View Generation</h3>
+<ol>
+<li>An input image ($x$) is sampled from the dataset.</li>
+<li>Two distributions of image augmentations, $T$ and $T'$, are used to create two different augmented views of the image: $v = t(x)$ and $v' = t'(x)$, where $t \sim T$ and $t' \sim T'$.
+<ul>
+<li>The augmentations typically include random cropping/resizing, random horizontal flip, color distortion, Gaussian blur, and solarization.</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-forward-pass-through-online-and-target-branches">2️⃣ Forward Pass through Online and Target Branches</h3>
+<p>The two augmented views, $v$ and $v'$, are processed by the two distinct networks:</p>
+<ul>
+<li>Online Branch (View $v$):
+<ul>
+<li>The encoder $f_{\theta}$ processes $v$ to yield the representation $y_{\theta}$.</li>
+<li>The projector $g_{\theta}$ maps $y_{\theta}$ to the projection $z_{\theta}$.</li>
+<li>The predictor $q_{\theta}$ transforms $z_{\theta}$ to generate the prediction $q_{\theta}(z_{\theta})$.</li>
+</ul>
+</li>
+<li>Target Branch (View $v'$):
+<ul>
+<li>The encoder $f_{\xi}$ processes $v'$ to yield the representation $y'_{\xi}$.</li>
+<li>The projector $g_{\xi}$ maps $y'_{\xi}$ to the target projection $z'_{\xi}$.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-loss-calculation">3️⃣ Loss Calculation</h3>
+<p>The objective is to train the online network to predict the target network&rsquo;s output:</p>
+<ol>
+<li><strong>Normalization</strong>: Both the prediction $q_{\theta}(z_{\theta})$ and the target projection $z'_{\xi}$ are $\ell_2$-normalized.</li>
+<li><strong>Stop Gradient</strong>: A stop-gradient operator (sg) is applied to the target projection $z'_{\xi}$, ensuring that the gradient does not propagate back into the target network parameters $\xi$.</li>
+<li><strong>Loss Definition</strong>: The loss ($L_{\theta, \xi}$) is defined as the mean squared error (MSE) between the normalized prediction and the normalized target projection: $$L_{\theta, \xi} = \left\| q_{\theta}(z_{\theta}) - z'_{\xi} \right\|_2^2$$.</li>
+<li><strong>Symmetrization</strong>: The total BYOL loss ($L_{\text{BYOL}}$) is symmetrized by repeating the process with the inputs swapped (i.e., feeding $v'$ to the online network and $v$ to the target network to compute $\tilde{L}_{\theta, \xi}$): $$L{\text{BYOL}} = L_{\theta, \xi} + \tilde{L}_{\theta, \xi}$$.</li>
+</ol>
+<h3 id="4-parameter-update">4️⃣ Parameter Update</h3>
+<p>The two networks are updated differently in an asymmetric manner:</p>
+<ol>
+<li>Online Network Update ($\theta$): The online parameters $\theta$ are updated by <text style="color:purple">a stochastic optimization step</text> (e.g., using the LARS optimizer) to minimize $L_{\text{BYOL}}$.</li>
+<li>Target Network Update ($\xi$): The target parameters $\xi$ are updated using an <text style="color:purple">Exponential Moving Average (EMA)</text> of the online parameters $\theta$. This update is slow and steady, calculated as: $$\xi \leftarrow \tau\xi + (1-\tau)\theta$$ where $\tau \in$ is the momentum coefficient (often starting from $\tau_{\text{base}}=0.996$ and increasing to one). This EMA mechanism is crucial for stabilizing the bootstrap targets.</li>
+</ol>
+<h3 id="-final-output">🎉 Final Output</h3>
+<p>After the self-supervised training is complete, everything except the encoder $f_{\theta}$ is discarded, and $f_{\theta}$ provides the learned image representation for downstream tasks.</p>
+<h2 id="-downstream-tasks">🎯 Downstream Tasks</h2>
+<ul>
+<li>ImageNet Evaluation Protocols</li>
+<li>Transfer Learning Tasks (General Vision)
+<ul>
+<li>Classification (Transfer to other classification tasks).</li>
+<li>Semantic Segmentation (e.g., VOC2012 task).</li>
+<li>Object Detection (Using architectures like Faster R-CNN).</li>
+<li>Depth Estimation (e.g., NYU v2 dataset).</li>
+</ul>
+</li>
+</ul>
+<h2 id="-strengths">💡 Strengths</h2>
+<ul>
+<li>Performance and Efficiency
+<ul>
+<li>State-of-the-Art Performance Without Negatives: BYOL achieves state-of-the-art results without relying on negative pairs.</li>
+<li>High Accuracy.</li>
+<li>Outperforms on Transfer Benchmarks</li>
+<li>Parameter Efficiency</li>
+<li>Simple and Powerful Objective</li>
+</ul>
+</li>
+<li>Robustness and Training Flexibility
+<ul>
+<li>Insensitivity to Batch Size: BYOL is more resilient to changes in the batch size compared to contrastive counterparts. Its performance remains stable over a wide range of batch sizes (from 256 to 4096), only dropping for very small values due to reliance on batch normalization layers.</li>
+<li>No Need for Large Batches: Since it does not rely on negative pairs, there is no need for large batches of negative samples.</li>
+<li>Robustness to Augmentations: BYOL is incredibly robust to the choice of image augmentations compared to contrastive methods like SimCLR. When augmentations are drastically reduced to only random crops, BYOL shows much smaller performance degradation than SimCLR.</li>
+<li>Effective Use of Moving Average Target: The use of a slow-moving exponential average (EMA) of the online network parameters for the target network provides stable targets, which is crucial for stabilizing the bootstrap step.</li>
+</ul>
+</li>
+</ul>
+<h2 id="-limitations">⚠️ Limitations</h2>
+<ul>
+<li>Theoretical and Architectural Constraints
+<ul>
+<li><text style="background-color:yellow">Susceptibility to Collapse</text>: The core objective of BYOL—predicting the target network&rsquo;s output—theoretically admits collapsed solutions (where the network outputs the same vector for all inputs). While BYOL employs specific mechanisms (predictor, EMA target) to avoid this, distillation methods generally are noted as being more prone to collapsing.</li>
+<li><text style="background-color:yellow">Dependence on Asymmetry</text>: The design requires an asymmetric architecture, specifically the addition of a predictor ($q_{\theta}$) to the online network, which is critical to preventing collapse in the unsupervised scenario. If this predictor is removed, the representation collapses.</li>
+</ul>
+</li>
+<li>Generalization Constraints
+<ul>
+<li><text style="background-color:yellow">Dependence on Vision-Specific Augmentations</text>: BYOL remains dependent on existing sets of augmentations that are specific to vision applications.</li>
+<li><text style="background-color:yellow">Generalization Difficulty to Other Modalities</text>: Generalizing BYOL to other modalities (e.g., audio, video, text) would require significant effort and expertise to design similarly suitable augmentations for each modality.</li>
+</ul>
+</li>
+</ul>
+<h2 id="-reference">📚 Reference</h2>
+<ul>
+<li><em>Grill et al., 2020</em>  <em>[Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning]</em>  🔗 <a href="https://arxiv.org/abs/2006.07733">arXiv:2006.07733</a></li>
+<li><a href="https://github.com/google-deepmind/deepmind-research/tree/master/byol">Github: BYOL</a></li>
+<li><a href="https://github.com/deepmancer/byol-pytorch">Github: deepmancer/byol-pytorch</a></li>
+</ul>
+</div>
+
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/distillation-methods/">Distillation Methods</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;text=BYOL&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;title=BYOL" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;title=BYOL" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;title=BYOL" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;description=BYOL" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/ai-fundamentals/ssl/dino/">DINO</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/swav/">SwAV</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/moco/">Momentum Contrast (MoCo) </a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/simclr/">SimCLR</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/post/ai-fundamentals/ssl/dino/" data-toggle="tooltip" data-placement="top" title="DINO">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

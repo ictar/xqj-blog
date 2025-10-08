@@ -8,8 +8,64 @@
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Wed, 02 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 08 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Clustering Methods</title>
+      <link>http://localhost:1313/tags/clustering-methods/</link>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/clustering-methods/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Distillation Methods</title>
+      <link>http://localhost:1313/tags/distillation-methods/</link>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/distillation-methods/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Joint Embedding</title>
+      <link>http://localhost:1313/tags/joint-embedding/</link>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/joint-embedding/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Masked Image Modeling</title>
+      <link>http://localhost:1313/tags/masked-image-modeling/</link>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/masked-image-modeling/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Representation Learning</title>
+      <link>http://localhost:1313/tags/representation-learning/</link>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/representation-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SSL</title>
+      <link>http://localhost:1313/tags/ssl/</link>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/ssl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vision</title>
+      <link>http://localhost:1313/tags/vision/</link>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/vision/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Contrastive Methods</title>
+      <link>http://localhost:1313/tags/contrastive-methods/</link>
+      <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/contrastive-methods/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Python</title>
       <link>http://localhost:1313/tags/python/</link>

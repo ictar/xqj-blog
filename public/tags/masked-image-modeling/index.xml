@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Masked Image Modeling on Qiongjie&#39;s Notes</title>
+    <link>http://localhost:1313/tags/masked-image-modeling/</link>
+    <description>Recent content in Masked Image Modeling on Qiongjie&#39;s Notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Wed, 08 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/masked-image-modeling/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MAE</title>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/mae/</link>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/mae/</guid>
+      <description>MAE: Masked Autoencoders Are Scalable Vision Learners</description>
+    </item>
+  </channel>
+</rss>

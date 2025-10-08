@@ -14,6 +14,43 @@ summaryLength = 6
     contentDir = "content/en" # English
     [languages.en.params]
         subtitle = "Spatial intelligence researcher | GIS developer | Data storyteller"
+    [languages.en.menus]
+      [[languages.zh-cn.menus.main]]
+        name = "BLOG"
+        url = "post"
+        identifier = "post"
+        weight = 1
+      [[languages.en.menus.main]]
+        name = "Remote Sensing with Python"
+        url = "post/python-geodata"
+        parent = "post"
+        weight = 1
+      [[languages.en.menus.main]]
+        name = "Monte Carlo–Markov Chains Statistical Methods"
+        url = "post/mcmc-statics"
+        parent = "post"
+        weight = 2
+      [[languages.en.menus.main]]
+        name = "AI Fundamentals"
+        url = "post/ai-fundamentals"
+        parent = "post"
+        weight = 3
+      [[languages.en.menus.main]]
+        name = "PROJECT"
+        url = ""
+        weight = 2
+      [[languages.en.menus.main]]
+        name = "NOTE"
+        url = "notes"
+        weight = 3
+      [[languages.en.menus.main]]
+        name = "ABOUT ME"
+        url = "page/about/"
+        weight = 6
+      [[languages.en.menus.main]]
+        name = "TAG"
+        url = "tags"
+        weight = 4
   [languages.zh-cn]
     languageCode = 'zh-cn'
     languageName = 'CH'
@@ -75,6 +112,7 @@ summaryLength = 6
     showRelatedPosts = true
     math = true
     hideAuthor = true
+    custom_css = ["css/custom.css"]
     
 
 [Params.author]
@@ -106,7 +144,11 @@ summaryLength = 6
       url = "post/geoai"
       parent = "post"
       weight = 3
-
+[[menus.main]]
+      name = "AI Fundamentals"
+      url = "post/ai-fundamentals"
+      parent = "post"
+      weight = 4
 [[menu.main]]
     name = "Projects"
     url = ""
@@ -147,3 +189,4 @@ summaryLength = 6
 [services]
   [services.disqus]
     shortname = 'xqj'
+
