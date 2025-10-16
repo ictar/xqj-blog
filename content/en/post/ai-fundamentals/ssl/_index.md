@@ -39,7 +39,7 @@ Three primary paradigms dominate the SSL landscape: Joint Embedding, Masked Imag
 |--|--|--|--|
 |**Contrastive**|Pull positive pairs (views of the same image) close in the embedding space while pushing negative pairs (views of different images) apart.|Requires negative samples, which can necessitate large batch sizes. Good for multimodal data.|[SimCLR](SimCLR.md), [MoCo](MoCo.md)|
 |**Clustering**|Learn embeddings by grouping similar samples into clusters without using explicit negative pairs.|Jointly learns feature representations and cluster assignments.|[SwAV](SwAV.md), Deep Cluster|
-|**Distillation**|A "student" network is trained to match the output distribution of a "teacher" network on different augmented views.|Avoids collapse via an asymmetric architecture (student vs. teacher). The teacher is often updated via an Exponential Moving Average (EMA) of the student's weights. Does not require negative samples.|[BYOL](BYOL.md), [DINO](DINO.md)|
+|**Distillation**|A "student" network is trained to match the output distribution of a "teacher" network on different augmented views.|Avoids collapse via an asymmetric architecture (**student vs. teacher**). The teacher is often updated via an Exponential Moving Average (EMA) of the student's weights. Does not require negative samples.|[BYOL](BYOL.md), [DINO](DINO.md)|
 |**Regularization**|Avoids collapse by imposing regularization terms on the embeddings, such as decorrelating feature dimensions.|Maximizes the information content of the embeddings by penalizing redundancy. No negative samples required. |Barlow Twins, VICReg|
 
 ### 2. Masked Image Modeling (MIM)
@@ -48,7 +48,7 @@ Three primary paradigms dominate the SSL landscape: Joint Embedding, Masked Imag
 
 **Prediction Targets**: The model can be trained to predict various targets for the masked regions:
 * Pixel Reconstruction: Reconstructing the raw pixel values (e.g., [MAE](MAE.md), SimMIM).
-* Feature Regression: Predicting abstract feature representations (e.g., MaskFeat).
+* Feature Regression: Predicting abstract feature representations (e.g., [MaskFeat](MaskFeat.md)).
 * Token Prediction: Predicting discrete visual tokens (e.g., BEiT).
 
 ### 3. Hybrid Architectures
@@ -56,4 +56,4 @@ Three primary paradigms dominate the SSL landscape: Joint Embedding, Masked Imag
 > **Central idea**: Combine the principles of masking and joint embedding
 
 **Examples:**
-- **Image-based Joint Embedding Predictive Architecture (I-JEPA)**
+- **Image-based Joint Embedding Predictive Architecture ([I-JEPA](I-JEPA.md))**

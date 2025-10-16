@@ -123,53 +123,6 @@ summaryLength = 6
     linkedin = "qiongjie-xu"
 
 
-[[menu.main]]
-    name = "Blog"
-    url = "post"
-    identifier = "post"
-    weight = 1
-
-[[menus.main]]
-      name = "Remote Sensing with Python"
-      url = "post/python-geodata"
-      parent = "post"
-      weight = 1
-[[menus.main]]
-      name = "Monte Carlo–Markov Chains Statistical Methods"
-      url = "post/mcmc-statics"
-      parent = "post"
-      weight = 2
-[[menus.main]]
-      name = "GeoAI"
-      url = "post/geoai"
-      parent = "post"
-      weight = 3
-[[menus.main]]
-      name = "AI Fundamentals"
-      url = "post/ai-fundamentals"
-      parent = "post"
-      weight = 4
-[[menu.main]]
-    name = "Projects"
-    url = ""
-    weight = 2
-
-[[menu.main]]
-    name = "Notes"
-    url = "notes"
-    weight = 3
-
-[[menu.main]]
-    name = "About"
-    url = "page/about/"
-    weight = 6
-
-[[menu.main]]
-    name = "Tags"
-    url = "tags"
-    weight = 4
-
-
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]

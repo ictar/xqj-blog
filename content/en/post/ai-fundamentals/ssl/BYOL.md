@@ -1,7 +1,7 @@
 ---
-title: "BYOL"
+title: "BYOL: Bootstrap Your Own Latent"
 date: 2025-10-08
-summary: "BYOL: Bootstrap Your Own Latent"
+summary: "Learn representations by predicting one network’s output from another’s, without using negative samples."
 series: ["Self-Supervised Learning"]
 tags: ["SSL", "Vision", "Representation Learning", "Joint Embedding", "Distillation Methods"]
 ---

@@ -11,18 +11,18 @@
     <lastBuildDate>Wed, 08 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/distillation-methods/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>BYOL</title>
+      <title>BYOL: Bootstrap Your Own Latent</title>
       <link>http://localhost:1313/post/ai-fundamentals/ssl/byol/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/byol/</guid>
-      <description>BYOL: Bootstrap Your Own Latent</description>
+      <description>Learn representations by predicting one network’s output from another’s, without using negative samples.</description>
     </item>
     <item>
-      <title>DINO</title>
+      <title>DINO: Self-Distillation with No Labels</title>
       <link>http://localhost:1313/post/ai-fundamentals/ssl/dino/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/dino/</guid>
-      <description>DINO: Self-Distillation with No Labels</description>
+      <description>A student network learns from a teacher network using self-distillation, producing emergent semantic attention maps.</description>
     </item>
   </channel>
 </rss>

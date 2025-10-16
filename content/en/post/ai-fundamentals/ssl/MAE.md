@@ -1,7 +1,7 @@
 ---
-title: "MAE"
+title: "MAE: Masked Autoencoders Are Scalable Vision Learners"
 date: 2025-10-08
-summary: "MAE: Masked Autoencoders Are Scalable Vision Learners"
+summary: "Randomly mask image patches and reconstruct the missing ones to learn context-aware visual representations."
 series: ["Self-Supervised Learning"]
 tags: ["SSL", "Vision", "Representation Learning", "Masked Image Modeling"]
 ---

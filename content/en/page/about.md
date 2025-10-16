@@ -30,9 +30,9 @@ If you’d like to collaborate, chat, or just say hi, feel free to reach out!
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // 基础地图初始化
-        const map = L.map('map').setView([45.4782, 9.2276], 4);
+        const map = L.map('map').setView([45.4782, 9.2276], 8);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 12,
+        maxZoom: 28,
         }).addTo(map);
 
         // 当前语言判断
@@ -40,22 +40,20 @@ If you’d like to collaborate, chat, or just say hi, feel free to reach out!
 
         // 自定义图标（按类型区分）
         const iconMap = {
-            study: new L.Icon.Default(),
-            work: new L.Icon({
-                iconUrl: "https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-red.png",
-                shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowSize: [41, 41]
+            study: L.AwesomeMarkers.icon({
+                icon: 'graduation-cap',
+                prefix: 'fa',
+                markerColor: 'blue'
             }),
-            travel: new L.Icon({
-                iconUrl: "https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-green.png",
-                shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowSize: [41, 41]
+            work: L.AwesomeMarkers.icon({
+                icon: 'briefcase',
+                prefix: 'fa',
+                markerColor: 'red'
+            }),
+            travel: L.AwesomeMarkers.icon({
+                icon: 'route',
+                prefix: 'fa',
+                markerColor: 'green'
             })
         };
 
@@ -66,11 +64,15 @@ If you’d like to collaborate, chat, or just say hi, feel free to reach out!
             data.forEach(place => {
             const marker = L.marker(place.coords, { icon: iconMap[place.type] });
             const popupHtml = `
-                <div style="min-width:180px">
-                <strong>${place.title}</strong><br/>
-                <span>${place.desc}</span><br/>
-                <small>${place.years}</small>
-                </div> `;
+                <div style="min-width:180px;padding:8px 0;">
+                    <div style="font-weight:bold;font-size:16px;margin-bottom:4px;">
+                        <i class="fa fa-${place.type === 'study' ? 'graduation-cap' : place.type === 'work' ? 'briefcase' : 'plane'}" style="margin-right:6px;color:#4A90E2;"></i>
+                        ${place.title}
+                    </div>
+                    <div style="color:#555;">${place.desc}</div>
+                    <div style="font-size:12px;color:#888;margin-top:4px;">${place.years}</div>
+                </div>
+            `;
             marker.bindPopup(popupHtml);
             marker.addTo(map);
             });
@@ -84,13 +86,13 @@ If you’d like to collaborate, chat, or just say hi, feel free to reach out!
         div.innerHTML = `
             <div class="legend-title">📍 My Experience</div>
             <div class="legend-item">
-            <span class="legend-icon" style="background-color: #4A90E2;"></span> Study
+                <i class="fa fa-graduation-cap" style="color:#4A90E2;margin-right:6px;"></i> Study
             </div>
             <div class="legend-item">
-            <span class="legend-icon" style="background-color: #D0021B;"></span> Work
+                <i class="fa fa-briefcase" style="color:#D0021B;margin-right:6px;"></i> Work
             </div>
             <div class="legend-item">
-            <span class="legend-icon" style="background-color: #7ED321;"></span> Travel
+                <i class="fa fa-route" style="color:#7ED321;margin-right:6px;"></i> Travel
             </div>
         `;
         return div;

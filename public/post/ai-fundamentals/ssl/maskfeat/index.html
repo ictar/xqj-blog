@@ -12,9 +12,9 @@
  
 
 
-      <title>BYOL: Bootstrap Your Own Latent - </title>
+      <title>MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training - </title>
 
-  <meta name="description" content="Learn representations by predicting one network’s output from another’s, without using negative samples.">
+  <meta name="description" content="Predict handcrafted features (e.g., HOG) of masked regions instead of raw pixels.">
   <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -50,8 +50,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/byol\/",
-          "name": "Byol bootstrap your own latent"
+          "@id": "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/maskfeat\/",
+          "name": "Mask feat masked feature prediction for self supervised visual pre training"
         }
     }]
 }
@@ -62,15 +62,15 @@
   "author": {
     "name" : "Qiongjie.X"
   },
-  "headline": "BYOL: Bootstrap Your Own Latent",
-  "description" : "Learn representations by predicting one network’s output from another’s, without using negative samples.",
+  "headline": "MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training",
+  "description" : "Predict handcrafted features (e.g., HOG) of masked regions instead of raw pixels.",
   "inLanguage" : "en",
-  "wordCount":  952 ,
-  "datePublished" : "2025-10-08T00:00:00\u002b00:00",
-  "dateModified" : "2025-10-08T00:00:00\u002b00:00",
+  "wordCount":  1026 ,
+  "datePublished" : "2025-10-09T00:00:00\u002b00:00",
+  "dateModified" : "2025-10-09T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
-  "keywords" : [ "SSL, Vision, Representation Learning, Joint Embedding, Distillation Methods" ],
-  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/byol\/",
+  "keywords" : [ "SSL, Vision, Representation Learning, Masked Image Modeling" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/maskfeat\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "http:\/\/localhost:1313\/",
@@ -85,15 +85,15 @@
 </script>
 
 
-<meta property="og:title" content="BYOL: Bootstrap Your Own Latent" />
-<meta property="og:description" content="Learn representations by predicting one network’s output from another’s, without using negative samples.">
+<meta property="og:title" content="MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training" />
+<meta property="og:description" content="Predict handcrafted features (e.g., HOG) of masked regions instead of raw pixels.">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
-<meta property="og:url" content="http://localhost:1313/post/ai-fundamentals/ssl/byol/" />
+<meta property="og:url" content="http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Qiongjie&#39;s Notes" />
 
-  <meta name="twitter:title" content="BYOL: Bootstrap Your Own Latent" />
-  <meta name="twitter:description" content="Learn representations by predicting one network’s output from another’s, without using negative samples.">
+  <meta name="twitter:title" content="MaskFeat: Masked Feature Prediction for Self-Supervised Visual …" />
+  <meta name="twitter:description" content="Predict handcrafted features (e.g., HOG) of masked regions instead of raw pixels.">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -289,7 +289,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>BYOL: Bootstrap Your Own Latent</h1>
+                <h1>MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</h1>
               
               
               
@@ -297,11 +297,11 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on October 8, 2025
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 9, 2025
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;952&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1026&nbsp;words
   
   
   
@@ -324,122 +324,136 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <div class="model-card">
-<h2 id="-model-name">🏷️ Model Name</h2>
-<p><strong>BYOL – Bootstrap Your Own Latent</strong></p>
+<h3 id="-model-name">🏷️ Model Name</h3>
+<p><strong>MaskFeat – Masked Feature Prediction for Self-Supervised Visual Pre-Training</strong></p>
 <h2 id="-core-idea">🧠 Core Idea</h2>
 <blockquote>
-<p>Two interacting neural networks—the <text style="color: green">online network</text> and the <text style="color: green">target network </text> —— learn representations by predicting each other&rsquo;s outputs, <strong>without using negative samples</strong>.</p>
-<p>Objective: train the online network to <text style="color: red">predict the target network&rsquo;s projection</text> of the same image under a different augmented view.</p></blockquote>
-<p><img src="https://raw.githubusercontent.com/deepmancer/byol-pytorch/main/images/Byol.jpg" alt="BYOL architecture"></p>
+<p>Predict handcrafted features (e.g., <a href="https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients">HOG</a>) of masked regions instead of raw pixels.</p></blockquote>
 <h2 id="-architecture">🖼️ Architecture</h2>
-<p>BYOL employs two parallel neural networks: the online network (parameters $\theta$) and the target network (parameters $\xi$).</p>
+<p><img src="" alt="MaskFeat architecture"></p>
+<p>Pseudocode of MaskFeat:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># simplified MaskFeat pseudocode</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> batch <span style="color:#f92672">in</span> loader:               <span style="color:#75715e"># video clips or image patches</span>
+</span></span><span style="display:flex;"><span>    tokens <span style="color:#f92672">=</span> patchify(batch)       <span style="color:#75715e"># shape: (B, T, H, W, C)-&gt;tokens</span>
+</span></span><span style="display:flex;"><span>    mask <span style="color:#f92672">=</span> sample_mask(tokens, ratio<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>, blockwise<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)  <span style="color:#75715e"># cube/block masking</span>
+</span></span><span style="display:flex;"><span>    masked_tokens <span style="color:#f92672">=</span> replace_with_mask_token(tokens, mask)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># forward</span>
+</span></span><span style="display:flex;"><span>    outputs <span style="color:#f92672">=</span> vision_transformer(masked_tokens)   <span style="color:#75715e"># outputs for all token positions</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># compute targets from original (unmasked) inputs</span>
+</span></span><span style="display:flex;"><span>    target_features <span style="color:#f92672">=</span> compute_target_features(original_batch)  <span style="color:#75715e"># e.g., HOG per patch</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># take outputs only at masked positions &amp; compute regression loss</span>
+</span></span><span style="display:flex;"><span>    pred <span style="color:#f92672">=</span> project_to_target_dim(outputs[mask_positions])
+</span></span><span style="display:flex;"><span>    loss <span style="color:#f92672">=</span> L2(pred, target_features[mask_positions])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    loss<span style="color:#f92672">.</span>backward(); optimizer<span style="color:#f92672">.</span>step()
+</span></span></code></pre></div><h3 id="1-input-preparation-and-tokenization">1️⃣ Input Preparation and Tokenization</h3>
+<p>The input is a <strong>video</strong> (or an image, which is treated as a video with a single frame).</p>
 <ul>
-<li><text style="color: green">Online Network</text> $(\theta)$: This network is comprised of three sequential stages:
-<ul>
-<li>An <strong>encoder</strong> ($f_{\theta}$): a convolutional neural network (such as <text style="color: purple">ResNet</text>) used to extract image feature representation $y_{\theta}$.</li>
-<li>A <strong>projector</strong> ($g_{\theta}$): a <text style="color: purple">multi-layer perceptron (MLP)</text> projecting the encoder output $y_{\theta}$ into a smaller latent space to obtain the projection $z_{\theta}$.</li>
-<li>A <strong>predictor</strong> ($q_{\theta}$): another <text style="color: purple">MLP</text>, with the same structure as the projector, is used to predict the projection of the target network.</li>
+<li>The video is initially divided into <strong>regular space-time cubes</strong>.</li>
+<li>These cubes are then projected (e.g., via convolution) to form a sequence of <strong>tokens</strong>.</li>
 </ul>
-</li>
-<li><text style="color: green">Target Network</text> $(\xi)$: This network has the same encoder ($f_{\xi}$) and projector ($g_{\xi}$) architecture as the online network, but it <strong>does not have a predictor</strong>. The target network weights $\xi$ are initialized to match the online network weights $\theta$.</li>
-</ul>
-<p>And the pseudocode of BYOL&rsquo;s main learning algorithm:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"></code></pre></div><h3 id="1-data-augmentation-and-view-generation">1️⃣ Data Augmentation and View Generation</h3>
+<h3 id="2-masking">2️⃣ Masking</h3>
 <ol>
-<li>An input image ($x$) is sampled from the dataset.</li>
-<li>Two distributions of image augmentations, $T$ and $T'$, are used to create two different augmented views of the image: $v = t(x)$ and $v' = t'(x)$, where $t \sim T$ and $t' \sim T'$.
+<li>A portion of these input tokens (representing space-time cubes) is <strong>randomly masked out</strong>.</li>
+<li>The masked tokens are replaced with a <strong>[MASK] token</strong>, which is a shared, learnable embedding indicating the masked regions.
 <ul>
-<li>The augmentations typically include random cropping/resizing, random horizontal flip, color distortion, Gaussian blur, and solarization.</li>
+<li>For spatiotemporal video data, <strong>cube masking</strong> is used, involving sampling random cubes that include both spatial and temporal blocks. MaskFeat commonly uses a <strong>40% masking rati</strong>o.</li>
 </ul>
 </li>
 </ol>
-<h3 id="2-forward-pass-through-online-and-target-branches">2️⃣ Forward Pass through Online and Target Branches</h3>
-<p>The two augmented views, $v$ and $v'$, are processed by the two distinct networks:</p>
+<h3 id="3-encoder-processing-transformer-backbone">3️⃣ Encoder Processing (Transformer Backbone)</h3>
+<p>The sequence of tokens, including the encoded visible patches and the [MASK] tokens, is input to a <text style="color:purple">Vision Transformer (ViT)</text> backbone.</p>
 <ul>
-<li>Online Branch (View $v$):
+<li>Positional embeddings are added to the token sequence before processing by the Transformer.</li>
+<li>The Transformer backbone processes this masked space-time input.</li>
+</ul>
+<h3 id="4-prediction-head">4️⃣ Prediction Head</h3>
+<p>The output tokens from the Transformer backbone corresponding to the masked cubes are passed through <text style="color:purple">a linear layer</text>.</p>
 <ul>
-<li>The encoder $f_{\theta}$ processes $v$ to yield the representation $y_{\theta}$.</li>
-<li>The projector $g_{\theta}$ maps $y_{\theta}$ to the projection $z_{\theta}$.</li>
-<li>The predictor $q_{\theta}$ transforms $z_{\theta}$ to generate the prediction $q_{\theta}(z_{\theta})$.</li>
+<li>This linear layer projects the tokens into the prediction space, where the number of output channels is adjusted to match the dimensionality of the specific target feature being predicted.</li>
 </ul>
-</li>
-<li>Target Branch (View $v'$):
+<h3 id="5-target-feature-generation">5️⃣ Target Feature Generation</h3>
+<p>The <text style="color:green">prediction target</text> is a feature extracted from the corresponding region of the original, intact sample. This feature serves as the supervision.</p>
 <ul>
-<li>The encoder $f_{\xi}$ processes $v'$ to yield the representation $y'_{\xi}$.</li>
-<li>The projector $g_{\xi}$ maps $y'_{\xi}$ to the target projection $z'_{\xi}$.</li>
+<li>MaskFeat typically uses <text style="color:purple">Histograms of Oriented Gradients (HOG)</text>, a hand-crafted feature descriptor, as the effective target feature.</li>
+<li>For video input, the prediction target for a masked space-time cube is typically the <strong>HOG feature of the 2-D spatial patch temporally centered within that cube</strong>.</li>
 </ul>
-</li>
+<h3 id="6-loss-calculation-and-optimization">6️⃣ Loss Calculation and Optimization</h3>
+<p>The model is trained to minimize the difference between the predicted feature and the target feature.</p>
+<ul>
+<li>The loss function (a regression loss, e.g., mean squared error) is computed <strong>only on the masked cubes</strong>.</li>
+<li>The model&rsquo;s weights (the Transformer backbone) are optimized to minimize this loss.</li>
 </ul>
-<h3 id="3-loss-calculation">3️⃣ Loss Calculation</h3>
-<p>The objective is to train the online network to predict the target network&rsquo;s output:</p>
-<ol>
-<li><strong>Normalization</strong>: Both the prediction $q_{\theta}(z_{\theta})$ and the target projection $z'_{\xi}$ are $\ell_2$-normalized.</li>
-<li><strong>Stop Gradient</strong>: A stop-gradient operator (sg) is applied to the target projection $z'_{\xi}$, ensuring that the gradient does not propagate back into the target network parameters $\xi$.</li>
-<li><strong>Loss Definition</strong>: The loss ($L_{\theta, \xi}$) is defined as the mean squared error (MSE) between the normalized prediction and the normalized target projection: $$L_{\theta, \xi} = \left\| q_{\theta}(z_{\theta}) - z'_{\xi} \right\|_2^2$$.</li>
-<li><strong>Symmetrization</strong>: The total BYOL loss ($L_{\text{BYOL}}$) is symmetrized by repeating the process with the inputs swapped (i.e., feeding $v'$ to the online network and $v$ to the target network to compute $\tilde{L}_{\theta, \xi}$): $$L{\text{BYOL}} = L_{\theta, \xi} + \tilde{L}_{\theta, \xi}$$.</li>
-</ol>
-<h3 id="4-parameter-update">4️⃣ Parameter Update</h3>
-<p>The two networks are updated differently in an asymmetric manner:</p>
-<ol>
-<li>Online Network Update ($\theta$): The online parameters $\theta$ are updated by <text style="color:purple">a stochastic optimization step</text> (e.g., using the LARS optimizer) to minimize $L_{\text{BYOL}}$.</li>
-<li>Target Network Update ($\xi$): The target parameters $\xi$ are updated using an <text style="color:purple">Exponential Moving Average (EMA)</text> of the online parameters $\theta$. This update is slow and steady, calculated as: $$\xi \leftarrow \tau\xi + (1-\tau)\theta$$ where $\tau \in$ is the momentum coefficient (often starting from $\tau_{\text{base}}=0.996$ and increasing to one). This EMA mechanism is crucial for stabilizing the bootstrap targets.</li>
-</ol>
-<h3 id="-final-output">🎉 Final Output</h3>
-<p>After the self-supervised training is complete, everything except the encoder $f_{\theta}$ is discarded, and $f_{\theta}$ provides the learned image representation for downstream tasks.</p>
+<h3 id="-post-training-usage">🎉 Post-training Usage</h3>
+<p>After pre-training is complete, the <strong>Transformer (encoder) is fine-tuned</strong> on downstream tasks (such as video classification or action detection).</p>
 <h2 id="-downstream-tasks">🎯 Downstream Tasks</h2>
 <ul>
-<li>ImageNet Evaluation Protocols</li>
-<li>Transfer Learning Tasks (General Vision)
-<ul>
-<li>Classification (Transfer to other classification tasks).</li>
-<li>Semantic Segmentation (e.g., VOC2012 task).</li>
-<li>Object Detection (Using architectures like Faster R-CNN).</li>
-<li>Depth Estimation (e.g., NYU v2 dataset).</li>
-</ul>
-</li>
+<li><strong>Video Recognition/Classification</strong> (Kinetics Datasets)</li>
+<li><strong>Action Detection</strong>: This task involves spatio-temporal localization of human actions</li>
+<li><strong>Human-Object Interaction Classification</strong>: This task requires fine-grained motion distinctions and temporal modeling</li>
+<li><strong>Image Recognition/Classification</strong>: MaskFeat can be generalized to the image domain, treating an image as a video with a single frame</li>
 </ul>
 <h2 id="-strengths">💡 Strengths</h2>
 <ul>
-<li>Performance and Efficiency
+<li>Architectural Simplicity and Efficiency
 <ul>
-<li>State-of-the-Art Performance Without Negatives: BYOL achieves state-of-the-art results without relying on negative pairs.</li>
-<li>High Accuracy.</li>
-<li>Outperforms on Transfer Benchmarks</li>
-<li>Parameter Efficiency</li>
-<li>Simple and Powerful Objective</li>
+<li>The approach is <strong>conceptually and practically simple</strong>.</li>
+<li>It typically uses a **single network with a single view **of each sample, unlike contrastive methods which require a Siamese structure and multiple views.</li>
+<li>When using Histograms of Oriented Gradients (HOG) as the target feature, the method is efficient and does not rely on an external model. This avoids the need for an extra pre-training stage (such as dVAE tokenization used by BEiT) and the resulting computational overhead.</li>
+<li>HOG calculation itself is cheap and introduces negligible computational overhead.</li>
 </ul>
 </li>
-<li>Robustness and Training Flexibility
+<li>Performance and Scalability
 <ul>
-<li>Insensitivity to Batch Size: BYOL is more resilient to changes in the batch size compared to contrastive counterparts. Its performance remains stable over a wide range of batch sizes (from 256 to 4096), only dropping for very small values due to reliance on batch normalization layers.</li>
-<li>No Need for Large Batches: Since it does not rely on negative pairs, there is no need for large batches of negative samples.</li>
-<li>Robustness to Augmentations: BYOL is incredibly robust to the choice of image augmentations compared to contrastive methods like SimCLR. When augmentations are drastically reduced to only random crops, BYOL shows much smaller performance degradation than SimCLR.</li>
-<li>Effective Use of Moving Average Target: The use of a slow-moving exponential average (EMA) of the online network parameters for the target network provides stable targets, which is crucial for stabilizing the bootstrap step.</li>
+<li>MaskFeat learns abundant visual knowledge.</li>
+<li>It is <strong>scalable to large models</strong> for both video and image domains. Larger models benefit significantly more from longer pre-training schedules, indicating the scalability of the MaskFeat task to high-capacity models (e.g., MViT-L vs. MViT-S).</li>
+<li>For video understanding, MaskFeat has been shown to close the large performance gap (over 5% accuracy) between supervised pre-training on massive image datasets (like IN-21K) and models trained solely on unlabeled videos.</li>
+<li>It achieves unprecedented results on video benchmarks such as Kinetics, AVA (Action detection), and SSv2 (Human-object interaction classification).</li>
+<li>The strong performance on localization-sensitive tasks like AVA suggests a clear advantage of masked modeling on video over supervised image pre-training.</li>
+<li>It successfully uses continuous feature regression (like HOG) as a target, demonstrating that discretization (tokenization) of visual signals is not necessary for effective masked visual prediction.</li>
+<li>The method is effective when coupled with the end-to-end fine-tuning protocol, maximizing final model performance for downstream tasks.</li>
+</ul>
+</li>
+<li>Robustness and Flexibility
+<ul>
+<li>MaskFeat generally works fairly well with minimal augmentation, and stronger augmentations (like RandAugment or color jittering) sometimes degrade results.</li>
+<li>In the video domain, MaskFeat is robust across a wide range of masking ratios (from 40% up to 80%).</li>
+<li>HOG is a particularly effective target feature because its implementation uses local contrast normalization, which is essential for good results and provides invariance to photometric changes.</li>
 </ul>
 </li>
 </ul>
 <h2 id="-limitations">⚠️ Limitations</h2>
 <ul>
-<li>Theoretical and Architectural Constraints
+<li>Feature Properties (Linear Separability)
 <ul>
-<li><text style="background-color:yellow">Susceptibility to Collapse</text>: The core objective of BYOL—predicting the target network&rsquo;s output—theoretically admits collapsed solutions (where the network outputs the same vector for all inputs). While BYOL employs specific mechanisms (predictor, EMA target) to avoid this, distillation methods generally are noted as being more prone to collapsing.</li>
-<li><text style="background-color:yellow">Dependence on Asymmetry</text>: The design requires an asymmetric architecture, specifically the addition of a predictor ($q_{\theta}$) to the online network, which is critical to preventing collapse in the unsupervised scenario. If this predictor is removed, the representation collapses.</li>
+<li>The representations learned by MaskFeat tend to be <strong>less linearly separable</strong>.</li>
+<li>Linear probing results, a common metric for evaluating self-supervised methods, lag significantly behind contrastive learning methods like MoCo v3.</li>
+<li>MaskFeat learns good visual knowledge revealed by fine-tuning but <strong>does not learn linearly separable features</strong>.</li>
 </ul>
 </li>
-<li>Generalization Constraints
+<li>Architectural Constraints and Performance Trade-offs
 <ul>
-<li><text style="background-color:yellow">Dependence on Vision-Specific Augmentations</text>: BYOL remains dependent on existing sets of augmentations that are specific to vision applications.</li>
-<li><text style="background-color:yellow">Generalization Difficulty to Other Modalities</text>: Generalizing BYOL to other modalities (e.g., audio, video, text) would require significant effort and expertise to design similarly suitable augmentations for each modality.</li>
+<li>Masked Image Modeling (MIM) approaches generally require a ViT backbone.</li>
+<li>MIM approaches are often deemed weaker for abstract (higher-level) tasks such as classification compared to Joint Embedding methods.</li>
+<li>In the image domain, <strong>optimal masking ratios are sensitive</strong>: accuracy degrades when masking out too high a percentage of patches (e.g., above 40% with block-wise masking in ViT-B image pre-training).</li>
+</ul>
+</li>
+<li>Dependence on Target Feature Choice
+<ul>
+<li>The performance critically depends on selecting an appropriate prediction target (e.g., HOG). Prediction targets utilizing human annotations, such as supervised features (from ResNet or ViT) or pseudo-labels, yield poor results and lead to overfitting.</li>
+<li>When attempting multi-task learning by combining targets (e.g., pixel color and HOG), the objectives may conflict, resulting in lower performance compared to using HOG alone. Pixel targets specifically introduce ambiguities related to color and texture.</li>
 </ul>
 </li>
 </ul>
 <h2 id="-reference">📚 Reference</h2>
 <ul>
-<li><em>Grill et al., 2020</em>  <em>[Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning]</em>  🔗 <a href="https://arxiv.org/abs/2006.07733">arXiv:2006.07733</a></li>
-<li><a href="https://github.com/google-deepmind/deepmind-research/tree/master/byol">Github: BYOL</a></li>
-<li><a href="https://github.com/deepmancer/byol-pytorch">Github: deepmancer/byol-pytorch</a></li>
+<li><em>Wei et al., 2022</em>  <em>[Masked Feature Prediction for Self-Supervised Visual Pre-Training]</em>  🔗 <a href="https://arxiv.org/abs/2112.09133">arXiv:2112.09133</a></li>
 </ul>
 </div>
+
 
         
           <div class="blog-tags">
@@ -454,10 +468,7 @@
               <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
             
               
-              <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
-            
-              
-              <a href="http://localhost:1313/tags/distillation-methods/">Distillation Methods</a>&nbsp;
+              <a href="http://localhost:1313/tags/masked-image-modeling/">Masked Image Modeling</a>&nbsp;
             
           </div>
         
@@ -472,42 +483,42 @@
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;text=BYOL%3a%20Bootstrap%20Your%20Own%20Latent&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fmaskfeat%2f&amp;text=MaskFeat%3a%20Masked%20Feature%20Prediction%20for%20Self-Supervised%20Visual%20Pre-Training&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f" target="_blank" title="Share on Facebook">
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fmaskfeat%2f" target="_blank" title="Share on Facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;title=BYOL%3a%20Bootstrap%20Your%20Own%20Latent" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fmaskfeat%2f&amp;title=MaskFeat%3a%20Masked%20Feature%20Prediction%20for%20Self-Supervised%20Visual%20Pre-Training" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;title=BYOL%3a%20Bootstrap%20Your%20Own%20Latent" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fmaskfeat%2f&amp;title=MaskFeat%3a%20Masked%20Feature%20Prediction%20for%20Self-Supervised%20Visual%20Pre-Training" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;title=BYOL%3a%20Bootstrap%20Your%20Own%20Latent" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fmaskfeat%2f&amp;title=MaskFeat%3a%20Masked%20Feature%20Prediction%20for%20Self-Supervised%20Visual%20Pre-Training" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fbyol%2f&amp;description=BYOL%3a%20Bootstrap%20Your%20Own%20Latent" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fmaskfeat%2f&amp;description=MaskFeat%3a%20Masked%20Feature%20Prediction%20for%20Self-Supervised%20Visual%20Pre-Training" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -529,7 +540,7 @@
                   <ul>
                 
                 
-                    <li><a href="/post/ai-fundamentals/ssl/maskfeat/">MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</a></li>
+                    <li><a href="/post/ai-fundamentals/ssl/byol/">BYOL: Bootstrap Your Own Latent</a></li>
                 
                     <li><a href="/post/ai-fundamentals/ssl/dino/">DINO: Self-Distillation with No Labels</a></li>
                 
@@ -549,13 +560,9 @@
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="http://localhost:1313/post/ai-fundamentals/ssl/dino/" data-toggle="tooltip" data-placement="top" title="DINO: Self-Distillation with No Labels">&larr; Previous Post</a>
+              <a href="http://localhost:1313/post/ai-fundamentals/ssl/byol/" data-toggle="tooltip" data-placement="top" title="BYOL: Bootstrap Your Own Latent">&larr; Previous Post</a>
             </li>
           
-          
-            <li class="next">
-              <a href="http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/" data-toggle="tooltip" data-placement="top" title="MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training">Next Post &rarr;</a>
-            </li>
           
         </ul>
       

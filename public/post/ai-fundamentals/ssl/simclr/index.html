@@ -12,9 +12,9 @@
  
 
 
-      <title>SimCLR - </title>
+      <title>SimCLR: A Simple Framework for Contrastive Learning of Visual Representations - </title>
 
-  <meta name="description" content="SimCLR: A Simple Framework for Contrastive Learning of Visual Representations">
+  <meta name="description" content="Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.">
   <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -51,7 +51,7 @@
         "position": 3,
         "item": {
           "@id": "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/simclr\/",
-          "name": "Sim clr"
+          "name": "Sim clr a simple framework for contrastive learning of visual representations"
         }
     }]
 }
@@ -62,8 +62,8 @@
   "author": {
     "name" : "Qiongjie.X"
   },
-  "headline": "SimCLR",
-  "description" : "SimCLR: A Simple Framework for Contrastive Learning of Visual Representations",
+  "headline": "SimCLR: A Simple Framework for Contrastive Learning of Visual Representations",
+  "description" : "Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.",
   "inLanguage" : "en",
   "wordCount":  1029 ,
   "datePublished" : "2025-10-07T00:00:00\u002b00:00",
@@ -85,15 +85,15 @@
 </script>
 
 
-<meta property="og:title" content="SimCLR" />
-<meta property="og:description" content="SimCLR: A Simple Framework for Contrastive Learning of Visual Representations">
+<meta property="og:title" content="SimCLR: A Simple Framework for Contrastive Learning of Visual Representations" />
+<meta property="og:description" content="Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
 <meta property="og:url" content="http://localhost:1313/post/ai-fundamentals/ssl/simclr/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Qiongjie&#39;s Notes" />
 
-  <meta name="twitter:title" content="SimCLR" />
-  <meta name="twitter:description" content="SimCLR: A Simple Framework for Contrastive Learning of Visual Representations">
+  <meta name="twitter:title" content="SimCLR: A Simple Framework for Contrastive Learning of Visual …" />
+  <meta name="twitter:description" content="Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -117,6 +117,10 @@
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   crossorigin="anonymous"
 ></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -289,7 +293,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>SimCLR</h1>
+                <h1>SimCLR: A Simple Framework for Contrastive Learning of Visual Representations</h1>
               
               
               
@@ -328,8 +332,8 @@
 <p><strong>SimCLR – A Simple Framework for Contrastive Learning of Visual Representations</strong></p>
 <h2 id="-core-idea">🧠 Core Idea</h2>
 <blockquote>
-<p>Learn visual representations by maximizing agreement between differently augmented views of the same data example via a contrastive loss in the latent space, effectively pulling <text style="color: green">positive pairs</text> (two augmented views of the same image) close together while pushing them away from all other images in the batch (<text style="color: green">negatives</text>)
-<img src="https://storage.googleapis.com/gweb-research2023-media/original_images/bf6397fbc50404a2be05c2ff6370ed9a-image4.gif" alt="SimCLR architecture"></p></blockquote>
+<p>Learn visual representations by maximizing agreement between differently augmented views of the same data example via a contrastive loss in the latent space, effectively pulling <text style="color: green">positive pairs</text> (two augmented views of the same image) close together while pushing them away from all other images in the batch (<text style="color: green">negatives</text>)</p></blockquote>
+<p><img src="https://storage.googleapis.com/gweb-research2023-media/original_images/bf6397fbc50404a2be05c2ff6370ed9a-image4.gif" alt="SimCLR architecture"></p>
 <h2 id="-architecture">🖼️ Architecture</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>            ┌─────────────────────────────┐
 </span></span><span style="display:flex;"><span>            │          Raw image x        │
@@ -487,7 +491,7 @@ $$
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;text=SimCLR&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;text=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -501,28 +505,28 @@ $$
   
       
       <li>
-        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=SimCLR" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=SimCLR" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=SimCLR" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;description=SimCLR" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;description=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -544,15 +548,15 @@ $$
                   <ul>
                 
                 
-                    <li><a href="/post/ai-fundamentals/ssl/byol/">BYOL</a></li>
+                    <li><a href="/post/ai-fundamentals/ssl/i-jepa/">I-JEPA: Image-based Joint Embedding Predictive Architecture</a></li>
                 
-                    <li><a href="/post/ai-fundamentals/ssl/dino/">DINO</a></li>
+                    <li><a href="/post/ai-fundamentals/ssl/maskfeat/">MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</a></li>
                 
-                    <li><a href="/post/ai-fundamentals/ssl/mae/">MAE</a></li>
+                    <li><a href="/post/ai-fundamentals/ssl/byol/">BYOL: Bootstrap Your Own Latent</a></li>
                 
-                    <li><a href="/post/ai-fundamentals/ssl/swav/">SwAV</a></li>
+                    <li><a href="/post/ai-fundamentals/ssl/dino/">DINO: Self-Distillation with No Labels</a></li>
                 
-                    <li><a href="/post/ai-fundamentals/ssl/moco/">Momentum Contrast (MoCo) </a></li>
+                    <li><a href="/post/ai-fundamentals/ssl/mae/">MAE: Masked Autoencoders Are Scalable Vision Learners</a></li>
                 
               </ul>
 
@@ -565,7 +569,7 @@ $$
           
           
             <li class="next">
-              <a href="http://localhost:1313/post/ai-fundamentals/ssl/moco/" data-toggle="tooltip" data-placement="top" title="Momentum Contrast (MoCo) ">Next Post &rarr;</a>
+              <a href="http://localhost:1313/post/ai-fundamentals/ssl/moco/" data-toggle="tooltip" data-placement="top" title="MoCo: Momentum Contrast for Unsupervised Visual Representation Learning">Next Post &rarr;</a>
             </li>
           
         </ul>

@@ -1,7 +1,7 @@
 ---
-title: "SimCLR"
+title: "SimCLR: A Simple Framework for Contrastive Learning of Visual Representations"
 date: 2025-10-07
-summary: "SimCLR: A Simple Framework for Contrastive Learning of Visual Representations"
+summary: "Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others."
 series: ["Self-Supervised Learning"]
 tags: ["SSL", "Vision", "Representation Learning", "Joint Embedding", "Contrastive Methods"]
 ---
@@ -13,6 +13,7 @@ tags: ["SSL", "Vision", "Representation Learning", "Joint Embedding", "Contrasti
 
 ## 🧠 Core Idea
 >  Learn visual representations by maximizing agreement between differently augmented views of the same data example via a contrastive loss in the latent space, effectively pulling <text style="color: green">positive pairs</text> (two augmented views of the same image) close together while pushing them away from all other images in the batch (<text style="color: green">negatives</text>)
+
 ![SimCLR architecture](https://storage.googleapis.com/gweb-research2023-media/original_images/bf6397fbc50404a2be05c2ff6370ed9a-image4.gif)
 
 ## 🖼️ Architecture

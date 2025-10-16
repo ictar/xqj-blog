@@ -1,7 +1,7 @@
 ---
-title: "SwAV"
+title: "SwAV: Swapping Assignments between Views"
 date: 2025-10-08
-summary: "SwAV: Swapping Assignments between Views"
+summary: "Simultaneously cluster the data and learn visual representations by enforcing consistency between cluster assignments, or 'codes', generated from different augmented views of the same image."
 series: ["Self-Supervised Learning"]
 tags: ["SSL", "Vision", "Representation Learning", "Joint Embedding", "Clustering Methods"]
 ---

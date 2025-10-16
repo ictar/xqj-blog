@@ -8,42 +8,56 @@
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Wed, 08 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/ssl/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>BYOL</title>
+      <title>MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</title>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</link>
+      <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</guid>
+      <description>Predict handcrafted features (e.g., HOG) of masked regions instead of raw pixels.</description>
+    </item>
+    <item>
+      <title>BYOL: Bootstrap Your Own Latent</title>
       <link>http://localhost:1313/post/ai-fundamentals/ssl/byol/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/byol/</guid>
-      <description>BYOL: Bootstrap Your Own Latent</description>
+      <description>Learn representations by predicting one network’s output from another’s, without using negative samples.</description>
     </item>
     <item>
-      <title>DINO</title>
+      <title>DINO: Self-Distillation with No Labels</title>
       <link>http://localhost:1313/post/ai-fundamentals/ssl/dino/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/dino/</guid>
-      <description>DINO: Self-Distillation with No Labels</description>
+      <description>A student network learns from a teacher network using self-distillation, producing emergent semantic attention maps.</description>
     </item>
     <item>
-      <title>SwAV</title>
+      <title>MAE: Masked Autoencoders Are Scalable Vision Learners</title>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/mae/</link>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/mae/</guid>
+      <description>Randomly mask image patches and reconstruct the missing ones to learn context-aware visual representations.</description>
+    </item>
+    <item>
+      <title>SwAV: Swapping Assignments between Views</title>
       <link>http://localhost:1313/post/ai-fundamentals/ssl/swav/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/swav/</guid>
-      <description>SwAV: Swapping Assignments between Views</description>
+      <description>Simultaneously cluster the data and learn visual representations by enforcing consistency between cluster assignments, or &amp;lsquo;codes&amp;rsquo;, generated from different augmented views of the same image.</description>
     </item>
     <item>
-      <title>Momentum Contrast (MoCo) </title>
+      <title>MoCo: Momentum Contrast for Unsupervised Visual Representation Learning</title>
       <link>http://localhost:1313/post/ai-fundamentals/ssl/moco/</link>
       <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/moco/</guid>
-      <description>MoCo: Momentum Contrast for Unsupervised Visual Representation Learning</description>
+      <description>It stabilizes and scales contrastive learning by maintaining a dynamic dictionary with momentum-based updates, becoming a cornerstone for modern SSL methods.</description>
     </item>
     <item>
-      <title>SimCLR</title>
+      <title>SimCLR: A Simple Framework for Contrastive Learning of Visual Representations</title>
       <link>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</link>
       <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</guid>
-      <description>SimCLR: A Simple Framework for Contrastive Learning of Visual Representations</description>
+      <description>Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.</description>
     </item>
   </channel>
 </rss>

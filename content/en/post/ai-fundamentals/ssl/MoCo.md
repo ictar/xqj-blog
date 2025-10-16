@@ -1,7 +1,7 @@
 ---
-title: "Momentum Contrast (MoCo) "
+title: "MoCo: Momentum Contrast for Unsupervised Visual Representation Learning"
 date: 2025-10-07
-summary: "MoCo: Momentum Contrast for Unsupervised Visual Representation Learning"
+summary: "It stabilizes and scales contrastive learning by maintaining a dynamic dictionary with momentum-based updates, becoming a cornerstone for modern SSL methods."
 series: ["Self-Supervised Learning"]
 tags: ["SSL", "Vision", "Representation Learning", "Joint Embedding", "Contrastive Methods"]
 ---

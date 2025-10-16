@@ -12,9 +12,9 @@
  
 
 
-      <title>Lesson 1: Introduction to Remote Sensing Data and Python Setup - </title>
+      <title>I-JEPA: Image-based Joint Embedding Predictive Architecture - </title>
 
-  <meta name="description" content="Learn about raster and vector data and set up your Python environment">
+  <meta name="description" content="A non-generative, self-supervised framework predicting high-level feature representations of masked regions from visible context, enabling scalable and efficient visual pretraining.">
   <meta name="author" content="Qiongjie.X"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -50,8 +50,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "http:\/\/localhost:1313\/post\/python-geodata\/01-intro\/",
-          "name": "Lesson 1 introduction to remote sensing data and python setup"
+          "@id": "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/i-jepa\/",
+          "name": "I jepa image based joint embedding predictive architecture"
         }
     }]
 }
@@ -62,15 +62,15 @@
   "author": {
     "name" : "Qiongjie.X"
   },
-  "headline": "Lesson 1: Introduction to Remote Sensing Data and Python Setup",
-  "description" : "Learn about raster and vector data and set up your Python environment",
+  "headline": "I-JEPA: Image-based Joint Embedding Predictive Architecture",
+  "description" : "A non-generative, self-supervised framework predicting high-level feature representations of masked regions from visible context, enabling scalable and efficient visual pretraining.",
   "inLanguage" : "en",
-  "wordCount":  74 ,
-  "datePublished" : "2025-07-02T00:00:00\u002b00:00",
-  "dateModified" : "2025-07-02T00:00:00\u002b00:00",
+  "wordCount":  113 ,
+  "datePublished" : "2025-10-09T00:00:00\u002b00:00",
+  "dateModified" : "2025-10-09T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
-  "keywords" : [ "raster, vector, remote sensing, python" ],
-  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/python-geodata\/01-intro\/",
+  "keywords" : [ "SSL, Vision, Representation Learning, Joint Embedding, Masked Image Modeling" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/i-jepa\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "http:\/\/localhost:1313\/",
@@ -85,15 +85,15 @@
 </script>
 
 
-<meta property="og:title" content="Lesson 1: Introduction to Remote Sensing Data and Python Setup" />
-<meta property="og:description" content="Learn about raster and vector data and set up your Python environment">
+<meta property="og:title" content="I-JEPA: Image-based Joint Embedding Predictive Architecture" />
+<meta property="og:description" content="A non-generative, self-supervised framework predicting high-level feature representations of masked regions from visible context, enabling scalable and efficient visual pretraining.">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
-<meta property="og:url" content="http://localhost:1313/post/python-geodata/01-intro/" />
+<meta property="og:url" content="http://localhost:1313/post/ai-fundamentals/ssl/i-jepa/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Qiongjie&#39;s Notes" />
 
-  <meta name="twitter:title" content="Lesson 1: Introduction to Remote Sensing Data and Python Setup" />
-  <meta name="twitter:description" content="Learn about raster and vector data and set up your Python environment">
+  <meta name="twitter:title" content="I-JEPA: Image-based Joint Embedding Predictive Architecture" />
+  <meta name="twitter:description" content="A non-generative, self-supervised framework predicting high-level feature representations of masked regions from visible context, enabling scalable and efficient visual pretraining.">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -196,10 +196,6 @@
           
             <li>
               
-                
-                  <a href="http://localhost:1313/zh-cn/post/python-geodata/01-intro/">CH</a>
-                
-              
             </li>
           
         
@@ -293,7 +289,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>Lesson 1: Introduction to Remote Sensing Data and Python Setup</h1>
+                <h1>I-JEPA: Image-based Joint Embedding Predictive Architecture</h1>
               
               
               
@@ -301,14 +297,14 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 2, 2025
+  <i class="fas fa-calendar"></i>&nbsp;Posted on October 9, 2025
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;74&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;113&nbsp;words
   
   
-  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/python-geodata/01-intro/" lang="zh-cn">CH</a>
+  
 </span>
 
 
@@ -327,31 +323,67 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <h2 id="-what-is-remote-sensing-data">🛰️ What is Remote Sensing Data?</h2>
-<p>Remote sensing data typically includes two types: raster data (e.g., satellite images) and vector data (e.g., boundaries, roads). This article introduces these concepts and helps set up your Python environment.</p>
-<h2 id="-python-environment-setup">🛠️ Python Environment Setup</h2>
-<p>Recommended conda setup:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>conda create -n geopython python<span style="color:#f92672">=</span>3.10
-</span></span><span style="display:flex;"><span>conda activate geopython
-</span></span><span style="display:flex;"><span>conda install geopandas rasterio rioxarray matplotlib jupyterlab
-</span></span></code></pre></div><h2 id="-coming-next">🔗 Coming Next</h2>
-<p>Next, we&rsquo;ll dive into reading raster files and exploring metadata and band information.</p>
-
+        <div class="model-card">
+<h3 id="-model-name">🏷️ Model Name</h3>
+<p><strong>I-JEPA - Image-based Joint Embedding Predictive Architecture</strong></p>
+<h2 id="-core-idea">🧠 Core Idea</h2>
+<blockquote>
+<p><strong>“Predict what you can’t see — not in pixels, but in meaning.”</strong></p></blockquote>
+<p><img src="https://private-user-images.githubusercontent.com/7530871/245483236-dbad94ab-ac35-433b-8b4c-ca227886d311.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjAwMDE5OTYsIm5iZiI6MTc2MDAwMTY5NiwicGF0aCI6Ii83NTMwODcxLzI0NTQ4MzIzNi1kYmFkOTRhYi1hYzM1LTQzM2ItOGI0Yy1jYTIyNzg4NmQzMTEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI1MTAwOSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTEwMDlUMDkyMTM2WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9Mzk2MDliZTI3Y2U5MDQ2ZWFhMjkwMjU0OGRjY2IwMjQwNWZjMDBiOTVjNzMzOWVhOWIxOTg2NmVhYWM5OWE4ZCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ._w3JT7VjXtnNM_Wl0cweg9GrHov0xo22E0X3oL6pTOY" alt="I-JEPA architecture"></p>
+<hr>
+<h2 id="-architecture">🖼️ Architecture</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>                    +-------------------------+
+</span></span><span style="display:flex;"><span>                    |     Input Image         |
+</span></span><span style="display:flex;"><span>                    +-------------------------+
+</span></span><span style="display:flex;"><span>                                |
+</span></span><span style="display:flex;"><span>                                v
+</span></span><span style="display:flex;"><span>                +------------------------------------+
+</span></span><span style="display:flex;"><span>                |     Random Masking of Regions      |
+</span></span><span style="display:flex;"><span>                +------------------------------------+
+</span></span><span style="display:flex;"><span>                   | Visible Patches | Masked Patches |
+</span></span><span style="display:flex;"><span>                   |-----------------|----------------|
+</span></span><span style="display:flex;"><span>                     |                 |
+</span></span><span style="display:flex;"><span>                     v                 v
+</span></span><span style="display:flex;"><span>          +------------------+     +------------------+
+</span></span><span style="display:flex;"><span>          |  Context Encoder |     |   Target Encoder |
+</span></span><span style="display:flex;"><span>          |  (f_context)     |     |   (f_target)     |
+</span></span><span style="display:flex;"><span>          +------------------+     +------------------+
+</span></span><span style="display:flex;"><span>                     |                 |
+</span></span><span style="display:flex;"><span>                     v                 v
+</span></span><span style="display:flex;"><span>          +------------------+     +------------------+
+</span></span><span style="display:flex;"><span>          |  Predictor Head  | --&gt; |  Target Features |
+</span></span><span style="display:flex;"><span>          +------------------+     +------------------+
+</span></span><span style="display:flex;"><span>                     |
+</span></span><span style="display:flex;"><span>                     v
+</span></span><span style="display:flex;"><span>          +----------------------------+
+</span></span><span style="display:flex;"><span>          | Loss: MSE in feature space |
+</span></span><span style="display:flex;"><span>          +----------------------------+
+</span></span></code></pre></div><h2 id="-strengths">💡 Strengths</h2>
+<h2 id="-limitations">⚠️ Limitations</h2>
+<h2 id="-reference">📚 Reference</h2>
+<ul>
+<li><strong>Paper:</strong> <a href="https://arxiv.org/abs/2301.08243">arXiv:2301.08243</a></li>
+<li><strong>Code:</strong> <a href="https://github.com/facebookresearch/ijepa">GitHub – facebookresearch/ijepa</a></li>
+</ul>
+</div>
 
         
           <div class="blog-tags">
             
               
-              <a href="http://localhost:1313/tags/raster/">raster</a>&nbsp;
+              <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
             
               
-              <a href="http://localhost:1313/tags/vector/">vector</a>&nbsp;
+              <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
             
               
-              <a href="http://localhost:1313/tags/remote-sensing/">remote sensing</a>&nbsp;
+              <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
             
               
-              <a href="http://localhost:1313/tags/python/">python</a>&nbsp;
+              <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/masked-image-modeling/">Masked Image Modeling</a>&nbsp;
             
           </div>
         
@@ -366,42 +398,42 @@
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fpython-geodata%2f01-intro%2f&amp;text=Lesson%201%3a%20Introduction%20to%20Remote%20Sensing%20Data%20and%20Python%20Setup&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;text=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fpython-geodata%2f01-intro%2f" target="_blank" title="Share on Facebook">
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f" target="_blank" title="Share on Facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fpython-geodata%2f01-intro%2f&amp;title=Lesson%201%3a%20Introduction%20to%20Remote%20Sensing%20Data%20and%20Python%20Setup" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;title=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fpython-geodata%2f01-intro%2f&amp;title=Lesson%201%3a%20Introduction%20to%20Remote%20Sensing%20Data%20and%20Python%20Setup" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;title=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fpython-geodata%2f01-intro%2f&amp;title=Lesson%201%3a%20Introduction%20to%20Remote%20Sensing%20Data%20and%20Python%20Setup" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;title=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fpython-geodata%2f01-intro%2f&amp;description=Lesson%201%3a%20Introduction%20to%20Remote%20Sensing%20Data%20and%20Python%20Setup" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;description=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -415,6 +447,25 @@
 
         
           
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/ai-fundamentals/ssl/maskfeat/">MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/byol/">BYOL: Bootstrap Your Own Latent</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/dino/">DINO: Self-Distillation with No Labels</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/mae/">MAE: Masked Autoencoders Are Scalable Vision Learners</a></li>
+                
+                    <li><a href="/post/ai-fundamentals/ssl/swav/">SwAV: Swapping Assignments between Views</a></li>
+                
+              </ul>
 
           
         
@@ -422,6 +473,10 @@
 
       
         <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/" data-toggle="tooltip" data-placement="top" title="MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training">&larr; Previous Post</a>
+            </li>
           
           
         </ul>

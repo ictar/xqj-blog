@@ -40,5 +40,68 @@
     "years": "2025",
     "coords": [41.1305, 14.7819],
     "type": "study"
-  }
+  },
+  {
+    "title": "Genova",
+    "desc": "In July 2024, I went whale watching in Genova. Although I didn’t see any whales, I was lucky to spot a group of dolphins.",
+    "years": "2024-07",
+    "coords": [44.4056, 8.9463],
+    "type": "travel"
+  },
+  {
+    "title": "Vilnius",
+    "desc": "In August 2024, I wandered through the capital of Lithuania, experiencing the unique Baltic culture.",
+    "years": "2024-08",
+    "coords": [54.6872, 25.2797],
+    "type": "travel"
+  },
+  {
+    "title": "Riga",
+    "desc": "During the same trip, I visited Riga, Latvia, and was amazed by the charm of its old European architecture.",
+    "years": "2024-08",
+    "coords": [56.9496, 24.1052],
+    "type": "travel"
+  },
+  {
+    "title": "Helsinki",
+    "desc": "In Finland’s capital Helsinki, I felt the calmness of Northern Europe and the breeze from the sea.",
+    "years": "2024-08",
+    "coords": [60.1699, 24.9384],
+    "type": "travel"
+  },
+  {
+    "title": "Tallinn",
+    "desc": "In Tallinn, Estonia, I explored the beautifully preserved medieval old town.",
+    "years": "2024-08",
+    "coords": [59.4370, 24.7536],
+    "type": "travel"
+  },
+  {
+    "title": "Zurich",
+    "desc": "In March 2024, I went to Zurich, Switzerland to celebrate Easter. It was a cloudy day.",
+    "years": "2024-03",
+    "coords": [47.3769, 8.5417],
+    "type": "travel"
+  },
+  {
+    "title": "Sirmione",
+    "desc": "In March 2024, I traveled to Sirmione, Italy, and was stunned by the beauty of Lake Garda.",
+    "years": "2024-03",
+    "coords": [45.4699, 10.6066],
+    "type": "travel"
+  },
+  {
+    "title": "Trento",
+    "desc": "In February 2025, I went on a business trip to Trento to present my annual report.",
+    "years": "2025-02",
+    "coords": [46.0669, 11.1217],
+    "type": "work"
+  },
+  {
+  "title": "Alpe Devero",
+  "desc": "In October 2025, I went hiking in Alpe Devero, Italy — surrounded by mountains, lakes, and stunning autumn colors.",
+  "years": "2025-10",
+  "coords": [46.2833, 8.2667],
+  "type": "travel"
+}
 ]

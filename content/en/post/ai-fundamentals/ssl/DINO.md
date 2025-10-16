@@ -1,7 +1,7 @@
 ---
-title: "DINO"
+title: "DINO: Self-Distillation with No Labels"
 date: 2025-10-08
-summary: "DINO: Self-Distillation with No Labels"
+summary: "A student network learns from a teacher network using self-distillation, producing emergent semantic attention maps."
 series: ["Self-Supervised Learning"]
 tags: ["SSL", "Vision", "Representation Learning", "Joint Embedding", "Distillation Methods"]
 ---

@@ -11,11 +11,11 @@
     <lastBuildDate>Wed, 08 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/clustering-methods/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>SwAV</title>
+      <title>SwAV: Swapping Assignments between Views</title>
       <link>http://localhost:1313/post/ai-fundamentals/ssl/swav/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/swav/</guid>
-      <description>SwAV: Swapping Assignments between Views</description>
+      <description>Simultaneously cluster the data and learn visual representations by enforcing consistency between cluster assignments, or &amp;lsquo;codes&amp;rsquo;, generated from different augmented views of the same image.</description>
     </item>
   </channel>
 </rss>

@@ -8,14 +8,21 @@
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Wed, 08 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/masked-image-modeling/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>MAE</title>
+      <title>MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</title>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</link>
+      <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</guid>
+      <description>Predict handcrafted features (e.g., HOG) of masked regions instead of raw pixels.</description>
+    </item>
+    <item>
+      <title>MAE: Masked Autoencoders Are Scalable Vision Learners</title>
       <link>http://localhost:1313/post/ai-fundamentals/ssl/mae/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/mae/</guid>
-      <description>MAE: Masked Autoencoders Are Scalable Vision Learners</description>
+      <description>Randomly mask image patches and reconstruct the missing ones to learn context-aware visual representations.</description>
     </item>
   </channel>
 </rss>
