@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>项目 on 琼呀</title>
+    <link>http://localhost:1313/zh-cn/projects/</link>
+    <description>Recent content in 项目 on 琼呀</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Sat, 20 Dec 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TerraFlow</title>
+      <link>http://localhost:1313/zh-cn/projects/terraflow/</link>
+      <pubDate>Sat, 20 Dec 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/projects/terraflow/</guid>
+      <description>一个基于 &lt;a href=&#34;https://terrastackai.github.io/terratorch/stable/&#34;&gt;Terratorch&lt;/a&gt; 的可视化界面，用于对GeoFM进行微调。</description>
+    </item>
+  </channel>
+</rss>

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Clustering Methods on Qiongjie&#39;s Notes</title>
-    <link>https://www.xuqiongjie.com/tags/clustering-methods/</link>
+    <link>http://localhost:1313/tags/clustering-methods/</link>
     <description>Recent content in Clustering Methods on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Wed, 08 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.xuqiongjie.com/tags/clustering-methods/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/clustering-methods/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SwAV: Swapping Assignments between Views</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/swav/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/swav/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/swav/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/swav/</guid>
       <description>Simultaneously cluster the data and learn visual representations by enforcing consistency between cluster assignments, or &amp;lsquo;codes&amp;rsquo;, generated from different augmented views of the same image.</description>
     </item>
   </channel>

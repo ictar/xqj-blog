@@ -2,427 +2,457 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/</loc>
+    <loc>http://localhost:1313/zh-cn/post/ai-fundamentals/</loc>
     <lastmod>2025-09-20T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/ai-fundamentals/"
+                href="http://localhost:1313/post/ai-fundamentals/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/</loc>
+    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/</loc>
     <lastmod>2025-08-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/mcmc-statics/"
+                href="http://localhost:1313/post/mcmc-statics/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/geoai/</loc>
+    <loc>http://localhost:1313/zh-cn/post/geoai/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/</loc>
+    <loc>http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/</loc>
     <lastmod>2025-09-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/ai-fundamentals/ssl/"
+                href="http://localhost:1313/post/ai-fundamentals/ssl/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/python-geodata/</loc>
+    <loc>http://localhost:1313/zh-cn/post/python-geodata/</loc>
     <lastmod>2025-07-11T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/python-geodata/"
+                href="http://localhost:1313/post/python-geodata/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/python-geodata/"
+                href="http://localhost:1313/zh-cn/post/python-geodata/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/</loc>
+    <loc>http://localhost:1313/zh-cn/projects/terraflow/</loc>
+    <lastmod>2025-12-20T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/projects/terraflow/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/projects/terraflow/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/</loc>
+    <lastmod>2025-12-20T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/projects/</loc>
+    <lastmod>2025-12-20T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/projects/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/projects/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/post/</loc>
     <lastmod>2025-09-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/"
+                href="http://localhost:1313/post/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/"
+                href="http://localhost:1313/zh-cn/post/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/</loc>
-    <lastmod>2025-09-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://www.xuqiongjie.com/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/"
-                />
-  </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/ai/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/ai/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/eo/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/eo/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/geofm/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/geofm/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/tags/"
+                href="http://localhost:1313/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/tags/"
+                href="http://localhost:1313/zh-cn/tags/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/terramind/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/terramind/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/geoai/geofm-intro-terramind/</loc>
+    <loc>http://localhost:1313/zh-cn/post/geoai/geofm-intro-terramind/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E9%81%A5%E6%84%9F/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E9%81%A5%E6%84%9F/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/intro-mcmc/</loc>
+    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/</loc>
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/python/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/python/</loc>
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/tags/python/"
+                href="http://localhost:1313/tags/python/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/tags/python/"
+                href="http://localhost:1313/zh-cn/tags/python/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E9%87%87%E6%A0%B7/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</loc>
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/</loc>
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/</loc>
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E6%95%B0%E5%AD%A6/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</loc>
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov-chains/</loc>
+    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</loc>
     <lastmod>2025-08-21T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/monte-carlo/</loc>
+    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</loc>
     <lastmod>2025-08-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/</loc>
     <lastmod>2025-08-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/probability/</loc>
+    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</loc>
     <lastmod>2025-08-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2025-08-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2025-08-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/</loc>
     <lastmod>2025-08-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/random-variables/</loc>
+    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</loc>
     <lastmod>2025-08-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E8%AF%95%E9%AA%8C/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E8%AF%95%E9%AA%8C/</loc>
     <lastmod>2025-08-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/raster/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/raster/</loc>
     <lastmod>2025-07-11T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/tags/raster/"
+                href="http://localhost:1313/tags/raster/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/tags/raster/"
+                href="http://localhost:1313/zh-cn/tags/raster/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/vector/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/vector/</loc>
     <lastmod>2025-07-11T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/tags/vector/"
+                href="http://localhost:1313/tags/vector/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/tags/vector/"
+                href="http://localhost:1313/zh-cn/tags/vector/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/python-geodata/01-intro/</loc>
+    <loc>http://localhost:1313/zh-cn/post/python-geodata/01-intro/</loc>
     <lastmod>2025-07-11T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/python-geodata/01-intro/"
+                href="http://localhost:1313/post/python-geodata/01-intro/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/python-geodata/01-intro/"
+                href="http://localhost:1313/zh-cn/post/python-geodata/01-intro/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/</loc>
+    <loc>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</loc>
+    <loc>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/notes/</loc>
+    <loc>http://localhost:1313/zh-cn/notes/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E4%B9%98%E6%B3%95%E5%8E%9F%E7%90%86/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E4%B9%98%E6%B3%95%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E6%A6%82%E7%8E%87/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E5%8A%A0%E6%B3%95%E5%8E%9F%E7%90%86/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E5%8A%A0%E6%B3%95%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://localhost:1313/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/chat2geo/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/chat2geo/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/geo/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/geo/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/llm/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/llm/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/notellm/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/notellm/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/notes/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/notes/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/page/</loc>
+    <loc>http://localhost:1313/zh-cn/page/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/page/"
+                href="http://localhost:1313/page/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/page/"
+                href="http://localhost:1313/zh-cn/page/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/podcast/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/podcast/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/satellite-image-deep-learning/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/satellite-image-deep-learning/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/tags/%E6%92%AD%E5%AE%A2%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/%E6%92%AD%E5%AE%A2%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/page/about/</loc>
+    <loc>http://localhost:1313/zh-cn/page/about/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/page/about/"
+                href="http://localhost:1313/page/about/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/page/about/"
+                href="http://localhost:1313/zh-cn/page/about/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/simclr/</loc>
+    <loc>http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/ai-fundamentals/ssl/simclr/"
+                href="http://localhost:1313/post/ai-fundamentals/ssl/simclr/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/simclr/"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/zh-cn/categories/</loc>
+    <loc>http://localhost:1313/zh-cn/categories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/categories/"
+                href="http://localhost:1313/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/categories/"
+                href="http://localhost:1313/zh-cn/categories/"
                 />
   </url>
 </urlset>

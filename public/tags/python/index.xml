@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Qiongjie&#39;s Notes</title>
-    <link>https://www.xuqiongjie.com/tags/python/</link>
+    <link>http://localhost:1313/tags/python/</link>
     <description>Recent content in Python on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Wed, 02 Jul 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.xuqiongjie.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lesson 1: Introduction to Remote Sensing Data and Python Setup</title>
-      <link>https://www.xuqiongjie.com/post/python-geodata/01-intro/</link>
+      <link>http://localhost:1313/post/python-geodata/01-intro/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/python-geodata/01-intro/</guid>
+      <guid>http://localhost:1313/post/python-geodata/01-intro/</guid>
       <description>Learn about raster and vector data and set up your Python environment</description>
     </item>
   </channel>

@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>AI 基础系列 on 琼呀</title>
-    <link>https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/</link>
+    <link>http://localhost:1313/zh-cn/post/ai-fundamentals/</link>
     <description>Recent content in AI 基础系列 on 琼呀</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/zh-cn/post/ai-fundamentals/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

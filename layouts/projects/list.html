@@ -1,0 +1,55 @@
+{{ define "main" }}
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-12">
+      {{ with .Content }}
+        <div class="well">
+          {{.}}
+        </div>
+      {{ end }}
+      <div class="projects-grid">
+        {{ range .Paginator.Pages }}
+          <div class="project-card">
+            <div class="project-card-content">
+              <a href="{{ .Permalink }}" class="project-card-title-link">
+                <h3 class="project-card-title">{{ .Title }}</h3>
+              </a>
+              <div class="project-card-meta">
+                {{ if .Date }}
+                  <span class="project-date">{{ .Date.Format "2006-01-02" }}</span>
+                {{ end }}
+              </div>
+              <div class="project-card-summary">
+                {{ if .Params.summary }}
+                  {{ .Params.summary | markdownify }}
+                {{ else }}
+                  {{ .Summary | markdownify }}
+                {{ end }}
+              </div>
+              <div class="project-card-footer">
+                 <a href="{{ .Permalink }}" class="read-more-link">
+                   {{ i18n "readMore" }} &rarr;
+                 </a>
+              </div>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+      {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
+        <ul class="pager main-pager">
+          {{ if .Paginator.HasPrev }}
+            <li class="previous">
+              <a href="{{ .Permalink }}page/{{ .Paginator.Prev.PageNumber }}/">&larr; {{ i18n "newerPosts" }}</a>
+            </li>
+          {{ end }}
+          {{ if .Paginator.HasNext }}
+            <li class="next">
+              <a href="{{ .Permalink }}page/{{ .Paginator.Next.PageNumber }}/">{{ i18n "olderPosts" }} &rarr;</a>
+            </li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

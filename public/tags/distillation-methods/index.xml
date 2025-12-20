@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Distillation Methods on Qiongjie&#39;s Notes</title>
-    <link>https://www.xuqiongjie.com/tags/distillation-methods/</link>
+    <link>http://localhost:1313/tags/distillation-methods/</link>
     <description>Recent content in Distillation Methods on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Wed, 08 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.xuqiongjie.com/tags/distillation-methods/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/distillation-methods/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BYOL: Bootstrap Your Own Latent</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/byol/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/byol/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/byol/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/byol/</guid>
       <description>Learn representations by predicting one network’s output from another’s, without using negative samples.</description>
     </item>
     <item>
       <title>DINO: Self-Distillation with No Labels</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/dino/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/dino/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/dino/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/dino/</guid>
       <description>A student network learns from a teacher network using self-distillation, producing emergent semantic attention maps.</description>
     </item>
   </channel>

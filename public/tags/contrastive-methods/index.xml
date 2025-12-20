@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Contrastive Methods on Qiongjie&#39;s Notes</title>
-    <link>https://www.xuqiongjie.com/tags/contrastive-methods/</link>
+    <link>http://localhost:1313/tags/contrastive-methods/</link>
     <description>Recent content in Contrastive Methods on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Tue, 07 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.xuqiongjie.com/tags/contrastive-methods/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/contrastive-methods/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MoCo: Momentum Contrast for Unsupervised Visual Representation Learning</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/moco/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/moco/</link>
       <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/moco/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/moco/</guid>
       <description>It stabilizes and scales contrastive learning by maintaining a dynamic dictionary with momentum-based updates, becoming a cornerstone for modern SSL methods.</description>
     </item>
     <item>
       <title>SimCLR: A Simple Framework for Contrastive Learning of Visual Representations</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/simclr/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</link>
       <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/simclr/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</guid>
       <description>Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.</description>
     </item>
   </channel>

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>自监督学习 on 琼呀</title>
-    <link>https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/</link>
+    <link>http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/</link>
     <description>Recent content in 自监督学习 on 琼呀</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/simclr/</link>
+      <link>http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/simclr/</guid>
+      <guid>http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/</guid>
       <description></description>
     </item>
   </channel>

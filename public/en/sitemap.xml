@@ -2,307 +2,337 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/</loc>
+    <loc>http://localhost:1313/post/ai-fundamentals/</loc>
     <lastmod>2025-10-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/ai-fundamentals/"
+                href="http://localhost:1313/post/ai-fundamentals/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/mcmc-statics/</loc>
+    <loc>http://localhost:1313/post/mcmc-statics/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/mcmc-statics/"
+                href="http://localhost:1313/post/mcmc-statics/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/</loc>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/</loc>
     <lastmod>2025-10-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/ai-fundamentals/ssl/"
+                href="http://localhost:1313/post/ai-fundamentals/ssl/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/python-geodata/</loc>
+    <loc>http://localhost:1313/post/python-geodata/</loc>
     <lastmod>2025-07-11T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/python-geodata/"
+                href="http://localhost:1313/zh-cn/post/python-geodata/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/python-geodata/"
+                href="http://localhost:1313/post/python-geodata/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/i-jepa/</loc>
+    <loc>http://localhost:1313/projects/</loc>
+    <lastmod>2025-12-20T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/projects/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/projects/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-12-20T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/projects/terraflow/</loc>
+    <lastmod>2025-12-20T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/projects/terraflow/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/projects/terraflow/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/i-jepa/</loc>
     <lastmod>2025-10-09T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/joint-embedding/</loc>
+    <loc>http://localhost:1313/tags/joint-embedding/</loc>
     <lastmod>2025-10-09T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/masked-image-modeling/</loc>
+    <loc>http://localhost:1313/tags/masked-image-modeling/</loc>
     <lastmod>2025-10-09T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/maskfeat/</loc>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</loc>
     <lastmod>2025-10-09T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/</loc>
+    <loc>http://localhost:1313/post/</loc>
     <lastmod>2025-10-09T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/"
+                href="http://localhost:1313/zh-cn/post/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/"
+                href="http://localhost:1313/post/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/</loc>
+    <loc>http://localhost:1313/tags/representation-learning/</loc>
+    <lastmod>2025-10-09T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/ssl/</loc>
+    <lastmod>2025-10-09T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-10-09T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/"
+                href="http://localhost:1313/zh-cn/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/"
+                href="http://localhost:1313/tags/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/representation-learning/</loc>
+    <loc>http://localhost:1313/tags/vision/</loc>
     <lastmod>2025-10-09T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/ssl/</loc>
-    <lastmod>2025-10-09T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://www.xuqiongjie.com/tags/</loc>
-    <lastmod>2025-10-09T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://www.xuqiongjie.com/tags/"
-                />
-  </url><url>
-    <loc>https://www.xuqiongjie.com/tags/vision/</loc>
-    <lastmod>2025-10-09T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/byol/</loc>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/byol/</loc>
     <lastmod>2025-10-08T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/clustering-methods/</loc>
+    <loc>http://localhost:1313/tags/clustering-methods/</loc>
     <lastmod>2025-10-08T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/dino/</loc>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/dino/</loc>
     <lastmod>2025-10-08T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/distillation-methods/</loc>
+    <loc>http://localhost:1313/tags/distillation-methods/</loc>
     <lastmod>2025-10-08T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/mae/</loc>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/mae/</loc>
     <lastmod>2025-10-08T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/swav/</loc>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/swav/</loc>
     <lastmod>2025-10-08T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/contrastive-methods/</loc>
+    <loc>http://localhost:1313/tags/contrastive-methods/</loc>
     <lastmod>2025-10-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/moco/</loc>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/moco/</loc>
     <lastmod>2025-10-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/simclr/</loc>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</loc>
     <lastmod>2025-10-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/simclr/"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/ai-fundamentals/ssl/simclr/"
+                href="http://localhost:1313/post/ai-fundamentals/ssl/simclr/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/page/about/</loc>
+    <loc>http://localhost:1313/page/about/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/page/about/"
+                href="http://localhost:1313/zh-cn/page/about/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/page/about/"
+                href="http://localhost:1313/page/about/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/post/python-geodata/01-intro/</loc>
+    <loc>http://localhost:1313/post/python-geodata/01-intro/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/post/python-geodata/01-intro/"
+                href="http://localhost:1313/zh-cn/post/python-geodata/01-intro/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/post/python-geodata/01-intro/"
+                href="http://localhost:1313/post/python-geodata/01-intro/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/page/</loc>
+    <loc>http://localhost:1313/page/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/page/"
+                href="http://localhost:1313/zh-cn/page/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/page/"
+                href="http://localhost:1313/page/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/python/</loc>
+    <loc>http://localhost:1313/tags/python/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/tags/python/"
+                href="http://localhost:1313/zh-cn/tags/python/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/tags/python/"
+                href="http://localhost:1313/tags/python/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/raster/</loc>
+    <loc>http://localhost:1313/tags/raster/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/tags/raster/"
+                href="http://localhost:1313/zh-cn/tags/raster/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/tags/raster/"
+                href="http://localhost:1313/tags/raster/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/remote-sensing/</loc>
+    <loc>http://localhost:1313/tags/remote-sensing/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://www.xuqiongjie.com/tags/vector/</loc>
+    <loc>http://localhost:1313/tags/vector/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/tags/vector/"
+                href="http://localhost:1313/zh-cn/tags/vector/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/tags/vector/"
+                href="http://localhost:1313/tags/vector/"
                 />
   </url><url>
-    <loc>https://www.xuqiongjie.com/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/categories/"
+                href="http://localhost:1313/zh-cn/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://www.xuqiongjie.com/categories/"
+                href="http://localhost:1313/categories/"
                 />
   </url>
 </urlset>

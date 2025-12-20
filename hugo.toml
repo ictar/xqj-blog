@@ -16,7 +16,7 @@ enableRobotsTXT = true
     [languages.en.params]
         subtitle = "Spatial intelligence researcher | GIS developer | Data storyteller"
     [languages.en.menus]
-      [[languages.zh-cn.menus.main]]
+      [[languages.en.menus.main]]
         name = "BLOG"
         url = "post"
         identifier = "post"
@@ -38,8 +38,14 @@ enableRobotsTXT = true
         weight = 3
       [[languages.en.menus.main]]
         name = "PROJECT"
-        url = ""
+        identifier = "project"
+        url = "projects"
         weight = 2
+      [[languages.en.menus.main]]
+        name = "TerraFlow"
+        url = "https://ictar.github.io/TerraFlow/"
+        parent = "project"
+        weight = 1
       [[languages.en.menus.main]]
         name = "NOTE"
         url = "notes"
@@ -87,8 +93,14 @@ enableRobotsTXT = true
         weight = 4
       [[languages.zh-cn.menus.main]]
         name = "项目"
-        url = ""
+        identifier = "project"
+        url = "projects"
         weight = 2
+      [[languages.zh-cn.menus.main]]
+        name = "TerraFlow"
+        url = "https://ictar.github.io/TerraFlow/"
+        parent = "project"
+        weight = 1
       [[languages.zh-cn.menus.main]]
         name = "笔记"
         url = "notes"

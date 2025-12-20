@@ -2,54 +2,54 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on 琼呀</title>
-    <link>https://www.xuqiongjie.com/zh-cn/tags/python/</link>
+    <link>http://localhost:1313/zh-cn/tags/python/</link>
     <description>Recent content in Python on 琼呀</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Fri, 22 Aug 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.xuqiongjie.com/zh-cn/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/zh-cn/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MCMC 初识</title>
-      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/intro-mcmc/</link>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/</link>
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/intro-mcmc/</guid>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/</guid>
       <description>我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。</description>
     </item>
     <item>
       <title>理解马尔可夫链</title>
-      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov-chains/</link>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</link>
       <pubDate>Thu, 21 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov-chains/</guid>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</guid>
       <description>了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性</description>
     </item>
     <item>
       <title>蒙特卡洛方法</title>
-      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/monte-carlo/</link>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</link>
       <pubDate>Tue, 19 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/monte-carlo/</guid>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</guid>
       <description>蒙特卡洛方法 = “随机试验 + 统计规律”</description>
     </item>
     <item>
       <title>什么是概率？</title>
-      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/probability/</link>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</link>
       <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/probability/</guid>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</guid>
       <description>本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。</description>
     </item>
     <item>
       <title>随机变量和采样</title>
-      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/random-variables/</link>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/random-variables/</guid>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</guid>
       <description>了解随机变量、概率密度函数、期望等概念、常见采样方法以及简单分布（均匀、正态、指数）的采样方式</description>
     </item>
     <item>
       <title>第 1 课：遥感数据与 Python 环境入门</title>
-      <link>https://www.xuqiongjie.com/zh-cn/post/python-geodata/01-intro/</link>
+      <link>http://localhost:1313/zh-cn/post/python-geodata/01-intro/</link>
       <pubDate>Fri, 11 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/zh-cn/post/python-geodata/01-intro/</guid>
+      <guid>http://localhost:1313/zh-cn/post/python-geodata/01-intro/</guid>
       <description>了解遥感数据的基本类型，并搭建处理环境</description>
     </item>
   </channel>

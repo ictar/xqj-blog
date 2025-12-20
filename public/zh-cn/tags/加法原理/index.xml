@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>加法原理 on 琼呀</title>
-    <link>https://www.xuqiongjie.com/zh-cn/tags/%E5%8A%A0%E6%B3%95%E5%8E%9F%E7%90%86/</link>
+    <link>http://localhost:1313/zh-cn/tags/%E5%8A%A0%E6%B3%95%E5%8E%9F%E7%90%86/</link>
     <description>Recent content in 加法原理 on 琼呀</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Sat, 05 Jul 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.xuqiongjie.com/zh-cn/tags/%E5%8A%A0%E6%B3%95%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/zh-cn/tags/%E5%8A%A0%E6%B3%95%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【课程笔记】概率论与数理统计｜预备知识</title>
-      <link>https://www.xuqiongjie.com/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</link>
+      <link>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</guid>
+      <guid>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</guid>
       <description>&lt;h2 id=&#34;加法原理和乘法原理&#34;&gt;加法原理和乘法原理&lt;/h2&gt;&#xA;&lt;p&gt;根据&lt;a href=&#34;https://zh.wikipedia.org/zh-cn/%E4%B9%98%E6%B3%95%E5%8E%9F%E7%90%86&#34;&gt;维基百科&lt;/a&gt;：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;加法原理&lt;/strong&gt;：若有a种方式做某事，b种方式做另一件事，但只能选其一，则共有$a+b$种选择。&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;乘法原理&lt;/strong&gt;：若有a种方式做某事，b种方式做另一件事，则共有$a\times b$种方式做这两件事。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;加法原理还是乘法原理&#34;&gt;加法原理还是乘法原理？&lt;/h3&gt;&#xA;&lt;p&gt;取决于&lt;strong&gt;是否分步骤&lt;/strong&gt;。分步则乘法，否则加法。&lt;/p&gt;</description>
     </item>
   </channel>

@@ -2,68 +2,68 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vision on Qiongjie&#39;s Notes</title>
-    <link>https://www.xuqiongjie.com/tags/vision/</link>
+    <link>http://localhost:1313/tags/vision/</link>
     <description>Recent content in Vision on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.xuqiongjie.com/tags/vision/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/vision/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>I-JEPA: Image-based Joint Embedding Predictive Architecture</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/i-jepa/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/i-jepa/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/i-jepa/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/i-jepa/</guid>
       <description>A non-generative, self-supervised framework predicting high-level feature representations of masked regions from visible context, enabling scalable and efficient visual pretraining.</description>
     </item>
     <item>
       <title>MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/maskfeat/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/maskfeat/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</guid>
       <description>Predict handcrafted features (e.g., HOG) of masked regions instead of raw pixels.</description>
     </item>
     <item>
       <title>BYOL: Bootstrap Your Own Latent</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/byol/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/byol/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/byol/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/byol/</guid>
       <description>Learn representations by predicting one network’s output from another’s, without using negative samples.</description>
     </item>
     <item>
       <title>DINO: Self-Distillation with No Labels</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/dino/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/dino/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/dino/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/dino/</guid>
       <description>A student network learns from a teacher network using self-distillation, producing emergent semantic attention maps.</description>
     </item>
     <item>
       <title>MAE: Masked Autoencoders Are Scalable Vision Learners</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/mae/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/mae/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/mae/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/mae/</guid>
       <description>Randomly mask image patches and reconstruct the missing ones to learn context-aware visual representations.</description>
     </item>
     <item>
       <title>SwAV: Swapping Assignments between Views</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/swav/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/swav/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/swav/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/swav/</guid>
       <description>Simultaneously cluster the data and learn visual representations by enforcing consistency between cluster assignments, or &amp;lsquo;codes&amp;rsquo;, generated from different augmented views of the same image.</description>
     </item>
     <item>
       <title>MoCo: Momentum Contrast for Unsupervised Visual Representation Learning</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/moco/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/moco/</link>
       <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/moco/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/moco/</guid>
       <description>It stabilizes and scales contrastive learning by maintaining a dynamic dictionary with momentum-based updates, becoming a cornerstone for modern SSL methods.</description>
     </item>
     <item>
       <title>SimCLR: A Simple Framework for Contrastive Learning of Visual Representations</title>
-      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/simclr/</link>
+      <link>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</link>
       <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/simclr/</guid>
+      <guid>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</guid>
       <description>Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.</description>
     </item>
   </channel>
