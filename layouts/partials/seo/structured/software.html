@@ -1,0 +1,16 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "{{ .Title }}",
+  "operatingSystem": "Platform Independent",
+  "applicationCategory": "DeveloperApplication",
+  "description": "{{ .Params.summary | default .Summary | plainify }}",
+  "author": {
+      "@type": "Person",
+      "name": "{{ .Site.Params.author.name }}"
+  },
+  "url": "{{ .Permalink }}",
+  "sameAs": "https://github.com/ictar/{{ .Title }}"
+}
+</script>

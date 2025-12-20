@@ -1,0 +1,13 @@
+{{- partial "seo/structured/website" . }}
+{{- if .IsHome }}
+  {{- partial "seo/structured/person" . }}
+{{- end }}
+
+{{ if .IsPage }}
+  {{- partial "seo/structured/breadcrumb" . }}
+  {{- if eq .Type "projects" }}
+    {{- partial "seo/structured/software" . }}
+  {{- else }}
+    {{- partial "seo/structured/article" . }}
+  {{- end }}
+{{ end }}

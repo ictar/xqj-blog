@@ -1,0 +1,17 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "name": "{{ .Site.Params.author.name }}",
+  "url": "{{ .Site.BaseURL }}",
+  "sameAs": [
+    "https://github.com/{{ .Site.Params.author.github }}",
+    "https://www.linkedin.com/in/{{ .Site.Params.author.linkedin }}"
+  ],
+  "jobTitle": "Researcher",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "ICTAR"
+  }
+}
+</script>

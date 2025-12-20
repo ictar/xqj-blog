@@ -117,6 +117,7 @@ enableRobotsTXT = true
 
 [Params]
     mainSections = ["post","posts","notes"]
+    keywords = ["GIS", "Remote Sensing", "GeoAI", "TerraFlow", "Python", "Deep Learning", "Spatial Intelligence"]
     logo = "img/avatar-icon.png"
     favicon = "img/favicon.ico"
     rss = true
