@@ -2,6 +2,7 @@ baseURL = 'https://www.xuqiongjie.com'
 languageCode = 'zh-cn'
 title = "Qiongjie's Notes"
 summaryLength = 6
+enableRobotsTXT = true
 
 [[module.imports]]
   path = "github.com/halogenica/beautifulhugo"
@@ -138,6 +139,12 @@ summaryLength = 6
       ordered = false
       startLevel = 1
 
+
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
 
 [services]
   [services.disqus]

@@ -2,26 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Masked Image Modeling on Qiongjie&#39;s Notes</title>
-    <link>http://localhost:1313/tags/masked-image-modeling/</link>
+    <link>https://www.xuqiongjie.com/tags/masked-image-modeling/</link>
     <description>Recent content in Masked Image Modeling on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/masked-image-modeling/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.xuqiongjie.com/tags/masked-image-modeling/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>I-JEPA: Image-based Joint Embedding Predictive Architecture</title>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/i-jepa/</link>
+      <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/i-jepa/</guid>
+      <description>A non-generative, self-supervised framework predicting high-level feature representations of masked regions from visible context, enabling scalable and efficient visual pretraining.</description>
+    </item>
     <item>
       <title>MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/maskfeat/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/maskfeat/</guid>
       <description>Predict handcrafted features (e.g., HOG) of masked regions instead of raw pixels.</description>
     </item>
     <item>
       <title>MAE: Masked Autoencoders Are Scalable Vision Learners</title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/mae/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/mae/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/mae/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/mae/</guid>
       <description>Randomly mask image patches and reconstruct the missing ones to learn context-aware visual representations.</description>
     </item>
   </channel>

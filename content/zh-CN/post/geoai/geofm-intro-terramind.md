@@ -78,6 +78,8 @@ TerraMind 在像素级别和 token 级别上结合数据，是其核心创新。
 
 此外，TerraMind 还引入了 **“多模态思维” (Thinking in Modalities, TiM)** 的创新概念，类似于大型语言模型中的“思维链 (chain-of-thought)”。通过在微调和推理过程中注入生成的人工数据，模型输出性能得以提升。例如，在水体测绘任务中，通过生成额外的 LULC 数据，TiM 微调比标准微调的 mIoU 提升了 2pp。
 
+![](https://research.ibm.com/_next/image?url=https%3A%2F%2Fresearch-website-prod-cms-uploads.s3.us.cloud-object-storage.appdomain.cloud%2FScreenshot_2025_10_20_at_3_49_35_PM_9f03a58e80.png&w=1920&q=85)
+
 # 编码与重建（Tokenizer）
 
 首先要理解 TerraMind 的 **Tokenizer**。它的工作原理类似“压缩—解压”：
@@ -311,6 +313,13 @@ TerraMind 的另一大亮点，就是能很方便地在下游任务（如语义�
 
 整个微调脚本跑下来，就可以从“预训练基础模型”得到一个“适配任务的模型”，哪怕只训练了几个 epoch，就能看到效果。
 
+## 在微调中使用TiM
+
+要在微调中使用 TiM，只需要使用以 `_tim` 结尾的 backbone，并且通过 `backbone_tim_modalities` 指明要使用的模态。例如：
+```yaml
+backbone: terramind_v1_base_tim      # 而不是terramind_v1_base
+backbone_tim_modalities: [LULC]      # 或 S1GRD / NDVI / DEM / …
+```
 
 # 总结
 
@@ -328,3 +337,4 @@ TerraMind 的另一大亮点，就是能很方便地在下游任务（如语义�
 - [Github: IBM/terramind](https://github.com/IBM/terramind/tree/main)
 - [Hugging Face: ibm-esa-geospatial/TerraMind-1.0-base](https://huggingface.co/ibm-esa-geospatial/TerraMind-1.0-base)
 - [Paper (arxiv): TerraMind: Large-Scale Generative Multimodality for Earth Observation](https://doi.org/10.48550/arXiv.2504.11171)
+- [Introducing Thinking-in-Modalities with TerraMind](https://research.ibm.com/blog/thinking-in-modalities-terramind)

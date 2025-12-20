@@ -2,96 +2,96 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Qiongjie&#39;s Notes</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://www.xuqiongjie.com/tags/</link>
     <description>Recent content in Tags on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.xuqiongjie.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Joint Embedding</title>
+      <link>https://www.xuqiongjie.com/tags/joint-embedding/</link>
+      <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>https://www.xuqiongjie.com/tags/joint-embedding/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Masked Image Modeling</title>
-      <link>http://localhost:1313/tags/masked-image-modeling/</link>
+      <link>https://www.xuqiongjie.com/tags/masked-image-modeling/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/masked-image-modeling/</guid>
+      <guid>https://www.xuqiongjie.com/tags/masked-image-modeling/</guid>
       <description></description>
     </item>
     <item>
       <title>Representation Learning</title>
-      <link>http://localhost:1313/tags/representation-learning/</link>
+      <link>https://www.xuqiongjie.com/tags/representation-learning/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/representation-learning/</guid>
+      <guid>https://www.xuqiongjie.com/tags/representation-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>SSL</title>
-      <link>http://localhost:1313/tags/ssl/</link>
+      <link>https://www.xuqiongjie.com/tags/ssl/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/ssl/</guid>
+      <guid>https://www.xuqiongjie.com/tags/ssl/</guid>
       <description></description>
     </item>
     <item>
       <title>Vision</title>
-      <link>http://localhost:1313/tags/vision/</link>
+      <link>https://www.xuqiongjie.com/tags/vision/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/vision/</guid>
+      <guid>https://www.xuqiongjie.com/tags/vision/</guid>
       <description></description>
     </item>
     <item>
       <title>Clustering Methods</title>
-      <link>http://localhost:1313/tags/clustering-methods/</link>
+      <link>https://www.xuqiongjie.com/tags/clustering-methods/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/clustering-methods/</guid>
+      <guid>https://www.xuqiongjie.com/tags/clustering-methods/</guid>
       <description></description>
     </item>
     <item>
       <title>Distillation Methods</title>
-      <link>http://localhost:1313/tags/distillation-methods/</link>
+      <link>https://www.xuqiongjie.com/tags/distillation-methods/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/distillation-methods/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Joint Embedding</title>
-      <link>http://localhost:1313/tags/joint-embedding/</link>
-      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/joint-embedding/</guid>
+      <guid>https://www.xuqiongjie.com/tags/distillation-methods/</guid>
       <description></description>
     </item>
     <item>
       <title>Contrastive Methods</title>
-      <link>http://localhost:1313/tags/contrastive-methods/</link>
+      <link>https://www.xuqiongjie.com/tags/contrastive-methods/</link>
       <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/contrastive-methods/</guid>
+      <guid>https://www.xuqiongjie.com/tags/contrastive-methods/</guid>
       <description></description>
     </item>
     <item>
       <title>Python</title>
-      <link>http://localhost:1313/tags/python/</link>
+      <link>https://www.xuqiongjie.com/tags/python/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/python/</guid>
+      <guid>https://www.xuqiongjie.com/tags/python/</guid>
       <description></description>
     </item>
     <item>
       <title>Raster</title>
-      <link>http://localhost:1313/tags/raster/</link>
+      <link>https://www.xuqiongjie.com/tags/raster/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/raster/</guid>
+      <guid>https://www.xuqiongjie.com/tags/raster/</guid>
       <description></description>
     </item>
     <item>
       <title>Remote Sensing</title>
-      <link>http://localhost:1313/tags/remote-sensing/</link>
+      <link>https://www.xuqiongjie.com/tags/remote-sensing/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/remote-sensing/</guid>
+      <guid>https://www.xuqiongjie.com/tags/remote-sensing/</guid>
       <description></description>
     </item>
     <item>
       <title>Vector</title>
-      <link>http://localhost:1313/tags/vector/</link>
+      <link>https://www.xuqiongjie.com/tags/vector/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/vector/</guid>
+      <guid>https://www.xuqiongjie.com/tags/vector/</guid>
       <description></description>
     </item>
   </channel>
