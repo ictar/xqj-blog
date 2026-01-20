@@ -109,7 +109,7 @@
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
 
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -335,8 +335,10 @@
 
     
 <div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         
   <aside class="toc">
@@ -1047,13 +1049,10 @@ $$
         
           <div class="blog-tags">
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
             
           </div>
@@ -1161,6 +1160,39 @@ $$
       
 
     </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#马尔可夫链的基本概念">马尔可夫链的基本概念</a>
+      <ul>
+        <li><a href="#随机过程stochastic-process">随机过程（Stochastic Process）</a></li>
+        <li><a href="#马尔可夫性质markov-property">马尔可夫性质（Markov Property）</a></li>
+        <li><a href="#转移概率矩阵transition-matrix">转移概率矩阵（Transition Matrix）</a></li>
+        <li><a href="#示例">示例</a></li>
+        <li><a href="#小结">小结</a></li>
+      </ul>
+    </li>
+    <li><a href="#马尔可夫链的长期行为和收敛性">马尔可夫链的长期行为和收敛性</a>
+      <ul>
+        <li><a href="#平稳分布-stationary-distribution">平稳分布 (Stationary Distribution)</a></li>
+        <li><a href="#状态分类">状态分类</a></li>
+        <li><a href="#遍历定理-ergodic-theorem">遍历定理 (Ergodic Theorem)</a></li>
+        <li><a href="#混合时间-mixing-time">混合时间 (Mixing Time)</a></li>
+        <li><a href="#示例-1">示例</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
   </div>
 </div>
 

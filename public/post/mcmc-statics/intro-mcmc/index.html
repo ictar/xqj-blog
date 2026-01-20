@@ -109,7 +109,7 @@
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
 
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -333,8 +333,10 @@
 
     
 <div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         
   <aside class="toc">
@@ -708,19 +710,14 @@ $$
         
           <div class="blog-tags">
             
-              
               <a href="http://localhost:1313/tags/monte-carlo/">Monte Carlo</a>&nbsp;
             
-              
               <a href="http://localhost:1313/tags/markov-chain/">Markov Chain</a>&nbsp;
             
-              
               <a href="http://localhost:1313/tags/sampling/">Sampling</a>&nbsp;
             
-              
               <a href="http://localhost:1313/tags/mathematics/">Mathematics</a>&nbsp;
             
-              
               <a href="http://localhost:1313/tags/python/">python</a>&nbsp;
             
           </div>
@@ -828,6 +825,46 @@ $$
       
 
     </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-do-we-need-mcmc">Why Do We Need MCMC?</a>
+      <ul>
+        <li><a href="#example">Example</a></li>
+      </ul>
+    </li>
+    <li><a href="#from-markov-chain-to-sampling">From Markov Chain to Sampling</a>
+      <ul>
+        <li><a href="#turning-sampling-into-building-a-chain">Turning Sampling into &ldquo;Building a Chain&rdquo;</a></li>
+        <li><a href="#ensuring-reachable-aperiodic-forgetting-start">Ensuring &ldquo;Reachable, Aperiodic, Forgetting Start&rdquo;</a></li>
+        <li><a href="#why-unnormalized-is-fine">Why &ldquo;Unnormalized is Fine&rdquo;</a></li>
+        <li><a href="#example-1">Example</a></li>
+      </ul>
+    </li>
+    <li><a href="#theory-and-intuition">Theory and Intuition</a>
+      <ul>
+        <li><a href="#detailed-balance-reversibility-and-stationarity">Detailed Balance (Reversibility) and Stationarity</a></li>
+        <li><a href="#convergence-ergodic-theorem-lln-clt">Convergence: Ergodic Theorem, LLN, CLT</a></li>
+        <li><a href="#mixing-time-spectral-gap-and-geometric-convergence">Mixing Time, Spectral Gap, and Geometric Convergence</a></li>
+        <li><a href="#burn-in-thinning-diagnostics-from-theory-to-practice">Burn-in, Thinning, Diagnostics (From Theory to Practice)</a></li>
+        <li><a href="#why-mcmc-can-walk-and-stay-in-high-density-areas">Why MCMC can &ldquo;Walk and Stay in High Density Areas&rdquo;</a></li>
+        <li><a href="#example-2">Example</a></li>
+      </ul>
+    </li>
+    <li><a href="#critical-indicators-in-practice-no-algorithms-yet">Critical Indicators in Practice (No Algorithms Yet)</a></li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
   </div>
 </div>
 

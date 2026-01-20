@@ -126,7 +126,7 @@ enableRobotsTXT = true
     showRelatedPosts = true
     math = true
     hideAuthor = true
-    custom_css = ["css/custom.css"]
+    custom_css = ["css/custom.css", "css/toc.css"]
     
 
 [Params.author]

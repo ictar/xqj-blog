@@ -119,7 +119,7 @@ summary: &ldquo;A detailed visual guide to SimCLR. Understand the logic behind s
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
 
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -306,8 +306,10 @@ summary: &ldquo;A detailed visual guide to SimCLR. Understand the logic behind s
 
     
 <div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>title: &ldquo;SimCLR Explained: Contrastive Learning Design &amp; Code&rdquo;
 date: 2025-10-07
@@ -518,7 +520,7 @@ $$
           
           
             <li class="next">
-              <a href="http://localhost:1313/post/ai-fundamentals/ssl/moco/" data-toggle="tooltip" data-placement="top" title="MoCo: Momentum Contrast for Unsupervised Visual Representation Learning">Next Post &rarr;</a>
+              <a href="http://localhost:1313/post/ai-fundamentals/ssl/byol/" data-toggle="tooltip" data-placement="top" title="">Next Post &rarr;</a>
             </li>
           
         </ul>
@@ -528,6 +530,32 @@ $$
       
 
     </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-model-name">🏷️ Model Name</a></li>
+        <li><a href="#-core-idea">🧠 Core Idea</a></li>
+        <li><a href="#-architecture">🖼️ Architecture</a></li>
+        <li><a href="#-downstream-tasks">🎯 Downstream Tasks</a></li>
+        <li><a href="#-strengths">💡 Strengths</a></li>
+        <li><a href="#-limitations">⚠️ Limitations</a></li>
+        <li><a href="#-reference">📚 Reference</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
   </div>
 </div>
 

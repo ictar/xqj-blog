@@ -109,7 +109,7 @@
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
 
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -335,8 +335,10 @@
 
     
 <div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         
   <aside class="toc">
@@ -1183,16 +1185,12 @@ $$<p>即<strong>条件独立</strong>成立。直觉：是否有人这个“共�
         
           <div class="blog-tags">
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/">统计基础</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
             
           </div>
@@ -1300,6 +1298,72 @@ $$<p>即<strong>条件独立</strong>成立。直觉：是否有人这个“共�
       
 
     </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概率的三种解释">概率的三种解释</a>
+      <ul>
+        <li><a href="#-1-频率学派解释frequentist-interpretation">🔵 1. 频率学派解释（<a href="https://en.wikipedia.org/wiki/Frequentist_probability">Frequentist</a> Interpretation）</a></li>
+        <li><a href="#-2-贝叶斯学派解释bayesian-interpretation">🔴 2. 贝叶斯学派解释（<a href="https://en.wikipedia.org/wiki/Bayesian_probability">Bayesian</a> Interpretation）</a></li>
+        <li><a href="#-3-公理化定义kolmogorov-axiomatic-approach">⚫️ 3. 公理化定义（Kolmogorov Axiomatic Approach）</a></li>
+        <li><a href="#-总结">📌 总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#事件与样本空间">事件与样本空间</a>
+      <ul>
+        <li><a href="#样本空间sample-space">样本空间（Sample Space）</a></li>
+        <li><a href="#事件event">事件（Event）</a></li>
+        <li><a href="#三个常见示例">三个常见示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#概率的基本性质">概率的基本性质</a>
+      <ul>
+        <li><a href="#命题-1空事件概率为-0">命题 1：空事件概率为 0</a></li>
+        <li><a href="#命题-2单调性monotonicity">命题 2：单调性（Monotonicity）</a></li>
+        <li><a href="#命题-3补事件概率规则">命题 3：补事件概率规则</a></li>
+        <li><a href="#命题-4两个事件的加法公式包含交集修正项">命题 4：两个事件的加法公式（包含交集修正项）</a></li>
+        <li><a href="#命题-5容斥原理两个与三个事件的情况">命题 5：容斥原理（两个与三个事件的情况）</a></li>
+        <li><a href="#命题-6有限可加性从可列可加性退化而来">命题 6：有限可加性（从可列可加性退化而来）</a></li>
+        <li><a href="#命题-7并集的上界boole-不等式--union-bound">命题 7：并集的上界（Boole 不等式 / Union bound）</a></li>
+        <li><a href="#命题-8连续性从上与下">命题 8：连续性（从上与下）</a></li>
+      </ul>
+    </li>
+    <li><a href="#条件概率与乘法法则">条件概率与乘法法则</a>
+      <ul>
+        <li><a href="#条件概率-严格定义">条件概率 （严格定义）</a></li>
+        <li><a href="#联合概率--与乘法法则">联合概率  与乘法法则</a></li>
+        <li><a href="#示例">示例</a></li>
+        <li><a href="#小结">小结</a></li>
+      </ul>
+    </li>
+    <li><a href="#全概率公式与贝叶斯定理">全概率公式与贝叶斯定理</a>
+      <ul>
+        <li><a href="#全概率公式law-of-total-probability-ltp">全概率公式（Law of Total Probability, LTP）</a></li>
+        <li><a href="#贝叶斯定理bayes-theorem">贝叶斯定理（Bayes’ Theorem）</a></li>
+        <li><a href="#反转因果的力量diagnostic-vs-causal">“反转因果”的力量（diagnostic vs. causal）</a></li>
+        <li><a href="#应用示例">应用示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#独立性与条件独立">独立性与条件独立</a>
+      <ul>
+        <li><a href="#严谨定义与等价刻画">严谨定义与等价刻画</a></li>
+        <li><a href="#两个严谨小推论">两个严谨小推论</a></li>
+        <li><a href="#示例-1">示例</a></li>
+        <li><a href="#常见误区速记">常见误区速记</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
   </div>
 </div>
 

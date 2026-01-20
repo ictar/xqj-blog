@@ -172,11 +172,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/post/ai-fundamentals/ssl/byol/</loc>
-    <lastmod>2025-10-08T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>http://localhost:1313/tags/clustering-methods/</loc>
     <lastmod>2025-10-08T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -211,21 +206,6 @@
     <lastmod>2025-10-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</loc>
-    <lastmod>2025-10-07T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/post/ai-fundamentals/ssl/simclr/"
-                />
   </url><url>
     <loc>http://localhost:1313/tags/mathematics/</loc>
     <lastmod>2025-08-30T00:00:00+00:00</lastmod>
@@ -445,6 +425,24 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="http://localhost:1313/tags/vector/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/byol/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/ai-fundamentals/ssl/simclr/"
                 />
   </url><url>
     <loc>http://localhost:1313/categories/</loc>

@@ -109,7 +109,7 @@
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
 
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -335,8 +335,10 @@
 
     
 <div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         
   <aside class="toc">
@@ -710,19 +712,14 @@ $$
         
           <div class="blog-tags">
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/">蒙特卡洛</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
             
           </div>
@@ -826,6 +823,46 @@ $$
       
 
     </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么我们需要-mcmc">为什么我们需要 MCMC？</a>
+      <ul>
+        <li><a href="#示例">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#从马尔可夫链到抽样">从马尔可夫链到抽样</a>
+      <ul>
+        <li><a href="#把抽样问题变成造一条链">把抽样问题变成“造一条链”</a></li>
+        <li><a href="#保证能到达无周期会遗忘起点">保证“能到达、无周期、会遗忘起点”</a></li>
+        <li><a href="#为什么未归一化也行">为什么“未归一化也行”</a></li>
+        <li><a href="#示例-1">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#理论与直觉">理论与直觉</a>
+      <ul>
+        <li><a href="#详细平衡reversibility与平稳">详细平衡（reversibility）与平稳</a></li>
+        <li><a href="#收敛遍历定理llnclt">收敛：遍历定理、LLN、CLT</a></li>
+        <li><a href="#混合时间谱间隙与几何收敛">混合时间、谱间隙与几何收敛</a></li>
+        <li><a href="#burn-inthinning诊断从理论到实践">Burn-in、Thinning、诊断（从理论到实践）</a></li>
+        <li><a href="#为什么-mcmc-会既能走又能停在高密度区">为什么 MCMC 会“既能走、又能停在高密度区”</a></li>
+        <li><a href="#示例-2">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#实践层面的关键信号灯不涉及具体算法">实践层面的关键信号灯（不涉及具体算法）</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
   </div>
 </div>
 

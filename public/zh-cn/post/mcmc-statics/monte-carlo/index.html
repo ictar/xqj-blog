@@ -109,7 +109,7 @@
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
 
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -335,8 +335,10 @@
 
     
 <div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         
   <aside class="toc">
@@ -1785,16 +1787,12 @@ Stratified: mean=1.718282, std=0.000016
         
           <div class="blog-tags">
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/">蒙特卡洛</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
             
           </div>
@@ -1902,6 +1900,31 @@ Stratified: mean=1.718282, std=0.000016
       
 
     </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#蒙特卡罗方法的基本形式">蒙特卡罗方法的基本形式</a>
+      <ul>
+        <li><a href="#均匀采样区间区域上的均匀采样">均匀采样：区间/区域上的均匀采样</a></li>
+        <li><a href="#接受-拒绝采样rejection-sampling">接受-拒绝采样（Rejection Sampling）</a></li>
+        <li><a href="#重要性采样importance-sampling-is">重要性采样（Importance Sampling, IS）</a></li>
+        <li><a href="#方差缩减技术">方差缩减技术</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考阅读更多">参考/阅读更多</a></li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
   </div>
 </div>
 

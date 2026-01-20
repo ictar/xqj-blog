@@ -1,0 +1,125 @@
+
+/* --- Table of Contents (TOC) Component --- */
+
+/* 1. Mobile & Medium Screens (Default / Inline) */
+.toc {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0 2rem 0;
+  display: inline-block;
+  min-width: 200px;
+  max-width: 100%;
+}
+
+.toc h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+  color: #343a40;
+}
+
+.toc ul {
+  padding-left: 1.5rem;
+  margin-bottom: 0;
+}
+
+.toc li {
+  margin-bottom: 0.25rem;
+}
+
+.toc a {
+  color: #495057;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.toc a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+/* 2. Large Screens (Desktops >= 1200px) */
+@media (min-width: 1200px) {
+  
+  /* HIDE the inline TOC inserted by the shortcode inside the article */
+  .blog-post .toc {
+    display: none !important;
+  }
+
+  /* Style the Sidebar TOC container */
+  .sidebar-toc {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px; /* Offset from top value */
+    
+    padding-left: 20px;
+    border-left: 2px solid #f1f3f5; /* Subtle vertical line */
+    margin-top: 20px;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+
+  .sidebar-toc-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #6c757d; /* Darker for better contrast */
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  .sidebar-toc nav#TableOfContents > ul {
+    list-style: none; /* Remove bullets */
+    padding-left: 0;
+  }
+
+  .sidebar-toc ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .sidebar-toc ul ul {
+    padding-left: 1rem;
+    margin-top: 6px;
+    /* Sub-items don't need borders */
+  }
+
+  .sidebar-toc li {
+    margin-bottom: 8px; /* More spacing */
+    line-height: 1.5;
+  }
+
+  .sidebar-toc a {
+    display: block;
+    color: #495057; /* Much darker gray for sharpness */
+    font-size: 1.0rem; /* Increased size */
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-weight: 500; /* Slightly thicker font weight */
+  }
+
+  .sidebar-toc a:hover {
+    color: #337ab7; /* Theme color */
+    transform: translateX(4px);
+    text-decoration: none;
+  }
+  
+  /* Scrollbar styling */
+  .sidebar-toc::-webkit-scrollbar {
+    width: 6px;
+  }
+  .sidebar-toc::-webkit-scrollbar-thumb {
+    background-color: #dee2e6;
+    border-radius: 4px;
+  }
+  .sidebar-toc::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}

@@ -17,12 +17,5 @@
       <guid>http://localhost:1313/post/ai-fundamentals/ssl/moco/</guid>
       <description>It stabilizes and scales contrastive learning by maintaining a dynamic dictionary with momentum-based updates, becoming a cornerstone for modern SSL methods.</description>
     </item>
-    <item>
-      <title>SimCLR: A Simple Framework for Contrastive Learning of Visual Representations</title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</link>
-      <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</guid>
-      <description>Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.</description>
-    </item>
   </channel>
 </rss>
