@@ -18,6 +18,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/post/mcmc-statics/</loc>
+    <lastmod>2025-08-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -226,6 +227,146 @@
                 href="http://localhost:1313/post/ai-fundamentals/ssl/simclr/"
                 />
   </url><url>
+    <loc>http://localhost:1313/tags/mathematics/</loc>
+    <lastmod>2025-08-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/monte-carlo/</loc>
+    <lastmod>2025-08-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/post/mcmc-statics/monte-carlo/</loc>
+    <lastmod>2025-08-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/monte-carlo/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/python/</loc>
+    <lastmod>2025-08-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/python/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/python/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/sampling/</loc>
+    <lastmod>2025-08-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/post/mcmc-statics/intro-mcmc/</loc>
+    <lastmod>2025-08-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/intro-mcmc/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/markov-chain/</loc>
+    <lastmod>2025-08-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/post/mcmc-statics/markov-chains/</loc>
+    <lastmod>2025-08-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/markov-chains/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/probability/</loc>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/statistics-foundation/</loc>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/post/mcmc-statics/probability/</loc>
+    <lastmod>2025-08-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/probability/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/probability/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/course-notes/</loc>
+    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/math/</loc>
+    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/random-experiments/</loc>
+    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/random-variables/</loc>
+    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/post/mcmc-statics/random-variables/</loc>
+    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/random-variables/"
+                />
+  </url><url>
     <loc>http://localhost:1313/page/about/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -269,21 +410,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="http://localhost:1313/page/"
-                />
-  </url><url>
-    <loc>http://localhost:1313/tags/python/</loc>
-    <lastmod>2025-07-02T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/tags/python/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/tags/python/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/raster/</loc>

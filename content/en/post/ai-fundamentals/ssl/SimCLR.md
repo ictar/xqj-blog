@@ -1,10 +1,8 @@
----
-title: "SimCLR: A Simple Framework for Contrastive Learning of Visual Representations"
+title: "SimCLR Explained: Contrastive Learning Design & Code"
 date: 2025-10-07
-summary: "Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others."
+summary: "A detailed visual guide to SimCLR. Understand the logic behind stochastic data augmentation, the NT-Xent loss, and why contrastive learning works."
 series: ["Self-Supervised Learning"]
-tags: ["SSL", "Vision", "Representation Learning", "Joint Embedding", "Contrastive Methods"]
----
+tags: ["SimCLR", "Contrastive Learning", "SSL", "CV", "Paper Notes"]
 
 <div class="model-card">
 

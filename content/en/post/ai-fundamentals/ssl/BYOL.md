@@ -1,10 +1,8 @@
----
-title: "BYOL: Bootstrap Your Own Latent"
+title: "BYOL Explained: Self-Supervised Learning without Negative Pairs"
 date: 2025-10-08
-summary: "Learn representations by predicting one network’s output from another’s, without using negative samples."
+summary: "Understanding BYOL: How interactions between Online and Target networks achieve SOTA performance without negative samples. A deep dive into the architecture and loss function."
 series: ["Self-Supervised Learning"]
-tags: ["SSL", "Vision", "Representation Learning", "Joint Embedding", "Distillation Methods"]
----
+tags: ["BYOL", "Contrastive Learning", "SSL", "CV", "Paper Notes"]
 
 <div class="model-card">
 

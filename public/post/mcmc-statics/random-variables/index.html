@@ -1,0 +1,1399 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>Random Variables and Sampling - </title>
+
+  <meta name="description" content="Understand concepts of random variables, PDF, expectation, and sampling methods for common distributions (Uniform, Normal, Exponential).">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/post/mcmc-statics/random-variables/" />
+
+
+<meta name="keywords" content="Random Variables, Sampling, Random Experiments, Course Notes, Math, python" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/post\/mcmc-statics\/random-variables\/",
+          "name": "Random variables and sampling"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "Random Variables and Sampling",
+  "description" : "Understand concepts of random variables, PDF, expectation, and sampling methods for common distributions (Uniform, Normal, Exponential).",
+  "inLanguage" : "en",
+  "wordCount":  2616 ,
+  "datePublished" : "2025-08-02T00:00:00\u002b00:00",
+  "dateModified" : "2025-08-02T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "Random Variables, Sampling, Random Experiments, Course Notes, Math, python" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/mcmc-statics\/random-variables\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="Random Variables and Sampling" />
+<meta property="og:description" content="Understand concepts of random variables, PDF, expectation, and sampling methods for common distributions (Uniform, Normal, Exponential).">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/mcmc-statics/random-variables/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="Random Variables and Sampling" />
+  <meta name="twitter:description" content="Understand concepts of random variables, PDF, expectation, and sampling methods for common distributions (Uniform, Normal, Exponential).">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/post">BLOG</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/projects">PROJECT</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/">CH</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Random Variables and Sampling</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 2, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2616&nbsp;words
+  
+  
+  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/" lang="zh-cn">CH</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+  <aside class="toc">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#random-variables">Random Variables</a>
+      <ul>
+        <li><a href="#uniform-distribution-uniform-rv">Uniform Distribution (Uniform RV)</a></li>
+        <li><a href="#bernoulli-random-variable">Bernoulli Random Variable</a></li>
+        <li><a href="#binomial-random-variable">Binomial Random Variable</a></li>
+        <li><a href="#exponential-random-variable">Exponential Random Variable</a></li>
+        <li><a href="#geometric-random-variable">Geometric Random Variable</a></li>
+        <li><a href="#normal-random-variable">Normal Random Variable</a></li>
+        <li><a href="#sampling-from-joint-distributions">Sampling from Joint Distributions</a></li>
+        <li><a href="#computations-with-random-variables">Computations with Random Variables</a></li>
+      </ul>
+    </li>
+    <li><a href="#appendix-sampling-from-polar-coordinates">Appendix: Sampling from Polar Coordinates</a></li>
+  </ul>
+</nav>
+  </aside>
+
+<h1 id="random-variables">Random Variables</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> seaborn <span style="color:#66d9ef">as</span> sns
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set style</span>
+</span></span><span style="display:flex;"><span>sns<span style="color:#f92672">.</span>set_theme(style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;whitegrid&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_discrete_rv</span>(values, pmf, cdf, samples, rv_name):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Prepare Empirical CDF (ECDF)</span>
+</span></span><span style="display:flex;"><span>    n_samples <span style="color:#f92672">=</span> len(samples)
+</span></span><span style="display:flex;"><span>    sorted_samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sort(samples)
+</span></span><span style="display:flex;"><span>    ecdf_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>unique(sorted_samples)
+</span></span><span style="display:flex;"><span>    ecdf_y <span style="color:#f92672">=</span> [np<span style="color:#f92672">.</span>sum(sorted_samples <span style="color:#f92672">&lt;=</span> x) <span style="color:#f92672">/</span> n_samples <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> ecdf_x]
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Theoretical PMF</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>stem(values, pmf, basefmt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; &#34;</span>, linefmt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-.&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Theoretical PMF: </span><span style="color:#e6db74">{</span>rv_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;f(X=x) = P(X = x)&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1.1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Theoretical CDF</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>step(values, cdf, where<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;post&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Theoretical CDF: </span><span style="color:#e6db74">{</span>rv_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;F(x) = P(X ≤ x)&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1.1</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Sampling Histogram</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>    sns<span style="color:#f92672">.</span>countplot(x<span style="color:#f92672">=</span>samples, hue<span style="color:#f92672">=</span>samples, legend<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, palette<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;pastel&#39;</span>, stat<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;proportion&#39;</span>, order<span style="color:#f92672">=</span>values)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Empirical Distribution (</span><span style="color:#e6db74">{</span>n_samples<span style="color:#e6db74">}</span><span style="color:#e6db74"> samples)&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Relative Frequency&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Empirical CDF (ECDF)</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>step(ecdf_x, ecdf_y, where<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;post&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Empirical CDF&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;ECDF&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1.1</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><h2 id="uniform-distribution-uniform-rv">Uniform Distribution (Uniform RV)</h2>
+<h3 id="discrete-uniform-random-variable">Discrete Uniform Random Variable</h3>
+<blockquote>
+<p>If a random variable $X$ takes values in a <strong>finite set of discrete numbers</strong>, and each value has the same probability of occurring, then it is a <strong>discrete uniform random variable</strong>.</p></blockquote>
+<p>Examples:</p>
+<ul>
+<li>Rolling a die:
+$X \in \{1, 2, 3, 4, 5, 6\}$, each outcome has probability $\frac{1}{6}$</li>
+<li>Randomly selecting a card (from 1 to 52)</li>
+</ul>
+<p><strong>Mathematical Definition</strong></p>
+<p>Let $X \sim \text{DiscreteUniform}(a, b)$, where $a$, $b \in \mathbb{Z}$, and $a \leq b$.</p>
+<ul>
+<li>
+<p>Support (Range):
+</p>
+$$
+  k \in \{a, a+1, a+2, \dots, b\}
+  $$</li>
+<li>
+<p>Probability of each value:
+</p>
+$$
+  P(X = k) = \frac{1}{b - a + 1}, \quad \text{for } k \in \{a, \dots, b\}
+  $$</li>
+<li>
+<p>Probability Mass Function (PMF):
+</p>
+$$
+  f(X=k) = P(X=k) = \left\{
+  \begin{aligned}
+  \frac{1}{b-a+1}, \text{for } a \le k \le b\\
+  0, \text{ otherwise}
+  \end{aligned}
+  \right.
+  $$</li>
+<li>
+<p>Cumulative Distribution Function (CDF):
+</p>
+$$
+  F(X=k) = P(X\le k) = \left\{
+  \begin{aligned}
+  0,  \text{for } k \lt a \\
+  \frac{k-a+1}{b-a+1}, \text{for } a \le k \le b\\
+  1, \text{ for } k \gt b
+  \end{aligned}
+  \right.
+  $$</li>
+<li>
+<p>Expectation ($\mu$): $\frac{a+b}{2}$</p>
+</li>
+<li>
+<p>Variance ($\sigma^2$): $\frac{(b-a+1)^2-1}{12}$</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set random seed</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define Parameters</span>
+</span></span><span style="display:flex;"><span>a, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>  <span style="color:#75715e"># Range</span>
+</span></span><span style="display:flex;"><span>values <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(a, b<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># Discrete values: 1~6</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> len(values)
+</span></span><span style="display:flex;"><span>pmf <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones(n) <span style="color:#f92672">/</span> n  <span style="color:#75715e"># Equal probability</span>
+</span></span><span style="display:flex;"><span>cdf <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(pmf)  <span style="color:#75715e"># CDF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Sampling</span>
+</span></span><span style="display:flex;"><span>n_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice(values, size<span style="color:#f92672">=</span>n_samples, p<span style="color:#f92672">=</span>pmf)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Visualization</span>
+</span></span><span style="display:flex;"><span>plot_discrete_rv(values, pmf, cdf, samples, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;DiscreteUniform(</span><span style="color:#e6db74">{</span>a<span style="color:#e6db74">}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{</span>b<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_4_0.png" alt="png"></p>
+<h4 id="sampling">Sampling</h4>
+<p>We use a <strong>Continuous Uniform Distribution $U \sim \text{Uniform}(0, 1)$</strong> to generate discrete uniform random numbers.</p>
+<p>Steps:</p>
+<ol>
+<li>Let the interval be integers from $a$ to $b$ (inclusive), total $N = b - a + 1$ numbers.</li>
+<li>Generate a random number $U \sim \text{Uniform}(0, 1)$.</li>
+<li>Map $U$ to the integer range:
+$$
+   X = a + \left\lfloor U \cdot N \right\rfloor
+   $$
+✅ The resulting integer is one of $\{a, a+1, ..., b\}$, with equal probability.</li>
+</ol>
+<p>If $a=0, b=1$, then:</p>
+<ol>
+<li>$N = b - a + 1 = 1 - 0 + 1 = 2$</li>
+<li>$U \sim \text{Uniform}(0, 1)$</li>
+<li>$X = a + \left\lfloor U \cdot N \right\rfloor = 0 + \left\lfloor U \cdot 2 \right\rfloor = \left\lfloor U \cdot 2 \right\rfloor$</li>
+</ol>
+<p><strong>Summary:</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Step</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Goal</td>
+          <td>Sample from $\{a, a+1, ..., b\}$ with equal probability</td>
+      </tr>
+      <tr>
+          <td>Method</td>
+          <td>Generate $U \sim \text{Uniform}(0,1)$, then $X = a + \lfloor U \cdot (b - a + 1) \rfloor$</td>
+      </tr>
+      <tr>
+          <td>Function</td>
+          <td><code>random.random()</code> or <code>random.randint(a, b)</code></td>
+      </tr>
+      <tr>
+          <td>Application</td>
+          <td>Dice simulation, roulette, lottery, uniform integer sampling, etc.</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">discrete_uniform_sample</span>(a, b, n):
+</span></span><span style="display:flex;"><span>    N <span style="color:#f92672">=</span> b <span style="color:#f92672">-</span> a <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># U ~ Uniform(0, 1)</span>
+</span></span><span style="display:flex;"><span>    U <span style="color:#f92672">=</span> [random<span style="color:#f92672">.</span>random() <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n)] <span style="color:#75715e"># random.random() returns float in [0.0, 1.0)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># X ~ Discrete Uniform(a, b)</span>
+</span></span><span style="display:flex;"><span>    X <span style="color:#f92672">=</span> [a<span style="color:#f92672">+</span>int(u<span style="color:#f92672">*</span>N) <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> U]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> U, X
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>discrete_uniform_sample(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><pre><code>([0.4444854289944321, 0.951251619861675, ...],
+ [0, 1, 1, 1, 0, 1, 1, 1, 0, 1])
+</code></pre>
+<h5 id="simpler-way-built-in">Simpler Way (Built-in)</h5>
+<p>Of course, Python provides a direct method: <code>random.randint(a, b)  # includes a and b</code>. It implements the principle above.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>)]  <span style="color:#75715e"># Using built-in function to verify</span>
+</span></span></code></pre></div><pre><code>[0, 1, 1, 0, 0, 1, 0, 0, 0, 0]
+</code></pre>
+<h5 id="verify-sampling-results">Verify Sampling Results</h5>
+<p>We sample 10,000 times to see if the distribution is uniform. You should see bar heights roughly equal for 1 to 6.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> comb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sampling</span>
+</span></span><span style="display:flex;"><span>a, b, N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">30000</span>
+</span></span><span style="display:flex;"><span>origin_samples, samples <span style="color:#f92672">=</span> discrete_uniform_sample(a, b, N)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Empirical mean: </span><span style="color:#e6db74">{</span>sum(samples)<span style="color:#f92672">/</span>len(samples)<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Frequency Stats</span>
+</span></span><span style="display:flex;"><span>counts <span style="color:#f92672">=</span> [samples<span style="color:#f92672">.</span>count(k) <span style="color:#f92672">/</span> N <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(a, b<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate Theoretical PMF</span>
+</span></span><span style="display:flex;"><span>theoretical <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>(b<span style="color:#f92672">-</span>a<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(a, b<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;PMF = </span><span style="color:#e6db74">{</span>theoretical<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Step 5: Visualization</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>bar(range(a, b<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), counts, width<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Sampled Frequency&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;skyblue&#39;</span>, align<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>bar(range(a, b<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), theoretical, width<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Theoretical PMF&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange&#39;</span>, align<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;edge&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Value&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Discrete Uniform Sample (</span><span style="color:#e6db74">{</span>a<span style="color:#e6db74">}</span><span style="color:#e6db74">~</span><span style="color:#e6db74">{</span>b<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Empirical mean: 5.515
+PMF = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_10_1.png" alt="png"></p>
+<h3 id="continuous-uniform-random-variable">Continuous Uniform Random Variable</h3>
+<p><strong>What is a Continuous Uniform Distribution?</strong></p>
+<blockquote>
+<p>A random variable $X \sim \text{Uniform}(a, b)$, if every value in the interval $[a, b]$ is equally likely to occur, is said to follow a <strong>continuous uniform distribution</strong>.</p></blockquote>
+<p><strong>Mathematical Definition</strong></p>
+<ul>
+<li>Support: $X \in [a, b]$</li>
+<li>Probability Density Function (PDF):
+$$
+  f_X(x) = \begin{cases}
+  \frac{1}{b - a} & \text{if } x \in [a, b] \\
+  0 & \text{otherwise}
+  \end{cases}
+  $$</li>
+<li>Cumulative Distribution Function (CDF):
+$$
+  F_X(x) = \begin{cases}
+  0 & \text{if } x < a \\
+  \frac{x - a}{b - a} & \text{if } a \leq x \leq b \\
+  1 & \text{if } x > b
+  \end{cases}
+  $$</li>
+<li>Expectation ($\mu$): $\frac{a+b}{2}$</li>
+<li>Variance ($\sigma^2$): $\frac{(b-a)^2}{12}$</li>
+</ul>
+<p><strong>Reference:</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Continuous_uniform_distribution">Wiki: Continuous uniform distribution</a></li>
+</ul>
+<h4 id="sampling-1">Sampling</h4>
+<p><strong>Sampling Principle (Inverse Transform Sampling)</strong></p>
+<p>The simplest method is:</p>
+<blockquote>
+<p>If $U \sim \text{Uniform}(0,1)$, then</p>
+$$
+> X = a + (b - a) \cdot U \sim \text{Uniform}(a, b)
+> $$</blockquote>
+<p><em>💡Why?</em></p>
+<ol>
+<li>$U \in [0, 1]$ is standard uniform.</li>
+<li>Scaling length by $(b - a)$ and adding $a$ is a &ldquo;linear map&rdquo;.</li>
+<li>Transformed $X$ is uniformly distributed on $[a, b]$.</li>
+</ol>
+<p><strong>Steps:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Step 1: Generate U ~ Uniform(0, 1)
+</span></span><span style="display:flex;"><span>Step 2: Linear Transform X = a + (b - a) * U
+</span></span><span style="display:flex;"><span>Step 3: X is your sample from Uniform(a, b)
+</span></span></code></pre></div><p><strong>Summary Table</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Item</th>
+          <th>Content</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Name</td>
+          <td>Continuous Uniform(a, b)</td>
+      </tr>
+      <tr>
+          <td>PDF</td>
+          <td>$f(x) = \frac{1}{b - a}$</td>
+      </tr>
+      <tr>
+          <td>Method</td>
+          <td>$X = a + (b - a) \cdot U$, where $U \sim \text{Uniform}(0,1)$</td>
+      </tr>
+      <tr>
+          <td>Python</td>
+          <td><code>random.random()</code> or <code>random.uniform(a, b)</code></td>
+      </tr>
+      <tr>
+          <td>Use Case</td>
+          <td>Monte Carlo, Simulation, Initialization</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_uniform</span>(a, b):
+</span></span><span style="display:flex;"><span>    U <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>random()        <span style="color:#75715e"># U ~ Uniform(0,1)</span>
+</span></span><span style="display:flex;"><span>    X <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> (b <span style="color:#f92672">-</span> a) <span style="color:#f92672">*</span> U        <span style="color:#75715e"># X ~ Uniform(a, b)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> X
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_uniform_list</span>(a, b, n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [sample_uniform(a, b) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sample_uniform_list(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><pre><code>[0.640..., 0.059..., ...]
+</code></pre>
+<h5 id="directly-using-uniforma-b">Directly using <code>uniform(a, b)</code></h5>
+<p>This is the standard library wrapper, basically implementing <code>a + (b - a) * random.random()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><h5 id="verify-sampling-effect">Verify Sampling Effect</h5>
+<p>Principle: <strong>Check if histogram matches the model.</strong>
+Sample 10,000 points from $X \sim \text{Uniform}(2, 5)$, plot histogram.
+✅ If flat, it works.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a, b, n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>pdf <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> (b <span style="color:#f92672">-</span> a)  <span style="color:#75715e"># PDF of uniform</span>
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">=</span> sample_uniform_list(a, b, n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sample results</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(range(n), samples, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Sample results from Uniform(</span><span style="color:#e6db74">{</span>a<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>b<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;n&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Sample Value (X)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1.1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Histogram (Frequency)</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples, bins<span style="color:#f92672">=</span>N, density<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Histogram of Sample from Uniform(</span><span style="color:#e6db74">{</span>a<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>b<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Sample Value (X)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Absolute Frequency&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Histogram (Relative Frequency)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples, bins<span style="color:#f92672">=</span>N, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hlines(pdf, a, b, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;solid&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PDF&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Histogram of Sample from Uniform(</span><span style="color:#e6db74">{</span>a<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>b<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Sample Value (X)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;h = Relative Frequency * N (N=</span><span style="color:#e6db74">{</span>N<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_18_0.png" alt="png"></p>
+<h2 id="bernoulli-random-variable">Bernoulli Random Variable</h2>
+<p>Also known as <strong>0-1 distribution</strong>. <strong>Discrete</strong> RV.</p>
+<p><strong>Mathematical Definition</strong></p>
+<p>Let $X \sim \text{Bernoulli}(p)$, where $0 \le p \le 1$.</p>
+<ul>
+<li>Support: $k \in \{0, 1\}$</li>
+<li>Probability:
+$$
+  P(X = 1) = p \\
+  P(X = 0) = 1 - p
+  $$</li>
+<li>PMF:
+$$
+  f(X=k) = \left\{
+  \begin{aligned}
+  p, \text{if } k=1\\
+  1-p, \text{if } k=0
+  \end{aligned}
+  \right.
+  $$</li>
+<li>CDF:
+$$
+  F(X=k) = \left\{
+  \begin{aligned}
+  0,  \text{if } k \lt 0 \\
+  1-p, \text{if } 0 \le k \lt 1\\
+  1, \text{ for } k \ge 1
+  \end{aligned}
+  \right.
+  $$</li>
+<li>Expectation ($\mu$): $p$</li>
+<li>Variance ($\sigma^2$): $p(1-p)$</li>
+</ul>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/Bernoulli_distribution">Bernoulli distribution</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set random seed</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define parameters</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>values <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> len(values)
+</span></span><span style="display:flex;"><span>pmf <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p, p])
+</span></span><span style="display:flex;"><span>cdf <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(pmf)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Sampling</span>
+</span></span><span style="display:flex;"><span>n_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>binomial(n<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, p<span style="color:#f92672">=</span>p) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_samples)])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Visualization</span>
+</span></span><span style="display:flex;"><span>plot_discrete_rv(values, pmf, cdf, samples, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Bernoulli(p=</span><span style="color:#e6db74">{</span>p<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_20_0.png" alt="png"></p>
+<h3 id="bernoulli-theorem">Bernoulli Theorem</h3>
+<p>Describes relationship between probability and frequency. As trials increase, relative frequency converges to probability $p$.</p>
+$$
+\bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i
+$$$$
+\lim_{n \to \infty} \mathbb{P}\left( \left| \bar{X}_n - p \right| > \epsilon \right) = 0
+$$<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> FuncAnimation
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> HTML
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Parameter Setting</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>                <span style="color:#75715e"># Probability of success</span>
+</span></span><span style="display:flex;"><span>n_trials <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>       <span style="color:#75715e"># Total trials</span>
+</span></span><span style="display:flex;"><span>interval <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>          <span style="color:#75715e"># Animation interval (ms)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generate Bernoulli Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>binomial(n<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, p<span style="color:#f92672">=</span>p, size<span style="color:#f92672">=</span>n_trials)
+</span></span><span style="display:flex;"><span>cumulative_freq <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(samples) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, n_trials <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create Plot</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#ae81ff">1</span>, n_trials)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>axhline(y<span style="color:#f92672">=</span>p, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;True Probability p = </span><span style="color:#e6db74">{</span>p<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>line, <span style="color:#f92672">=</span> ax<span style="color:#f92672">.</span>plot([], [], lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Empirical Frequency&#39;</span>)
+</span></span><span style="display:flex;"><span>text <span style="color:#f92672">=</span> ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.9</span>, <span style="color:#e6db74">&#39;&#39;</span>, transform<span style="color:#f92672">=</span>ax<span style="color:#f92672">.</span>transAxes)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;Number of Trials&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Success Frequency&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Bernoulli Theorem Animation&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update Function</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(frame):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, frame <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> cumulative_freq[:frame]
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data(x, y)
+</span></span><span style="display:flex;"><span>    text<span style="color:#f92672">.</span>set_text(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;n = </span><span style="color:#e6db74">{</span>frame<span style="color:#e6db74">}</span><span style="color:#e6db74">, freq = </span><span style="color:#e6db74">{</span>y[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line, text
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create Animation</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -----------------------------</span>
+</span></span><span style="display:flex;"><span>ani <span style="color:#f92672">=</span> FuncAnimation(fig, update, frames<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, n_trials <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>                    interval<span style="color:#f92672">=</span>interval, blit<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save as GIF</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> PillowWriter
+</span></span><span style="display:flex;"><span>ani<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;bernoulli_theorem_animation.gif&#34;</span>, writer<span style="color:#f92672">=</span>PillowWriter(fps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>close(fig)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> Image
+</span></span><span style="display:flex;"><span>Image(filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bernoulli_theorem_animation.gif&#34;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/bernoulli_theorem_animation.gif" alt="png"></p>
+<h3 id="sampling-2">Sampling</h3>
+<h4 id="based-on-uniform0-1">Based on Uniform(0, 1)</h4>
+<p><strong>🌱 Principle</strong>
+Using $U \sim \text{Uniform}(0,1)$:</p>
+<ul>
+<li>If $U < p$, output 1 (Success)</li>
+<li>Else output 0 (Failure)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.animation <span style="color:#66d9ef">as</span> animation
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> HTML
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Parameters</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>
+</span></span><span style="display:flex;"><span>n_frames <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Pre-generate uniform samples</span>
+</span></span><span style="display:flex;"><span>uniform_samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, n_frames)
+</span></span><span style="display:flex;"><span>bernoulli_samples <span style="color:#f92672">=</span> (uniform_samples <span style="color:#f92672">&lt;</span> p)<span style="color:#f92672">.</span>astype(int)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set up the figure and axes</span>
+</span></span><span style="display:flex;"><span>fig, axs <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>uniform_ax <span style="color:#f92672">=</span> axs[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>bernoulli_ax <span style="color:#f92672">=</span> axs[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Initialize plots</span>
+</span></span><span style="display:flex;"><span>uniform_scatter <span style="color:#f92672">=</span> uniform_ax<span style="color:#f92672">.</span>scatter([], [], c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>)
+</span></span><span style="display:flex;"><span>bernoulli_bar <span style="color:#f92672">=</span> bernoulli_ax<span style="color:#f92672">.</span>bar([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange&#39;</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Configure uniform axis</span>
+</span></span><span style="display:flex;"><span>uniform_ax<span style="color:#f92672">.</span>axvline(p, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;p = </span><span style="color:#e6db74">{</span>p<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>uniform_ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>uniform_ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>uniform_ax<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Sampling from Uniform(0,1)&#39;</span>)
+</span></span><span style="display:flex;"><span>uniform_ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;Value&#39;</span>)
+</span></span><span style="display:flex;"><span>uniform_ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Random Height&#39;</span>)
+</span></span><span style="display:flex;"><span>uniform_ax<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>uniform_ax<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Configure Bernoulli axis</span>
+</span></span><span style="display:flex;"><span>bernoulli_ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">1.5</span>)
+</span></span><span style="display:flex;"><span>bernoulli_ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, n_frames)
+</span></span><span style="display:flex;"><span>bernoulli_ax<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Bernoulli Sample Counts&#39;</span>)
+</span></span><span style="display:flex;"><span>bernoulli_ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;Value&#39;</span>)
+</span></span><span style="display:flex;"><span>bernoulli_ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Count&#39;</span>)
+</span></span><span style="display:flex;"><span>bernoulli_ax<span style="color:#f92672">.</span>set_xticks([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>bernoulli_ax<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Store sample counts</span>
+</span></span><span style="display:flex;"><span>count_0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>count_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>x_vals <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>y_vals <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Animation update function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(frame):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> count_0, count_1, x_vals, y_vals
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    u <span style="color:#f92672">=</span> uniform_samples[frame]
+</span></span><span style="display:flex;"><span>    x_vals<span style="color:#f92672">.</span>append(u)
+</span></span><span style="display:flex;"><span>    y_vals<span style="color:#f92672">.</span>append(np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand())  <span style="color:#75715e"># random y position for scatter</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    bern_sample <span style="color:#f92672">=</span> bernoulli_samples[frame]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> bern_sample <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        count_0 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        count_1 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Update scatter</span>
+</span></span><span style="display:flex;"><span>    uniform_scatter<span style="color:#f92672">.</span>set_offsets(np<span style="color:#f92672">.</span>column_stack((x_vals, y_vals)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Update bar chart</span>
+</span></span><span style="display:flex;"><span>    bernoulli_bar[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>set_height(count_0)
+</span></span><span style="display:flex;"><span>    bernoulli_bar[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_height(count_1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> uniform_scatter, bernoulli_bar
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create animation</span>
+</span></span><span style="display:flex;"><span>ani <span style="color:#f92672">=</span> animation<span style="color:#f92672">.</span>FuncAnimation(fig, update, frames<span style="color:#f92672">=</span>n_frames, interval<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, blit<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save as GIF</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> PillowWriter
+</span></span><span style="display:flex;"><span>ani<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;sample_uniform_to_bernoulli.gif&#34;</span>, writer<span style="color:#f92672">=</span>PillowWriter(fps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>close(fig)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> Image
+</span></span><span style="display:flex;"><span>Image(filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sample_uniform_to_bernoulli.gif&#34;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/sample_uniform_to_bernoulli.gif" alt="png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_bernoulli</span>(p):
+</span></span><span style="display:flex;"><span>    U <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>random()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> U <span style="color:#f92672">&lt;</span> p <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p, N <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">=</span> [sample_bernoulli(p) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(N)]
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Empirical mean: </span><span style="color:#e6db74">{</span>sum(samples)<span style="color:#f92672">/</span>len(samples)<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)  <span style="color:#75715e"># Should be close to 0.7</span>
+</span></span></code></pre></div><h2 id="binomial-random-variable">Binomial Random Variable</h2>
+<p>$X \sim \text{Binomial}(n, p)$ represents the <strong>total number of successes</strong> in $n$ <strong>independent</strong> Bernoulli trials (probability $p$).</p>
+<p><strong>Mathematical Definition</strong></p>
+<ul>
+<li>Support: $k \in \{0, \dots, n\}$</li>
+<li>Probability:
+$$
+  P(X = k) = \begin{pmatrix} n \\ k \end{pmatrix}p^k(1-p)^{(n-k)}
+  $$</li>
+<li>Expectation: $np$</li>
+<li>Variance: $np(1-p)$</li>
+</ul>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/Binomial_distribution">Binomial distribution</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> binom
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Random Seed</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define Parameters</span>
+</span></span><span style="display:flex;"><span>n, p <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.3</span>
+</span></span><span style="display:flex;"><span>values <span style="color:#f92672">=</span> range(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>pmf <span style="color:#f92672">=</span> binom<span style="color:#f92672">.</span>pmf(values, n, p)
+</span></span><span style="display:flex;"><span>cdf <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(pmf)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Sampling</span>
+</span></span><span style="display:flex;"><span>n_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>binomial(n<span style="color:#f92672">=</span>n, p<span style="color:#f92672">=</span>p, size<span style="color:#f92672">=</span>n_samples)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Visualization</span>
+</span></span><span style="display:flex;"><span>plot_discrete_rv(values, pmf, cdf, samples, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Binomial(n=</span><span style="color:#e6db74">{</span>n<span style="color:#e6db74">}</span><span style="color:#e6db74">, p=</span><span style="color:#e6db74">{</span>p<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#39;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_34_0.png" alt="png"></p>
+<h3 id="sampling-methods">Sampling Methods</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Method</th>
+          <th>Idea</th>
+          <th>Scope</th>
+          <th>Exact?</th>
+          <th>Easy?</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1. <strong>Repeated Bernoulli</strong></td>
+          <td>Sum $n$ Bernoullis</td>
+          <td>Any $n, p$, especially small $n$</td>
+          <td>✅</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>2. <strong>Inverse Transform</strong></td>
+          <td>Find first $k$ where $F(k) \ge u$</td>
+          <td>Small $n$</td>
+          <td>✅</td>
+          <td>⚠️</td>
+      </tr>
+      <tr>
+          <td>3. <strong>Table Lookup</strong></td>
+          <td>Precompute $F(k)$</td>
+          <td>Small $n$, repeated sampling</td>
+          <td>✅</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>4. <strong>Rejection Sampling</strong></td>
+          <td>Accept/Reject with proposal</td>
+          <td>Medium $n$, simulation</td>
+          <td>✅</td>
+          <td>⚠️</td>
+      </tr>
+      <tr>
+          <td>5. <strong>Normal Approx</strong></td>
+          <td>$\mathcal{N}(np, np(1-p))$</td>
+          <td>Large $n$, $np(1-p) \ge 10$</td>
+          <td>❌</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>6. <strong>Poisson Approx</strong></td>
+          <td>$\text{Poisson}(np)$</td>
+          <td>Large $n$, small $p$</td>
+          <td>❌</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>7. <strong>BTPE (NumPy)</strong></td>
+          <td>Fast specialized algo</td>
+          <td>Any</td>
+          <td>✅</td>
+          <td>⚠️</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="method-1-repeated-bernoulli">Method 1: Repeated Bernoulli</h4>
+<p>Simple sum of $n$ coin flips.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_binomial_mimic</span>(n, p):
+</span></span><span style="display:flex;"><span>    count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n): <span style="color:#75715e"># repeat N times Bernouli sampling</span>
+</span></span><span style="display:flex;"><span>        u <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>random()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p <span style="color:#f92672">&lt;=</span> u <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> count
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_binomial_mimic_list</span>(n, p, num_samples):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [sample_binomial_mimic(n, p) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(num_samples)]
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_41_0.png" alt="png"></p>
+<h4 id="method-2-inverse-transform">Method 2: Inverse Transform</h4>
+<p>Find $k$ such that $F(k-1) < U \le F(k)$.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> comb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_binomial_inverse</span>(n, p):
+</span></span><span style="display:flex;"><span>    u <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>random()
+</span></span><span style="display:flex;"><span>    cumulative <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        prob <span style="color:#f92672">=</span> comb(n, k) <span style="color:#f92672">*</span> (p <span style="color:#f92672">**</span> k) <span style="color:#f92672">*</span> ((<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p) <span style="color:#f92672">**</span> (n <span style="color:#f92672">-</span> k))
+</span></span><span style="display:flex;"><span>        cumulative <span style="color:#f92672">+=</span> prob
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> u <span style="color:#f92672">&lt;=</span> cumulative:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> k
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_binomial_inverse_list</span>(n, p, num_samples):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [sample_binomial_inverse(n, p) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(num_samples)]
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_51_0.png" alt="png"></p>
+<h4 id="method-3-table-lookup">Method 3: Table Lookup</h4>
+<p>Precompute CDF table for faster repeated sampling.</p>
+<h4 id="method-4-rejection-sampling">Method 4: Rejection Sampling</h4>
+<p>Use a proposal $g(k)$ (e.g. Uniform) and scaling $M$.
+<img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_60_1.png" alt="png"></p>
+<h4 id="method-5-normal-approximation">Method 5: Normal Approximation</h4>
+<p>Use $X \approx \mathcal{N}(np, np(1-p))$. Round result to integer.
+Condition: $np \ge 10$ and $n(1-p) \ge 10$.
+Continuity correction: $X \approx \text{round}(Y + 0.5)$.</p>
+<h2 id="exponential-random-variable">Exponential Random Variable</h2>
+<p><strong>Continuous</strong> RV. Models time between events.</p>
+<p><strong>Mathematical Definition</strong>
+$X \sim \text{Exp}(\lambda)$.</p>
+<ul>
+<li>PDF: $f(x) = \lambda e^{-\lambda x}, x \ge 0$.</li>
+<li>CDF: $F(x) = 1 - e^{-\lambda x}, x \ge 0$.</li>
+<li>Mean: $1/\lambda$. Variance: $1/\lambda^2$.</li>
+</ul>
+<p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_65_0.png" alt="png"></p>
+<h3 id="sampling-inverse-transform">Sampling (Inverse Transform)</h3>
+<p>Formula:
+</p>
+$$
+X = -\frac{\ln(1-U)}{\lambda}
+$$<p>
+Since $1-U \sim U$, simplified to $X = -\ln(U)/\lambda$.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> math
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_exponential_inverse</span>(lambda_val):
+</span></span><span style="display:flex;"><span>    u <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>random()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>math<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>u) <span style="color:#f92672">/</span> lambda_val
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_68_0.png" alt="png"></p>
+<h2 id="geometric-random-variable">Geometric Random Variable</h2>
+<p><strong>Discrete</strong> RV. Number of trials <em>until</em> first success.</p>
+<p><strong>Mathematical Definition</strong>
+$X \sim \text{Geometric}(p)$. Support $\{1, 2, \dots\}$.</p>
+<ul>
+<li>PMF: $P(X=k) = (1-p)^{k-1}p$.</li>
+<li>CDF: $P(X \le k) = 1 - (1-p)^k$.</li>
+<li>Mean: $1/p$. Variance: $(1-p)/p^2$.</li>
+</ul>
+<p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_70_0.png" alt="png"></p>
+<h3 id="sampling-3">Sampling</h3>
+<h4 id="inverse-transform-closed-form">Inverse Transform (Closed Form)</h4>
+$$
+k = \left\lceil \frac{\ln(1-U)}{\ln(1-p)} \right\rceil
+$$<p>
+Efficient ($O(1)$).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_geometric_inverse</span>(p):
+</span></span><span style="display:flex;"><span>    u <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> int(np<span style="color:#f92672">.</span>ceil(np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> u) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p)))
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_77_1.png" alt="png"></p>
+<h2 id="normal-random-variable">Normal Random Variable</h2>
+<p>Gaussian distribution. $f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$.
+Standard Normal: $\mu=0, \sigma=1$.</p>
+<p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_86_0.png" alt="png"></p>
+<h3 id="sampling-standard-normal">Sampling Standard Normal</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Method</th>
+          <th>Principle</th>
+          <th>Note</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Box-Muller</td>
+          <td>Polar transform</td>
+          <td>Exact, 2 samples at once</td>
+      </tr>
+      <tr>
+          <td>CLT</td>
+          <td>Sum of Uniforms</td>
+          <td>Approximate</td>
+      </tr>
+      <tr>
+          <td>Rejection</td>
+          <td>Envelope</td>
+          <td>General but maybe inefficient</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="method-1-box-muller">Method 1: Box-Muller</h4>
+<p>Use two $U_1, U_2$:
+</p>
+$$
+Z_1 = \sqrt{-2\ln U_1}\cos(2\pi U_2) \\
+Z_2 = \sqrt{-2\ln U_1}\sin(2\pi U_2)
+$$<p>
+Both are independent $\mathcal{N}(0,1)$.</p>
+<p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_93_0.png" alt="png"></p>
+<h4 id="method-2-clt">Method 2: CLT</h4>
+<p>Sum of 12 Uniforms: $Z = \sum_{i=1}^{12} (U_i - 0.5)$. Variance is 1.</p>
+<p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_97_1.png" alt="png"></p>
+<h2 id="sampling-from-joint-distributions">Sampling from Joint Distributions</h2>
+<h3 id="2d-discrete">2D Discrete</h3>
+<ol>
+<li><strong>Flattening</strong>: Treat $(x,y)$ pairs as 1D list, use Inverse Transform.</li>
+<li><strong>Marginal + Conditional</strong>: Calculate $P(X)$, sample $x$. Calculate $P(Y|x)$, sample $y$.</li>
+</ol>
+<p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_129_0.png" alt="png"></p>
+<h3 id="continuous">Continuous</h3>
+<h4 id="grid-sampler">Grid Sampler</h4>
+<p>Recursively divide interval (binary tree), sample based on interval mass. Used for high-precision or when Inverse CDF is unknown but CDF is calculable.</p>
+<p><img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_134_0.png" alt="png"></p>
+<h4 id="rejection-sampling-general">Rejection Sampling (General)</h4>
+<p>Accept if $u \le \frac{f(x)}{M q(x)}$.
+<img src="/img/contents/post/mcmc-statics/2_random-variables/acceptance_rejection_sampling.gif" alt="png"></p>
+<h2 id="computations-with-random-variables">Computations with Random Variables</h2>
+<h3 id="transformation">Transformation</h3>
+<p><strong>Linear</strong>: $Y=aX+b \Rightarrow f_Y(y) = f_X(\frac{y-b}{a})|\frac{1}{a}|$.
+<strong>Nonlinear</strong>: $Y=g(X) \Rightarrow f_Y(y) = f_X(g^{-1}(y)) |\frac{d}{dy}g^{-1}(y)|$.</p>
+<p>Example: $Y=\sqrt{X}, X \sim U(0,1) \Rightarrow f_Y(y) = 2y$ on $[0,1]$.
+<img src="/img/contents/post/mcmc-statics/2_random-variables/1_mcmc_basics_105_1.png" alt="png"></p>
+<h3 id="mean-operator-">Mean Operator ($\mathbb{E}$)</h3>
+<p>Linear operator.
+$\mathbb{E}[g(X)] = \int g(x)f(x)dx$.</p>
+<h3 id="propagation-of-error">Propagation of Error</h3>
+<p>Approximate variance of $Y=g(X)$ via Taylor expansion:
+</p>
+$$
+\text{Var}(Y) \approx [g'(\mu_X)]^2 \text{Var}(X)
+$$<p>
+Multivariate:
+</p>
+$$
+\text{Var}(Y) \approx \nabla g^T \Sigma \nabla g
+$$<h1 id="appendix-sampling-from-polar-coordinates">Appendix: Sampling from Polar Coordinates</h1>
+<p>Transform known $(X,Y)$ to $(R^2, \alpha)$ via Jacobian $|J|=1/2$.
+</p>
+$$f_{R^2, \alpha}(u, v) = 2 f_{X,Y}(\sqrt{u} \cos v, \sqrt{u} \sin v)$$<p><img src="/img/contents/post/mcmc-statics/2_random-variables/jacobian_area_deformation.gif" alt="png"></p>
+
+
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/tags/random-variables/">Random Variables</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/sampling/">Sampling</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/random-experiments/">Random Experiments</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/course-notes/">Course Notes</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/math/">Math</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/python/">python</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2frandom-variables%2f&amp;text=Random%20Variables%20and%20Sampling&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2frandom-variables%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2frandom-variables%2f&amp;title=Random%20Variables%20and%20Sampling" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2frandom-variables%2f&amp;title=Random%20Variables%20and%20Sampling" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2frandom-variables%2f&amp;title=Random%20Variables%20and%20Sampling" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2frandom-variables%2f&amp;description=Random%20Variables%20and%20Sampling" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/mcmc-statics/monte-carlo/">Monte Carlo Sampling</a></li>
+                
+                    <li><a href="/post/mcmc-statics/intro-mcmc/">Introduction to MCMC</a></li>
+                
+                    <li><a href="/post/mcmc-statics/markov-chains/">Understanding Markov Chains</a></li>
+                
+                    <li><a href="/post/mcmc-statics/probability/">What is Probability?</a></li>
+                
+                    <li><a href="/post/python-geodata/01-intro/">Lesson 1: Introduction to Remote Sensing Data and Python Setup</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+          
+            <li class="next">
+              <a href="http://localhost:1313/post/mcmc-statics/probability/" data-toggle="tooltip" data-placement="top" title="What is Probability?">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

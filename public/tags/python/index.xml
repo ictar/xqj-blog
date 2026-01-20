@@ -8,8 +8,43 @@
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Wed, 02 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 Aug 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Monte Carlo Sampling</title>
+      <link>http://localhost:1313/post/mcmc-statics/monte-carlo/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/monte-carlo/</guid>
+      <description>Understand the core concepts of Monte Carlo: Law of Large Numbers, rejection sampling, importance sampling, variance reduction techniques (antithetic variates, control variates, stratified sampling).</description>
+    </item>
+    <item>
+      <title>Introduction to MCMC</title>
+      <link>http://localhost:1313/post/mcmc-statics/intro-mcmc/</link>
+      <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/intro-mcmc/</guid>
+      <description>The reason we need MCMC is that many distributions are only known in their unnormalized form, making traditional sampling/integration methods ineffective. By constructing a &amp;lsquo;correct Markov chain&amp;rsquo;, we can obtain the target distribution from its stationary distribution, meaning the long-term distribution of the trajectory ≈ target distribution.</description>
+    </item>
+    <item>
+      <title>Understanding Markov Chains</title>
+      <link>http://localhost:1313/post/mcmc-statics/markov-chains/</link>
+      <pubDate>Thu, 21 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/markov-chains/</guid>
+      <description>Learn about Markov processes, stationary distributions, and convergence of Markov chains.</description>
+    </item>
+    <item>
+      <title>What is Probability?</title>
+      <link>http://localhost:1313/post/mcmc-statics/probability/</link>
+      <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/probability/</guid>
+      <description>This article introduces the basic concepts and rigorous formulas of probability, serving as the foundation for understanding random variables, sampling, and MCMC.</description>
+    </item>
+    <item>
+      <title>Random Variables and Sampling</title>
+      <link>http://localhost:1313/post/mcmc-statics/random-variables/</link>
+      <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/random-variables/</guid>
+      <description>Understand concepts of random variables, PDF, expectation, and sampling methods for common distributions (Uniform, Normal, Exponential).</description>
+    </item>
     <item>
       <title>Lesson 1: Introduction to Remote Sensing Data and Python Setup</title>
       <link>http://localhost:1313/post/python-geodata/01-intro/</link>

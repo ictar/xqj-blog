@@ -12,16 +12,20 @@
  
 
 
-      <title>SimCLR: A Simple Framework for Contrastive Learning of Visual Representations - </title>
+      <title>Qiongjie&#39;s Notes - </title>
 
-  <meta name="description" content="Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.">
+  <meta name="description" content="title: &ldquo;SimCLR Explained: Contrastive Learning Design &amp; Code&rdquo;
+date: 2025-10-07
+summary: &ldquo;A detailed visual guide to SimCLR. Understand the logic behind stochastic data augmentation, the NT-Xent loss, and why contrastive learning works.&rdquo;
+series: [&ldquo;Self-Supervised Learning&rdquo;]
+tags: [&ldquo;SimCLR&rdquo;, &ldquo;Contrastive Learning&rdquo;, &ldquo;SSL&rdquo;, &ldquo;CV&rdquo;, &ldquo;Paper Notes&rdquo;]">
   <meta name="author" content="Qiongjie.X"/>
 
 
 <link rel="canonical" href="http://localhost:1313/post/ai-fundamentals/ssl/simclr/" />
 
 
-<meta name="keywords" content="SSL, Vision, Representation Learning, Joint Embedding, Contrastive Methods" /><script type="application/ld+json">
+<meta name="keywords" content="GIS, Remote Sensing, GeoAI, TerraFlow, Python, Deep Learning, Spatial Intelligence" /><script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
@@ -47,7 +51,7 @@
         "position": 3,
         "item": {
           "@id": "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/simclr\/",
-          "name": "Sim clr a simple framework for contrastive learning of visual representations"
+          "name": ""
         }
     }]
 }
@@ -58,14 +62,14 @@
   "author": {
     "name" : "Qiongjie.X"
   },
-  "headline": "SimCLR: A Simple Framework for Contrastive Learning of Visual Representations",
-  "description" : "Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.",
+  "headline": "",
+  "description" : "title: \u0026ldquo;SimCLR Explained: Contrastive Learning Design \u0026amp; Code\u0026rdquo; date: 2025-10-07 summary: \u0026ldquo;A detailed visual guide to SimCLR. Understand the logic behind stochastic data augmentation, the NT-Xent loss, and why contrastive learning works.\u0026rdquo; series: [\u0026ldquo;Self-Supervised Learning\u0026rdquo;] tags: [\u0026ldquo;SimCLR\u0026rdquo;, \u0026ldquo;Contrastive Learning\u0026rdquo;, \u0026ldquo;SSL\u0026rdquo;, \u0026ldquo;CV\u0026rdquo;, \u0026ldquo;Paper Notes\u0026rdquo;]\n",
   "inLanguage" : "en",
-  "wordCount":  1029 ,
-  "datePublished" : "2025-10-07T00:00:00\u002b00:00",
-  "dateModified" : "2025-10-07T00:00:00\u002b00:00",
+  "wordCount":  1072 ,
+  "datePublished" : "0001-01-01T00:00:00\u002b00:00",
+  "dateModified" : "0001-01-01T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
-  "keywords" : [ "SSL, Vision, Representation Learning, Joint Embedding, Contrastive Methods" ],
+  "keywords" : [ "" ],
   "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/simclr\/",
   "publisher" : {
     "@type": "Organization",
@@ -82,22 +86,29 @@
 
 
 
-<meta property="og:title" content="SimCLR: A Simple Framework for Contrastive Learning of Visual Representations" />
-<meta property="og:description" content="Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.">
+<meta property="og:title" content="Qiongjie&#39;s Notes" />
+<meta property="og:description" content="title: &ldquo;SimCLR Explained: Contrastive Learning Design &amp; Code&rdquo;
+date: 2025-10-07
+summary: &ldquo;A detailed visual guide to SimCLR. Understand the logic behind stochastic data augmentation, the NT-Xent loss, and why contrastive learning works.&rdquo;
+series: [&ldquo;Self-Supervised Learning&rdquo;]
+tags: [&ldquo;SimCLR&rdquo;, &ldquo;Contrastive Learning&rdquo;, &ldquo;SSL&rdquo;, &ldquo;CV&rdquo;, &ldquo;Paper Notes&rdquo;]">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
 <meta property="og:url" content="http://localhost:1313/post/ai-fundamentals/ssl/simclr/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Qiongjie&#39;s Notes" />
 
-  <meta name="twitter:title" content="SimCLR: A Simple Framework for Contrastive Learning of Visual …" />
-  <meta name="twitter:description" content="Learn invariant representations by maximizing similarity between augmented views of the same image while contrasting with others.">
+  <meta name="twitter:title" content="Qiongjie&#39;s Notes" />
+  <meta name="twitter:description" content="title: &ldquo;SimCLR Explained: Contrastive Learning Design &amp; Code&rdquo;
+date: 2025-10-07
+summary: &ldquo;A detailed visual guide to SimCLR. Understand the logic behind stochastic data …">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link href='http://localhost:1313/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta name="generator" content="Hugo 0.147.4">
   <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
@@ -290,44 +301,7 @@
 
 
 
-  
-
-  <header class="header-section ">
-    
-    
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>SimCLR: A Simple Framework for Contrastive Learning of Visual Representations</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on October 7, 2025
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1029&nbsp;words
-  
-  
-  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/" lang="zh-cn">CH</a>
-</span>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-  </header>
+  <div class="intro-header"></div>
 
 
     
@@ -335,7 +309,12 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div class="model-card">
+        <p>title: &ldquo;SimCLR Explained: Contrastive Learning Design &amp; Code&rdquo;
+date: 2025-10-07
+summary: &ldquo;A detailed visual guide to SimCLR. Understand the logic behind stochastic data augmentation, the NT-Xent loss, and why contrastive learning works.&rdquo;
+series: [&ldquo;Self-Supervised Learning&rdquo;]
+tags: [&ldquo;SimCLR&rdquo;, &ldquo;Contrastive Learning&rdquo;, &ldquo;SSL&rdquo;, &ldquo;CV&rdquo;, &ldquo;Paper Notes&rdquo;]</p>
+<div class="model-card">
 <h2 id="-model-name">🏷️ Model Name</h2>
 <p><strong>SimCLR – A Simple Framework for Contrastive Learning of Visual Representations</strong></p>
 <h2 id="-core-idea">🧠 Core Idea</h2>
@@ -469,25 +448,6 @@ $$
 
 
         
-          <div class="blog-tags">
-            
-              
-              <a href="http://localhost:1313/tags/ssl/">SSL</a>&nbsp;
-            
-              
-              <a href="http://localhost:1313/tags/vision/">Vision</a>&nbsp;
-            
-              
-              <a href="http://localhost:1313/tags/representation-learning/">Representation Learning</a>&nbsp;
-            
-              
-              <a href="http://localhost:1313/tags/joint-embedding/">Joint Embedding</a>&nbsp;
-            
-              
-              <a href="http://localhost:1313/tags/contrastive-methods/">Contrastive Methods</a>&nbsp;
-            
-          </div>
-        
 
         
             <hr/>
@@ -499,7 +459,7 @@ $$
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;text=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;text=&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -513,28 +473,28 @@ $$
   
       
       <li>
-        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;title=" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;description=SimCLR%3a%20A%20Simple%20Framework%20for%20Contrastive%20Learning%20of%20Visual%20Representations" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fsimclr%2f&amp;description=" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -548,25 +508,6 @@ $$
 
         
           
-            
-          
-
-          
-                  <h4 class="see-also">See also</h4>
-                  <ul>
-                
-                
-                    <li><a href="/post/ai-fundamentals/ssl/i-jepa/">I-JEPA: Image-based Joint Embedding Predictive Architecture</a></li>
-                
-                    <li><a href="/post/ai-fundamentals/ssl/maskfeat/">MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</a></li>
-                
-                    <li><a href="/post/ai-fundamentals/ssl/byol/">BYOL: Bootstrap Your Own Latent</a></li>
-                
-                    <li><a href="/post/ai-fundamentals/ssl/dino/">DINO: Self-Distillation with No Labels</a></li>
-                
-                    <li><a href="/post/ai-fundamentals/ssl/mae/">MAE: Masked Autoencoders Are Scalable Vision Learners</a></li>
-                
-              </ul>
 
           
         

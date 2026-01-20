@@ -181,6 +181,16 @@
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/intro-mcmc/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/python/</loc>
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
@@ -221,11 +231,31 @@
     <lastmod>2025-08-21T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/markov-chains/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</loc>
     <lastmod>2025-08-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/monte-carlo/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/</loc>
     <lastmod>2025-08-15T00:00:00+00:00</lastmod>
@@ -236,6 +266,16 @@
     <lastmod>2025-08-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/probability/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/probability/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2025-08-15T00:00:00+00:00</lastmod>
@@ -256,6 +296,16 @@
     <lastmod>2025-08-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/random-variables/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E8%AF%95%E9%AA%8C/</loc>
     <lastmod>2025-08-02T00:00:00+00:00</lastmod>

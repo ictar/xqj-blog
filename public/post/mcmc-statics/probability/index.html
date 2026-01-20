@@ -1,0 +1,1395 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>What is Probability? - </title>
+
+  <meta name="description" content="This article introduces the basic concepts and rigorous formulas of probability, serving as the foundation for understanding random variables, sampling, and MCMC.">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/post/mcmc-statics/probability/" />
+
+
+<meta name="keywords" content="Probability, Statistics Foundation, Mathematics, python" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/post\/mcmc-statics\/probability\/",
+          "name": "What is probability?"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "What is Probability?",
+  "description" : "This article introduces the basic concepts and rigorous formulas of probability, serving as the foundation for understanding random variables, sampling, and MCMC.",
+  "inLanguage" : "en",
+  "wordCount":  4301 ,
+  "datePublished" : "2025-08-15T00:00:00\u002b00:00",
+  "dateModified" : "2025-08-15T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "Probability, Statistics Foundation, Mathematics, python" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/mcmc-statics\/probability\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="What is Probability?" />
+<meta property="og:description" content="This article introduces the basic concepts and rigorous formulas of probability, serving as the foundation for understanding random variables, sampling, and MCMC.">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/mcmc-statics/probability/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="What is Probability?" />
+  <meta name="twitter:description" content="This article introduces the basic concepts and rigorous formulas of probability, serving as the foundation for understanding random variables, sampling, and MCMC.">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/post">BLOG</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/projects">PROJECT</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/zh-cn/post/mcmc-statics/probability/">CH</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>What is Probability?</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 15, 2025
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;4301&nbsp;words
+  
+  
+  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/probability/" lang="zh-cn">CH</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+  <aside class="toc">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#three-interpretations-of-probability">Three Interpretations of Probability</a>
+      <ul>
+        <li><a href="#-1-frequentist-interpretation">🔵 1. Frequentist Interpretation</a></li>
+        <li><a href="#-2-bayesian-interpretation">🔴 2. Bayesian Interpretation</a></li>
+        <li><a href="#-3-axiomatic-definition-kolmogorov-axiomatic-approach">⚫️ 3. Axiomatic Definition (Kolmogorov Axiomatic Approach)</a></li>
+        <li><a href="#-summary">📌 Summary</a></li>
+      </ul>
+    </li>
+    <li><a href="#events-and-sample-space">Events and Sample Space</a>
+      <ul>
+        <li><a href="#sample-space-1">Sample Space</a></li>
+        <li><a href="#event">Event</a></li>
+        <li><a href="#three-common-examples">Three Common Examples</a></li>
+      </ul>
+    </li>
+    <li><a href="#basic-properties-of-probability">Basic Properties of Probability</a>
+      <ul>
+        <li><a href="#proposition-1-probability-of-empty-event-is-0">Proposition 1: Probability of empty event is 0</a></li>
+        <li><a href="#proposition-2-monotonicity">Proposition 2: Monotonicity</a></li>
+        <li><a href="#proposition-3-complement-rule">Proposition 3: Complement Rule</a></li>
+        <li><a href="#proposition-4-addition-formula-for-two-events-with-intersection-correction-term">Proposition 4: Addition Formula for Two Events (with Intersection Correction Term)</a></li>
+        <li><a href="#proposition-5-inclusion-exclusion-principle-two-and-three-events">Proposition 5: Inclusion-Exclusion Principle (Two and Three Events)</a></li>
+        <li><a href="#proposition-6-finite-additivity-degenerated-from-countable-additivity">Proposition 6: Finite Additivity (Degenerated from Countable Additivity)</a></li>
+        <li><a href="#proposition-7-upper-bound-of-union-booles-inequality--union-bound">Proposition 7: Upper Bound of Union (Boole&rsquo;s Inequality / Union bound)</a></li>
+        <li><a href="#proposition-8-continuity-from-above-and-below">Proposition 8: Continuity (From Above and Below)</a></li>
+      </ul>
+    </li>
+    <li><a href="#conditional-probability-and-multiplication-rule">Conditional Probability and Multiplication Rule</a>
+      <ul>
+        <li><a href="#conditional-probability--rigorous-definition">Conditional Probability  (Rigorous Definition)</a></li>
+        <li><a href="#joint-probability--and-multiplication-rule">Joint Probability  and Multiplication Rule</a></li>
+        <li><a href="#examples">Examples</a></li>
+        <li><a href="#summary">Summary</a></li>
+      </ul>
+    </li>
+    <li><a href="#law-of-total-probability-and-bayes-theorem">Law of Total Probability and Bayes&rsquo; Theorem</a>
+      <ul>
+        <li><a href="#law-of-total-probability-ltp">Law of Total Probability (LTP)</a></li>
+        <li><a href="#bayes-theorem">Bayes&rsquo; Theorem</a></li>
+        <li><a href="#the-power-of-reversing-causality-diagnostic-vs-causal">The Power of &ldquo;Reversing Causality&rdquo; (diagnostic vs. causal)</a></li>
+        <li><a href="#application-examples">Application Examples</a></li>
+      </ul>
+    </li>
+    <li><a href="#independence-and-conditional-independence">Independence and Conditional Independence</a>
+      <ul>
+        <li><a href="#rigorous-definition-and-equivalent-characterization">Rigorous Definition and Equivalent Characterization</a></li>
+        <li><a href="#two-rigorous-corollaries">Two Rigorous Corollaries</a></li>
+        <li><a href="#examples-1">Examples</a></li>
+        <li><a href="#common-misconceptions-cheatsheet">Common Misconceptions Cheatsheet</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </aside>
+
+<h1 id="three-interpretations-of-probability">Three Interpretations of Probability</h1>
+<h2 id="-1-frequentist-interpretation">🔵 1. Frequentist Interpretation</h2>
+<h3 id="-core-idea">🌱 Core Idea:</h3>
+<p>Probability is the <strong>limit of long-term frequency</strong>. It refers to the proportion of times an event occurs in <strong>infinitely repeated independent experiments</strong>.</p>
+<blockquote>
+<p><strong>Probability is the frequency of an event occurring in long-term repetitions.</strong></p></blockquote>
+<h3 id="-mathematical-expression">📌 Mathematical Expression:</h3>
+<p>If we independently repeat an experiment $n$ times, and event $A$ occurs $n_A$ times, then:</p>
+$$
+P(A) = \lim_{n \to \infty} \frac{n_A}{n}
+$$<h3 id="-key-features">🧠 Key Features:</h3>
+<ul>
+<li>Probability is <strong>objective</strong> and independent of the observer.</li>
+<li>Probability only applies to <strong>repeatable experiments</strong> (e.g., flipping coins, drawing balls, taking measurements).</li>
+<li>Not applicable to one-time events (e.g., predicting whether a war will happen next year).</li>
+</ul>
+<h3 id="-application-examples">🎯 Application Examples:</h3>
+<ul>
+<li>Flipping coins, rolling dice, sample surveys</li>
+<li>Parameter estimation: Maximum Likelihood Estimation (MLE)</li>
+<li>Hypothesis testing (p-value, confidence intervals, etc.)</li>
+</ul>
+<h3 id="-drawbacks">⚠️ Drawbacks:</h3>
+<ul>
+<li>Powerless against <strong>one-time events</strong> (frequency cannot be defined)</li>
+<li>Cannot express subjective uncertainty (e.g., the probability of &ldquo;I believe this painting is a real Picasso&rdquo;)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Re-import libraries and redraw animation code</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.animation <span style="color:#66d9ef">as</span> animation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set random seed for reproducibility</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Simulate flipping a coin n times (0 for tails, 1 for heads)</span>
+</span></span><span style="display:flex;"><span>n_trials <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>
+</span></span><span style="display:flex;"><span>outcomes <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], size<span style="color:#f92672">=</span>n_trials)
+</span></span><span style="display:flex;"><span>cumulative_heads <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cumsum(outcomes)
+</span></span><span style="display:flex;"><span>frequencies <span style="color:#f92672">=</span> cumulative_heads <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, n_trials <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create animation figure</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
+</span></span><span style="display:flex;"><span>line, <span style="color:#f92672">=</span> ax<span style="color:#f92672">.</span>plot([], [], lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#ae81ff">0</span>, n_trials)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">0.5</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True Probability = 0.5&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;Number of Trials&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Frequency of Heads&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Frequency Converges to Probability&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>():
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data([], [])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(frame):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, frame <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> frequencies[:frame]
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data(x, y)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ani <span style="color:#f92672">=</span> animation<span style="color:#f92672">.</span>FuncAnimation(fig, update, frames<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">10</span>, n_trials, <span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>                              init_func<span style="color:#f92672">=</span>init, blit<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save as GIF</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> PillowWriter
+</span></span><span style="display:flex;"><span>ani<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;frequency_converges_to_probability.gif&#34;</span>, writer<span style="color:#f92672">=</span>PillowWriter(fps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>close(fig)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> Image
+</span></span><span style="display:flex;"><span>Image(filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;frequency_converges_to_probability.gif&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># As the number of trials increases, the frequency gradually converges to the true probability (red line)</span>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/1_probability/frequency_converges_to_probability.gif" alt="gif"></p>
+<h2 id="-2-bayesian-interpretation">🔴 2. Bayesian Interpretation</h2>
+<h3 id="-core-idea-1">🌱 Core Idea:</h3>
+<p>Probability is the <strong>quantification of subjective belief</strong>, used to express the observer&rsquo;s &ldquo;degree of belief&rdquo; that an event will occur.</p>
+<blockquote>
+<p><strong>Probability is your subjective measure of uncertainty about an event.</strong></p></blockquote>
+<h3 id="-mathematical-expression-1">📌 Mathematical Expression:</h3>
+<p>According to <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem">Bayes&rsquo; Theorem</a>, i.e., <code>Posterior Probability = Standardised Likelihood * Prior Probability</code>, we have:</p>
+$$
+P(\theta | \text{data}) = \frac{P(\text{data}|\theta) P(\theta)}{P(\text{data})} \propto P(\text{data}|\theta )P(\theta )
+$$<p>Where:</p>
+<ul>
+<li>$\theta$: A random variable</li>
+<li>$P(\theta)$：Prior (your original belief)</li>
+<li>$P(\text{data}|\theta)$：Likelihood (data generation mechanism)</li>
+<li>$P(\theta|\text{data})$：Posterior (belief updated after observing data)</li>
+<li>$\frac{P(\text{data}|\theta)}{P(\text{data})}$：Standardised likelihood</li>
+</ul>
+<h4 id="deriving-bayes-theorem-from-conditional-probability">Deriving Bayes&rsquo; Theorem from Conditional Probability</h4>
+<p>Bayes&rsquo; Theorem can be expressed as $P(A|B) = \frac{P(A)P(B|A)}{P(B)}$. According to the definition of <a href="https://en.wikipedia.org/wiki/Conditional_probability">Conditional Probability</a>, we have:
+</p>
+$$
+P(A|B) = \frac{P(AB)}{P(B)} \rightarrow P(AB) = P(A|B)P(B)\\
+P(B|A) = \frac{P(AB)}{P(A)} \rightarrow P(AB) = P(B|A)P(A)
+$$<p>Therefore,
+</p>
+$$
+P(A|B)P(B) = P(B|A)P(A) \rightarrow P(A|B) = \frac{P(A)P(B|A)}{P(B)}
+$$<h3 id="-key-features-1">🧠 Key Features:</h3>
+<ul>
+<li>Probability is <strong>subjective</strong> and depends on the observer&rsquo;s background knowledge</li>
+<li>Can assign probability to any event, including one-time events</li>
+<li>The core mechanism is <strong>updating beliefs</strong>: prior → posterior</li>
+</ul>
+<h3 id="-application-examples-1">🎯 Application Examples:</h3>
+<ul>
+<li>Medical diagnosis (doctor&rsquo;s judgment on the probability of a patient being sick)</li>
+<li>Bayesian networks, decision systems in AI</li>
+<li>Parameter estimation: Bayesian inference (MCMC methods)</li>
+</ul>
+<h3 id="-drawbacks-1">⚠️ Drawbacks:</h3>
+<ul>
+<li><strong>Choice of prior is subjective</strong></li>
+<li>Calculation can be complex (especially when the posterior distribution is hard to resolve analytically)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> FuncAnimation
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> beta
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set prior parameters</span>
+</span></span><span style="display:flex;"><span>a_prior, b_prior <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># Prior ~ Beta(2,2)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Simulate observed data (e.g., coin flipping)</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>true_p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>N_trials <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>binomial(<span style="color:#ae81ff">1</span>, true_p, size<span style="color:#f92672">=</span>N_trials)  <span style="color:#75715e"># 1 means heads</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create Beta distribution animation: From prior to posterior</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>vlines(true_p, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;True probability = </span><span style="color:#e6db74">{</span>true_p<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0.01</span>, <span style="color:#ae81ff">0.99</span>, <span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>line, <span style="color:#f92672">=</span> ax<span style="color:#f92672">.</span>plot([], [], lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>title <span style="color:#f92672">=</span> ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">1.05</span>, <span style="color:#e6db74">&#34;&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>, transform<span style="color:#f92672">=</span>ax<span style="color:#f92672">.</span>transAxes, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>():
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#34;Density&#34;</span>)
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data([], [])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line, title
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(i):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        a_post, b_post <span style="color:#f92672">=</span> a_prior, b_prior
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        a_post <span style="color:#f92672">=</span> a_prior <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>sum(data[:i])
+</span></span><span style="display:flex;"><span>        b_post <span style="color:#f92672">=</span> b_prior <span style="color:#f92672">+</span> i <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>sum(data[:i])
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> beta<span style="color:#f92672">.</span>pdf(x, a_post, b_post)
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data(x, y)
+</span></span><span style="display:flex;"><span>    title<span style="color:#f92672">.</span>set_text(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Step </span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">: Posterior ~ Beta(</span><span style="color:#e6db74">{</span>a_post<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>b_post<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line, title
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ani <span style="color:#f92672">=</span> FuncAnimation(fig, update, frames<span style="color:#f92672">=</span>N_trials <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, init_func<span style="color:#f92672">=</span>init,
+</span></span><span style="display:flex;"><span>                    blit<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, interval<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save as GIF</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> PillowWriter
+</span></span><span style="display:flex;"><span>ani<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;probability_Bayesian_update_prior_to_posterior.gif&#34;</span>, writer<span style="color:#f92672">=</span>PillowWriter(fps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>close(fig)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> Image
+</span></span><span style="display:flex;"><span>Image(filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;probability_Bayesian_update_prior_to_posterior.gif&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Core idea of Bayesianism: Our understanding of probability updates gradually with evidence, while probability itself reflects our subjective uncertainty.</span>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/1_probability/probability_Bayesian_update_prior_to_posterior.gif" alt="gif"></p>
+<h2 id="-3-axiomatic-definition-kolmogorov-axiomatic-approach">⚫️ 3. Axiomatic Definition (Kolmogorov Axiomatic Approach)</h2>
+<h3 id="-core-idea-2">🌱 Core Idea:</h3>
+<p>Probability is an <strong>abstract mathematical structure</strong> satisfying a specific axiomatic system, detached from subjective or empirical interpretations.</p>
+<blockquote>
+<p><strong>Probability is a mathematical measure defined on a sample space.</strong></p></blockquote>
+<h3 id="-three-axioms-kolmogorov-axioms">📌 <a href="https://en.wikipedia.org/wiki/Probability_axioms">Three Axioms (Kolmogorov Axioms)</a>:</h3>
+<p>Let $\Omega$ be the sample space, $\mathcal{F}$ be the set of events (σ-algebra), and $P$ be the probability function, then satisfying:</p>
+<ol>
+<li>
+<p><strong>Non-negativity</strong>:</p>
+$$
+   \forall A \subseteq \Omega, \quad P(A) \geq 0
+   $$</li>
+<li>
+<p><strong>Normalization</strong>:</p>
+$$
+   P(\Omega) = 1
+   $$</li>
+<li>
+<p><strong>Countable Additivity</strong>:
+For any mutually exclusive events $A_1, A_2, A_3, \ldots$:</p>
+$$
+   P\left( \bigcup_{i=1}^{\infty} A_i \right) = \sum_{i=1}^{\infty} P(A_i)
+   $$</li>
+</ol>
+<h4 id="sample-space">Sample Space $\Omega$</h4>
+<p>A non-empty set, where elements are called outcomes or sample outputs, denoted as $\omega$.</p>
+<h4 id="event-set">Event Set $\mathcal{F}$</h4>
+<p>A subset of the sample space is called an <em>event</em>. The event set, as the name implies, is a set of events, which is a non-empty collection of subsets of the sample space $\Omega$ (subset of the power set $2^\Omega$). When we say $\mathcal{F}$ is a σ-algebra, it means $\mathcal{F}$ must satisfy the following properties:</p>
+<ol>
+<li>$\mathcal{F}$ contains the universal set, i.e., $\Omega {\in }{\mathcal {F}}$</li>
+<li>$A \in \mathcal{F} \rightarrow {\bar {A}} \in \mathcal{F}$</li>
+<li>$A_{n}{\in }{\mathcal {F}}, n=1,2,... \rightarrow \bigcup _{n=1}^{\infty }A_{n}{\in }{\mathcal {F}}$</li>
+</ol>
+<blockquote>
+<p>Note: Requiring the event set to be a σ-algebra is to ensure that the results of &ldquo;complement, countable union&rdquo; operations are still events, so that $P$ is meaningful under these operations.</p></blockquote>
+<h4 id="probability-function">Probability Function $P:{\mathcal {F}}{\to }\mathbb {R}$</h4>
+<h3 id="-key-features-2">🧠 Key Features:</h3>
+<ul>
+<li>Freed from frequency and subjectivity, completely built on the foundation of set theory and measure theory</li>
+<li>Is the foundation of modern probability theory and stochastic processes</li>
+<li>Compatible with both Frequentist and Bayesian interpretations</li>
+</ul>
+<h3 id="-application-examples-2">🎯 Application Examples:</h3>
+<ul>
+<li>Rigorous definition of probability space, expectation, random variables</li>
+<li>Supporting advanced probability theory and statistics (such as Markov processes, Brownian motion)</li>
+<li>Abstract modeling in computer stochastic simulation</li>
+</ul>
+<h3 id="-drawbacks-2">⚠️ Drawbacks:</h3>
+<ul>
+<li>Does not explain &ldquo;what probability actually is&rdquo;, only describes &ldquo;what rules probability should satisfy&rdquo;</li>
+<li>Not intuitive enough for beginners</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib_venn <span style="color:#f92672">import</span> venn2, venn3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.patches <span style="color:#66d9ef">as</span> patches
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set up canvas</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Display a universal set Ω</span>
+</span></span><span style="display:flex;"><span>omega <span style="color:#f92672">=</span> patches<span style="color:#f92672">.</span>Rectangle((<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.1</span>), <span style="color:#ae81ff">0.8</span>, <span style="color:#ae81ff">0.8</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>, facecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>add_patch(omega)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.92</span>, <span style="color:#ae81ff">0.92</span>, <span style="color:#e6db74">&#39;Ω (Sample Space)&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Two events A and B (disjoint)</span>
+</span></span><span style="display:flex;"><span>circle_A <span style="color:#f92672">=</span> patches<span style="color:#f92672">.</span>Circle((<span style="color:#ae81ff">0.35</span>, <span style="color:#ae81ff">0.5</span>), <span style="color:#ae81ff">0.15</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, facecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>circle_B <span style="color:#f92672">=</span> patches<span style="color:#f92672">.</span>Circle((<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.5</span>), <span style="color:#ae81ff">0.15</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, facecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>add_patch(circle_A)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>add_patch(circle_B)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.32</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#e6db74">&#39;A&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.63</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#e6db74">&#39;B&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Label probabilities</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.65</span>, <span style="color:#e6db74">&#39;P(A) ≥ 0&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.65</span>, <span style="color:#e6db74">&#39;P(B) ≥ 0&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#e6db74">&#39;P(A ∪ B) = P(A) + P(B)&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Probability of the entire space is 1</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.93</span>, <span style="color:#e6db74">&#39;P(Ω) = 1&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">13</span>, weight<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bold&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Remove axes</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Kolmogorov Probability Axioms - Visualized&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/1_probability/0_probability_6_0.png" alt="png"></p>
+<h2 id="-summary">📌 Summary</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Interpretation</th>
+          <th>Probability Meaning</th>
+          <th>Applicable Scenario</th>
+          <th>Representative Figure/Idea</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Frequentist</td>
+          <td>Long-term frequency</td>
+          <td>Repeatable experiments</td>
+          <td>Von Mises, Fisher</td>
+      </tr>
+      <tr>
+          <td>Bayesian</td>
+          <td>Subjective belief</td>
+          <td>One-time events, cognitive decision-making</td>
+          <td>Thomas Bayes, Laplace</td>
+      </tr>
+      <tr>
+          <td>Axiomatic</td>
+          <td>Abstract measure</td>
+          <td>Theoretical modeling, rigorous mathematical derivation</td>
+          <td>Andrey Kolmogorov</td>
+      </tr>
+  </tbody>
+</table>
+<ul>
+<li><strong>Frequentist Interpretation</strong>: Probability is the frequency in long-term experiments → Objective empiricism.</li>
+<li><strong>Bayesian Interpretation</strong>: Probability is the quantification of subjective belief → Belief update mechanism.</li>
+<li><strong>Axiomatic Definition</strong>: Probability is a mathematical function satisfying certain rules → Abstract structuralism.</li>
+</ul>
+<h1 id="events-and-sample-space">Events and Sample Space</h1>
+<h2 id="sample-space-1">Sample Space</h2>
+<p><strong>(Intuitive) Definition</strong>: The sample space, denoted as $\Omega$, is the set of <strong>all possible outcomes</strong> of a random experiment.</p>
+<ul>
+<li>
+<p><strong>Discrete Sample Space</strong>: Outcomes are countable (or finite). For example, rolling a six-sided die:</p>
+$$
+  \Omega=\{1,2,3,4,5,6\}.
+  $$<p>Or flipping a coin three times, total $2^3=8$ possible sequences: $\{HHH, HHT,\dots, TTT\}$.</p>
+</li>
+<li>
+<p><strong>Continuous Sample Space</strong>: Outcomes are intervals of continuous values or sets of real numbers, which cannot be enumerated one by one. For example, measuring someone&rsquo;s height (meters):</p>
+$$
+  \Omega = [0, +\infty) \quad\text{or more commonly } \Omega=\mathbb{R}.
+  $$<p>Or considering position as a real number on $[0,1]$ (uniform distribution example).</p>
+</li>
+</ul>
+<p><strong>Key Point</strong>: The sample space is where &ldquo;we list all possible basic situations&rdquo;. Discrete can be counted, continuous cannot be counted.</p>
+<h2 id="event">Event</h2>
+<p><strong>(Intuitive) Definition</strong>: An event is a subset of the sample space — a set of all sample points &ldquo;satisfying a certain condition&rdquo;. An event can contain one outcome (atomic event) or many outcomes.</p>
+<p><strong>Common Event Types</strong>:</p>
+<ul>
+<li><strong>Elementary event</strong>: Contains only <strong>one</strong> outcome. E.g., getting a 3 when rolling a die: $\{3\}$.</li>
+<li><strong>Compound event</strong>: Contains <strong>multiple</strong> outcomes, e.g., &ldquo;rolling an even number&rdquo; $= \{2,4,6\}$.</li>
+<li><strong>Certain event</strong>: Equals the <strong>entire</strong> sample space $\Omega$ (probability is 1).</li>
+<li><strong>Impossible / null event</strong>: Empty set $\varnothing$ (probability is 0).</li>
+</ul>
+<h3 id="operations-on-events">Operations on Events</h3>
+<p>Given events $A, B$, we can perform:</p>
+<ul>
+<li>Union ($A\cup B$: A or B happens)</li>
+<li>Intersection ($A\cap B$: Both happen)</li>
+<li>Complement ($A^c$: A does not happen)</li>
+</ul>
+<p><strong>Example (Rolling a Die)</strong>:</p>
+<ul>
+<li>$A$: &ldquo;Rolling an even number&rdquo; $=\{2,4,6\}$.</li>
+<li>$B$: &ldquo;Rolling &gt; 3&rdquo; $=\{4,5,6\}$.</li>
+<li>Then $A\cap B=\{4,6\}$, $A\cup B=\{2,4,5,6\}$.</li>
+</ul>
+<h3 id="how-to-assign-probability-to-events">How to Assign &ldquo;Probability&rdquo; to Events</h3>
+<ul>
+<li>
+<p>For <strong>Discrete</strong>: Assign a probability $P(\{\omega\})$ to each elementary outcome $\omega \in \Omega$, satisfying that their sum is 1. The probability of event $A$ is the sum of probabilities of the basic outcomes it contains:</p>
+$$
+  P(A)=\sum_{\omega\in A}P(\{\omega\}).
+  $$</li>
+<li>
+<p>For <strong>Continuous</strong>: Cannot directly assign probability to a single point (usually 0), but use <strong>Probability Density Function (PDF)</strong> $f(x)$. The probability of event $A$ is the integral over $A$:</p>
+$$
+  P(A)=\int_A f(x)\,dx.
+  $$</li>
+</ul>
+<h2 id="three-common-examples">Three Common Examples</h2>
+<h3 id="a-rolling-a-die-discrete-simple">A. Rolling a Die (Discrete, Simple)</h3>
+<ul>
+<li>Sample space $\Omega=\{1,2,3,4,5,6\}$ (if uniform, each face prob 1/6).</li>
+<li>Event: $A=\{\text{even}\}=\{2,4,6\}$
+<ul>
+<li>Then probability of event $A$ is: $P(A)=3\times\frac{1}{6}=\frac{1}{2}$.</li>
+</ul>
+</li>
+</ul>
+<h3 id="b-weather-forecast-finite-discrete-but-probabilistic">B. Weather Forecast (Finite Discrete, but Probabilistic)</h3>
+<ul>
+<li>Sample space could be $\Omega=\{\text{Sunny},\text{Cloudy},\text{Rainy}\}$.</li>
+<li>Based on history we might estimate $P(\text{Sunny})=0.6,\ P(\text{Cloudy})=0.3,\ P(\text{Rainy})=0.1$.</li>
+<li>Event: Tomorrow &ldquo;Not Rainy&rdquo; $= \{\text{Sunny},\text{Cloudy}\}$, probability $0.9$.</li>
+</ul>
+<blockquote>
+<p>Note: The weather example shows cases where &ldquo;probability is estimated based on historical frequency or models&rdquo; (interpreted by either frequency or Bayesian).</p></blockquote>
+<h3 id="c-image-classification-high-dimensional-uncountable-discrete">C. Image Classification (High-dimensional, Uncountable Discrete)</h3>
+<ul>
+<li>Abstractly: Sample space is &ldquo;set of all possible digital images&rdquo;, denoted as $ \Omega = \{\text{all } H\times W\times 3 \text{ pixel matrices}\}$.</li>
+<li>Event e.g., &ldquo;image contains a cat&rdquo; is $A\subset\Omega$: set of all images labeled as cat. You cannot enumerate or assign point-wise, but can approximate $P(A)$ using models (classifiers) or datasets.</li>
+<li>This shows: Events don&rsquo;t have to be &ldquo;enumerable sets&rdquo;, they can be very large sets (requiring probabilistic models, density estimation, or empirical frequencies to handle).</li>
+</ul>
+<h1 id="basic-properties-of-probability">Basic Properties of Probability</h1>
+<blockquote>
+<p>Basic corollaries derived from Kolmogorov axioms</p></blockquote>
+<h2 id="proposition-1-probability-of-empty-event-is-0">Proposition 1: Probability of empty event is 0</h2>
+<p>$\displaystyle P(\varnothing)=0.$</p>
+<p><strong>Proof</strong>: Since $\Omega$ and empty set are complementary and $\Omega=\varnothing\cup\Omega$, by <strong>Countable Additivity</strong> (taking sequence $A_1=\Omega,A_2=\varnothing,A_3=\varnothing,\dots$), or more simply noting $\Omega$ and $\varnothing$ are disjoint and $P(\Omega)=1$. A more standard proof method uses additivity:</p>
+$$
+P(\Omega)=P(\varnothing\cup\Omega)=P(\varnothing)+P(\Omega)\Rightarrow P(\varnothing)=0.
+$$<p>(Unique solution obtained using <strong>Non-negativity</strong>)</p>
+<h2 id="proposition-2-monotonicity">Proposition 2: Monotonicity</h2>
+<p>If $A\subseteq B$ (both are events), then $P(A)\le P(B)$.</p>
+<p><strong>Proof</strong>: Write $B=A\cup (B\setminus A)$, and $A$ and $B\setminus A$ are disjoint. By <strong>Additivity</strong> and <strong>Non-negativity</strong>:</p>
+$$
+P(B)=P(A)+P(B\setminus A)\ge P(A).
+$$<h2 id="proposition-3-complement-rule">Proposition 3: Complement Rule</h2>
+<p>$\displaystyle P(A^c)=1-P(A)$.</p>
+<p><strong>Proof</strong>: From $A\cup A^c=\Omega$ and $A\cap A^c=\varnothing$, applying <strong>Additivity</strong>:</p>
+$$
+P(\Omega)=P(A)+P(A^c)=1\Rightarrow P(A^c)=1-P(A).
+$$<h2 id="proposition-4-addition-formula-for-two-events-with-intersection-correction-term">Proposition 4: Addition Formula for Two Events (with Intersection Correction Term)</h2>
+$$
+P(A\cup B)=P(A)+P(B)-P(A\cap B).
+$$<p><strong>Proof (Partition Method)</strong>: Divide $A$ and $B$ into three disjoint parts:</p>
+$$
+A=(A\setminus B)\cup(A\cap B),\quad B=(B\setminus A)\cup(A\cap B).
+$$<p>And</p>
+$$
+A\cup B=(A\setminus B)\cup(A\cap B)\cup(B\setminus A)
+$$<p>The three parts are pairwise disjoint, applying <strong>Additivity</strong> we get:
+</p>
+$$
+P(A) = P(A\setminus B) + P(A\cap B) \rightarrow P(A\setminus B) = P(A) - P(A\cap B) \\
+P(B) = P(B\setminus A) + P(A\cap B) \rightarrow P(B\setminus A) = P(B) - P(A\cap B) \\
+P(A\cup B) =P(A\setminus B) + P(A\cap B) + (B\setminus A) = P(A) - P(A\cap B) + P(A\cap B) + P(B) - P(A\cap B) = P(A) + P(B) - P(A\cap B)
+$$<p>Q.E.D.</p>
+<h2 id="proposition-5-inclusion-exclusion-principle-two-and-three-events">Proposition 5: Inclusion-Exclusion Principle (Two and Three Events)</h2>
+<ul>
+<li>Two events: Same as above (Addition Formula).</li>
+<li>Three events:</li>
+</ul>
+$$
+\begin{aligned}
+P(A\cup B\cup C)&=P(A)+P(B)+P(C)\\
+&\quad -P(A\cap B)-P(A\cap C)-P(B\cap C)\\
+&\quad +P(A\cap B\cap C).
+\end{aligned}
+$$<p><strong>Proof</strong>: Decompose the three sets into disjoint minimal atoms (8 atoms), or derive recursively from the two-set formula and subtract multiple counts (standard inclusion-exclusion derivation).</p>
+<h2 id="proposition-6-finite-additivity-degenerated-from-countable-additivity">Proposition 6: Finite Additivity (Degenerated from Countable Additivity)</h2>
+<p>If $A_1,\dots,A_n$ are pairwise disjoint, then</p>
+$$
+P\Big(\bigcup_{i=1}^n A_i\Big)=\sum_{i=1}^n P(A_i).
+$$<p>This is a direct special case of the axiom (just take finite terms).</p>
+<h2 id="proposition-7-upper-bound-of-union-booles-inequality--union-bound">Proposition 7: Upper Bound of Union (Boole&rsquo;s Inequality / Union bound)</h2>
+<p>For any sequence of events (not necessarily mutually exclusive) $A_1,A_2,\dots$, we have</p>
+$$
+P\Big(\bigcup_{i=1}^\infty A_i\Big)\le \sum_{i=1}^\infty P(A_i).
+$$<p><strong>Key point of proof</strong>: Split the union into disjoint subsets or directly use monotonicity and countable additivity (can write union as disjoint sequence $B_1=A_1, B_2=A_2\setminus A_1, \dots$), thereby obtaining the upper bound.</p>
+<h2 id="proposition-8-continuity-from-above-and-below">Proposition 8: Continuity (From Above and Below)</h2>
+<ul>
+<li><strong>Continuity from above</strong>: If $A_1\supseteq A_2\supseteq\cdots$ and intersection $\bigcap_n A_n=\varnothing$, then $P(A_n)\downarrow 0$ (tends to 0).</li>
+<li><strong>Continuity from below</strong>: If $A_1\subseteq A_2\subseteq\cdots$ and union $\bigcup_n A_n=A$, then $P(A_n)\uparrow P(A)$.</li>
+</ul>
+<p>These are standard conclusions directly given by combining countable additivity with monotonicity (detailed proofs can be found in textbooks).</p>
+<h1 id="conditional-probability-and-multiplication-rule">Conditional Probability and Multiplication Rule</h1>
+<h2 id="conditional-probability--rigorous-definition">Conditional Probability $P(A\mid B)$ (Rigorous Definition)</h2>
+<p>In probability space $(\Omega,\mathcal F,P)$, if $P(B)>0$, define</p>
+$$
+P(A\mid B)\;\;\stackrel{\text{def}}=\;\;\frac{P(A\cap B)}{P(B)}.
+$$<p>Intuitive meaning: The relative probability of $A$ in the world where &ldquo;$B$ occurred&rdquo;.</p>
+<p><strong>Rigorous Properties</strong> (Treat $P(\cdot\mid B)$ as a &ldquo;new probability measure&rdquo; after fixing $B$):</p>
+<ul>
+<li>
+<p>Non-negativity: $P(A\mid B)\ge 0$;</p>
+</li>
+<li>
+<p>Normalization: $P(\Omega\mid B)=\dfrac{P(\Omega\cap B)}{P(B)}=\dfrac{P(B)}{P(B)}=1$;</p>
+</li>
+<li>
+<p>Countable Additivity: If $\{A_i\}$ are pairwise disjoint, then</p>
+$$
+  P\Big(\bigcup_i A_i\;\Big|\;B\Big)=\frac{P\big((\bigcup_i A_i)\cap B\big)}{P(B)}
+  =\frac{\sum_i P(A_i\cap B)}{P(B)}=\sum_i P(A_i\mid B).
+  $$</li>
+</ul>
+<p>Therefore $P(\cdot\mid B)$ satisfies Kolmogorov axioms and is a conditional probability measure.</p>
+<blockquote>
+<p>Note: When $P(B)=0$, the above formula fails; more general cases use &ldquo;Regular Conditional Probability&rdquo; (Radon–Nikodym theorem gives existence), no need to worry in discrete cases.</p></blockquote>
+<h2 id="joint-probability--and-multiplication-rule">Joint Probability $P(A\cap B)$ and Multiplication Rule</h2>
+<p>From the definition, we immediately get the <strong>Multiplication Rule</strong>:</p>
+$$
+\boxed{\,P(A\cap B)=P(A\mid B)\,P(B)\,}\qquad(P(B)>0)
+$$<p>Similarly, $P(A\cap B)=P(B\mid A)\,P(A)$ (if $P(A)>0$).</p>
+<p><strong>Chain Rule (Multiple Events)</strong>: For $A_1,\dots,A_n$, if conditional probabilities are defined,</p>
+$$
+P\Big(\bigcap_{k=1}^n A_k\Big)
+= P(A_1)\cdot P(A_2\mid A_1)\cdot P(A_3\mid A_1\cap A_2)\cdots P(A_n\mid A_1\cap\cdots\cap A_{n-1}).
+$$<p><strong>Continuous/Discrete Variable Version</strong>: $f_{X,Y}(x,y)=f_{X\mid Y}(x\mid y)f_Y(y)$; discrete $p_{X,Y}(x,y)=p_{X\mid Y}(x\mid y)p_Y(y)$.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="example-a-drawing-cards-without-replacement">Example A: Drawing Cards (Without Replacement)</h3>
+<p>Standard 52 cards, let</p>
+<ul>
+<li>$A_1=\{\text{First card is A (ace)}\}$</li>
+<li>$A_2=\{\text{Second card is A}\}$</li>
+</ul>
+<p>Goal: $P(A_1\cap A_2)$.</p>
+<p>By multiplication rule: $P(A_1\cap A_2)=P(A_1)\cdot P(A_2\mid A_1)$.</p>
+<h3 id="example-b-medical-testing-bayes-derived-from-multiplication-rule">Example B: Medical Testing (Bayes derived from Multiplication Rule)</h3>
+<p>Assume:</p>
+<ul>
+<li>Disease prevalence (Prior) $\pi=P(D)$</li>
+<li>Sensitivity $Se=P(T^+\mid D)$</li>
+<li>Specificity $Sp=P(T^-\mid \bar D)\Rightarrow P(T^+\mid \bar D)=1-Sp$</li>
+</ul>
+<p><strong>Positive Predictive Value (PPV)</strong>:</p>
+$$
+P(D\mid T^+)=\frac{P(T^+\mid D)P(D)}{P(T^+)}
+=\frac{Se\cdot \pi}{Se\cdot \pi+(1-Sp)\cdot (1-\pi)}.
+$$<p>This is just substituting back via multiplication rule, and using Total Probability $P(T^+)=P(T^+\mid D)\pi+P(T^+\mid \bar D)(1-\pi)$.</p>
+<h2 id="summary">Summary</h2>
+<ul>
+<li><strong>Definition</strong>: $P(A\mid B)=P(A\cap B)/P(B)$; it is a probability measure itself.</li>
+<li><strong>Multiplication</strong>: $P(A\cap B)=P(A\mid B)P(B)$. Generalized to Chain Rule.</li>
+<li><strong>Application</strong>: Drawing cards/without replacement, medical testing all directly use multiplication rule; Bayes formula = Multiplication Rule + Total Probability.</li>
+</ul>
+<h1 id="law-of-total-probability-and-bayes-theorem">Law of Total Probability and Bayes&rsquo; Theorem</h1>
+<h2 id="law-of-total-probability-ltp">Law of Total Probability (LTP)</h2>
+<h3 id="rigorous-statement-discretecountable-partition">Rigorous Statement (Discrete/Countable Partition)</h3>
+<p>Let $(\Omega,\mathcal F,P)$ be a probability space, $\{B_i\}_{i\in I}\subset\mathcal F$ form a <strong>countable partition</strong> of $\Omega$ (pairwise disjoint and union is $\Omega$), and $P(B_i)>0$. For any event $A\in\mathcal F$,</p>
+$$
+\boxed{P(A)=\sum_{i\in I} P(A\mid B_i)\,P(B_i).}
+$$<h3 id="proof-by-countable-additivity--definition-of-conditional-probability">Proof (By Countable Additivity + Definition of Conditional Probability)</h3>
+<p>Since $\{B_i\}$ partition $\Omega$, we have</p>
+$$
+A=\bigcup_{i}(A\cap B_i),\qquad (A\cap B_i)\ \text{pairwise disjoint}.
+$$<p>By Countable Additivity,</p>
+$$
+P(A)=\sum_i P(A\cap B_i)=\sum_i \frac{P(A\cap B_i)}{P(B_i)}\,P(B_i)=\sum_i P(A\mid B_i)\,P(B_i).
+$$<h3 id="continuousdensity-version-common-equation">Continuous/Density Version (Common Equation)</h3>
+<p>If $(X,Y)$ has joint density $f_{X,Y}$, then</p>
+$$
+\boxed{f_X(x)=\int f_{X\mid Y}(x\mid y)\,f_Y(y)\,dy,}
+$$<p>This is the sum of conditional density weighted by marginal $f_Y$ for &ldquo;all $y$&rdquo;; for event $A$:</p>
+$$
+P(X\in A)=\int P(X\in A\mid Y=y)\,f_Y(y)\,dy.
+$$<p>(More generally, conditional probability can be given by Radon–Nikodym theorem, not expanded here.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Draw a probability tree diagram to show the calculation path of the Law of Total Probability</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Data</span>
+</span></span><span style="display:flex;"><span>labels <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Disease&#34;</span>, <span style="color:#e6db74">&#34;Healthy&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Pos(Disease)&#34;</span>, <span style="color:#e6db74">&#34;Neg(Disease)&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Pos(Healthy)&#34;</span>, <span style="color:#e6db74">&#34;Neg(Healthy)&#34;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>probs <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    p_disease, <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p_disease,
+</span></span><span style="display:flex;"><span>    p_test_pos_given_disease, <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p_test_pos_given_disease,
+</span></span><span style="display:flex;"><span>    p_test_pos_given_healthy, <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p_test_pos_given_healthy
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Simple tree drawing</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#34;off&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Layer 1</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#e6db74">&#34;Population&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.3</span>], [<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.7</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.3</span>], [<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.3</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Layer 2</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.35</span>, <span style="color:#ae81ff">0.7</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Disease</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span>p_disease<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.35</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Healthy</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p_disease<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>], [<span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.8</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>], [<span style="color:#ae81ff">0.7</span>, <span style="color:#ae81ff">0.6</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>], [<span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.4</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>plot([<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>], [<span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.2</span>], <span style="color:#e6db74">&#39;k-&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Layer 3</span>
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.8</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Pos</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span>p_test_pos_given_disease<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.6</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Neg</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p_test_pos_given_disease<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.4</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Pos</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span>p_test_pos_given_healthy<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.65</span>, <span style="color:#ae81ff">0.2</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Neg</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p_test_pos_given_healthy<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/1_probability/0_probability_12_0.png" alt="png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Simulation using medical testing scenario:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Prior probability of disease is very low</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Test has certain accuracy</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Code below directly reflects the idea of &#34;partitioning population into mutually exclusive events, then summing up&#34;.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Parameters</span>
+</span></span><span style="display:flex;"><span>p_disease <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>     <span style="color:#75715e"># Prevalence: P(Disease)</span>
+</span></span><span style="display:flex;"><span>p_test_pos_given_disease <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.99</span>   <span style="color:#75715e"># P(Pos|Disease)</span>
+</span></span><span style="display:flex;"><span>p_test_pos_given_healthy <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.05</span>   <span style="color:#75715e"># False positive: P(Pos|Healthy)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Total Probability Formula:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># P(Test Pos) = P(Pos|Disease)P(Disease) + P(Pos|Healthy)P(Healthy)</span>
+</span></span><span style="display:flex;"><span>p_positive <span style="color:#f92672">=</span> (p_test_pos_given_disease <span style="color:#f92672">*</span> p_disease <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>              p_test_pos_given_healthy <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> p_disease))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;P(Test Pos) = </span><span style="color:#e6db74">{</span>p_positive<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>P(Test Pos) = 0.0594
+</code></pre>
+<h2 id="bayes-theorem">Bayes&rsquo; Theorem</h2>
+<h3 id="basic-form-two-events">Basic Form (Two Events)</h3>
+<p>If $P(B)>0$,</p>
+$$
+\boxed{P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)}.}
+$$<p>Directly obtained from <strong>Multiplication Rule</strong> $P(A\cap B)=P(A\mid B)P(B)=P(B\mid A)P(A)$.</p>
+<p>Expand denominator using Total Probability (partition $\{A,\bar A\}$):</p>
+$$
+P(B)=P(B\mid A)P(A)+P(B\mid \bar A)P(\bar A),
+$$<p>So</p>
+$$
+P(A\mid B)=\frac{P(B\mid A)P(A)}
+{P(B\mid A)P(A)+P(B\mid \bar A)(1-P(A))}.
+$$<h3 id="multi-hypothesis-version-countable-partition-">Multi-Hypothesis Version (Countable Partition $\{H_i\}$)</h3>
+$$
+\boxed{P(H_i\mid E)=\frac{P(E\mid H_i)\,P(H_i)}{\sum_j P(E\mid H_j)\,P(H_j)}.}
+$$<h3 id="continuousdensity-version">Continuous/Density Version</h3>
+$$
+\boxed{f_{\Theta\mid X}(\theta\mid x)=\frac{f_{X\mid \Theta}(x\mid \theta)\,\pi(\theta)}{\int f_{X\mid \Theta}(x\mid t)\,\pi(t)\,dt}},
+$$<p>Where $\pi(\theta)$ is prior density, denominator is evidence (marginal likelihood).</p>
+<h2 id="the-power-of-reversing-causality-diagnostic-vs-causal">The Power of &ldquo;Reversing Causality&rdquo; (diagnostic vs. causal)</h2>
+<ul>
+<li><strong>Likelihood $P(E\mid H)$</strong>: <strong>Causal Forward</strong> (Assume $H$ is true, how likely to see evidence $E$?)</li>
+<li><strong>Posterior $P(H\mid E)$</strong>: <strong>Diagnostic Backward</strong> (Observed evidence $E$, what is the probability it was caused by $H$?)</li>
+</ul>
+<p>The two are asymmetric: Large $P(E\mid H)$ does not imply large $P(H\mid E)$. Must combine with <strong>prior</strong> (base rate) and reverse using Bayes formula:</p>
+$$
+\text{Posterior odds}=\text{Prior odds}\times \underbrace{\frac{P(E\mid H)}{P(E\mid \bar H)}}_{\text{Bayes Factor / Likelihood Ratio}}.
+$$<p>This is why <strong>Base-rate fallacy</strong> leads to serious misjudgment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Using P(Test Pos) calculated in previous step, infer &#34;Probability of really being sick given positive&#34;:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Bayes Theorem:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># P(Disease|Pos) = [P(Pos|Disease) * P(Disease)] / P(Pos)</span>
+</span></span><span style="display:flex;"><span>p_disease_given_positive <span style="color:#f92672">=</span> (p_test_pos_given_disease <span style="color:#f92672">*</span> p_disease) <span style="color:#f92672">/</span> p_positive
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;P(Disease|Pos) = </span><span style="color:#e6db74">{</span>p_disease_given_positive<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This value is significantly smaller than intuition (because of low prior + existing false positive rate), demonstrating the power of &#34;Reversing Causal Relation&#34;.</span>
+</span></span></code></pre></div><pre><code>P(Disease|Pos) = 0.1667
+</code></pre>
+<h2 id="application-examples">Application Examples</h2>
+<h3 id="spam-filter-naive-bayes-idea">Spam Filter (Naive Bayes Idea)</h3>
+<p>Assume $H\in\{\text{spam},\text{ham}\}$, features $E=(w_1,\dots,w_d)$ indicate presence of certain words. Naive Bayes assumes conditional independence:</p>
+$$
+P(E\mid H)=\prod_{k=1}^d P(w_k\mid H).
+$$<p>Posterior:</p>
+$$
+P(\text{spam}\mid E)=\frac{\left(\prod_k P(w_k\mid \text{spam})\right)P(\text{spam})}
+{\sum_{h\in\{\text{spam},\text{ham}\}}\left(\prod_k P(w_k\mid h)\right)P(h)}.
+$$<blockquote>
+<p>Intuition: Some &ldquo;strong indicator words&rdquo; make $P(E\mid \text{spam})$ much larger than $P(E\mid \text{ham})$, multiplied by prior $P(\text{spam})$, making posterior skew towards spam.</p></blockquote>
+<p><strong>Mini Exercise (No calculation)</strong>: If a blacklisted domain appears (feature $w$), explain why &ldquo;Likelihood Ratio&rdquo; $\frac{P(w\mid \text{spam})}{P(w\mid \text{ham})}$ is key to discrimination power?</p>
+<h3 id="fault-diagnosis-multi-hypothesis-bayes">Fault Diagnosis (Multi-Hypothesis Bayes)</h3>
+<p>Assume a device has three mutually exclusive faults $H_1,H_2,H_3$ and &ldquo;Normal&rdquo; $H_0$, prior $\{P(H_i)\}$ known. Sensor reading $E$&rsquo;s distribution $P(E\mid H_i)$ known (or approximated as normal, exponential etc.). After observing $E=e$:</p>
+$$
+P(H_i\mid e)=\frac{P(e\mid H_i)P(H_i)}{\sum_{j=0}^3 P(e\mid H_j)P(H_j)}.
+$$<blockquote>
+<p>Intuition: Whichever $H_i$ occurs <strong>more often</strong> (large prior) AND produces current observation <strong>more likely</strong> (large likelihood), occupies larger posterior.</p></blockquote>
+<h3 id="summary-1">Summary</h3>
+<ul>
+<li><strong>Total Probability</strong>: Partition &ldquo;situations&rdquo;, weighted sum of &ldquo;Total Prob = Cond Prob × Weight&rdquo;.</li>
+<li><strong>Bayes</strong>: Posterior $\propto$ Likelihood × Prior; Denominator is Total Prob of Evidence.</li>
+<li><strong>Reversing Causality</strong>: Use $P(E\mid H)$ to infer $P(H\mid E)$, must multiply by prior; think in Likelihood Ratio / Odds.</li>
+</ul>
+<h1 id="independence-and-conditional-independence">Independence and Conditional Independence</h1>
+<h2 id="rigorous-definition-and-equivalent-characterization">Rigorous Definition and Equivalent Characterization</h2>
+<h3 id="event-independence">Event Independence</h3>
+<p>In probability space $(\Omega,\mathcal F,P)$, events $A,B\in\mathcal F$ are <strong>independent</strong> if</p>
+$$
+\boxed{P(A\cap B)=P(A)\,P(B).}
+$$<p>If $P(B)>0$, equivalent to</p>
+$$
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}=P(A).
+$$<blockquote>
+<p>Indicator function characterization: Let $1_A,1_B$ be indicator functions, then independent $\iff\ \mathbb E[1_A1_B]=\mathbb E[1_A]\mathbb E[1_B]$.</p></blockquote>
+<p><strong>Mutual Independence</strong>: $\{A_i\}_{i=1}^n$ are mutually independent if <strong>any</strong> subset intersection satisfies multiplication, e.g.</p>
+$$
+P\!\Big(\bigcap_{i\in S} A_i\Big)=\prod_{i\in S}P(A_i)\quad(\forall S\subset\{1,\dots,n\},S\neq\varnothing).
+$$<blockquote>
+<p>Note: &ldquo;Pairwise independent&rdquo; does not equal &ldquo;Mutually independent&rdquo;.</p></blockquote>
+<p><strong>Different from &ldquo;Disjoint&rdquo;</strong>: If $A\cap B=\varnothing$ and $P(A),P(B)>0$, then $P(A\cap B)=0\ne P(A)P(B)$, so <strong>impossible to be independent</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># A simple example: Rolling two fair dice. Event A is &#34;First die is 6&#34;, Event B is &#34;Second die is 6&#34;.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Simulation count</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1_000_000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Roll two dice</span>
+</span></span><span style="display:flex;"><span>die1 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, N)
+</span></span><span style="display:flex;"><span>die2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define events</span>
+</span></span><span style="display:flex;"><span>A <span style="color:#f92672">=</span> (die1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>B <span style="color:#f92672">=</span> (die2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate probabilities</span>
+</span></span><span style="display:flex;"><span>P_A <span style="color:#f92672">=</span> A<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>P_B <span style="color:#f92672">=</span> B<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>P_A_and_B <span style="color:#f92672">=</span> (A <span style="color:#f92672">&amp;</span> B)<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A) =&#34;</span>, P_A)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(B) =&#34;</span>, P_B)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A ∩ B) =&#34;</span>, P_A_and_B)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A)*P(B) =&#34;</span>, P_A <span style="color:#f92672">*</span> P_B)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Theoretically: P(A) = 1/6 = 0.1666666667, P(B) = 1/6 = 0.1666666667, P(A∩B) = 1/36 = 0.02777777778 = P(A)P(B).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If results are close to theoretical values, A and B are independent.</span>
+</span></span></code></pre></div><pre><code>P(A) = 0.16706
+P(B) = 0.166036
+P(A ∩ B) = 0.02781
+P(A)*P(B) = 0.027737974159999994
+</code></pre>
+<h3 id="conditional-independence">Conditional Independence</h3>
+<p>Given σ-algebra $\mathcal G$ (or given random variable/event $C$ generating $\sigma(C)$), $A, B$ are <strong>conditionally independent given $\mathcal G$</strong> if</p>
+$$
+\boxed{\mathbb E[1_A1_B\,\mid\,\mathcal G]=\mathbb E[1_A\,\mid\,\mathcal G]\ \mathbb E[1_B\,\mid\,\mathcal G]\quad\text{a.s.}}
+$$<p>Equivalently (often used in discrete case where $P(C)>0$)</p>
+$$
+\boxed{P(A\cap B\mid C)=P(A\mid C)\,P(B\mid C)\quad\text{(for almost all values of }C\text{)}.}
+$$<p><strong>Important Relations</strong>:</p>
+<ul>
+<li>Conditional independence <strong>does not imply</strong> unconditional independence; Unconditional independence <strong>does not imply</strong> conditional independence.</li>
+<li>Common structure: <strong>Common Cause</strong> $C$ makes $A, B$ correlated; conditioning on $C$ often makes them &ldquo;more independent&rdquo;. Conversely, conditioning on <strong>Common Effect</strong> (collider) &ldquo;introduces&rdquo; correlation (Berkson&rsquo;s Paradox).</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Assume a sensor light system:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   Event A: Someone in room</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   Event B: Light on</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   Condition C: Dark outside</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Simulate: When dark, light on depends only on &#34;someone in room&#34;, and given dark, person and light status don&#39;t affect each other (causal direction) -- Wait, actually P(B|A, C) = P(B|A) in this causal model? No, usually meant: Given C (Dark), A and B? Actually usually C causes A and B?</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s use the code logic:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># When C is True (Dark): A (Someone) occurs with prob 0.6, B (Light) occurs with prob 0.7 independently? No, the code says:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># A_given_C = rand &lt; 0.6</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># B_given_C = rand &lt; 0.7</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This implies A and B are generated INDEPENDENTLY given C.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Simulation count</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1_000_000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Condition C: Dark</span>
+</span></span><span style="display:flex;"><span>C <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span>  <span style="color:#75715e"># 50% prob dark</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Given dark: Someone prob 0.6, Light prob 0.7</span>
+</span></span><span style="display:flex;"><span>A_given_C <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.6</span>
+</span></span><span style="display:flex;"><span>B_given_C <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Given not dark (~C): Someone 0.3, Light 0.1</span>
+</span></span><span style="display:flex;"><span>A_given_notC <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.3</span>
+</span></span><span style="display:flex;"><span>B_given_notC <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(N) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Assign based on C</span>
+</span></span><span style="display:flex;"><span>A <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(C, A_given_C, A_given_notC)
+</span></span><span style="display:flex;"><span>B <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(C, B_given_C, B_given_notC)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate conditional probabilities</span>
+</span></span><span style="display:flex;"><span>mask_C <span style="color:#f92672">=</span> C  <span style="color:#75715e"># Consider only dark cases</span>
+</span></span><span style="display:flex;"><span>P_A_and_B_given_C <span style="color:#f92672">=</span> (A <span style="color:#f92672">&amp;</span> B <span style="color:#f92672">&amp;</span> mask_C)<span style="color:#f92672">.</span>sum() <span style="color:#f92672">/</span> mask_C<span style="color:#f92672">.</span>sum() <span style="color:#75715e"># P(A ∩ B | C) = P(A ∩ B ∩ C) / P(C)</span>
+</span></span><span style="display:flex;"><span>P_A_given_C <span style="color:#f92672">=</span> (A <span style="color:#f92672">&amp;</span> mask_C)<span style="color:#f92672">.</span>sum() <span style="color:#f92672">/</span> mask_C<span style="color:#f92672">.</span>sum() <span style="color:#75715e"># P(A|C)</span>
+</span></span><span style="display:flex;"><span>P_B_given_C <span style="color:#f92672">=</span> (B <span style="color:#f92672">&amp;</span> mask_C)<span style="color:#f92672">.</span>sum() <span style="color:#f92672">/</span> mask_C<span style="color:#f92672">.</span>sum() <span style="color:#75715e"># P(B|C)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A ∩ B | C) =&#34;</span>, P_A_and_B_given_C)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P(A|C) * P(B|C) =&#34;</span>, P_A_given_C <span style="color:#f92672">*</span> P_B_given_C)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If P(A ∩ B | C) ≈ P(A|C) * P(B|C), then A and B are conditionally independent given C.</span>
+</span></span></code></pre></div><pre><code>P(A ∩ B | C) = 0.420284111266571
+P(A|C) * P(B|C) = 0.4200211083400713
+</code></pre>
+<h2 id="two-rigorous-corollaries">Two Rigorous Corollaries</h2>
+<p><strong>(i) Independence ⇒ Conditional Probability Invariant</strong>
+If $A\perp B$ and $P(B)>0$, then $P(A\mid B)=P(A)$.</p>
+<p><strong>(ii) Conditional Independence + Total Probability</strong>
+If given $\mathcal G$ we have $A\perp B\mid \mathcal G$, then</p>
+$$
+P(A\cap B)=\mathbb E\!\big[\,P(A\cap B\mid\mathcal G)\,\big]
+=\mathbb E\!\big[\,P(A\mid\mathcal G)\,P(B\mid\mathcal G)\,\big].
+$$<p>Unless $P(A\mid\mathcal G)$ is constant (independent of $\mathcal G$), generally $\mathbb E[XY]\neq \mathbb E[X]\mathbb E[Y]$, so <strong>Unconditional is usually NOT independent</strong>.</p>
+<h2 id="examples-1">Examples</h2>
+<h3 id="example-a-genetic-traits-common-cause-induces-correlation-indep-given-cause">Example A: Genetic Traits (&ldquo;Common Cause Induces Correlation; Indep Given Cause&rdquo;)</h3>
+<p>Let $C$ be parents&rsquo; genotype; $A, B$ be whether two siblings have a recessive phenotype (event). Under classic genetic model, <strong>Given parents&rsquo; genotype $C$</strong>, two children&rsquo;s phenotypes are <strong>conditionally independent</strong>:</p>
+$$
+A\perp B\ \mid\ C,\qquad
+P(A\cap B)=\mathbb E\!\big[P(A\mid C)\,P(B\mid C)\big].
+$$<p>Intuition: Siblings are similar because of &ldquo;common cause&rdquo; — parents&rsquo; genes; once parents&rsquo; genes are fixed, siblings are independent Mendelian segregations.</p>
+<blockquote>
+<p>But marginally $A, B$ are often correlated (dependent): Distribution of $C$ varies across families, making $P(A\mid C)$ fluctuate in population.</p></blockquote>
+<h3 id="example-b-sensor-light-system-common-cause-induces-correlation-indep-after-conditioning">Example B: Sensor Light System (&ldquo;Common Cause&rdquo; Induces Correlation; Indep After Conditioning)</h3>
+<p>Model:</p>
+<ul>
+<li>$C\in\{0,1\}$: Someone passes by (Prior $P(C=1)=\pi$).</li>
+<li>Two sensor events: $A=\{\text{Sensor 1 triggers}\}$, $B=\{\text{Sensor 2 triggers}\}$.</li>
+<li>Sensor performance: Sensitivity $Se=P(A=1\mid C=1)=P(B=1\mid C=1)=s$; False alarm $Fa=P(A=1\mid C=0)=P(B=1\mid C=0)=f$. Conditionally <strong>Independent</strong>:</li>
+</ul>
+$$
+A\perp B\mid C.
+$$<p><strong>Conclusion</strong>:</p>
+$$
+P(A\cap B)=s^2\pi + f^2(1-\pi),\quad
+P(A)=s\pi+f(1-\pi).
+$$<p>Generally $P(A\cap B)\ne P(A)P(B)$ (so $A, B$ <strong>Dependent</strong>); but given $C$</p>
+$$
+P(A\cap B\mid C)=P(A\mid C)\,P(B\mid C),
+$$<p>i.e., <strong>Conditional Independence</strong> holds. Intuition: The &ldquo;common cause&rdquo; of someone being there explains the correlation of two sensors ringing together.</p>
+<h2 id="common-misconceptions-cheatsheet">Common Misconceptions Cheatsheet</h2>
+<ul>
+<li><strong>Mutually Exclusive ≠ Independent</strong> (Unless at least one prob is 0).</li>
+<li><strong>Pairwise Independent ≠ Mutually Independent</strong> (Check all intersections).</li>
+<li><strong>Correlation</strong> (like Covariance) being 0 does not guarantee Independence (Non-Gaussian cases).</li>
+<li>Conditioning can <strong>break</strong> or <strong>create</strong> independence (Depends on Common Cause or Common Effect).</li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              
+              <a href="http://localhost:1313/tags/probability/">Probability</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/statistics-foundation/">Statistics Foundation</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/mathematics/">Mathematics</a>&nbsp;
+            
+              
+              <a href="http://localhost:1313/tags/python/">python</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;text=What%20is%20Probability%3f&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=What%20is%20Probability%3f" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=What%20is%20Probability%3f" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=What%20is%20Probability%3f" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;description=What%20is%20Probability%3f" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/mcmc-statics/monte-carlo/">Monte Carlo Sampling</a></li>
+                
+                    <li><a href="/post/mcmc-statics/intro-mcmc/">Introduction to MCMC</a></li>
+                
+                    <li><a href="/post/mcmc-statics/markov-chains/">Understanding Markov Chains</a></li>
+                
+                    <li><a href="/post/mcmc-statics/random-variables/">Random Variables and Sampling</a></li>
+                
+                    <li><a href="/post/python-geodata/01-intro/">Lesson 1: Introduction to Remote Sensing Data and Python Setup</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/post/mcmc-statics/random-variables/" data-toggle="tooltip" data-placement="top" title="Random Variables and Sampling">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://localhost:1313/post/mcmc-statics/markov-chains/" data-toggle="tooltip" data-placement="top" title="Understanding Markov Chains">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
