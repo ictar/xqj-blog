@@ -331,8 +331,10 @@
 
     
 <div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         
   <aside class="toc">
@@ -706,22 +708,16 @@
         
           <div class="blog-tags">
             
-              
               <a href="http://localhost:1313/zh-cn/tags/geofm/">GeoFM</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/terramind/">terramind</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E9%81%A5%E6%84%9F/">遥感</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/ai/">AI</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">大模型</a>&nbsp;
             
-              
               <a href="http://localhost:1313/zh-cn/tags/eo/">EO</a>&nbsp;
             
           </div>
@@ -813,6 +809,44 @@
       
 
     </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么要有-terramind">为什么要有 TerraMind？</a></li>
+    <li><a href="#terramind-从何而来">TerraMind 从何而来？</a>
+      <ul>
+        <li><a href="#输入terramesh-数据集">输入：TerraMesh 数据集</a></li>
+        <li><a href="#双尺度预训练dual-scale-pretraining">双尺度预训练（Dual-Scale Pretraining）</a></li>
+        <li><a href="#两阶段预训练">两阶段预训练</a></li>
+      </ul>
+    </li>
+    <li><a href="#terramind-能做什么">TerraMind 能做什么？</a></li>
+    <li><a href="#编码与重建tokenizer">编码与重建（Tokenizer）</a></li>
+    <li><a href="#跨模态生成generation">跨模态生成（Generation）</a>
+      <ul>
+        <li><a href="#单-patch-示例">单 patch 示例</a></li>
+        <li><a href="#分块推理tiled-inference">分块推理（Tiled Inference）</a></li>
+      </ul>
+    </li>
+    <li><a href="#微调任务fine-tuning-with-terratorch">微调任务（Fine-tuning with TerraTorch）</a>
+      <ul>
+        <li><a href="#在微调中使用tim">在微调中使用TiM</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#了解更多">了解更多</a></li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
   </div>
 </div>
 
@@ -897,6 +931,8 @@
 
 
 
+
+<script src="http://localhost:1313/js/toc-enhancements.js"></script>
 
 
     

@@ -1,0 +1,137 @@
+
+/* --- Homepage Custom Styles --- */
+
+/* Hero Section */
+.home-social-links {
+  margin-top: 25px;
+}
+
+.home-social-links .fa-stack-2x {
+  color: #337ab7; /* Theme color */
+  transition: color 0.2s;
+}
+
+.home-social-links a:hover .fa-stack-2x {
+  color: #23527c;
+}
+
+/* Post Grid Layout */
+.posts-grid {
+  display: flex !important; /* Force flex for same height columns */
+  flex-wrap: wrap !important;
+  margin-top: 30px;
+}
+
+/* Fix flex wrapping issues in Bootstrap grid */
+.posts-grid > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+/* Post Card Styling */
+.post-card {
+  background: #fff;
+  border: 1px solid #eef0f2;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: all 0.3s ease;
+  flex: 1; /* Fill column height */
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  border-color: #dee2e6;
+}
+
+.post-card-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.post-card-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.post-card-content {
+  padding: 24px; /* Increased padding for better text-only look */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center content if card is tall */
+}
+
+.post-card-title {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #212529;
+  line-height: 1.4;
+}
+
+.post-card:hover .post-card-title {
+  color: #337ab7;
+}
+
+.post-card-subtitle {
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.post-card-meta {
+  font-size: 0.8rem;
+  color: #adb5bd;
+  margin-bottom: 15px;
+  display: flex;
+  gap: 15px;
+}
+
+.post-card-summary {
+  font-size: 0.95rem;
+  color: #495057;
+  line-height: 1.6;
+}
+
+.post-card-footer {
+  padding: 15px 20px;
+  background-color: #fcfcfd;
+  border-top: 1px solid #f1f3f5;
+  margin-top: auto;
+}
+
+.post-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.post-tag {
+  background-color: #e9ecef;
+  color: #495057;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-decoration: none !important;
+  transition: background-color 0.2s;
+}
+
+.post-tag:hover {
+  background-color: #dee2e6;
+  color: #212529;
+}

@@ -103,14 +103,24 @@
     text-decoration: none;
     transition: all 0.2s ease;
     font-weight: 500; /* Slightly thicker font weight */
+    padding: 2px 0 2px 5px; /* Add slight padding for active border */
+    border-left: 3px solid transparent; /* Prepare for border transition */
+    margin-left: -5px; /* Counteract padding to align */
   }
 
   .sidebar-toc a:hover {
     color: #337ab7; /* Theme color */
-    transform: translateX(4px);
+    transform: translateX(2px);
     text-decoration: none;
   }
-  
+
+  /* --- Active State (Scroll Spy) --- */
+  .sidebar-toc a.active-toc-link {
+    color: #337ab7 !important; /* Active Color (Blue) */
+    font-weight: 700 !important;
+    border-left-color: #337ab7 !important; /* Active Border */
+  }
+
   /* Scrollbar styling */
   .sidebar-toc::-webkit-scrollbar {
     width: 6px;
@@ -122,4 +132,17 @@
   .sidebar-toc::-webkit-scrollbar-track {
     background: transparent;
   }
+}
+
+/* --- Reading Progress Bar --- */
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 0%;
+  height: 4px; /* Thickness of progress bar */
+  background: #337ab7; /* Theme Color */
+  box-shadow: 0 0 4px rgba(51, 122, 183, 0.5);
+  transition: width 0.1s ease-out;
 }
