@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Podcast on Qiongjie&#39;s Notes</title>
+    <link>http://localhost:1313/tags/podcast/</link>
+    <description>Recent content in Podcast on Qiongjie&#39;s Notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Wed, 02 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/podcast/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Podcast Notes] Chat2Geo and the Power of LLMs</title>
+      <link>http://localhost:1313/notes/podcast_chat2geo_llm_simplifying_geospatial_analysis/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/notes/podcast_chat2geo_llm_simplifying_geospatial_analysis/</guid>
+      <description>&lt;p&gt;🎧 &lt;a href=&#34;https://notebooklm.google.com/notebook/3396b39f-24fd-439e-8b27-90d28e866872/audio&#34;&gt;Click here to access the audio notes for this podcast in NotebookLM&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

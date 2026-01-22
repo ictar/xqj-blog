@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Terramind on Qiongjie&#39;s Notes</title>
+    <link>http://localhost:1313/tags/terramind/</link>
+    <description>Recent content in Terramind on Qiongjie&#39;s Notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Wed, 10 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/terramind/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mastering TerraMind: From Understanding to Fine-tuning</title>
+      <link>http://localhost:1313/post/geoai/geofm-intro-terramind/</link>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/geoai/geofm-intro-terramind/</guid>
+      <description>TerraMind is the first large-scale, any-to-any generative multimodal foundation model proposed for the Earth Observation (EO) field. It is pre-trained by combining token-level and pixel-level dual-scale representations to learn high-level contextual information and fine-grained spatial details. The model aims to facilitate multimodal data integration, provide powerful generative capabilities, and support zero-shot and few-shot applications, while outperforming existing models on Earth Observation benchmarks and further improving performance by introducing &amp;lsquo;Thinking in Modalities&amp;rsquo; (TiM).</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Addition Principle on Qiongjie&#39;s Notes</title>
+    <link>http://localhost:1313/tags/addition-principle/</link>
+    <description>Recent content in Addition Principle on Qiongjie&#39;s Notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Sat, 05 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/addition-principle/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Course Notes] Probability Theory and Mathematical Statistics | Preliminaries</title>
+      <link>http://localhost:1313/notes/probability_theory_preliminaries/</link>
+      <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/notes/probability_theory_preliminaries/</guid>
+      <description>&lt;h2 id=&#34;addition-principle-and-multiplication-principle&#34;&gt;Addition Principle and Multiplication Principle&lt;/h2&gt;&#xA;&lt;p&gt;According to &lt;a href=&#34;https://en.wikipedia.org/wiki/Rule_of_product&#34;&gt;Wikipedia&lt;/a&gt;:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

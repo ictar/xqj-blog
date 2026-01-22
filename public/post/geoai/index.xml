@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GeoAI Series on Qiongjie&#39;s Notes</title>
+    <link>http://localhost:1313/post/geoai/</link>
+    <description>Recent content in GeoAI Series on Qiongjie&#39;s Notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <atom:link href="http://localhost:1313/post/geoai/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
