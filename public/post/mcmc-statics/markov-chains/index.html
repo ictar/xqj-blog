@@ -61,9 +61,9 @@
   "headline": "Understanding Markov Chains",
   "description" : "Learn about Markov processes, stationary distributions, and convergence of Markov chains.",
   "inLanguage" : "en",
-  "wordCount":  2506 ,
-  "datePublished" : "2025-08-21T00:00:00\u002b00:00",
-  "dateModified" : "2025-08-21T00:00:00\u002b00:00",
+  "wordCount":  4685 ,
+  "datePublished" : "2026-01-23T00:00:00\u002b00:00",
+  "dateModified" : "2026-01-23T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
   "keywords" : [ "Markov Chain, Mathematics, python" ],
   "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/mcmc-statics\/markov-chains\/",
@@ -310,11 +310,11 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 21, 2025
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 23, 2026
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2506&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;4685&nbsp;words
   
   
   &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/" lang="zh-cn">CH</a>
@@ -348,17 +348,23 @@
         <li><a href="#stochastic-process">Stochastic Process</a></li>
         <li><a href="#markov-property">Markov Property</a></li>
         <li><a href="#transition-probability-matrix">Transition Probability Matrix</a></li>
-        <li><a href="#examples">Examples</a></li>
-        <li><a href="#summary">Summary</a></li>
+        <li><a href="#state-classification">State Classification</a></li>
+        <li><a href="#structural-properties">Structural Properties</a></li>
       </ul>
     </li>
-    <li><a href="#long-term-behavior-and-convergence-of-markov-chains">Long-term Behavior and Convergence of Markov Chains</a>
+    <li><a href="#hia-chain">HIA Chain</a>
       <ul>
-        <li><a href="#stationary-distribution">Stationary Distribution</a></li>
-        <li><a href="#state-classification">State Classification</a></li>
+        <li><a href="#asymptotic-behavior-of-hia-chains">Asymptotic Behavior of HIA Chains</a></li>
         <li><a href="#ergodic-theorem">Ergodic Theorem</a></li>
-        <li><a href="#mixing-time">Mixing Time</a></li>
-        <li><a href="#examples-1">Examples</a></li>
+        <li><a href="#reversible-markov-chain">Reversible Markov Chain</a></li>
+      </ul>
+    </li>
+    <li><a href="#examples">Examples</a>
+      <ul>
+        <li><a href="#example-1-two-state-markov-chain">Example 1: Two-State Markov Chain</a></li>
+        <li><a href="#example-2-three-state-markov-chain">Example 2: Three-State Markov Chain</a></li>
+        <li><a href="#example-3-random-walk-on-a-cycle">Example 3: Random Walk on a Cycle</a></li>
+        <li><a href="#example-4-numerical-measure-of-mixing-time-eg-total-variation-distance-convergence-speed">Example 4: Numerical Measure of Mixing Time (e.g. total variation distance convergence speed)</a></li>
       </ul>
     </li>
   </ul>
@@ -366,12 +372,21 @@
   </aside>
 
 <h1 id="basic-concepts-of-markov-chains">Basic Concepts of Markov Chains</h1>
+<p>The rigorous mathematical definition of a <strong>Markov Chain</strong> is as follows:</p>
+<p>Suppose we have a sequence of random variables $X_0, X_1, X_2, \dots$, taking values from the same state space $S$. If for any time $n$ and any states $i,j,k,\dots$, the sequence satisfies the following <strong>conditional probability</strong> equation:</p>
+$$
+\mathbb{P}(X_{n+1}=j \mid X_n=i, X_{n-1}=i_{n-1},\dots,X_0=i_0)=\mathbb{P}(X_{n+1}=j\mid X_n=i)
+$$<p>Then this stochastic process $\{X_n\}$ is called a <strong>Markov Chain</strong>.</p>
 <h2 id="stochastic-process">Stochastic Process</h2>
-<h3 id="what-is-a-stewardship-process">What is a Stewardship Process</h3>
+<h3 id="what-is-a-stochastic-process">What is a Stochastic Process</h3>
 <ul>
-<li>A stochastic process is a collection of random variables $\{X_t: t\in \mathcal{T}\}$ indexed by &ldquo;time/index&rdquo;.</li>
+<li>A stochastic process is a collection of random variables $\{X_t: t\in \mathcal{T}\}$ indexed by &ldquo;time/index&rdquo;.
+<ul>
+<li>The probability distribution of each $X_n$ is usually different.</li>
+</ul>
+</li>
 <li>$\mathcal{T}$ is the index set: it can be discrete ($t=0,1,2,\dots$) or continuous ($t\in \mathbb{R}_{\ge 0}$).</li>
-<li>Each $X_t$ takes values in a <strong>State Space</strong> $\mathcal{S}$ (discrete or continuous).</li>
+<li>Each $X_t$ takes values in the same <strong>State Space</strong> $\mathcal{S}$ (discrete or continuous).</li>
 </ul>
 <h3 id="discrete-time-vs-continuous-time">Discrete Time vs Continuous Time</h3>
 <ul>
@@ -384,19 +399,28 @@
 <p>A discrete-time, <strong>homogeneous</strong> Markov chain (time-invariant) is defined as:</p>
 $$
 \mathbb{P}(X_{t+1}=j \mid X_t=i, X_{t-1},\dots,X_0)=\mathbb{P}(X_{t+1}=j\mid X_t=i)=p_{ij},
-$$<p>where $p_{ij}$ is independent of $t$ (homogeneous). If it is allowed to change with time, it is a <strong>non-homogeneous</strong> Markov chain.</p>
+$$<p>where $p_{ij}$ is independent of $t$ (homogeneous).</p>
+<p>That is to say, if a Markov chain is homogeneous, it means its transition rules are immutable. For example, whether it is Day 1 or Day 100, as long as the current state is &ldquo;Sunny&rdquo;, if the probability of turning &ldquo;Rainy&rdquo; tomorrow is 0.3, it will always be 0.3.</p>
+<p>If it is allowed to change with time, it is a <strong>non-homogeneous</strong> Markov chain.</p>
 <p><strong>Corollary (Chapman–Kolmogorov)</strong>: Multi-step transition probabilities satisfy</p>
 $$
 P^{(n+m)} = P^{(n)}P^{(m)},
 $$<p>In particular, the $n$-step transition matrix $P^{(n)}=P^n$.</p>
 <h2 id="transition-probability-matrix">Transition Probability Matrix</h2>
 <h3 id="definition-and-properties">Definition and Properties</h3>
-<ul>
-<li>
-<p>For a finite state space $\mathcal{S}=\{1,\dots, S\}$, define the <strong>Transition Matrix</strong> $P=[p_{ij}]_{S\times S}$, where</p>
+<p>For a finite state space $\mathcal{S}=\{1,\dots, S\}$, we can define the <strong>Transition Matrix</strong> $P=[p_{ij}]_{S\times S}$ via conditional probabilities, where</p>
 $$
-  p_{ij}=\mathbb{P}(X_{t+1}=j\mid X_t=i).
-  $$</li>
+  p_{ij}^{(t+1)}=\mathbb{P}(X_{t+1}=j\mid X_t=i).
+  $$<ul>
+<li>
+<p>The probability of being in state <code>j</code> at time <code>t+1</code> is:
+</p>
+$$
+  p_{j}^{(t+1)}=\sum^m_{i=1}\mathbb{P}(X_{t+1}=j\mid X_t=i)p_i^{t}
+  $$<ul>
+<li>Meaning: Probability of being in state (j) at time <code>t+1</code> = $\sum$ [ (Probability of being in state $i$ at time <code>t</code>) $\times$ (Probability of jumping from $i$ to $j$) ]</li>
+</ul>
+</li>
 <li>
 <p><strong>Row-stochastic</strong>: Each row is a probability distribution</p>
 $$
@@ -405,201 +429,389 @@ $$
 <li>
 <p>Let the distribution vector be a row vector $\pi_t=[\mathbb{P}(X_t=1),\dots,\mathbb{P}(X_t=S)]$, then</p>
 $$
-  \pi_{t+1}=\pi_t P,\quad \pi_t=\pi_0 P^t.
-  $$</li>
+  \pi_{t+1} = \pi_t \times P
+  $$<ul>
+<li>This vector lists the probability of being in each state.</li>
+<li>For homogeneous Markov chains, $\pi_t=\pi_0 P^t$
+<ul>
+<li>$t=1$ (Tomorrow): $\pi_1 = \pi_0 \times P$</li>
+<li>$t=2$ (Day after tomorrow): $\pi_2 = \pi_1 \times P$. Substituting $\pi_1$, we get: $\pi_2 = (\pi_0 \times P) \times P = \pi_0 \times P^2$</li>
+<li>$t=3$ (Two days after tomorrow): $\pi_3 = \pi_2 \times P$. Substituting $\pi_2$: $\pi_3 = (\pi_0 \times P^2) \times P = \pi_0 \times P^3$</li>
+<li>And so on, by day $t$, it is $\pi_t = \pi_0 P^t$.</li>
 </ul>
-<h2 id="examples">Examples</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># ============ Basic Tools ============</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_row_stochastic</span>(P, tol<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-12</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check if transition matrix is &#39;row-stochastic&#39; (row sums approx 1, elements &gt;= 0)&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(P, dtype<span style="color:#f92672">=</span>float)
-</span></span><span style="display:flex;"><span>    nonneg <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>all(P <span style="color:#f92672">&gt;=</span> <span style="color:#f92672">-</span>tol) <span style="color:#75715e"># Check non-negativity</span>
-</span></span><span style="display:flex;"><span>    rowsum_one <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>allclose(P<span style="color:#f92672">.</span>sum(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">1.0</span>, atol<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-10</span>) <span style="color:#75715e"># Check row sums approx 1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> bool(nonneg <span style="color:#f92672">and</span> rowsum_one), P<span style="color:#f92672">.</span>sum(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">n_step_transition</span>(P, n):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;n-step transition matrix: P^n&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>matrix_power(np<span style="color:#f92672">.</span>asarray(P, dtype<span style="color:#f92672">=</span>float), n)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simulate_markov_chain</span>(P, init_state, n_steps, rng<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Simulate a single Markov chain path from an initial state.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    P: row-stochastic matrix; init_state: int (0..S-1); Returns array shape=(n_steps+1,)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> rng <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
-</span></span><span style="display:flex;"><span>        rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng()
-</span></span><span style="display:flex;"><span>    P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(P, dtype<span style="color:#f92672">=</span>float)
-</span></span><span style="display:flex;"><span>    S <span style="color:#f92672">=</span> P<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>] <span style="color:#75715e"># Number of states</span>
-</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>empty(n_steps<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, dtype<span style="color:#f92672">=</span>int) <span style="color:#75715e"># Initialize path</span>
-</span></span><span style="display:flex;"><span>    path[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> int(init_state) <span style="color:#75715e"># Ensure initial state is int</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(n_steps): <span style="color:#75715e"># Generate path step by step</span>
-</span></span><span style="display:flex;"><span>        i <span style="color:#f92672">=</span> path[t]
-</span></span><span style="display:flex;"><span>        path[t<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>choice(S, p<span style="color:#f92672">=</span>P[i]) <span style="color:#75715e"># Choose next state from current state i</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> path
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simulate_many</span>(P, pi0, n_steps, n_runs<span style="color:#f92672">=</span><span style="color:#ae81ff">10000</span>, rng<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Simulate many paths, estimate empirical distribution at each time step (compare with theoretical pi0 P^t).
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Returns:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      emp_dist: shape=(n_steps+1, S) Empirical distribution
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      th_dist : shape=(n_steps+1, S) Theoretical distribution
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> rng <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
-</span></span><span style="display:flex;"><span>        rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng()
-</span></span><span style="display:flex;"><span>    P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(P, dtype<span style="color:#f92672">=</span>float)
-</span></span><span style="display:flex;"><span>    S <span style="color:#f92672">=</span> P<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Theoretical distribution evolution</span>
-</span></span><span style="display:flex;"><span>    th <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_steps<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, S))
-</span></span><span style="display:flex;"><span>    th[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> pi0
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(n_steps):
-</span></span><span style="display:flex;"><span>        th[t<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> th[t] <span style="color:#f92672">@</span> P
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Empirical distribution</span>
-</span></span><span style="display:flex;"><span>    counts <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_steps<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, S), dtype<span style="color:#f92672">=</span>int)
-</span></span><span style="display:flex;"><span>    init_states <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>choice(S, size<span style="color:#f92672">=</span>n_runs, p<span style="color:#f92672">=</span>pi0)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(n_runs):
-</span></span><span style="display:flex;"><span>        s0 <span style="color:#f92672">=</span> init_states[r]
-</span></span><span style="display:flex;"><span>        path <span style="color:#f92672">=</span> simulate_markov_chain(P, s0, n_steps, rng<span style="color:#f92672">=</span>rng)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(n_steps<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>            counts[t, path[t]] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    emp <span style="color:#f92672">=</span> counts <span style="color:#f92672">/</span> n_runs
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> emp, th
-</span></span></code></pre></div><h3 id="example-1-two-states-weather-example-sunnys-rainyr">Example 1: Two States (Weather Example: Sunny=S, Rainy=R)</h3>
-<h4 id="model-setup-2-state-weather-chain">Model Setup (2-State Weather Chain)</h4>
-<p>States: 0=Sunny, 1=Rainy
-Transition Matrix:</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="example-1">Example 1</h4>
+<p>Suppose the state space has only two states: $S = \{0, 1\}$ (e.g., 0 for Sunny, 1 for Rainy). There are four possible transition scenarios, which we can write as a $2 \times 2$ matrix:
+</p>
+$$P = 
+\begin{bmatrix}
+p_{00} & p_{01} \\
+p_{10} & p_{11}
+\end{bmatrix}$$<p>
+The first row represents starting from state 0 (Sunny):</p>
+<ul>
+<li>$p_{00}$: Sunny $\to$ Sunny; $p_{01}$: Sunny $\to$ Rainy</li>
+<li>$p_{00} + p_{01} = 1$</li>
+</ul>
+<p>The second row represents starting from state 1 (Rainy):</p>
+<ul>
+<li>$p_{10}$: Rainy $\to$ Sunny; $p_{11}$: Rainy $\to$ Rainy</li>
+<li>$p_{10} + p_{11} = 1$</li>
+</ul>
+<p>Suppose $\pi_t = [0.5, 0.5]$, meaning it is equally likely to be Sunny or Rainy currently. And transition matrix $P$:
+</p>
+$$P = 
+\begin{bmatrix}
+0.7 & 0.3 \\
+0.4 & 0.6
+\end{bmatrix}$$<p>Then,
+</p>
 $$
-P=\begin{bmatrix}
-\text{Sunny→Sunny} & \text{Sunny→Rainy}\\
-\text{Rainy→Sunny} & \text{Rainy→Rainy}
-\end{bmatrix}=\begin{bmatrix}
-0.8 & 0.2\\
+\pi_{t+1} = \pi_t \times P
+= [0.5, 0.5] \times \begin{bmatrix}
+0.7 & 0.3 \\
 0.4 & 0.6
 \end{bmatrix}
-$$<p>Meaning: Sunny→Sunny 0.8, Sunny→Rainy 0.2; Rainy→Sunny 0.4, Rainy→Rainy 0.6.</p>
+= [ 0.5 \times 0.7 + 0.5 \times 0.4, 0.5 \times 0.3 + 0.5 \times 0.6 ]
+= \pi_{t+1} = [0.55, 0.45]
+$$<p>
+This means there is a 55% probability of it being Sunny tomorrow, and 45% probability of Rain.</p>
+<h2 id="state-classification">State Classification</h2>
 <ul>
-<li><strong>Row-stochastic</strong>: Row sums are 1 (valid probability matrix).</li>
-<li><strong>Irreducible</strong>: Each state can reach the other (both rows contain non-zero cross transitions).</li>
-<li><strong>Aperiodic</strong>: Diagonal elements $p_{00},p_{11}>0$ (self-loops), period is 1.
-⇒ <strong>Chain is ergodic</strong>: Unique stationary distribution exists, and converges to it from any initial value.</li>
+<li>
+<p><strong>Reachability</strong>: If it is possible to reach state $j$ from state $i$ in a finite number of steps (one or more steps) (probability &gt; 0), we say state $j$ is reachable from state $i$.</p>
+<ul>
+<li>Symbol: Usually denoted as $i \to j$.</li>
+<li>Intuition: There is a road (or a sequence of roads) on the map from A to B.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ============ Example 1: Two States (Sunny/Rainy) ============</span>
+</li>
+<li>
+<p><strong>Recurrent/Transient</strong>:</p>
+<ul>
+<li><strong>Recurrent State</strong>: Starting from $i$, you will inevitably return to $i$ eventually.
+<ul>
+<li>That is, once you leave here, no matter how many steps you take, the system will definitely (probability 1) return here.</li>
+<li>There is an extremely special case of recurrent state called <strong>Absorbing State</strong>. If a state cannot be left once entered (i.e., $p_{ii} = 1$), it is an absorbing state. Like a black hole, once sucked in, you are locked there.</li>
+</ul>
+</li>
+<li><strong>Transient State</strong>: There is a non-zero probability of never returning.
+* That is, starting from here, once you leave, it is possible (probability &gt; 0) that you will never return.</li>
+</ul>
+</li>
+<li>
+<p><strong>Inessential State</strong></p>
+<ul>
+<li>Definition: If from state $i$ you can reach some state $j$ ($i \to j$), but you can never return to $i$ from that state $j$ ($j \nrightarrow i$), then $i$ is an <strong>Inessential State</strong>.</li>
+<li>Core Feature: <strong>&ldquo;One-way ticket&rdquo;</strong>. This means if you are in state $i$, you constantly face the risk of &ldquo;leaking&rdquo; into another area from which you can never look back.</li>
+<li>Connection: In finite state Markov chains, Inessential State $\approx$ Transient State.</li>
+</ul>
+</li>
+<li>
+<p><strong>Essential State</strong></p>
+<ul>
+<li>Definition: If from state $i$ all reachable states $j$ can also <strong>revisit</strong> state $i$ (i.e., if $i \to j$, then it must be that $j \to i$), then $i$ is an Essential State.</li>
+<li>Core Feature: <strong>&ldquo;Looping internally&rdquo;</strong>. Once you are in an essential state, or a set composed of essential states, no matter how you move, you will always be trapped inside this set and absolutely cannot get out.</li>
+<li>Connection: In finite state chains, Essential State $\approx$ Recurrent State.</li>
+</ul>
+</li>
+</ul>
+<h3 id="visual-example-1">Visual Example 1</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> networkx <span style="color:#66d9ef">as</span> nx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># State encoding: 0=Sunny(S), 1=Rainy(R)</span>
-</span></span><span style="display:flex;"><span>P2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">0.8</span>, <span style="color:#ae81ff">0.2</span>],
-</span></span><span style="display:flex;"><span>               [<span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.6</span>]], dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define states and transition rules</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (Start, End, Probability)</span>
+</span></span><span style="display:flex;"><span>transitions <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.5</span>), <span style="color:#75715e"># State 1 50% returns to self</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.5</span>), <span style="color:#75715e"># State 1 50% goes to State 2</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>), <span style="color:#75715e"># State 2 100% goes to State 3</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>)  <span style="color:#75715e"># State 3 100% stays (Absorbing)</span>
+</span></span><span style="display:flex;"><span>]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ok, rowsums <span style="color:#f92672">=</span> is_row_stochastic(P2)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P2 Row stochasticity check:&#34;</span>, ok, <span style="color:#e6db74">&#34; Row sums =&#34;</span>, rowsums)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Create graph object</span>
+</span></span><span style="display:flex;"><span>G <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>DiGraph()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> u, v, p <span style="color:#f92672">in</span> transitions:
+</span></span><span style="display:flex;"><span>    G<span style="color:#f92672">.</span>add_edge(u, v, weight<span style="color:#f92672">=</span>p)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Single path simulation and visualization</span>
-</span></span><span style="display:flex;"><span>rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng(<span style="color:#ae81ff">2025</span>)
-</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> simulate_markov_chain(P2, init_state<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, n_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, rng<span style="color:#f92672">=</span>rng)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Set layout (align them in a row)</span>
+</span></span><span style="display:flex;"><span>pos <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>: (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>), <span style="color:#ae81ff">2</span>: (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>), <span style="color:#ae81ff">3</span>: (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>)}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>))
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(range(len(path)), path, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;o&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hlines(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, len(path)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dashed&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Sunny&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hlines(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, len(path)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;yellow&#39;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dashed&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Rainy&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">10</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.4</span>, <span style="color:#e6db74">&#34;Sample Path (State jumping over time)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Sample path of 2-state Markov chain (0=Sunny, 1=Rainy)&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;time t&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;state&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Draw nodes</span>
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_nodes(G, pos, node_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>, node_color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightblue&#39;</span>, edgecolors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_labels(G, pos, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Draw edges (arrows)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Straight edges</span>
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, edgelist<span style="color:#f92672">=</span>[(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)], arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Self-loops (arc)</span>
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, edgelist<span style="color:#f92672">=</span>[(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)], connectionstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;arc3, rad=0.5&#39;</span>, arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6. Add probability labels</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#e6db74">&#34;0.5&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) <span style="color:#75715e"># 1-&gt;1</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.05</span>, <span style="color:#e6db74">&#34;0.5&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) <span style="color:#75715e"># 1-&gt;2</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">1.5</span>, <span style="color:#ae81ff">0.05</span>, <span style="color:#e6db74">&#34;1.0&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) <span style="color:#75715e"># 2-&gt;3</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#e6db74">&#34;1.0&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) <span style="color:#75715e"># 3-&gt;3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Markov Chain Visualization&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_6_0.png" alt="png"></p>
+<p>In the 3-state system above ($S=\{1, 2, 3\}$):</p>
+<ul>
+<li>State 1: 50% probability to stay ($1 \to 1$), 50% probability to jump to State 2 ($1 \to 2$).</li>
+<li>State 2: 100% probability to jump to State 3 ($2 \to 3$).</li>
+<li>State 3: 100% probability to stay ($3 \to 3$).</li>
+</ul>
+<p>Where,</p>
+<ul>
+<li>State 1
+<ul>
+<li>It can reach State 2 ($1 \to 2$).</li>
+<li><strong>Transient</strong>. Although it has a 50% probability of staying temporarily, in the long run, it will definitely slip into State 2 eventually, and once it leaves, there is no way back.</li>
+<li><strong>Inessential</strong>. Because State 2 cannot return to State 1, meaning there is a &ldquo;point of no return&rdquo;.</li>
+</ul>
+</li>
+<li>State 2
+<ul>
+<li>It can only reach State 3 ($2 \to 3$)</li>
+<li><strong>Transient</strong>. It can only reach State 3, and once it leaves, there is no way back.</li>
+<li><strong>Inessential</strong>. Because State 3 cannot return to State 2.</li>
+</ul>
+</li>
+<li>State 3
+<ul>
+<li>It can only reach itself.</li>
+<li><strong>Recurrent</strong>, also <strong>Absorbing State</strong>.</li>
+<li>It can naturally return to itself, without &ldquo;leaking&rdquo; to any place of no return, so it is <strong>Essential</strong>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="structural-properties">Structural Properties</h2>
+<h3 id="irreducibility">Irreducibility</h3>
+<p>In this chain, starting from <strong>any state</strong>, it is possible (in one or more steps) to reach any other state.</p>
+<ul>
+<li>Mathematical Symbol: For any $i, j \in S$, we have $i \leftrightarrow j$ (communicate).</li>
+<li>Intuition: The whole system is a cohesive unit, no isolated islands.</li>
+<li>Simple Understanding: If a city is called irreducible, it means the city is extremely navigable. No matter where you are (e.g., state $i$) and where you want to go (e.g., state $j$), you can always find a way (might need transfers, i.e., multiple steps, but you can get there).</li>
+</ul>
+<p><strong>Reducible</strong>: This means there are &ldquo;traps&rdquo; or &ldquo;one-way areas&rdquo; in the city. Once you enter a certain area, you can never go back to where you were. The system is divided into different &ldquo;classes&rdquo; or &ldquo;parts&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> networkx <span style="color:#66d9ef">as</span> nx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Multi-path statistics vs Theoretical distribution</span>
-</span></span><span style="display:flex;"><span>pi0 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>])  <span style="color:#75715e"># Initial distribution</span>
-</span></span><span style="display:flex;"><span>emp, th <span style="color:#f92672">=</span> simulate_many(P2, pi0, n_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, n_runs<span style="color:#f92672">=</span><span style="color:#ae81ff">5000</span>, rng<span style="color:#f92672">=</span>rng)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw_chain</span>(transitions, title, ax):
+</span></span><span style="display:flex;"><span>    G <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>DiGraph()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Add edges and weights</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u, v, p <span style="color:#f92672">in</span> transitions:
+</span></span><span style="display:flex;"><span>        G<span style="color:#f92672">.</span>add_edge(u, v, weight<span style="color:#f92672">=</span>p)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot &#34;Probability of Sunny&#34; over time: Theory vs Empirical</span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(th[:,<span style="color:#ae81ff">0</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;theory P(X_t=Sunny)&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(emp[:,<span style="color:#ae81ff">0</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;empirical P(X_t=Sunny)&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0.6</span>, <span style="color:#e6db74">&#34;Theory and empirical match closely (Better with more samples).&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Distribution evolution in 2-state chain&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;time t&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;probability of Sunny&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Use circular layout</span>
+</span></span><span style="display:flex;"><span>    pos <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>circular_layout(G)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Draw nodes</span>
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_nodes(G, pos, ax<span style="color:#f92672">=</span>ax, node_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>, node_color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightblue&#39;</span>, edgecolors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_labels(G, pos, ax<span style="color:#f92672">=</span>ax, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>, font_weight<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bold&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Draw edges (with arc to avoid overlap)</span>
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, ax<span style="color:#f92672">=</span>ax, arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>, 
+</span></span><span style="display:flex;"><span>                           connectionstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;arc3, rad=0.15&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Label probabilities</span>
+</span></span><span style="display:flex;"><span>    edge_labels <span style="color:#f92672">=</span> {(u, v): <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>p<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">for</span> u, v, p <span style="color:#f92672">in</span> transitions}
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_edge_labels(G, pos, edge_labels<span style="color:#f92672">=</span>edge_labels, ax<span style="color:#f92672">=</span>ax, label_pos<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_title(title, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. Define Reducible Chain ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># &#34;3&#34; here is a dead end (absorbing state), cannot return to &#34;1&#34; or &#34;2&#34;</span>
+</span></span><span style="display:flex;"><span>transitions_reducible <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.5</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.5</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>) 
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. Define Irreducible Chain ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># We added 3-&gt;1, forming a closed loop, all states communicate</span>
+</span></span><span style="display:flex;"><span>transitions_irreducible <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.5</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.5</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1.0</span>) 
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Plotting ---</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>draw_chain(transitions_reducible, <span style="color:#e6db74">&#34;Reducible (Broken Flow)&#34;</span>, axes[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>draw_chain(transitions_irreducible, <span style="color:#e6db74">&#34;Irreducible (Connected Flow)&#34;</span>, axes[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># n-step transition matrix example</span>
-</span></span><span style="display:flex;"><span>P2_5 <span style="color:#f92672">=</span> n_step_transition(P2, <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P2^5 =</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, np<span style="color:#f92672">.</span>round(P2_5, <span style="color:#ae81ff">4</span>))
-</span></span></code></pre></div><pre><code>P2 Row stochasticity check: True  Row sums = [1. 1.]
-</code></pre>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_6_1.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_6_2.png" alt="png"></p>
-<pre><code>P2^5 =
- [[0.6701 0.3299]
- [0.6598 0.3402]]
-</code></pre>
-<h3 id="example-2-three-states-with-absorbing-state-c">Example 2: Three States (With Absorbing State C)</h3>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_9_0.png" alt="png"></p>
+<p>In the figures above:</p>
+<ul>
+<li>Left (Reducible): Contains a &ldquo;trap&rdquo; (State 3), once entered, cannot return to start.</li>
+<li>Right (Irreducible): The version we &ldquo;surgically&rdquo; fixed (added $3 \to 1$), all states communicate.</li>
+</ul>
+<h3 id="periodicity">Periodicity</h3>
+<p>Periodicity describes the &ldquo;rhythm&rdquo; of the system returning to the original state. If it must take a fixed number of steps (e.g., even steps) to return home, then it is periodic.</p>
+<p>Mathematical Definition: For state $i$, we collect all step numbers $n$ that allow the system to start from $i$ and return to $i$ (i.e., $p_{ii}^{(n)} > 0$) into a set:
+</p>
 $$
-P_3=
-\begin{bmatrix}
-0.6 & 0.4 & 0.0\\
-0.2 & 0.5 & 0.3\\
-0.0 & 0.0 & 1.0
-\end{bmatrix},
-$$<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ============ Example 2: Three States (With Absorbing State C) ============</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># State encoding: 0=A, 1=B, 2=C(Absorbing)</span>
-</span></span><span style="display:flex;"><span>P3 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">0.6</span>, <span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.0</span>],
-</span></span><span style="display:flex;"><span>               [<span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.3</span>],
-</span></span><span style="display:flex;"><span>               [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>]], dtype<span style="color:#f92672">=</span>float)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ok3, rowsums3 <span style="color:#f92672">=</span> is_row_stochastic(P3)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P3 Row stochasticity check:&#34;</span>, ok3, <span style="color:#e6db74">&#34; Row sums =&#34;</span>, rowsums3)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>path3 <span style="color:#f92672">=</span> simulate_markov_chain(P3, init_state<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, n_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">40</span>, rng<span style="color:#f92672">=</span>rng)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>))
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(range(len(path3)), path3, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;o&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">1.5</span>, <span style="color:#e6db74">&#34;Sample Path</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">State C is never left once entered (Absorbing).&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Sample path of 3-state chain (2 is absorbing)&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;time t&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;state (0=A, 1=B, 2=C)&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Multi-path stats: Observe prob of absorbing into C over time</span>
-</span></span><span style="display:flex;"><span>pi0_3 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>])  <span style="color:#75715e"># Start from A</span>
-</span></span><span style="display:flex;"><span>emp3, th3 <span style="color:#f92672">=</span> simulate_many(P3, pi0_3, n_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, n_runs<span style="color:#f92672">=</span><span style="color:#ae81ff">5000</span>, rng<span style="color:#f92672">=</span>rng)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(th3[:,<span style="color:#ae81ff">2</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;theory P(X_t=C)&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(emp3[:,<span style="color:#ae81ff">2</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;empirical P(X_t=C)&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.2</span>, <span style="color:#e6db74">&#34;Theory and empirical match closely.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Prob of Absorbing State C increases monotonically.&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Absorption probability into state C over time&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;time t&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;probability in C&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># n-step transition matrix example</span>
-</span></span><span style="display:flex;"><span>P3_5 <span style="color:#f92672">=</span> n_step_transition(P3, <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P3^5 =</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, np<span style="color:#f92672">.</span>round(P3_5, <span style="color:#ae81ff">4</span>))
-</span></span></code></pre></div><pre><code>P3 Row stochasticity check: True  Row sums = [1. 1. 1.]
-</code></pre>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_8_1.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_8_2.png" alt="png"></p>
-<pre><code>P3^5 =
- [[0.242  0.2856 0.4724]
- [0.1428 0.1706 0.6866]
- [0.     0.     1.    ]]
-</code></pre>
-<h2 id="summary">Summary</h2>
+I_i = \{ n \ge 1 \mid p_{ii}^{(n)} > 0 \}
+$$<p>
+The period $d(i)$ of state $i$ is defined as the <strong>Greatest Common Divisor (GCD)</strong> of all numbers in this set:
+</p>
+$$
+d(i) = \text{gcd}(I_i)
+$$<ul>
+<li>Periodic: If $d(i) > 1$, state $i$ is called periodic.
 <ul>
-<li><strong>Stochastic Process</strong>: A family of random variables indexed by time.</li>
-<li><strong>Discrete/Continuous Time</strong>: This section focuses on Discrete Time Chains.</li>
-<li><strong>Markov Property</strong>: Next step depends only on current; homogeneous chain transition prob is time-independent.</li>
-<li><strong>Transition Matrix</strong>: Row-stochastic matrix; Multi-step transition uses power $P^n$; Distribution evolves as $\pi_t=\pi_0 P^t$.</li>
-<li><strong>Examples</strong>: Two-state (Weather), Three-state (Absorbing) demonstrate basic calculation and simulation.</li>
+<li>Here $d(i)$ is the period.</li>
 </ul>
-<h1 id="long-term-behavior-and-convergence-of-markov-chains">Long-term Behavior and Convergence of Markov Chains</h1>
-<h2 id="stationary-distribution">Stationary Distribution</h2>
+</li>
+<li>Aperiodic: If $d(i) = 1$, state $i$ is called aperiodic.
+<ul>
+<li>Meaning the GCD of the step set is 1.</li>
+<li>As long as state $i$ has a self-loop ($p_{ii} > 0$), it is aperiodic. This means you can come back in 1 step. Then $1$ is in set $I_i$. A set containing 1 must have a GCD of 1. So the state is aperiodic.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>&ldquo;Irreducible&rdquo; can be &ldquo;Periodic&rdquo; or &ldquo;Aperiodic&rdquo;.</p>
+<p>In an <strong>Irreducible</strong> Markov Chain, <strong>all states have the same period</strong>. That is, if one state in the chain is aperiodic, then the entire chain is aperiodic.</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> networkx <span style="color:#66d9ef">as</span> nx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw_subplot</span>(transitions, title, ax, pos_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;circular&#39;</span>):
+</span></span><span style="display:flex;"><span>    G <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>DiGraph()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u, v <span style="color:#f92672">in</span> transitions:
+</span></span><span style="display:flex;"><span>        G<span style="color:#f92672">.</span>add_edge(u, v)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pos_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;circular&#39;</span>:
+</span></span><span style="display:flex;"><span>        pos <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>circular_layout(G)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        pos <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>spring_layout(G, seed<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>) <span style="color:#75715e"># Fix seed for shape stability</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Draw nodes and edges</span>
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_nodes(G, pos, ax<span style="color:#f92672">=</span>ax, node_size<span style="color:#f92672">=</span><span style="color:#ae81ff">800</span>, node_color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightgray&#39;</span>, edgecolors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_labels(G, pos, ax<span style="color:#f92672">=</span>ax, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, font_weight<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bold&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Draw edges with arrows (use arc3 curve to avoid overlap)</span>
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, ax<span style="color:#f92672">=</span>ax, arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, 
+</span></span><span style="display:flex;"><span>                           connectionstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;arc3, rad=0.1&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check self-loops, mark manually for visibility</span>
+</span></span><span style="display:flex;"><span>    self_loops <span style="color:#f92672">=</span> list(nx<span style="color:#f92672">.</span>selfloop_edges(G))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> self_loops:
+</span></span><span style="display:flex;"><span>        nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, ax<span style="color:#f92672">=</span>ax, edgelist<span style="color:#f92672">=</span>self_loops, 
+</span></span><span style="display:flex;"><span>                               arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, connectionstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;arc3, rad=0.5&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_title(title, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Define 6 Cases ---</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Simple Periodic</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Simplest back and forth, period 2</span>
+</span></span><span style="display:flex;"><span>t_periodic <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Simple Aperiodic</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Self-loop breaks periodicity immediately, period 1</span>
+</span></span><span style="display:flex;"><span>t_aperiodic <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Irreducible &amp; Periodic</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># A big loop, everyone communicates (irreducible), but steps must be multiple of 3</span>
+</span></span><span style="display:flex;"><span>t_irr_per <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Irreducible &amp; Aperiodic</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Communicates (irreducible), but added a self-loop at 1, rhythm broken (aperiodic)</span>
+</span></span><span style="display:flex;"><span>t_irr_aper <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Reducible &amp; Periodic</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1 goes to 2 no return (reducible). 2 and 3 swap (period 2).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Note: recurrent class {2,3} is periodic.</span>
+</span></span><span style="display:flex;"><span>t_red_per <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6. Reducible &amp; Aperiodic</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1 goes to 2 no return (reducible). 2 has self-loop (aperiodic).</span>
+</span></span><span style="display:flex;"><span>t_red_aper <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Plotting ---</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span>axes <span style="color:#f92672">=</span> axes<span style="color:#f92672">.</span>flatten()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>draw_subplot(t_periodic, <span style="color:#e6db74">&#34;1. Periodic (General)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Period=2)&#34;</span>, axes[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_aperiodic, <span style="color:#e6db74">&#34;2. Aperiodic (General)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Self-loop)&#34;</span>, axes[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_irr_per, <span style="color:#e6db74">&#34;3. Irreducible &amp; Periodic</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Cycle=3)&#34;</span>, axes[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_irr_aper, <span style="color:#e6db74">&#34;4. Irreducible &amp; Aperiodic</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Cycle=3 + Self-loop)&#34;</span>, axes[<span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_red_per, <span style="color:#e6db74">&#34;5. Reducible &amp; Periodic</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(1-&gt;{2,3}, {2,3} is periodic)&#34;</span>, axes[<span style="color:#ae81ff">4</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_red_aper, <span style="color:#e6db74">&#34;6. Reducible &amp; Aperiodic</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(1-&gt;2, 2 is aperiodic)&#34;</span>, axes[<span style="color:#ae81ff">5</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_12_0.png" alt="png"></p>
+<h1 id="hia-chain">HIA Chain</h1>
+<p>HIA Chain is the &ldquo;Gold Standard&rdquo; in Markov Chains. It satisfies these three conditions simultaneously:</p>
+<ol>
+<li><strong>H (Homogeneous)</strong>: Transition rules $P$ never change.</li>
+<li><strong>I (Irreducible)</strong>: The whole system is connected, no dead ends.</li>
+<li><strong>A (Aperiodic)</strong>: No fixed cyclic rhythm.</li>
+</ol>
+<h2 id="asymptotic-behavior-of-hia-chains">Asymptotic Behavior of HIA Chains</h2>
+<p>Suppose </p>
+$$P = 
+\begin{bmatrix}
+0.7 & 0.3 \\
+0.4 & 0.6
+\end{bmatrix}$$<ol>
+<li>Day 1 ($t=1, P^1$):$$\begin{bmatrix}
+0.7 & 0.3 \\
+0.4 & 0.6
+\end{bmatrix}$$
+<ul>
+<li>Large difference between two rows: Sunny today vs Rainy today affects tomorrow drastically.</li>
+</ul>
+</li>
+<li>Day 5 ($t=5, P^5$):$$\begin{bmatrix}
+0.5725 & 0.4275 \\
+0.5700 & 0.4300
+\end{bmatrix}$$
+<ul>
+<li>Notice, the numbers in two rows start to look similar.</li>
+</ul>
+</li>
+<li>Day 20 ($t=20, P^{20}$):$$\begin{bmatrix}
+0.5714 & 0.4286 \\
+0.5714 & 0.4286
+\end{bmatrix}$$
+<ul>
+<li>Here we see, initial weather 20 days ago has no influence on current prediction.</li>
+</ul>
+</li>
+</ol>
+<h3 id="limit-theorem-for-hia-chains">Limit Theorem for HIA Chains</h3>
+<p>For an <strong>HIA</strong> (Homogeneous, Irreducible, Aperiodic) Markov Chain, if its transition matrix is $P$, then as steps $n$ tend to infinity:
+</p>
+$$\lim_{n \to \infty} p_{ij}^{(n)} = \pi_j$$<p>Here:</p>
+<ul>
+<li>$p_{ij}^{(n)}$: Probability of reaching state $j$ after $n$ steps starting from $i$.</li>
+<li>$\pi_j$: Steady state probability of state $j$ (constant, independent of starting state $i$).</li>
+</ul>
+<p>Matrix form:
+</p>
+$$ \lim_{n \to \infty} P^n = \begin{bmatrix} \pi_0 & \pi_1 & \dots & \pi_k \ \pi_0 & \pi_1 & \dots & \pi_k \ \vdots & \vdots & \ddots & \vdots \ \pi_0 & \pi_1 & \dots & \pi_k \end{bmatrix} $$<ul>
+<li>Rows are identical: Every row in the final matrix is exactly the same.</li>
+<li>Every row is $\pi$: Each row is that unique steady state distribution vector $\pi = [\pi_0, \pi_1, \dots, \pi_k]$.</li>
+<li>Initial value forgotten: No matter you start from row 1 (state 0) or row $k$ (state $k$), your final probability of staying in a state is the same.</li>
+</ul>
+<h3 id="stationary-distribution">Stationary Distribution</h3>
 <ul>
 <li>
 <p><strong>Definition</strong>: A probability vector $\pi$, if</p>
@@ -611,42 +823,7 @@ $$
 <p><strong>Significance</strong>: If the chain&rsquo;s distribution is $\pi$ at some moment, it remains $\pi$ at any subsequent moment. It describes the <strong>Long-term State Distribution</strong>.</p>
 </li>
 </ul>
-<h2 id="state-classification">State Classification</h2>
-<ul>
-<li>
-<p><strong>Reachability</strong>: State $i \to j$ if there exists some $n$ such that $(P^n)_{ij} > 0$.</p>
-</li>
-<li>
-<p><strong>Recurrent/Transient</strong>:</p>
-<ul>
-<li><strong>Recurrent</strong>: Starting from $i$, strictly returns to $i$ eventually.</li>
-<li><strong>Transient</strong>: There is non-zero probability of never returning.</li>
-</ul>
-</li>
-<li>
-<p><strong>Irreducible</strong>: All states are reachable from each other → Chain is a whole.</p>
-</li>
-<li>
-<p><strong>Periodicity</strong>:</p>
-<ul>
-<li>Period of state $i$: $\gcd\{ n : (P^n)_{ii} > 0 \}$.</li>
-<li>If Period = 1, it is <strong>Aperiodic</strong>.</li>
-</ul>
-</li>
-</ul>
-<h2 id="ergodic-theorem">Ergodic Theorem</h2>
-<ul>
-<li>
-<p><strong>Theorem</strong>:
-For a finite Markov chain, if it is <strong>Irreducible</strong> and <strong>Aperiodic</strong>, then there exists a unique stationary distribution $\pi$, and:</p>
-$$
-  \lim_{n \to \infty} P(X_n = j \mid X_0 = i) = \pi_j \quad \forall i,j
-  $$<p>Also, time average converges to probability average:</p>
-$$
-  \frac{1}{N}\sum_{t=1}^N \mathbf{1}_{\{X_t=j\}} \to \pi_j
-  $$</li>
-</ul>
-<h2 id="mixing-time">Mixing Time</h2>
+<h3 id="mixing-time">Mixing Time</h3>
 <blockquote>
 <p>Measure of convergence speed</p></blockquote>
 <ul>
@@ -662,8 +839,137 @@ $$
 <p>Mixing Time: Smallest $t$ such that $d(t) \leq \epsilon$.</p>
 </li>
 </ul>
-<h2 id="examples-1">Examples</h2>
-<h3 id="example-1-two-state-markov-chain">Example 1: Two-State Markov Chain</h3>
+<h2 id="ergodic-theorem">Ergodic Theorem</h2>
+<p><strong>Theorem</strong>:
+For a finite Markov chain, if it is <strong>Irreducible</strong> and <strong>Aperiodic</strong>, then there exists a unique stationary distribution $\pi$, and:</p>
+$$
+\lim_{n \to \infty} P(X_n = j \mid X_0 = i) = \pi_j \quad \forall i,j
+$$<p>Also, time average converges to probability average:</p>
+$$
+\frac{1}{N}\sum_{t=1}^N \mathbf{1}_{\{X_t=j\}} \to \pi_j
+$$<p>Intuitive explanation: The proportion of time you stay in a state over the long term is exactly equal to the steady state probability of that state.
+</p>
+$$Time Average = Space Average$$<p>This is invaluable in practice! It means we don&rsquo;t need to solve complex equations to find $\pi$, just let the computer &ldquo;run&rdquo; a simulation (Monte Carlo), count how long it stays in each pit, and we can infer $\pi$.</p>
+<h2 id="reversible-markov-chain">Reversible Markov Chain</h2>
+<p>A Markov Chain $X = \{X_n\}$ is called a <strong>Reversible HIA Chain</strong>, if it satisfies all following conditions:</p>
+<ol>
+<li>Structural Condition (HIA). First, it must be an HIA chain, meaning:
+<ul>
+<li>Homogeneous: Transition matrix $P$ constant.</li>
+<li>Irreducible: Any two states communicate.</li>
+<li>Aperiodic: Revisit steps have no fixed period (i.e., $\text{gcd}(I_i) = 1$).</li>
+</ul>
+</li>
+<li>Reversibility Condition. The stationary distribution $\pi$ and transition matrix $P$ must satisfy <strong>Detailed Balance Equation</strong>:
+$$\pi_i P_{ij} = \pi_j P_{ji}, \quad \forall i, j \in S$$</li>
+</ol>
+<blockquote>
+<p>Satisfying condition 1 guarantees the existence of a unique Stationary Distribution $\pi$.</p></blockquote>
+<h3 id="example">Example</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> networkx <span style="color:#66d9ef">as</span> nx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define an Undirected Graph</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Weight here can be understood as &#34;intimacy&#34; or &#34;channel width&#34; between two states</span>
+</span></span><span style="display:flex;"><span>G <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>Graph()
+</span></span><span style="display:flex;"><span>G<span style="color:#f92672">.</span>add_edge(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, weight<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>G<span style="color:#f92672">.</span>add_edge(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, weight<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Auto-build Transition Matrix P</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Rule: Prob of jumping from i to neighbor j = (weight of i,j) / (sum of all weights of i)</span>
+</span></span><span style="display:flex;"><span>nodes <span style="color:#f92672">=</span> sorted(G<span style="color:#f92672">.</span>nodes())
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> len(nodes)
+</span></span><span style="display:flex;"><span>P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n, n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> nodes:
+</span></span><span style="display:flex;"><span>    total_weight <span style="color:#f92672">=</span> sum([G[i][nbr][<span style="color:#e6db74">&#39;weight&#39;</span>] <span style="color:#66d9ef">for</span> nbr <span style="color:#f92672">in</span> G<span style="color:#f92672">.</span>neighbors(i)])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> G<span style="color:#f92672">.</span>neighbors(i):
+</span></span><span style="display:flex;"><span>        P[i, j] <span style="color:#f92672">=</span> G[i][j][<span style="color:#e6db74">&#39;weight&#39;</span>] <span style="color:#f92672">/</span> total_weight
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;--- Transition Matrix P ---&#34;</span>)
+</span></span><span style="display:flex;"><span>print(P)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Compute Steady State pi</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Trick: For undirected graph, pi_i is proportional to &#34;degree&#34; of node i (sum of weights of connected edges)</span>
+</span></span><span style="display:flex;"><span>degrees <span style="color:#f92672">=</span> [sum([G[i][nbr][<span style="color:#e6db74">&#39;weight&#39;</span>] <span style="color:#66d9ef">for</span> nbr <span style="color:#f92672">in</span> G<span style="color:#f92672">.</span>neighbors(i)]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> nodes]
+</span></span><span style="display:flex;"><span>total_degree_sum <span style="color:#f92672">=</span> sum(degrees)
+</span></span><span style="display:flex;"><span>pi <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([d <span style="color:#f92672">/</span> total_degree_sum <span style="color:#66d9ef">for</span> d <span style="color:#f92672">in</span> degrees])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">--- Steady State pi ---&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;pi = </span><span style="color:#e6db74">{</span>pi<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Verify Detailed Balance: pi_i * P_ij = pi_j * P_ji ?</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">--- Flow Check ---&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check State 0 &lt;-&gt; State 1</span>
+</span></span><span style="display:flex;"><span>flow_0_to_1 <span style="color:#f92672">=</span> pi[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> P[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>flow_1_to_0 <span style="color:#f92672">=</span> pi[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> P[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Flow 0 -&gt; 1: </span><span style="color:#e6db74">{</span>pi[<span style="color:#ae81ff">0</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> * </span><span style="color:#e6db74">{</span>P[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> = </span><span style="color:#e6db74">{</span>flow_0_to_1<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Flow 1 -&gt; 0: </span><span style="color:#e6db74">{</span>pi[<span style="color:#ae81ff">1</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> * </span><span style="color:#e6db74">{</span>P[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> = </span><span style="color:#e6db74">{</span>flow_1_to_0<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>isclose(flow_0_to_1, flow_1_to_0):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;✅ Detailed Balance satisfied between 0 and 1!&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;❌ Unbalanced&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Plot ---</span>
+</span></span><span style="display:flex;"><span>pos <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>spring_layout(G, seed<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw(G, pos, with_labels<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, node_color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightblue&#39;</span>, node_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>labels <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>get_edge_attributes(G, <span style="color:#e6db74">&#39;weight&#39;</span>)
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_edge_labels(G, pos, edge_labels<span style="color:#f92672">=</span>labels)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Reversible Markov Chain (Undirected Graph)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>--- Transition Matrix P ---
+[[0.         1.         0.        ]
+ [0.66666667 0.         0.33333333]
+ [0.         1.         0.        ]]
+
+--- Steady State pi ---
+pi = [0.33333333 0.5        0.16666667]
+
+--- Flow Check ---
+Flow 0 -&gt; 1: 0.3333 * 1.0000 = 0.3333
+Flow 1 -&gt; 0: 0.5000 * 0.6667 = 0.3333
+✅ Detailed Balance satisfied between 0 and 1!
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_18_1.png" alt="png"></p>
+<h3 id="detailed-balance-vs-global-balance">Detailed Balance vs. Global Balance</h3>
+<p>Detailed Balance (Local) $\implies$ Global Balance. Proof:</p>
+<p>Prove $\pi$ satisfies Global Balance Equation:
+</p>
+$$\sum_{i} \pi_i P_{ij} = \pi_j$$<ol>
+<li>Start: Look at LHS $\sum_{i} \pi_i P_{ij}$.</li>
+<li>Substitute: Use Detailed Balance ($\pi_i P_{ij} = \pi_j P_{ji}$), replace $\pi_i P_{ij}$ with $\pi_j P_{ji}$.$$\sum_{i} (\pi_j P_{ji})$$</li>
+<li>Extract: Pull constant $\pi_j$ out of summation.$$\pi_j \sum_{i} P_{ji}$$</li>
+<li>Normalize: Since $P$ is transition matrix, sum of probs from $j$ to all possible $i$ is 1 ($\sum_{i} P_{ji} = 1$).$$\pi_j \times 1 = \pi_j$$</li>
+<li>Conclusion: LHS equals RHS. Q.E.D.! ✅</li>
+</ol>
+<h3 id="asymptotic-distribution-of-reversible-hia-chains">Asymptotic Distribution of Reversible HIA Chains</h3>
+<p>&ldquo;Asymptotic distribution of reversible HIA Chains&rdquo; describes: As time tends to infinity, what state does a very special Markov chain stabilize into?</p>
+<ol>
+<li>HIA Chains: Acronym for Homogeneous, Irreducible, Aperiodic Markov Chains.
+<ul>
+<li>Like a card shuffler that never changes rules, reaches all cards, and has no fixed rhythm.</li>
+<li>Key: HIA chain guarantees that no matter where you start, after sufficient time (asymptotic behavior, $n \to \infty$), the probability of system being in each state converges to a fixed value.</li>
+</ul>
+</li>
+<li>Asymptotic Distribution: This &ldquo;fixed value&rdquo;. Limit of state distribution $\pi_n$ as $n \to \infty$.
+<ul>
+<li>In HIA chains, this is the Stationary Distribution ($\pi$).</li>
+<li>Satisfies $\pi = \pi P$ (Global Balance).</li>
+</ul>
+</li>
+<li>Reversibility: The &ldquo;magic sauce&rdquo;. If an HIA chain is reversible, its stationary distribution $\pi$ satisfies a stricter, simpler condition called Detailed Balance: $$\pi_i P_{ij} = \pi_j P_{ji}$$
+<ul>
+<li>Means: At steady state, &ldquo;flow&rdquo; from $i$ to $j$ equals &ldquo;flow&rdquo; from $j$ back to $i$.</li>
+</ul>
+</li>
+</ol>
+<p>The so-called &ldquo;Asymptotic distribution of reversible HIA Chains&rdquo; is simply the unique stationary distribution $\pi$ derived using Detailed Balance equation ($\pi_i P_{ij} = \pi_j P_{ji}$).</p>
+<h1 id="examples">Examples</h1>
+<h2 id="example-1-two-state-markov-chain">Example 1: Two-State Markov Chain</h2>
 <blockquote>
 <p>Simplest demo, clearly see convergence to stationary distribution.</p></blockquote>
 <p>Transition Matrix:</p>
@@ -672,7 +978,7 @@ P = \begin{bmatrix}
 0.9 & 0.1 \\
 0.5 & 0.5
 \end{bmatrix}
-$$<h4 id="a-stationary-distribution">(a) Stationary Distribution</h4>
+$$<h3 id="a-stationary-distribution">(a) Stationary Distribution</h3>
 <p>Solve equation:</p>
 $$
 \pi P = \pi
@@ -682,13 +988,13 @@ $$
 $$<p>Combined with $\pi_0 + \pi_1 = 1$, we get:</p>
 $$
 \pi = (0.833..., \; 0.166...)
-$$<h4 id="b-property-analysis">(b) Property Analysis</h4>
+$$<h3 id="b-property-analysis">(b) Property Analysis</h3>
 <ul>
-<li><strong>Irreducible</strong>. Because two states are reachable from each other.</li>
+<li><strong>Irreducible</strong>. Because two states are reachable from each other (both rows contain non-zero cross transitions).</li>
 <li><strong>Aperiodic</strong>: Because $P_{00}>0, P_{11}>0$ (self-loops), can stay at original state → Period = 1</li>
 </ul>
 <p>In summary, by <strong>Ergodic Theorem</strong>, this finite Markov chain is <strong>Ergodic</strong>, i.e., unique stationary distribution exists and converges to it from any initial value.</p>
-<h4 id="c-convergence-process">(c) Convergence Process</h4>
+<h3 id="c-convergence-process">(c) Convergence Process</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
 </span></span><span style="display:flex;"><span>
@@ -715,8 +1021,8 @@ $$<h4 id="b-property-analysis">(b) Property Analysis</h4>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Convergence to Stationary Distribution&#34;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_13_0.png" alt="png"></p>
-<h3 id="example-2-three-state-markov-chain">Example 2: Three-State Markov Chain</h3>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_29_0.png" alt="png"></p>
+<h2 id="example-2-three-state-markov-chain">Example 2: Three-State Markov Chain</h2>
 <blockquote>
 <p>Demonstrates existence and uniqueness of stationary distribution in more complex chains.</p></blockquote>
 <p>Transition Matrix:</p>
@@ -772,8 +1078,8 @@ $$<ul>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
 </span></span></code></pre></div><pre><code>Stationary distribution: [0.16666667 0.41666667 0.41666667]
 </code></pre>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_15_1.png" alt="png"></p>
-<h3 id="example-3-random-walk-on-a-cycle">Example 3: Random Walk on a Cycle</h3>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_31_1.png" alt="png"></p>
+<h2 id="example-3-random-walk-on-a-cycle">Example 3: Random Walk on a Cycle</h2>
 <blockquote>
 <p>Demonstrates effect of <strong>Periodicity</strong> on convergence.</p></blockquote>
 <ul>
@@ -859,8 +1165,8 @@ $$
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_17_0.png" alt="png"></p>
-<h3 id="example-4-numerical-measure-of-mixing-time-eg-total-variation-distance-convergence-speed">Example 4: Numerical Measure of Mixing Time (e.g. total variation distance convergence speed)</h3>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_33_0.png" alt="png"></p>
+<h2 id="example-4-numerical-measure-of-mixing-time-eg-total-variation-distance-convergence-speed">Example 4: Numerical Measure of Mixing Time (e.g. total variation distance convergence speed)</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Simulate Markov chains and compute total variation distance (TV) to the stationary distribution.</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># We will:</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define several transition matrices (fast/slow 3-state, cycle random walks n=5 and n=6).</span>
@@ -992,8 +1298,8 @@ $$
 </span></span><span style="display:flex;"><span>pi_table[<span style="color:#e6db74">&#39;stationary_str&#39;</span>] <span style="color:#f92672">=</span> pi_table[<span style="color:#e6db74">&#39;stationary&#39;</span>]<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> x: np<span style="color:#f92672">.</span>array2string(x, precision<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, separator<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;, &#39;</span>))
 </span></span><span style="display:flex;"><span>pi_table <span style="color:#f92672">=</span> pi_table[[<span style="color:#e6db74">&#39;chain&#39;</span>,<span style="color:#e6db74">&#39;stationary_str&#39;</span>]]
 </span></span><span style="display:flex;"><span>display(<span style="color:#e6db74">&#34;Stationary distributions&#34;</span>, pi_table)
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_19_0.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_19_1.png" alt="png"></p>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_35_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_35_1.png" alt="png"></p>
 <pre><code>'Stationary distributions'
 </code></pre>
 <div>
@@ -1131,7 +1437,7 @@ $$
                 
                     <li><a href="/post/mcmc-statics/random-variables/">Random Variables and Sampling</a></li>
                 
-                    <li><a href="/post/python-geodata/01-intro/">Lesson 1: Introduction to Remote Sensing Data and Python Setup</a></li>
+                    <li><a href="/notes/probability_theory_preliminaries/">[Course Notes] Probability Theory and Mathematical Statistics | Preliminaries</a></li>
                 
               </ul>
 
@@ -1143,13 +1449,9 @@ $$
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="http://localhost:1313/post/mcmc-statics/probability/" data-toggle="tooltip" data-placement="top" title="What is Probability?">&larr; Previous Post</a>
+              <a href="http://localhost:1313/post/mcmc-statics/monte-carlo/" data-toggle="tooltip" data-placement="top" title="Monte Carlo Sampling">&larr; Previous Post</a>
             </li>
           
-          
-            <li class="next">
-              <a href="http://localhost:1313/post/mcmc-statics/intro-mcmc/" data-toggle="tooltip" data-placement="top" title="Introduction to MCMC">Next Post &rarr;</a>
-            </li>
           
         </ul>
       
@@ -1172,17 +1474,23 @@ $$
         <li><a href="#stochastic-process">Stochastic Process</a></li>
         <li><a href="#markov-property">Markov Property</a></li>
         <li><a href="#transition-probability-matrix">Transition Probability Matrix</a></li>
-        <li><a href="#examples">Examples</a></li>
-        <li><a href="#summary">Summary</a></li>
+        <li><a href="#state-classification">State Classification</a></li>
+        <li><a href="#structural-properties">Structural Properties</a></li>
       </ul>
     </li>
-    <li><a href="#long-term-behavior-and-convergence-of-markov-chains">Long-term Behavior and Convergence of Markov Chains</a>
+    <li><a href="#hia-chain">HIA Chain</a>
       <ul>
-        <li><a href="#stationary-distribution">Stationary Distribution</a></li>
-        <li><a href="#state-classification">State Classification</a></li>
+        <li><a href="#asymptotic-behavior-of-hia-chains">Asymptotic Behavior of HIA Chains</a></li>
         <li><a href="#ergodic-theorem">Ergodic Theorem</a></li>
-        <li><a href="#mixing-time">Mixing Time</a></li>
-        <li><a href="#examples-1">Examples</a></li>
+        <li><a href="#reversible-markov-chain">Reversible Markov Chain</a></li>
+      </ul>
+    </li>
+    <li><a href="#examples">Examples</a>
+      <ul>
+        <li><a href="#example-1-two-state-markov-chain">Example 1: Two-State Markov Chain</a></li>
+        <li><a href="#example-2-three-state-markov-chain">Example 2: Three-State Markov Chain</a></li>
+        <li><a href="#example-3-random-walk-on-a-cycle">Example 3: Random Walk on a Cycle</a></li>
+        <li><a href="#example-4-numerical-measure-of-mixing-time-eg-total-variation-distance-convergence-speed">Example 4: Numerical Measure of Mixing Time (e.g. total variation distance convergence speed)</a></li>
       </ul>
     </li>
   </ul>
@@ -1244,7 +1552,7 @@ $$
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2025
+            2026
           
 
           

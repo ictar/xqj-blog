@@ -61,9 +61,9 @@
   "headline": "理解马尔可夫链",
   "description" : "了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性",
   "inLanguage" : "zh-cn",
-  "wordCount":  1819 ,
-  "datePublished" : "2025-08-21T00:00:00\u002b00:00",
-  "dateModified" : "2025-08-21T00:00:00\u002b00:00",
+  "wordCount":  3545 ,
+  "datePublished" : "2026-01-23T00:00:00\u002b00:00",
+  "dateModified" : "2026-01-23T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
   "keywords" : [ "马尔可夫链, 数学, python" ],
   "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/markov-chains\/",
@@ -312,11 +312,11 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 21, 2025
+  <i class="fas fa-calendar"></i>&nbsp;发表于 January 23, 2026
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1819&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3545&nbsp;个字
   
   
   &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/markov-chains/" lang="en">EN</a>
@@ -350,17 +350,24 @@
         <li><a href="#随机过程stochastic-process">随机过程（Stochastic Process）</a></li>
         <li><a href="#马尔可夫性质markov-property">马尔可夫性质（Markov Property）</a></li>
         <li><a href="#转移概率矩阵transition-matrix">转移概率矩阵（Transition Matrix）</a></li>
-        <li><a href="#示例">示例</a></li>
-        <li><a href="#小结">小结</a></li>
+        <li><a href="#状态分类">状态分类</a></li>
+        <li><a href="#链的结构性质-structural-properties">链的结构性质 (Structural Properties)</a></li>
       </ul>
     </li>
-    <li><a href="#马尔可夫链的长期行为和收敛性">马尔可夫链的长期行为和收敛性</a>
+    <li><a href="#hia-chain">HIA Chain</a>
       <ul>
-        <li><a href="#平稳分布-stationary-distribution">平稳分布 (Stationary Distribution)</a></li>
-        <li><a href="#状态分类">状态分类</a></li>
+        <li><a href="#hia-链的渐近行为-asymptotic-behavior">HIA 链的渐近行为 (Asymptotic Behavior)</a></li>
         <li><a href="#遍历定理-ergodic-theorem">遍历定理 (Ergodic Theorem)</a></li>
-        <li><a href="#混合时间-mixing-time">混合时间 (Mixing Time)</a></li>
+        <li><a href="#可逆马尔可夫链-reversible-markov-chain">可逆马尔可夫链 (Reversible Markov Chain)</a></li>
         <li><a href="#示例-1">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#示例-2">示例</a>
+      <ul>
+        <li><a href="#示例-1两状态马尔可夫链">示例 1：两状态马尔可夫链</a></li>
+        <li><a href="#示例-2三状态马尔可夫链">示例 2：三状态马尔可夫链</a></li>
+        <li><a href="#示例-3环形随机游走-random-walk-on-a-cycle">示例 3：环形随机游走 (Random Walk on a Cycle)</a></li>
+        <li><a href="#示例-4-混合时间-mixing-time-的数值度量比如-total-variation-distance-收敛速度">示例 4: 混合时间 (Mixing Time) 的数值度量（比如 total variation distance 收敛速度）</a></li>
       </ul>
     </li>
   </ul>
@@ -368,12 +375,21 @@
   </aside>
 
 <h1 id="马尔可夫链的基本概念">马尔可夫链的基本概念</h1>
+<p><strong>马尔可夫链 (Markov Chain)</strong> 的严格数学定义如下：</p>
+<p>假设我们有一个随机变量序列 $X_0, X_1, X_2, \dots$，它们的值都取自同一个状态空间 $S$。如果对于任意的时间点 $n$ 和任意的状态 $i,j,k,\dots$，这个序列都满足以下<strong>条件概率</strong>等式：</p>
+$$
+\mathbb{P}(X_{n+1}=j \mid X_n=i, X_{n-1}=i_{n-1},\dots,X_0=i_0)=\mathbb{P}(X_{n+1}=j\mid X_n=i)
+$$<p>那么这个随机过程 $\{X_n\}$  就被称为 <strong>马尔可夫链</strong>。</p>
 <h2 id="随机过程stochastic-process">随机过程（Stochastic Process）</h2>
 <h3 id="什么是随机过程">什么是随机过程</h3>
 <ul>
-<li>随机过程就是一组按“时间/索引”排列的随机变量 $\{X_t: t\in \mathcal{T}\}$。</li>
+<li>随机过程就是一组按“时间/索引”排列的随机变量 $\{X_t: t\in \mathcal{T}\}$。
+<ul>
+<li>每个 $X_n$ 的概率分布通常是不同的</li>
+</ul>
+</li>
 <li>$\mathcal{T}$ 是索引集合：可以是离散的（$t=0,1,2,\dots$）也可以是连续的（$t\in \mathbb{R}_{\ge 0}$）。</li>
-<li>每个 $X_t$ 取值于一个<strong>状态空间</strong> $\mathcal{S}$（可离散/连续）。</li>
+<li>每个 $X_t$ 取值于同一个<strong>状态空间</strong> $\mathcal{S}$（可离散/连续）。</li>
 </ul>
 <h3 id="离散时间-vs-连续时间">离散时间 vs 连续时间</h3>
 <ul>
@@ -383,22 +399,31 @@
 <h2 id="马尔可夫性质markov-property">马尔可夫性质（Markov Property）</h2>
 <blockquote>
 <p><strong>无记忆性</strong>：下一步只取决于当前，不取决于更久远的历史。</p></blockquote>
-<p>离散时间、<strong>齐次</strong>马尔可夫链（时间不变）定义为：</p>
+<p>离散时间、<strong>齐次</strong>马尔可夫链（ Homogeneous Markov Chain）（时间不变）定义为：</p>
 $$
 \mathbb{P}(X_{t+1}=j \mid X_t=i, X_{t-1},\dots,X_0)=\mathbb{P}(X_{t+1}=j\mid X_t=i)=p_{ij},
-$$<p>其中 $p_{ij}$ 与 $t$ 无关（齐次）。如果允许随时间变化，就是<strong>非齐次</strong>马尔可夫链。</p>
+$$<p>其中 $p_{ij}$ 与 $t$ 无关（齐次）。</p>
+<p>也就是说，如果一个马尔可夫链是齐次的，这意味着它的转移规则是永恒不变的。例如，不管是在第 1 天，还是第 100 天，只要当前是“晴天”，明天变成“雨天”的概率如果是 0.3，那么它永远都是 0.3。</p>
+<p>如果允许随时间变化，就是<strong>非齐次</strong>马尔可夫链。</p>
 <p><strong>推论（Chapman–Kolmogorov）</strong>：多步转移概率满足</p>
 $$
 P^{(n+m)} = P^{(n)}P^{(m)},
 $$<p>特别地，$n$ 步转移矩阵 $P^{(n)}=P^n$。</p>
 <h2 id="转移概率矩阵transition-matrix">转移概率矩阵（Transition Matrix）</h2>
 <h3 id="定义与性质">定义与性质</h3>
-<ul>
-<li>
-<p>对于有限状态空间 $\mathcal{S}=\{1,\dots, S\}$，定义<strong>转移矩阵</strong> $P=[p_{ij}]_{S\times S}$，其中</p>
+<p>对于有限状态空间 $\mathcal{S}=\{1,\dots, S\}$，我们可以通过条件概率来定义<strong>转移矩阵</strong> $P=[p_{ij}]_{S\times S}$，其中</p>
 $$
-  p_{ij}=\mathbb{P}(X_{t+1}=j\mid X_t=i).
-  $$</li>
+  p_{ij}^{(t+1)}=\mathbb{P}(X_{t+1}=j\mid X_t=i).
+  $$<ul>
+<li>
+<p>在 <code>t+1</code> 时处于状态 <code>j</code> 的概率为：
+</p>
+$$
+  p_{j}^{(t+1)}=\sum^m_{i=1}\mathbb{P}(X_{t+1}=j\mid X_t=i)p_i^{t}
+  $$<ul>
+<li>也就是说，<code>t+1</code>时刻某个状态 (j) 的概率 = $\sum$ [ (<code>t</code>时刻在状态 $i$ 的概率 $p_i^t$) $\times$ (从 $i$ 跳到 $j$ 的概率) ]</li>
+</ul>
+</li>
 <li>
 <p><strong>行随机（row-stochastic）</strong>：每一行是一组概率</p>
 $$
@@ -407,10 +432,545 @@ $$
 <li>
 <p>记分布向量为行向量 $\pi_t=[\mathbb{P}(X_t=1),\dots,\mathbb{P}(X_t=S)]$，则</p>
 $$
-  \pi_{t+1}=\pi_t P,\quad \pi_t=\pi_0 P^t.
-  $$</li>
+  \pi_{t+1} = \pi_t \times P
+  $$<ul>
+<li>这个向量列出了处于每一个状态的概率</li>
+<li>对于齐次马尔可夫链，有 $\pi_t=\pi_0 P^t$
+<ul>
+<li>$t=1$ (明天):$\pi_1 = \pi_0 \times P$</li>
+<li>$t=2$ (后天):$\pi_2 = \pi_1 \times P$ 把上面的 $\pi_1$ 代入，就变成了：$\pi_2 = (\pi_0 \times P) \times P = \pi_0 \times P^2$</li>
+<li>$t=3$ (大后天):$\pi_3 = \pi_2 \times P$ 把 $\pi_2$ 代入：$\pi_3 = (\pi_0 \times P^2) \times P = \pi_0 \times P^3$</li>
+<li>以此类推，到了第 $t$ 天，就是 $\pi_t = \pi_0 P^t$。</li>
 </ul>
-<h2 id="示例">示例</h2>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="示例一">示例一</h4>
+<p>假设状态空间只有两个：$S = \{0, 1\}$ （比如 0 代表晴，1 代表雨）。那么就有四种可能的转移情况，我们可以写成一个 $2 \times 2$ 的矩阵：</p>
+$$P = 
+\begin{bmatrix}
+p_{00} & p_{01} \\
+p_{10} & p_{11}
+\end{bmatrix}$$<p>
+第一行代表从状态 0 (晴) 出发的情况：</p>
+<ul>
+<li>$p_{00}$: 晴 $\to$ 晴；$p_{01}$: 晴 $\to$ 雨</li>
+<li>$p_{00} + p_{01} = 1$</li>
+</ul>
+<p>第二行代表从状态 1 (雨) 出发的情况：</p>
+<ul>
+<li>$p_{10}$: 雨 $\to$ 晴；$p_{11}$: 雨 $\to$ 雨</li>
+<li>$p_{10} + p_{11} = 1$</li>
+</ul>
+<p>假设 $\pi_t = [0.5, 05]$，也就是说当前晴天和雨天的概率各占一半。而概率转移矩阵矩阵 $P$：
+</p>
+$$P = 
+\begin{bmatrix}
+0.7 & 0.3 \\
+0.4 & 0.6
+\end{bmatrix}$$<p>那么，
+</p>
+$$
+\pi_{t+1} = \pi_t \times P
+= [0.5, 05] \times \begin{bmatrix}
+0.7 & 0.3 \\
+0.4 & 0.6
+\end{bmatrix}
+= [ 0.5 \times 0.7 + 0.5 \times 0.4, 0.5 \times 0.3 + 0.5 \times 0.6 ]
+= \pi_{t+1} = [0.55, 0.45]
+$$<p>
+这意味着明天有 55% 的概率是晴天，45% 的概率是雨天。</p>
+<h2 id="状态分类">状态分类</h2>
+<ul>
+<li>
+<p><strong>可达性 (Reachability)</strong>：如果从状态 $i$ 出发，经过有限步（一步或多步）有可能到达状态 $j$（概率 &gt; 0），我们就说 状态 $j$ 是从状态 $i$ 可达的。</p>
+<ul>
+<li>符号： 通常记作 $i \to j$。</li>
+<li>直觉： 地图上有一条路（或者一连串路）能从 A 开到 B。</li>
+</ul>
+</li>
+<li>
+<p><strong>常返/暂留</strong>：</p>
+<ul>
+<li><strong>常返态 (Recurrent State)</strong>：从 $i$ 出发，最终必然返回 $i$。
+<ul>
+<li>即，只要你从这里出发，无论经过多少步，系统最终一定（概率为 1）会再次回到这里。</li>
+<li>常返态里还有一个非常极端的特殊情况，叫做 <strong>吸收态 (Absorbing State)</strong>。如果一个状态一旦进入就再也出不去了（即 $p_{ii} = 1$），它就是吸收态。它像一个黑洞，一旦被吸进去就锁死在那里。</li>
+</ul>
+</li>
+<li><strong>瞬态 (Transient State)</strong>：有非零概率永远不返回。
+* 即，从这里出发，一旦离开了，就有可能（概率 &gt; 0）永远不回来了。</li>
+</ul>
+</li>
+<li>
+<p><strong>非本质态 (Inessential State)</strong></p>
+<ul>
+<li>定义： 如果从状态 $i$ 出发，能够到达某个状态 $j$ ($i \to j$)，但是从那个状态 $j$ 再也回不到 $i$ ($j \nrightarrow i$)，那么 $i$ 就是<strong>非本质态</strong>。</li>
+<li>核心特征： <strong>“有去无回”</strong>。这意味着如果你处于状态 $i$，你随时面临着“泄露”到另一个你永远无法回头的区域的风险。</li>
+<li>联系： 在有限状态马尔可夫链中，非本质态 $\approx$ 瞬态 (Transient)。</li>
+</ul>
+</li>
+<li>
+<p><strong>本质态 (Essential State)</strong></p>
+<ul>
+<li>定义： 如果从状态 $i$ 出发能到达的所有状态 $j$，也都一定能<strong>回访</strong>状态 $i$（即如果 $i \to j$，那么必须 $j \to i$），那么 $i$ 就是本质态。</li>
+<li>核心特征： <strong>“肥水不流外人田”</strong>。一旦你处于一个本质态，或者由本质态组成的集合里，无论你怎么走，你永远会被困在这个集合内部，绝对跑不出去。</li>
+<li>联系： 在有限状态链中，本质态 $\approx$ 常返态 (Recurrent)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="示例一-1">示例一</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> networkx <span style="color:#66d9ef">as</span> nx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 定义状态和转移规则</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (起点, 终点, 概率)</span>
+</span></span><span style="display:flex;"><span>transitions <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.5</span>), <span style="color:#75715e"># 状态1 50% 回到自己</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.5</span>), <span style="color:#75715e"># 状态1 50% 去状态2</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>), <span style="color:#75715e"># 状态2 100% 去状态3</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>)  <span style="color:#75715e"># 状态3 100% 留在大结局</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 创建图对象</span>
+</span></span><span style="display:flex;"><span>G <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>DiGraph()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> u, v, p <span style="color:#f92672">in</span> transitions:
+</span></span><span style="display:flex;"><span>    G<span style="color:#f92672">.</span>add_edge(u, v, weight<span style="color:#f92672">=</span>p)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 设置绘图布局 (让它们排成一行)</span>
+</span></span><span style="display:flex;"><span>pos <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>: (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>), <span style="color:#ae81ff">2</span>: (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>), <span style="color:#ae81ff">3</span>: (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>)}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. 绘制节点</span>
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_nodes(G, pos, node_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>, node_color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightblue&#39;</span>, edgecolors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_labels(G, pos, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. 绘制边 (箭头)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 直线边</span>
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, edgelist<span style="color:#f92672">=</span>[(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)], arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 自环边 (弧形)</span>
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, edgelist<span style="color:#f92672">=</span>[(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)], connectionstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;arc3, rad=0.5&#39;</span>, arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6. 添加概率标签</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#e6db74">&#34;0.5&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) <span style="color:#75715e"># 1-&gt;1</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.05</span>, <span style="color:#e6db74">&#34;0.5&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) <span style="color:#75715e"># 1-&gt;2</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">1.5</span>, <span style="color:#ae81ff">0.05</span>, <span style="color:#e6db74">&#34;1.0&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) <span style="color:#75715e"># 2-&gt;3</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#e6db74">&#34;1.0&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;center&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>) <span style="color:#75715e"># 3-&gt;3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Markov Chain Visualization&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_6_0.png" alt="png"></p>
+<p>在上面的 3 状态系统 ($S=\{1, 2, 3\}$)中：</p>
+<ul>
+<li>状态 1: 有 50% 概率留在他自己这里 ($1 \to 1$)，有 50% 概率跳到 状态 2 ($1 \to 2$)。</li>
+<li>状态 2: 100% 概率跳到 状态 3 ($2 \to 3$)。</li>
+<li>状态 3: 100% 概率留在他自己这里 ($3 \to 3$)。</li>
+</ul>
+<p>其中，</p>
+<ul>
+<li>状态 1
+<ul>
+<li>它可以到达状态 2 ($1 \to 2$)。</li>
+<li><strong>瞬态 (Transient)</strong>。虽然它有 50% 的概率暂时留下，但从长远来看，它最终肯定会溜进状态 2，并且一旦离开，就再也没有路可以回去了。</li>
+<li><strong>非本质 (Inessential)</strong>。因为状态 2 不能回到状态 1，也就是说存在一个“有去无回”的路。</li>
+</ul>
+</li>
+<li>状态 2
+<ul>
+<li>它可以到达状态 3 ($2 \to 3$)</li>
+<li><strong>瞬态 (Transient)</strong>。它只能到达状态 3，并且一旦离开，就再也没有路可以回去了。</li>
+<li><strong>非本质 (Inessential)</strong>。因为状态 3 不能回到状态 2，也就是说存在一个“有去无回”的路。</li>
+</ul>
+</li>
+<li>状态 3
+<ul>
+<li>它只能到达它自己。</li>
+<li><strong>常返态 (Recurrent)</strong>，也是<strong>吸收态 (Absorbing State)</strong>。</li>
+<li>自己当然能回到自己，没有“泄露”到任何回不来的地方，所以它是 <strong>本质 (Essential)</strong> 的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="链的结构性质-structural-properties">链的结构性质 (Structural Properties)</h2>
+<h3 id="不可约性-irreducibility">不可约性 (Irreducibility)</h3>
+<p>在这个链中，<strong>任意一个状态</strong>出发，都有可能（经过一步或多步）到达任意另一个状态。</p>
+<ul>
+<li>数学符号： 对任意 $i, j \in S$，都有 $i \leftrightarrow j$（互通）。</li>
+<li>直观理解： 整个系统是一个紧密的整体，没有被隔离的孤岛。</li>
+<li>通俗理解： 如果一个城市称之为不可约，这意味着这个城市极其通畅。无论你现在在哪（比如状态 $i$），也无论你想去哪（比如状态 $j$），你总能找到一条路过去（可能需要换乘几次，也就是经过几步，但一定能到）。</li>
+</ul>
+<p><strong>可约 (Reducible)</strong>： 这意味着城市里有“陷阱”或者“单行道区域”。一旦你进入了某个区域，就再也无法回到原来的地方了。系统被分成了不同的“阶级”或“部分”。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> networkx <span style="color:#66d9ef">as</span> nx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw_chain</span>(transitions, title, ax):
+</span></span><span style="display:flex;"><span>    G <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>DiGraph()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 添加边和权重</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u, v, p <span style="color:#f92672">in</span> transitions:
+</span></span><span style="display:flex;"><span>        G<span style="color:#f92672">.</span>add_edge(u, v, weight<span style="color:#f92672">=</span>p)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 使用圆形布局</span>
+</span></span><span style="display:flex;"><span>    pos <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>circular_layout(G)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 画节点</span>
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_nodes(G, pos, ax<span style="color:#f92672">=</span>ax, node_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>, node_color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightblue&#39;</span>, edgecolors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_labels(G, pos, ax<span style="color:#f92672">=</span>ax, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>, font_weight<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bold&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 画边 (带弧度，避免重叠)</span>
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, ax<span style="color:#f92672">=</span>ax, arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>, 
+</span></span><span style="display:flex;"><span>                           connectionstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;arc3, rad=0.15&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 标注概率</span>
+</span></span><span style="display:flex;"><span>    edge_labels <span style="color:#f92672">=</span> {(u, v): <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>p<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">for</span> u, v, p <span style="color:#f92672">in</span> transitions}
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_edge_labels(G, pos, edge_labels<span style="color:#f92672">=</span>edge_labels, ax<span style="color:#f92672">=</span>ax, label_pos<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_title(title, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. 定义可约链 (Reducible) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这里的 &#34;3&#34; 是个死胡同 (吸收态)，回不到 &#34;1&#34; 或 &#34;2&#34;</span>
+</span></span><span style="display:flex;"><span>transitions_reducible <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.5</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.5</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>) 
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. 定义不可约链 (Irreducible) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 我们添加了 3-&gt;1，形成闭环，所有状态互通</span>
+</span></span><span style="display:flex;"><span>transitions_irreducible <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.5</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.5</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1.0</span>), 
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1.0</span>) 
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 绘图 ---</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>draw_chain(transitions_reducible, <span style="color:#e6db74">&#34;Reducible (Broken Flow)&#34;</span>, axes[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>draw_chain(transitions_irreducible, <span style="color:#e6db74">&#34;Irreducible (Connected Flow)&#34;</span>, axes[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_9_0.png" alt="png"></p>
+<p>在上面的图中：</p>
+<ul>
+<li>左图 (可约, Reducible): 包含一个“陷阱”（状态 3），一旦进去就回不到起点了。</li>
+<li>右图 (不可约, Irreducible): 也就是刚才我们“手术”修复后的版本（添加 $3 \to 1$），所有状态互通。</li>
+</ul>
+<h3 id="周期性-periodicity">周期性 (Periodicity)</h3>
+<p>周期性描述的是系统回到原状态的“节奏感”。如果必须经过固定的步数（比如偶数步）才能回家，那它就是有周期的。</p>
+<p>数学定义：对于状态 $i$，我们将所有能够让系统从 $i$ 出发并回到 $i$（即 $p_{ii}^{(n)} > 0$）的步数 $n$ 收集起来，构成一个集合：
+</p>
+$$
+I_i = \{ n \ge 1 \mid p_{ii}^{(n)} > 0 \}
+$$<p>
+状态 $i$ 的周期 $d(i)$ 定义为这个集合中所有数的<strong>最大公约数 (Greatest Common Divisor, GCD)</strong>：
+</p>
+$$
+d(i) = \text{gcd}(I_i)
+$$<ul>
+<li>周期性 (Periodic): 如果 $d(i) > 1$，则称状态 $i$ 是周期的。
+<ul>
+<li>这里的 $d(i)$ 就是周期</li>
+</ul>
+</li>
+<li>非周期性 (Aperiodic): 如果 $d(i) = 1$，则称状态 $i$ 是非周期的。
+<ul>
+<li>也就是说，步数集合的公约数只能是 1。</li>
+<li>只要状态 $i$ 有一个自环（Self-loop, $p_{ii} > 0$），它就是非周期的。这意味着你可以 1 步回来。那么 $1$ 就在集合 $I_i$ 里。包含 1 的集合，其最大公约数必然是 1。所以该状态是非周期的。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>“不可约”可以是“周期性”的，也可以是非周期的。</p>
+<p>在一个<strong>不可约</strong>马尔可夫链中，<strong>所有状态的周期都是相同的</strong>。也就是说，如果链中有一个状态是非周期的，那么整个链都是非周期的。</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> networkx <span style="color:#66d9ef">as</span> nx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw_subplot</span>(transitions, title, ax, pos_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;circular&#39;</span>):
+</span></span><span style="display:flex;"><span>    G <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>DiGraph()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u, v <span style="color:#f92672">in</span> transitions:
+</span></span><span style="display:flex;"><span>        G<span style="color:#f92672">.</span>add_edge(u, v)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pos_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;circular&#39;</span>:
+</span></span><span style="display:flex;"><span>        pos <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>circular_layout(G)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        pos <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>spring_layout(G, seed<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>) <span style="color:#75715e"># 固定种子以保持形状</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 绘制节点和边</span>
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_nodes(G, pos, ax<span style="color:#f92672">=</span>ax, node_size<span style="color:#f92672">=</span><span style="color:#ae81ff">800</span>, node_color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightgray&#39;</span>, edgecolors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_labels(G, pos, ax<span style="color:#f92672">=</span>ax, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, font_weight<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bold&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 绘制带箭头的边 (使用arc3弯曲，防止重叠)</span>
+</span></span><span style="display:flex;"><span>    nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, ax<span style="color:#f92672">=</span>ax, arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, 
+</span></span><span style="display:flex;"><span>                           connectionstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;arc3, rad=0.1&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 检查是否有自环 (Self-loop)，手动标记一下方便观察</span>
+</span></span><span style="display:flex;"><span>    self_loops <span style="color:#f92672">=</span> list(nx<span style="color:#f92672">.</span>selfloop_edges(G))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> self_loops:
+</span></span><span style="display:flex;"><span>        nx<span style="color:#f92672">.</span>draw_networkx_edges(G, pos, ax<span style="color:#f92672">=</span>ax, edgelist<span style="color:#f92672">=</span>self_loops, 
+</span></span><span style="display:flex;"><span>                               arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&gt;&#39;</span>, arrowsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, connectionstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;arc3, rad=0.5&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_title(title, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 定义六种情况 ---</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 简单的周期性 (Periodic)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 最简单的一来一回，周期为 2</span>
+</span></span><span style="display:flex;"><span>t_periodic <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 简单的非周期性 (Aperiodic)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 只要有自环，立刻打破周期，周期为 1</span>
+</span></span><span style="display:flex;"><span>t_aperiodic <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 不可约 &amp; 周期性 (Irreducible &amp; Periodic)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 一个大环，大家互通（不可约），但步数必须是 3 的倍数（周期 3）</span>
+</span></span><span style="display:flex;"><span>t_irr_per <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. 不可约 &amp; 非周期性 (Irreducible &amp; Aperiodic)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 大家互通（不可约），但在 1 处加了个自环，节奏乱了（非周期）</span>
+</span></span><span style="display:flex;"><span>t_irr_aper <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. 可约 &amp; 周期性 (Reducible &amp; Periodic)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1 去 2 回不来（可约）。2 和 3 互跳（周期 2）。</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 注意：这里指 recurrent class {2,3} 是周期的。</span>
+</span></span><span style="display:flex;"><span>t_red_per <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6. 可约 &amp; 非周期性 (Reducible &amp; Aperiodic)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1 去 2 回不来（可约）。2 有自环（非周期）。</span>
+</span></span><span style="display:flex;"><span>t_red_aper <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 绘图 ---</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span>axes <span style="color:#f92672">=</span> axes<span style="color:#f92672">.</span>flatten()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>draw_subplot(t_periodic, <span style="color:#e6db74">&#34;1. Periodic (General)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Period=2)&#34;</span>, axes[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_aperiodic, <span style="color:#e6db74">&#34;2. Aperiodic (General)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Self-loop)&#34;</span>, axes[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_irr_per, <span style="color:#e6db74">&#34;3. Irreducible &amp; Periodic</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Cycle=3)&#34;</span>, axes[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_irr_aper, <span style="color:#e6db74">&#34;4. Irreducible &amp; Aperiodic</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Cycle=3 + Self-loop)&#34;</span>, axes[<span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_red_per, <span style="color:#e6db74">&#34;5. Reducible &amp; Periodic</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(1-&gt;{2,3}, {2,3} is periodic)&#34;</span>, axes[<span style="color:#ae81ff">4</span>])
+</span></span><span style="display:flex;"><span>draw_subplot(t_red_aper, <span style="color:#e6db74">&#34;6. Reducible &amp; Aperiodic</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(1-&gt;2, 2 is aperiodic)&#34;</span>, axes[<span style="color:#ae81ff">5</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_12_0.png" alt="png"></p>
+<h1 id="hia-chain">HIA Chain</h1>
+<p>HIA Chain 是马尔可夫链中的“黄金标准”。它同时满足这三个条件时：</p>
+<ol>
+<li><strong>H (Homogeneous - 齐次性)</strong>: 转移规则 $P$ 永远不变。</li>
+<li><strong>I (Irreducible - 不可约性)</strong>: 整个系统是连通的，没有死胡同。</li>
+<li><strong>A (Aperiodic - 非周期性)</strong>: 没有固定的循环节奏。</li>
+</ol>
+<h2 id="hia-链的渐近行为-asymptotic-behavior">HIA 链的渐近行为 (Asymptotic Behavior)</h2>
+<p>假设 </p>
+$$P = 
+\begin{bmatrix}
+0.7 & 0.3 \\
+0.4 & 0.6
+\end{bmatrix}$$<ol>
+<li>第一天 ($t=1, P^1$):$$\begin{bmatrix}
+0.7 & 0.3 \\
+0.4 & 0.6
+\end{bmatrix}$$
+<ul>
+<li>此时两行差别很大：今天晴和今天雨，对明天的影响截然不同</li>
+</ul>
+</li>
+<li>第五天 ($t=5, P^5$):$$\begin{bmatrix}
+0.5725 & 0.4275 \\
+0.5700 & 0.4300
+\end{bmatrix}$$
+<ul>
+<li>注意看，这两行的数字是不是开始变得有点像了？</li>
+</ul>
+</li>
+<li>第二十天 ($t=20, P^{20}$):$$\begin{bmatrix}
+0.5714 & 0.4286 \\
+0.5714 & 0.4286
+\end{bmatrix}$$
+<ul>
+<li>这里可以看出，20 天前的初始天气对现在的预测已经没有影响了</li>
+</ul>
+</li>
+</ol>
+<h3 id="hia-链的极限定理-limit-theorem">HIA 链的极限定理 (Limit Theorem)</h3>
+<p>对于一个 <strong>HIA</strong>（齐次、不可约、非周期）的马尔可夫链，如果它的转移矩阵是 $P$，那么当步数 $n$ 趋向于无穷大时，会有如下结论：
+</p>
+$$\lim_{n \to \infty} p_{ij}^{(n)} = \pi_j$$<p>这里的符号含义是：</p>
+<ul>
+<li>$p_{ij}^{(n)}$：表示从状态 $i$ 出发，经过 $n$ 步后，到达状态 $j$ 的概率。</li>
+<li>$\pi_j$：表示状态 $j$ 的 稳态概率（它是一个常数，与起始状态 $i$ 无关）。</li>
+</ul>
+<p>矩阵形式如下：
+</p>
+$$ \lim_{n \to \infty} P^n = \begin{bmatrix} \pi_0 & \pi_1 & \dots & \pi_k \ \pi_0 & \pi_1 & \dots & \pi_k \ \vdots & \vdots & \ddots & \vdots \ \pi_0 & \pi_1 & \dots & \pi_k \end{bmatrix} $$<ul>
+<li>行行相同： 最终矩阵的每一行都是完全一样的。</li>
+<li>每一行都是 $\pi$： 每一行都是那个唯一的稳态分布向量 $\pi = [\pi_0, \pi_1, \dots, \pi_k]$。</li>
+<li>遗忘初值： 无论你是从第 1 行（状态 0）出发，还是从第 $k$ 行（状态 $k$）出发，你最终停留在某个状态的概率都是一样的。</li>
+</ul>
+<h3 id="平稳分布-stationary-distribution">平稳分布 (Stationary Distribution)</h3>
+<ul>
+<li>
+<p><strong>定义</strong>：一个概率向量 $\pi$，如果</p>
+$$
+  \pi P = \pi, \quad \sum_i \pi_i = 1, \; \pi_i \geq 0
+  $$<p>那么 $\pi$ 称为该马尔可夫链的 <strong>平稳分布</strong>。</p>
+</li>
+<li>
+<p><strong>意义</strong>：如果链在某个时刻的分布是 $\pi$，那么在之后任意时刻仍然保持 $\pi$。它描述了 <strong>长期状态分布</strong>。</p>
+</li>
+</ul>
+<h3 id="混合时间-mixing-time">混合时间 (Mixing Time)</h3>
+<blockquote>
+<p>收敛速度的度量</p></blockquote>
+<ul>
+<li>
+<p><strong>定义</strong>：链从初始分布 $\mu$ 到接近平稳分布所需的时间。</p>
+</li>
+<li>
+<p>常用距离：<strong>全变差距离 (total variation distance)</strong></p>
+$$
+  d(t) = \max_\mu \| \mu P^t - \pi \|_{TV}
+  $$</li>
+<li>
+<p>混合时间：最小 $t$，使得 $d(t) \leq \epsilon$。</p>
+</li>
+</ul>
+<h2 id="遍历定理-ergodic-theorem">遍历定理 (Ergodic Theorem)</h2>
+<p><strong>定理</strong>：
+对一个有限马尔可夫链，如果它是 <strong>不可约</strong> 且 <strong>非周期</strong>，则存在唯一平稳分布 $\pi$，并且：</p>
+$$
+\lim_{n \to \infty} P(X_n = j \mid X_0 = i) = \pi_j \quad \forall i,j
+$$<p>同时，时间平均收敛到概率平均：</p>
+$$
+\frac{1}{N}\sum_{t=1}^N \mathbf{1}_{\{X_t=j\}} \to \pi_j
+$$<p>通俗解释：你长期停留在某个状态的时间比例，恰好等于该状态的稳态概率。
+</p>
+$$Time Average = Space Average(时间平均 = 空间平均)$$<p>这在实际应用中价值连城！这意味着我们不需要去解复杂的方程组求 $\pi$，只需要让计算机模拟“跑”一遍（蒙特卡洛模拟），数数它在每个坑里呆了多久，就能反推出 $\pi$。</p>
+<h2 id="可逆马尔可夫链-reversible-markov-chain">可逆马尔可夫链 (Reversible Markov Chain)</h2>
+<p>一个马尔可夫链 $X = \{X_n\}$ 被称为 <strong>可逆 HIA 链 (Reversible HIA Chain)</strong>，必须同时满足以下所有条件：</p>
+<ol>
+<li>基础结构条件 (HIA)。首先，它必须是一个 HIA 链，这意味着：
+<ul>
+<li>齐次性 (Homogeneous): 转移矩阵 $P$ 是恒定的，不随时间 $t$ 变化。</li>
+<li>不可约性 (Irreducible): 状态空间 $S$ 中任意两个状态都是互通的。</li>
+<li>非周期性 (Aperiodic): 状态的重访步数没有固定的周期限制（即 $\text{gcd}(I_i) = 1$）。</li>
+</ul>
+</li>
+<li>可逆性条件 (Reversibility)。该链的平稳分布 $\pi$ 和转移矩阵 $P$ 必须满足 <strong>细致平衡方程 (Detailed Balance Equation)</strong>：
+$$\pi_i P_{ij} = \pi_j P_{ji}, \quad \forall i, j \in S$$</li>
+</ol>
+<blockquote>
+<p>满足条件一保证了该链存在唯一的 平稳分布 (Stationary Distribution) $\pi$。</p></blockquote>
+<h3 id="示例">示例</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> networkx <span style="color:#66d9ef">as</span> nx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 定义一个无向图 (Undirected Graph)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这里的权重 (weight) 可以理解为两个状态之间的“亲密度”或“通道宽窄”</span>
+</span></span><span style="display:flex;"><span>G <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>Graph()
+</span></span><span style="display:flex;"><span>G<span style="color:#f92672">.</span>add_edge(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, weight<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>G<span style="color:#f92672">.</span>add_edge(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, weight<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 自动构建转移矩阵 P</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 规则：从节点 i 跳到邻居 j 的概率 = (i,j的权重) / (i 的所有权重之和)</span>
+</span></span><span style="display:flex;"><span>nodes <span style="color:#f92672">=</span> sorted(G<span style="color:#f92672">.</span>nodes())
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> len(nodes)
+</span></span><span style="display:flex;"><span>P <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n, n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> nodes:
+</span></span><span style="display:flex;"><span>    total_weight <span style="color:#f92672">=</span> sum([G[i][nbr][<span style="color:#e6db74">&#39;weight&#39;</span>] <span style="color:#66d9ef">for</span> nbr <span style="color:#f92672">in</span> G<span style="color:#f92672">.</span>neighbors(i)])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> G<span style="color:#f92672">.</span>neighbors(i):
+</span></span><span style="display:flex;"><span>        P[i, j] <span style="color:#f92672">=</span> G[i][j][<span style="color:#e6db74">&#39;weight&#39;</span>] <span style="color:#f92672">/</span> total_weight
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;--- 转移矩阵 P ---&#34;</span>)
+</span></span><span style="display:flex;"><span>print(P)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 计算稳态分布 pi</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 技巧：对于无向图，pi_i 正比于节点 i 的“度” (所有连接边的权重和)</span>
+</span></span><span style="display:flex;"><span>degrees <span style="color:#f92672">=</span> [sum([G[i][nbr][<span style="color:#e6db74">&#39;weight&#39;</span>] <span style="color:#66d9ef">for</span> nbr <span style="color:#f92672">in</span> G<span style="color:#f92672">.</span>neighbors(i)]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> nodes]
+</span></span><span style="display:flex;"><span>total_degree_sum <span style="color:#f92672">=</span> sum(degrees)
+</span></span><span style="display:flex;"><span>pi <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([d <span style="color:#f92672">/</span> total_degree_sum <span style="color:#66d9ef">for</span> d <span style="color:#f92672">in</span> degrees])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">--- 稳态分布 pi ---&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;pi = </span><span style="color:#e6db74">{</span>pi<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. 验证细致平衡 (Detailed Balance): pi_i * P_ij = pi_j * P_ji ?</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">--- 验证细致平衡 (Flow Check) ---&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 检查 状态 0 &lt;-&gt; 状态 1</span>
+</span></span><span style="display:flex;"><span>flow_0_to_1 <span style="color:#f92672">=</span> pi[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> P[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>flow_1_to_0 <span style="color:#f92672">=</span> pi[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> P[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Flow 0 -&gt; 1: </span><span style="color:#e6db74">{</span>pi[<span style="color:#ae81ff">0</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> * </span><span style="color:#e6db74">{</span>P[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> = </span><span style="color:#e6db74">{</span>flow_0_to_1<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Flow 1 -&gt; 0: </span><span style="color:#e6db74">{</span>pi[<span style="color:#ae81ff">1</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> * </span><span style="color:#e6db74">{</span>P[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> = </span><span style="color:#e6db74">{</span>flow_1_to_0<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>isclose(flow_0_to_1, flow_1_to_0):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;✅ 状态 0 和 1 之间满足细致平衡！&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;❌ 不平衡&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 绘图 ---</span>
+</span></span><span style="display:flex;"><span>pos <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>spring_layout(G, seed<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw(G, pos, with_labels<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, node_color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightblue&#39;</span>, node_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>, font_size<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>labels <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>get_edge_attributes(G, <span style="color:#e6db74">&#39;weight&#39;</span>)
+</span></span><span style="display:flex;"><span>nx<span style="color:#f92672">.</span>draw_networkx_edge_labels(G, pos, edge_labels<span style="color:#f92672">=</span>labels)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Reversible Markov Chain (Undirected Graph)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>--- 转移矩阵 P ---
+[[0.         1.         0.        ]
+ [0.66666667 0.         0.33333333]
+ [0.         1.         0.        ]]
+
+--- 稳态分布 pi ---
+pi = [0.33333333 0.5        0.16666667]
+
+--- 验证细致平衡 (Flow Check) ---
+Flow 0 -&gt; 1: 0.3333 * 1.0000 = 0.3333
+Flow 1 -&gt; 0: 0.5000 * 0.6667 = 0.3333
+✅ 状态 0 和 1 之间满足细致平衡！
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_18_1.png" alt="png"></p>
+<h3 id="细致平衡-vs-全局平衡">细致平衡 vs. 全局平衡</h3>
+<p>细致平衡（局部） $\implies$ 全局平衡。证明如下。</p>
+<p>证明 $\pi$ 满足全局平衡方程：
+</p>
+$$\sum_{i} \pi_i P_{ij} = \pi_j$$<ol>
+<li>出发： 看等式左边 $\sum_{i} \pi_i P_{ij}$。</li>
+<li>代入： 利用细致平衡 ($\pi_i P_{ij} = \pi_j P_{ji}$)，把 $\pi_i P_{ij}$ 换成 $\pi_j P_{ji}$。$$\sum_{i} (\pi_j P_{ji})$$</li>
+<li>提取： 把常数 $\pi_j$ 提到求和符号外面。$$\pi_j \sum_{i} P_{ji}$$</li>
+<li>归一： 因为 $P$ 是转移矩阵，从状态 $j$ 出发去往所有可能状态 $i$ 的概率之和必须为 1 ($\sum_{i} P_{ji} = 1$)。$$\pi_j \times 1 = \pi_j$$</li>
+<li>结论： 左边等于右边。证毕！✅</li>
+</ol>
+<h3 id="可逆-hia-链的渐近分布">可逆 HIA 链的渐近分布</h3>
+<p>“可逆 HIA 链的渐近分布” (Asymptotic distribution of reversible HIA Chains) 描述的是：当时间趋于无穷大时，一个性质非常特殊的马尔可夫链最终会稳定在什么样的状态。</p>
+<ol>
+<li>HIA 链 (HIA Chains):这是 齐次 (Homogeneous)、不可约 (Irreducible) 且 非周期 (Aperiodic) 的马尔可夫链的缩写。
+<ul>
+<li>这就好比一个永远在洗牌的机器，规则不变，所有牌都能洗到，而且没有固定的节奏。</li>
+<li>重点： HIA 链保证了无论你从哪里开始，经过足够长的时间（渐近行为，$n \to \infty$），系统处于各个状态的概率都会收敛到一个固定的值。</li>
+</ul>
+</li>
+<li>渐近分布 (Asymptotic Distribution):这就是上面提到的“固定的值”。也就是当 $n$ 趋近于无穷大时，状态分布 $\pi_n$ 的极限。
+<ul>
+<li>在 HIA 链中，这个渐近分布就是我们常说的 平稳分布 (Stationary Distribution, $\pi$)。</li>
+<li>它满足方程：$\pi = \pi P$（全局平衡方程）。</li>
+</ul>
+</li>
+<li>可逆性 (Reversible):这是最特殊的“魔法调料”。如果一个 HIA 链是可逆的，它的平稳分布 $\pi$ 会满足一个更严格、更简单的条件，叫做 细致平衡 (Detailed Balance)：$$\pi_i P_{ij} = \pi_j P_{ji}$$
+<ul>
+<li>这意味着：在稳态下，从状态 $i$ 跳到 $j$ 的“流量”，完全等于从 $j$ 跳回 $i$ 的“流量”。</li>
+</ul>
+</li>
+</ol>
+<p>所谓的“可逆 HIA 链的渐近分布”，其实就是利用细致平衡方程 ($\pi_i P_{ij} = \pi_j P_{ji}$) 求出的那个唯一的平稳分布 $\pi$。</p>
+<h2 id="示例-1">示例</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
 </span></span><span style="display:flex;"><span>
@@ -532,8 +1092,8 @@ $$<p>含义：晴→晴 0.8、晴→雨 0.2；雨→晴 0.4、雨→雨 0.6。</
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P2^5 =</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, np<span style="color:#f92672">.</span>round(P2_5, <span style="color:#ae81ff">4</span>))
 </span></span></code></pre></div><pre><code>P2 行随机性检查： True  行和= [1. 1.]
 </code></pre>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_6_1.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_6_2.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_24_1.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_24_2.png" alt="png"></p>
 <pre><code>P2^5 =
  [[0.6701 0.3299]
  [0.6598 0.3402]]
@@ -585,87 +1145,15 @@ $$<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;P3^5 =</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, np<span style="color:#f92672">.</span>round(P3_5, <span style="color:#ae81ff">4</span>))
 </span></span></code></pre></div><pre><code>P3 行随机性检查： True  行和= [1. 1. 1.]
 </code></pre>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_8_1.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_8_2.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_26_1.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_26_2.png" alt="png"></p>
 <pre><code>P3^5 =
  [[0.242  0.2856 0.4724]
  [0.1428 0.1706 0.6866]
  [0.     0.     1.    ]]
 </code></pre>
-<h2 id="小结">小结</h2>
-<ul>
-<li><strong>随机过程</strong>：按时间索引的一族随机变量。</li>
-<li><strong>离散/连续时间</strong>：本节以离散时间链为主。</li>
-<li><strong>马尔可夫性质</strong>：下一步只依赖当前；齐次链的转移概率与时间无关。</li>
-<li><strong>转移矩阵</strong>：行随机矩阵；多步转移用幂 $P^n$；分布随时间演化 $\pi_t=\pi_0 P^t$。</li>
-<li><strong>例子</strong>：两状态（天气）、三状态（含吸收态）展示了基本计算与模拟。</li>
-</ul>
-<h1 id="马尔可夫链的长期行为和收敛性">马尔可夫链的长期行为和收敛性</h1>
-<h2 id="平稳分布-stationary-distribution">平稳分布 (Stationary Distribution)</h2>
-<ul>
-<li>
-<p><strong>定义</strong>：一个概率向量 $\pi$，如果</p>
-$$
-  \pi P = \pi, \quad \sum_i \pi_i = 1, \; \pi_i \geq 0
-  $$<p>那么 $\pi$ 称为该马尔可夫链的 <strong>平稳分布</strong>。</p>
-</li>
-<li>
-<p><strong>意义</strong>：如果链在某个时刻的分布是 $\pi$，那么在之后任意时刻仍然保持 $\pi$。它描述了 <strong>长期状态分布</strong>。</p>
-</li>
-</ul>
-<h2 id="状态分类">状态分类</h2>
-<ul>
-<li>
-<p><strong>可达性 (Reachability)</strong>：状态 $i \to j$ 如果存在某个 $n$，使得 $(P^n)_{ij} > 0$。</p>
-</li>
-<li>
-<p><strong>常返/暂留</strong>：</p>
-<ul>
-<li><strong>常返 (Recurrent)</strong>：从 $i$ 出发，最终必然返回 $i$。</li>
-<li><strong>暂留 (Transient)</strong>：有非零概率永远不返回。</li>
-</ul>
-</li>
-<li>
-<p><strong>不可约 (Irreducible)</strong>：所有状态两两可达 → 链是一个整体。</p>
-</li>
-<li>
-<p><strong>周期性 (Periodicity)</strong>：</p>
-<ul>
-<li>状态 $i$ 的周期：$\gcd\{ n : (P^n)_{ii} > 0 \}$。</li>
-<li>若周期 = 1，则为 <strong>非周期 (aperiodic)</strong>。</li>
-</ul>
-</li>
-</ul>
-<h2 id="遍历定理-ergodic-theorem">遍历定理 (Ergodic Theorem)</h2>
-<ul>
-<li>
-<p><strong>定理</strong>：
-对一个有限马尔可夫链，如果它是 <strong>不可约</strong> 且 <strong>非周期</strong>，则存在唯一平稳分布 $\pi$，并且：</p>
-$$
-  \lim_{n \to \infty} P(X_n = j \mid X_0 = i) = \pi_j \quad \forall i,j
-  $$<p>同时，时间平均收敛到概率平均：</p>
-$$
-  \frac{1}{N}\sum_{t=1}^N \mathbf{1}_{\{X_t=j\}} \to \pi_j
-  $$</li>
-</ul>
-<h2 id="混合时间-mixing-time">混合时间 (Mixing Time)</h2>
-<blockquote>
-<p>收敛速度的度量</p></blockquote>
-<ul>
-<li>
-<p><strong>定义</strong>：链从初始分布 $\mu$ 到接近平稳分布所需的时间。</p>
-</li>
-<li>
-<p>常用距离：<strong>全变差距离 (total variation distance)</strong></p>
-$$
-  d(t) = \max_\mu \| \mu P^t - \pi \|_{TV}
-  $$</li>
-<li>
-<p>混合时间：最小 $t$，使得 $d(t) \leq \epsilon$。</p>
-</li>
-</ul>
-<h2 id="示例-1">示例</h2>
-<h3 id="示例-1两状态马尔可夫链">示例 1：两状态马尔可夫链</h3>
+<h1 id="示例-2">示例</h1>
+<h2 id="示例-1两状态马尔可夫链">示例 1：两状态马尔可夫链</h2>
 <blockquote>
 <p>最简单的演示，清晰看到收敛到平稳分布。</p></blockquote>
 <p>转移矩阵：</p>
@@ -674,7 +1162,7 @@ P = \begin{bmatrix}
 0.9 & 0.1 \\
 0.5 & 0.5
 \end{bmatrix}
-$$<h4 id="a-平稳分布">(a) 平稳分布</h4>
+$$<h3 id="a-平稳分布">(a) 平稳分布</h3>
 <p>解方程：</p>
 $$
 \pi P = \pi
@@ -684,13 +1172,13 @@ $$
 $$<p>结合 $\pi_0 + \pi_1 = 1$，解得：</p>
 $$
 \pi = (0.833..., \; 0.166...)
-$$<h4 id="b-性质分析">(b) 性质分析</h4>
+$$<h3 id="b-性质分析">(b) 性质分析</h3>
 <ul>
 <li><strong>不可约</strong>。因为两个状态互相可达（两行都含非零对向转移）。</li>
 <li><strong>非周期</strong>：因为 $P_{00}>0, P_{11}>0$（有自环），可保持在原状态 → 周期 = 1</li>
 </ul>
 <p>综上，根据<strong>遍历定理</strong>，该有限马尔可夫链是<strong>遍历的（ergodic）</strong>，即存在唯一平稳分布，且从任意初值都会收敛到它。</p>
-<h4 id="c-收敛过程">(c) 收敛过程</h4>
+<h3 id="c-收敛过程">(c) 收敛过程</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
 </span></span><span style="display:flex;"><span>
@@ -717,8 +1205,8 @@ $$<h4 id="b-性质分析">(b) 性质分析</h4>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Convergence to Stationary Distribution&#34;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_13_0.png" alt="png"></p>
-<h3 id="示例-2三状态马尔可夫链">示例 2：三状态马尔可夫链</h3>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_29_0.png" alt="png"></p>
+<h2 id="示例-2三状态马尔可夫链">示例 2：三状态马尔可夫链</h2>
 <blockquote>
 <p>展示了更复杂链中平稳分布的存在性和唯一性。</p></blockquote>
 <p>转移矩阵：</p>
@@ -774,8 +1262,8 @@ $$<ul>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
 </span></span></code></pre></div><pre><code>Stationary distribution: [0.16666667 0.41666667 0.41666667]
 </code></pre>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_15_1.png" alt="png"></p>
-<h3 id="示例-3环形随机游走-random-walk-on-a-cycle">示例 3：环形随机游走 (Random Walk on a Cycle)</h3>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_31_1.png" alt="png"></p>
+<h2 id="示例-3环形随机游走-random-walk-on-a-cycle">示例 3：环形随机游走 (Random Walk on a Cycle)</h2>
 <blockquote>
 <p>展示了 <strong>周期性</strong> 对收敛性的影响。</p></blockquote>
 <ul>
@@ -861,8 +1349,8 @@ $$
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_17_0.png" alt="png"></p>
-<h3 id="示例-4-混合时间-mixing-time-的数值度量比如-total-variation-distance-收敛速度">示例 4: 混合时间 (Mixing Time) 的数值度量（比如 total variation distance 收敛速度）</h3>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_33_0.png" alt="png"></p>
+<h2 id="示例-4-混合时间-mixing-time-的数值度量比如-total-variation-distance-收敛速度">示例 4: 混合时间 (Mixing Time) 的数值度量（比如 total variation distance 收敛速度）</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Simulate Markov chains and compute total variation distance (TV) to the stationary distribution.</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># We will:</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define several transition matrices (fast/slow 3-state, cycle random walks n=5 and n=6).</span>
@@ -994,8 +1482,8 @@ $$
 </span></span><span style="display:flex;"><span>pi_table[<span style="color:#e6db74">&#39;stationary_str&#39;</span>] <span style="color:#f92672">=</span> pi_table[<span style="color:#e6db74">&#39;stationary&#39;</span>]<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> x: np<span style="color:#f92672">.</span>array2string(x, precision<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, separator<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;, &#39;</span>))
 </span></span><span style="display:flex;"><span>pi_table <span style="color:#f92672">=</span> pi_table[[<span style="color:#e6db74">&#39;chain&#39;</span>,<span style="color:#e6db74">&#39;stationary_str&#39;</span>]]
 </span></span><span style="display:flex;"><span>display(<span style="color:#e6db74">&#34;Stationary distributions&#34;</span>, pi_table)
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_19_0.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/4_markov-chains//4_mcmc_markovchains_19_1.png" alt="png"></p>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_35_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/4_markov-chains/4_mcmc_markovchains_35_1.png" alt="png"></p>
 <pre><code>'Stationary distributions'
 </code></pre>
 <div>
@@ -1145,13 +1633,9 @@ $$
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/" data-toggle="tooltip" data-placement="top" title="蒙特卡洛方法">&larr; 前一篇</a>
+              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/" data-toggle="tooltip" data-placement="top" title="MCMC 初识">&larr; 前一篇</a>
             </li>
           
-          
-            <li class="next">
-              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/" data-toggle="tooltip" data-placement="top" title="MCMC 初识">后一篇 &rarr;</a>
-            </li>
           
         </ul>
       
@@ -1174,17 +1658,24 @@ $$
         <li><a href="#随机过程stochastic-process">随机过程（Stochastic Process）</a></li>
         <li><a href="#马尔可夫性质markov-property">马尔可夫性质（Markov Property）</a></li>
         <li><a href="#转移概率矩阵transition-matrix">转移概率矩阵（Transition Matrix）</a></li>
-        <li><a href="#示例">示例</a></li>
-        <li><a href="#小结">小结</a></li>
+        <li><a href="#状态分类">状态分类</a></li>
+        <li><a href="#链的结构性质-structural-properties">链的结构性质 (Structural Properties)</a></li>
       </ul>
     </li>
-    <li><a href="#马尔可夫链的长期行为和收敛性">马尔可夫链的长期行为和收敛性</a>
+    <li><a href="#hia-chain">HIA Chain</a>
       <ul>
-        <li><a href="#平稳分布-stationary-distribution">平稳分布 (Stationary Distribution)</a></li>
-        <li><a href="#状态分类">状态分类</a></li>
+        <li><a href="#hia-链的渐近行为-asymptotic-behavior">HIA 链的渐近行为 (Asymptotic Behavior)</a></li>
         <li><a href="#遍历定理-ergodic-theorem">遍历定理 (Ergodic Theorem)</a></li>
-        <li><a href="#混合时间-mixing-time">混合时间 (Mixing Time)</a></li>
+        <li><a href="#可逆马尔可夫链-reversible-markov-chain">可逆马尔可夫链 (Reversible Markov Chain)</a></li>
         <li><a href="#示例-1">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#示例-2">示例</a>
+      <ul>
+        <li><a href="#示例-1两状态马尔可夫链">示例 1：两状态马尔可夫链</a></li>
+        <li><a href="#示例-2三状态马尔可夫链">示例 2：三状态马尔可夫链</a></li>
+        <li><a href="#示例-3环形随机游走-random-walk-on-a-cycle">示例 3：环形随机游走 (Random Walk on a Cycle)</a></li>
+        <li><a href="#示例-4-混合时间-mixing-time-的数值度量比如-total-variation-distance-收敛速度">示例 4: 混合时间 (Mixing Time) 的数值度量（比如 total variation distance 收敛速度）</a></li>
       </ul>
     </li>
   </ul>
@@ -1246,7 +1737,7 @@ $$
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2025
+            2026
           
 
           
