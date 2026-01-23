@@ -1,6 +1,7 @@
 ---
 title: "About Me"
 date: 2025-07-02
+toc: false
 ---
 
 👋 Hi, I'm a researcher, developer, and content creator.
