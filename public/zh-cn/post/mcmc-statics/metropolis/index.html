@@ -12,16 +12,16 @@
  
 
 
-      <title>Metropolis 算法 - </title>
+      <title>Metropolis 算法详解：从原理到 Python 实现 - </title>
 
-  <meta name="description" content="详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。">
+  <meta name="description" content="Metropolis 算法是如何解决归一化常数难题的？本文详细解析 Metropolis 采样背后的详细平衡原理，并通过 Python 代码演示随机游走在高维分布中的表现与调参技巧。">
   <meta name="author" content="Qiongjie.X"/>
 
 
 <link rel="canonical" href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/" />
 
 
-<meta name="keywords" content="MCMC, Metropolis, Algorithm, Monte Carlo" /><script type="application/ld+json">
+<meta name="keywords" content="MCMC, Metropolis算法, 蒙特卡洛模拟, 贝叶斯统计, Python实现, 随机游走" /><script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
@@ -47,7 +47,7 @@
         "position": 3,
         "item": {
           "@id": "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/metropolis\/",
-          "name": "Metropolis 算法"
+          "name": "Metropolis 算法详解：从原理到 python 实现"
         }
     }]
 }
@@ -58,14 +58,14 @@
   "author": {
     "name" : "Qiongjie.X"
   },
-  "headline": "Metropolis 算法",
-  "description" : "详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。",
+  "headline": "Metropolis 算法详解：从原理到 Python 实现",
+  "description" : "Metropolis 算法是如何解决归一化常数难题的？本文详细解析 Metropolis 采样背后的详细平衡原理，并通过 Python 代码演示随机游走在高维分布中的表现与调参技巧。",
   "inLanguage" : "zh-cn",
   "wordCount":  1654 ,
   "datePublished" : "2026-01-24T00:00:00\u002b00:00",
   "dateModified" : "2026-01-24T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
-  "keywords" : [ "MCMC, Metropolis, Algorithm, Monte Carlo" ],
+  "keywords" : [ "MCMC, Metropolis算法, 蒙特卡洛模拟, 贝叶斯统计, Python实现, 随机游走" ],
   "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/metropolis\/",
   "publisher" : {
     "@type": "Organization",
@@ -82,15 +82,15 @@
 
 
 
-<meta property="og:title" content="Metropolis 算法" />
-<meta property="og:description" content="详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。">
+<meta property="og:title" content="Metropolis 算法详解：从原理到 Python 实现" />
+<meta property="og:description" content="Metropolis 算法是如何解决归一化常数难题的？本文详细解析 Metropolis 采样背后的详细平衡原理，并通过 Python 代码演示随机游走在高维分布中的表现与调参技巧。">
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
 <meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="琼呀" />
 
-  <meta name="twitter:title" content="Metropolis 算法" />
-  <meta name="twitter:description" content="详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。">
+  <meta name="twitter:title" content="Metropolis 算法详解：从原理到 Python 实现" />
+  <meta name="twitter:description" content="Metropolis 算法是如何解决归一化常数难题的？本文详细解析 Metropolis 采样背后的详细平衡原理，并通过 Python 代码演示随机游走在高维分布中的表现与调参技巧。">
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -304,7 +304,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>Metropolis 算法</h1>
+                <h1>Metropolis 算法详解：从原理到 Python 实现</h1>
               
               
               
@@ -534,7 +534,7 @@ $$\alpha_{ij} = \min \left( 1, \frac{\pi_j}{\pi_i} \right)$$<p>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Metropolis Algorithm in Action&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_2_0.png" alt="png"></p>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_2_0.png" alt="Metropolis 算法一维正态分布采样演示"></p>
 <h2 id="一维">一维</h2>
 <p><strong>输入</strong>：</p>
 <ul>
@@ -697,9 +697,11 @@ $$<p>从而 $\pi$ 是<strong>平稳分布</strong>（不变分布）。只要链
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/expfour_acf_compare.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_2.png" alt="png"></p>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png" alt="双峰混合分布及 Metropolis 采样直方图"></p>
+<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png" alt="双峰分布下不同步长的 ACF 对比"></p>
+<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png" alt="Metropolis 算法在 exp(-x^4) 目标的采样轨迹（Trace Plot）"></p>
+<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png" alt="Metropolis 算法在 exp(-x^4) 目标下，不同步长 σ 的采样直方图与真实密度对比"></p>
+<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_2.png" alt="Metropolis 算法在 exp(-x^4) 目标下，不同步长 σ 的自相关函数 (ACF) 对比"></p>
 <h4 id="双峰示例">双峰示例</h4>
 <p><strong>双峰混合</strong>：0.5 $\mathcal N(-3,1)$ + 0.5 $\mathcal N(3,1)$</p>
 <p>看随机游走在多峰地形里的“卡峰”问题，以及 $\sigma$ 太小/太大的反面教材。</p>
@@ -750,8 +752,8 @@ $$<p>从而 $\pi$ 是<strong>平稳分布</strong>（不变分布）。只要链
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/bimodal_acf_compare.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_0.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_1.png" alt="png"></p>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_0.png" alt="二维相关高斯分布的 Metropolis 采样散点图与轨迹"></p>
+<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_1.png" alt="二维高斯分布下 x 维度的 ACF 对比"></p>
 <h2 id="2d高维版本相关高斯">2D/高维版本：相关高斯</h2>
 <blockquote>
 <p>直观体会：</p>
@@ -985,11 +987,15 @@ $$
             
               <a href="http://localhost:1313/zh-cn/tags/mcmc/">MCMC</a>&nbsp;
             
-              <a href="http://localhost:1313/zh-cn/tags/metropolis/">Metropolis</a>&nbsp;
+              <a href="http://localhost:1313/zh-cn/tags/metropolis%E7%AE%97%E6%B3%95/">Metropolis算法</a>&nbsp;
             
-              <a href="http://localhost:1313/zh-cn/tags/algorithm/">Algorithm</a>&nbsp;
+              <a href="http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A8%A1%E6%8B%9F/">蒙特卡洛模拟</a>&nbsp;
             
-              <a href="http://localhost:1313/zh-cn/tags/monte-carlo/">Monte Carlo</a>&nbsp;
+              <a href="http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/">贝叶斯统计</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0/">随机游走</a>&nbsp;
             
           </div>
         
@@ -1004,7 +1010,7 @@ $$
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;text=Metropolis%20%e7%ae%97%e6%b3%95&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;text=Metropolis%20%e7%ae%97%e6%b3%95%e8%af%a6%e8%a7%a3%ef%bc%9a%e4%bb%8e%e5%8e%9f%e7%90%86%e5%88%b0%20Python%20%e5%ae%9e%e7%8e%b0&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -1018,28 +1024,28 @@ $$
   
       
       <li>
-        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;title=Metropolis%20%e7%ae%97%e6%b3%95" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;title=Metropolis%20%e7%ae%97%e6%b3%95%e8%af%a6%e8%a7%a3%ef%bc%9a%e4%bb%8e%e5%8e%9f%e7%90%86%e5%88%b0%20Python%20%e5%ae%9e%e7%8e%b0" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;title=Metropolis%20%e7%ae%97%e6%b3%95" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;title=Metropolis%20%e7%ae%97%e6%b3%95%e8%af%a6%e8%a7%a3%ef%bc%9a%e4%bb%8e%e5%8e%9f%e7%90%86%e5%88%b0%20Python%20%e5%ae%9e%e7%8e%b0" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;title=Metropolis%20%e7%ae%97%e6%b3%95" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;title=Metropolis%20%e7%ae%97%e6%b3%95%e8%af%a6%e8%a7%a3%ef%bc%9a%e4%bb%8e%e5%8e%9f%e7%90%86%e5%88%b0%20Python%20%e5%ae%9e%e7%8e%b0" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;description=Metropolis%20%e7%ae%97%e6%b3%95" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;description=Metropolis%20%e7%ae%97%e6%b3%95%e8%af%a6%e8%a7%a3%ef%bc%9a%e4%bb%8e%e5%8e%9f%e7%90%86%e5%88%b0%20Python%20%e5%ae%9e%e7%8e%b0" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>

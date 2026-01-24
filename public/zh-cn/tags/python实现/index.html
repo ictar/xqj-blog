@@ -12,14 +12,12 @@
  
 
 
-      <title>蒙特卡洛-马尔可夫链统计方法 - </title>
+      <title>Python实现 - </title>
 
-  <meta name="description" content="
-欢迎来到 蒙特卡洛-马尔可夫链统计方法 系列，在这里你将学习从概率论基础到 MCMC 采样的原理与实践。本系列基于米兰理工大学的 PhD课程：MONTECARLO-MARKOV CHAINS STATISTICAL METHODS，借助 ChatGPT，结合 Python/Jupyter Notebook 代码与图示帮助理解。">
   <meta name="author" content="Qiongjie.X"/>
 
 
-<link rel="canonical" href="http://localhost:1313/zh-cn/post/mcmc-statics/" />
+<link rel="canonical" href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/" />
 
 
 <meta name="keywords" content="GIS, Remote Sensing, GeoAI, TerraFlow, Python, Deep Learning, Spatial Intelligence" /><script type="application/ld+json">
@@ -34,17 +32,13 @@
 
 
 
-<meta property="og:title" content="蒙特卡洛-马尔可夫链统计方法" />
-<meta property="og:description" content="
-欢迎来到 蒙特卡洛-马尔可夫链统计方法 系列，在这里你将学习从概率论基础到 MCMC 采样的原理与实践。本系列基于米兰理工大学的 PhD课程：MONTECARLO-MARKOV CHAINS STATISTICAL METHODS，借助 ChatGPT，结合 Python/Jupyter Notebook 代码与图示帮助理解。">
+<meta property="og:title" content="Python实现" />
 <meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
-<meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="琼呀" />
 
-  <meta name="twitter:title" content="蒙特卡洛-马尔可夫链统计方法" />
-  <meta name="twitter:description" content="
-欢迎来到 蒙特卡洛-马尔可夫链统计方法 系列，在这里你将学习从概率论基础到 MCMC 采样的原理与实践。本系列基于米兰理工大学的 PhD课程：MONTECARLO-MARKOV CHAINS STATISTICAL METHODS，借助 ChatGPT，结合 Python/Jupyter Notebook 代码与图示帮助理解。">
+  <meta name="twitter:title" content="Python实现" />
   <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -161,10 +155,6 @@
           
             <li>
               
-                
-                  <a href="http://localhost:1313/post/mcmc-statics/">EN</a>
-                
-              
             </li>
           
         
@@ -256,9 +246,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="docs-heading">
+            <div class="tags-heading">
               
-                <h1>蒙特卡洛-马尔可夫链统计方法</h1>
+                <h1>Python实现</h1>
               
               
                 <hr class="small">
@@ -278,55 +268,6 @@
   <div class="container" role="main">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-          <div class="well">
-            <p><img src="/img/contents/post/mcmc-statics/mcmc_statics_cover.png" alt="MCMC Statistics Cover"></p>
-<p>欢迎来到 <strong>蒙特卡洛-马尔可夫链统计方法</strong> 系列，在这里你将学习从概率论基础到 MCMC 采样的原理与实践。本系列基于米兰理工大学的 <a href="https://www11.ceda.polimi.it/manifestidott/manifestidott/controller/MainPublic.do?evn_dettaglioinsegnamento=evento&amp;aa=2024&amp;k_cf=82&amp;k_corso_la=1378&amp;ac_ins=0&amp;lang=EN&amp;c_insegn=095929&amp;jaf_currentWFID=main">PhD课程：MONTECARLO-MARKOV CHAINS STATISTICAL METHODS</a>，借助 ChatGPT，结合 Python/Jupyter Notebook 代码与图示帮助理解。</p>
-<h2 id="系列文章">系列文章</h2>
-<ol>
-<li><a href="/zh-cn/post/mcmc-statics/probability/">什么是概率？</a></li>
-<li><a href="/zh-cn/post/mcmc-statics/random-variables/">随机变量与采样方法基础</a>
-<ul>
-<li>概率密度函数与期望</li>
-<li>简单分布的采样方法</li>
-<li>常用基础采样算法介绍</li>
-</ul>
-</li>
-<li><a href="/zh-cn/post/mcmc-statics/monte-carlo/">蒙特卡洛方法</a>
-<ul>
-<li>重要性采样（Importance Sampling）</li>
-<li>方差缩减技术</li>
-</ul>
-</li>
-<li><a href="/zh-cn/post/mcmc-statics/markov-chains/">理解马尔可夫链</a>
-<ul>
-<li>什么是马尔可夫过程</li>
-<li>平稳分布与收敛性</li>
-<li>构建简单的状态转移过程</li>
-</ul>
-</li>
-<li><a href="/zh-cn/post/mcmc-statics/intro-mcmc/">MCMC 初识</a>
-<ul>
-<li>为什么我们需要 MCMC？</li>
-<li>从马尔可夫链到抽样</li>
-<li>理论与直觉</li>
-</ul>
-</li>
-<li><a href="/zh-cn/post/mcmc-statics/metropolis/">Metropolis 算法</a>
-<ul>
-<li>核心困境：无法计算的归一化常数</li>
-<li>随机游走 Metropolis 算法详解</li>
-<li>高维分布中的采样表现与调参</li>
-</ul>
-</li>
-<li><a href="./metropolis-hastings/">Metropolis-Hastings 算法</a></li>
-<li><a href="./gibbs/">Gibbs 采样详解</a></li>
-<li><a href="./convergence/">收敛性诊断</a></li>
-<li><a href="./python/">Python 实战：MCMC 建模</a></li>
-</ol>
-<h2 id="快速访问">快速访问</h2>
-
-          </div>
         
         <div class="posts-list">
           
@@ -387,267 +328,6 @@
 
 </article>
           
-            <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/">
-        <h2 class="post-title">理解马尔可夫链</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 January 23, 2026
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3545&nbsp;个字
-  
-  
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/markov-chains/" lang="en">EN</a>
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/" class="post-read-more">[阅读全文]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
-         
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/">
-        <h2 class="post-title">MCMC 初识</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 22, 2025
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;677&nbsp;个字
-  
-  
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/intro-mcmc/" lang="en">EN</a>
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/" class="post-read-more">[阅读全文]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/">蒙特卡洛</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
-         
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/">
-        <h2 class="post-title">蒙特卡洛方法</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 19, 2025
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;171&nbsp;个字
-  
-  
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/monte-carlo/" lang="en">EN</a>
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        蒙特卡洛方法 = “随机试验 + 统计规律”
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/" class="post-read-more">[阅读全文]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/">蒙特卡洛</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
-         
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/probability/">
-        <h2 class="post-title">什么是概率？</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 15, 2025
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2161&nbsp;个字
-  
-  
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/probability/" lang="en">EN</a>
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/probability/" class="post-read-more">[阅读全文]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/">统计基础</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
-         
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/">
-        <h2 class="post-title">随机变量和采样</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 2, 2025
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1487&nbsp;个字
-  
-  
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/random-variables/" lang="en">EN</a>
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        了解随机变量、概率密度函数、期望等概念、常见采样方法以及简单分布（均匀、正态、指数）的采样方式
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/" class="post-read-more">[阅读全文]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/">随机变量</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E8%AF%95%E9%AA%8C/">随机试验</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
-         
-    </div>
-    
-
-</article>
-          
         </div>
         
       </div>
@@ -694,7 +374,7 @@
           
           
           <li>
-            <a href="/zh-cn/post/mcmc-statics/index.xml" title="RSS">
+            <a href="/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/index.xml" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>

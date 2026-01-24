@@ -1,12 +1,13 @@
 ---
-title: "Metropolis 算法"
+title: "Metropolis 算法详解：从原理到 Python 实现"
 slug: "metropolis"
 date: 2026-01-24
-description: "详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。"
-summary: "详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。"
+description: "Metropolis 算法是如何解决归一化常数难题的？本文详细解析 Metropolis 采样背后的详细平衡原理，并通过 Python 代码演示随机游走在高维分布中的表现与调参技巧。"
+summary: "Metropolis 算法是 MCMC 的基石。本文深入探讨其应对未归一化概率密度的策略，从随机游走机制到高维相关高斯分布的采样实战，提供完整的 Python 实现与可视化分析。"
 toc: true
 draft: false
-tags: ["MCMC", "Metropolis", "Algorithm", "Monte Carlo"]
+tags: ["MCMC", "Metropolis算法", "蒙特卡洛模拟", "贝叶斯统计", "Python实现", "随机游走"]
+keywords: ["Metropolis算法", "MCMC采样", "马尔可夫链蒙特卡洛", "随机游走Metropolis", "归一化常数", "接受拒绝采样", "细致平衡"]
 ---
 
 {{< toc >}}
@@ -150,7 +151,9 @@ plt.show()
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_2_0.png)
+
+![Metropolis 算法一维正态分布采样演示](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_2_0.png)
+    
     
 
 
@@ -340,19 +343,33 @@ plt.show()
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png)
+    
+![双峰混合分布及 Metropolis 采样直方图](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png)
+
     
 
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png)
+    
+![双峰分布下不同步长的 ACF 对比](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png)
+    
+![Metropolis 算法在 exp(-x^4) 目标的采样轨迹（Trace Plot）](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png)
+
     
 
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_2.png)
+    
+![Metropolis 算法在 exp(-x^4) 目标下，不同步长 σ 的采样直方图与真实密度对比](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png)
+    
+    
+
+
+
+    
+![Metropolis 算法在 exp(-x^4) 目标下，不同步长 σ 的自相关函数 (ACF) 对比](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_2.png)
     
 
 
@@ -415,13 +432,17 @@ plt.show()
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_0.png)
+    
+![二维相关高斯分布的 Metropolis 采样散点图与轨迹](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_0.png)
+    
     
 
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_1.png)
+    
+![二维高斯分布下 x 维度的 ACF 对比](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_1.png)
+    
     
 
 

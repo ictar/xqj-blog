@@ -1,12 +1,13 @@
 ---
-title: "The Metropolis Algorithm"
+title: "Metropolis Algorithm Explained: Implementation & Intuition"
 slug: "metropolis"
 date: 2026-01-24
-description: "A detailed explanation of the Metropolis algorithm, its core concept, random walk implementation, and performance in high-dimensional distributions. Includes Python code examples and visualizations."
-summary: "A detailed explanation of the Metropolis algorithm, its core concept, random walk implementation, and performance in high-dimensional distributions. Includes Python code examples and visualizations."
+description: "How does the Metropolis algorithm solve the intractable normalization constant problem? This guide explains the detailed balance principle and demonstrates random walk sampling in high-dimensional distributions with Python code."
+summary: "The Metropolis algorithm is the cornerstone of MCMC. We delve into its strategy for handling unnormalized densities, from the random walk mechanism to sampling 2D correlated Gaussians, complete with Python implementation and visual diagnostics."
 toc: true
 draft: false
-tags: ["MCMC", "Metropolis", "Algorithm", "Monte Carlo"]
+tags: ["MCMC", "Metropolis Algorithm", "Monte Carlo Simulation", "Bayesian Statistics", "Python Implementation", "Random Walk"]
+keywords: ["Metropolis Algorithm", "MCMC sampling", "Markov Chain Monte Carlo", "Random Walk Metropolis", "Normalization Constant", "Acceptance Rejection", "Detailed Balance"]
 ---
 
 {{< toc >}}
@@ -150,7 +151,9 @@ plt.show()
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_2_0.png)
+
+![Metropolis algorithm sampling a 1D normal distribution](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_2_0.png)
+    
     
 
 
@@ -340,19 +343,25 @@ plt.show()
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_5_0.png)
+    
+![Trace plot of Metropolis sampling on exp(-x^4) target](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_5_0.png)
+    
     
 
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_5_1.png)
+    
+![Histogram of samples vs true density for exp(-x^4)](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_5_1.png)
+    
     
 
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_5_2.png)
+    
+![Autocorrelation function (ACF) comparison for different step sizes](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_5_2.png)
+    
     
 
 
@@ -415,13 +424,17 @@ plt.show()
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png)
+    
+![Bimodal mixture distribution and Metropolis sampling histogram](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png)
+
     
 
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png)
+    
+![ACF comparison for bimodal distribution sampling](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png)
+    
     
 
 
@@ -559,12 +572,16 @@ results
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_0.png)
+    
+![Scatter plot and trace of Metropolis sampling on 2D correlated Gaussian](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_0.png)
+    
     
 
 
     
-![png](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_1.png)
+    
+![ACF comparison for x-dimension in 2D Gaussian sampling](/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_1.png)
+    
     
 
 
