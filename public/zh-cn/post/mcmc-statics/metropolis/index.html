@@ -1,0 +1,1196 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>Metropolis 算法 - </title>
+
+  <meta name="description" content="详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/" />
+
+
+<meta name="keywords" content="MCMC, Metropolis, Algorithm, Monte Carlo" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼呀",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/metropolis\/",
+          "name": "Metropolis 算法"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "Metropolis 算法",
+  "description" : "详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。",
+  "inLanguage" : "zh-cn",
+  "wordCount":  1654 ,
+  "datePublished" : "2026-01-24T00:00:00\u002b00:00",
+  "dateModified" : "2026-01-24T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "MCMC, Metropolis, Algorithm, Monte Carlo" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/metropolis\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="Metropolis 算法" />
+<meta property="og:description" content="详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼呀" />
+
+  <meta name="twitter:title" content="Metropolis 算法" />
+  <meta name="twitter:description" content="详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/zh-cn/">琼呀</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/post">文章</a>
+              <div class="navlinks-children">
+                
+                  <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
+                
+                  <a href="/zh-cn/post/ai-fundamentals">AI 基础系列</a>
+                
+                  <a href="/zh-cn/post/geoai">GeoAI 系列</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/projects">项目</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="笔记" href="/zh-cn/notes">笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="标签" href="/zh-cn/tags">标签</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="关于我" href="/zh-cn/page/about/">关于我</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/post/mcmc-statics/metropolis/">EN</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼呀" href="http://localhost:1313/zh-cn/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="琼呀" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Metropolis 算法</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 January 24, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1654&nbsp;个字
+  
+  
+  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/metropolis/" lang="en">EN</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+  <aside class="toc">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#我们要解决什么问题the-core-problem">我们要解决什么问题？(The Core Problem)</a>
+      <ul>
+        <li><a href="#1-核心困境无法计算的">1. 核心困境：无法计算的 </a></li>
+        <li><a href="#2-metropolis-的解决策略相对比值法">2. Metropolis 的解决策略：相对比值法</a></li>
+        <li><a href="#3-连接点为什么要用马尔可夫链">3. 连接点：为什么要用马尔可夫链？</a></li>
+      </ul>
+    </li>
+    <li><a href="#metropolis随机游走">Metropolis（随机游走）</a>
+      <ul>
+        <li><a href="#一维">一维</a></li>
+        <li><a href="#2d高维版本相关高斯">2D/高维版本：相关高斯</a></li>
+      </ul>
+    </li>
+    <li><a href="#实战注意事项">实战注意事项</a></li>
+  </ul>
+</nav>
+  </aside>
+
+<h1 id="我们要解决什么问题the-core-problem">我们要解决什么问题？(The Core Problem)</h1>
+<h2 id="1-核心困境无法计算的">1. 核心困境：无法计算的 $Z$</h2>
+<p>在贝叶斯统计、物理模拟和高维计算中，我们经常需要从一个复杂的概率分布 $\pi(x)$ 中进行采样。但是，我们通常只知道这个分布的“形状”，却不知道它的“规模”。</p>
+<ul>
+<li><strong>已知</strong>： 未归一化的密度函数 $f(x)$（相对权重）。</li>
+<li><strong>未知</strong>： 归一化常数 $Z$（总和或积分）。$$\pi(x) = \frac{f(x)}{Z}, \quad \text{其中 } Z = \int f(x) dx$$</li>
+<li><strong>痛点</strong>： 在高维空间中，计算 $Z$（遍历整个空间求和）是计算上不可行的 (Intractable)。</li>
+<li><strong>后果</strong>： 因为不知道 $Z$，我们无法算出绝对概率 $\pi(x)$，传统的直接采样方法（如逆变换法）全部失效。</li>
+</ul>
+<h3 id="关于">关于 $\pi$</h3>
+<table>
+  <thead>
+      <tr>
+          <th>场景</th>
+          <th>$\pi$ 的形式</th>
+          <th>数学名称</th>
+          <th>物理意义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>基础马尔可夫链</strong></td>
+          <td>向量</td>
+          <td>平稳分布向量</td>
+          <td>各个状态的长期停留概率</td>
+      </tr>
+      <tr>
+          <td><strong>Metropolis (MCMC)</strong></td>
+          <td>函数</td>
+          <td>目标概率密度</td>
+          <td>我们希望采集样本的那个“形状”</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="2-metropolis-的解决策略相对比值法">2. Metropolis 的解决策略：相对比值法</h2>
+<p>Metropolis 算法的核心洞见是：<strong>既然 $Z$ 算不出来，那就消掉它。</strong></p>
+<p>如果不去计算绝对概率，而是比较两个状态之间的<strong>相对概率比值</strong>，常数 $Z$ 就会在分子分母中自动抵消：
+</p>
+$$\frac{\pi(x_{\text{new}})}{\pi(x_{\text{old}})} = \frac{f(x_{\text{new}}) / Z}{f(x_{\text{old}}) / Z} = \frac{f(x_{\text{new}})}{f(x_{\text{old}})}$$<p>这使得我们只利用<strong>相对高低</strong>（$f(x)$的比值）就能判断两个状态的优劣，从而绕过了计算 $Z$ 的难题。</p>
+<h2 id="3-连接点为什么要用马尔可夫链">3. 连接点：为什么要用马尔可夫链？</h2>
+<p>既然我们只能做“局部比较”（比较当前位置和下一步位置），我们就无法一步到位地生成独立样本。我们需要一个能够<strong>在空间中游走</strong>的机制，这就引入了马尔可夫链。</p>
+<ul>
+<li>
+<p><strong>动态模拟静态：</strong> 我们的目标是得到一个<strong>静态分布</strong>  $\pi$ 的样本，Metropolis 的手段是构造一个<strong>动态过程</strong>（马尔可夫链）。</p>
+</li>
+<li>
+<p><strong>逆向工程思维：</strong></p>
+<ul>
+<li><strong>传统马尔可夫链问题：</strong> 给定转移矩阵  $P$ ，求稳态分布  $\pi$ 。</li>
+<li><strong>Metropolis (MCMC) 问题：</strong> 已知目标分布 $\pi$ ，<strong>设计</strong>一个转移矩阵 $P$，使得这个链最终收敛到  $\pi$。</li>
+</ul>
+</li>
+<li>
+<p><strong>算法本质：</strong>
+Metropolis 算法通过<strong>细致平衡原则 (Detailed Balance)</strong> 构造了特殊的“接受/拒绝”规则，实时生成了一个<strong>HIA 链</strong>（齐次、不可约、非周期）。</p>
+</li>
+<li>
+<p><strong>最终结论：</strong>
+根据<strong>遍历定理 (Ergodic Theorem)</strong>，这个马尔可夫链跑出来的<strong>轨迹 (Trajectory)</strong>，在长期统计上等价于从目标分布  $Z$ 中抽取的样本。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>一句话总结：</strong>
+Metropolis 算法是为了解决 <strong>“在归一化常数 $Z$ 未知的情况下进行采样”</strong> 的难题，它通过 <strong>“构造一个以目标分布为稳态的马尔可夫链”</strong> 来实现这一目标。</p></blockquote>
+<h1 id="metropolis随机游走">Metropolis（随机游走）</h1>
+<p>为了保证收敛到 $\pi$，我们只需要构造一个满足 细致平衡方程 的链：
+</p>
+$$\pi_i P_{ij} = \pi_j P_{ji}$$<p>Metropolis 算法把转移过程拆成了两步：</p>
+<ol>
+<li><strong>提议 (Proposal)</strong> $Q_{ij}$： 在数学符号里，它通常写作 $Q(x_{new} | x_{old})$ 或者 $q(x' | x)$。意思是：“已知我现在站在 $x_{old}$，我下一步提议跳到 $x_{new}$ 的概率是多少？”
+<ul>
+<li>请注意，它叫“提议” (Proposal)。因为它只是负责建议：“嘿，我们要不要试试去那里？” 至于到底去不去，那是后面 $\alpha$ (接受率) 决定的事。</li>
+<li>在原始的 Metropolis 算法中，$Q$ 必须是<strong>对称的（Symmetry）</strong>：$$Q(x_{new} | x_{old}) = Q(x_{old} | x_{new})$$
+<ul>
+<li>这样在后续计算接受率的时候，我们就可以把 $Q$ 消去了。</li>
+</ul>
+</li>
+<li>在实践时，$Q$ 通常就是一行简单的随机数生成代码。它有两种常见的形态
+<ul>
+<li>A. 均匀游走 (Uniform Random Walk)
+<ul>
+<li>代码：  <code>x_new = x_old + random.uniform(-1, 1)</code></li>
+<li>逻辑： 以当前位置为中心，画一个宽为 2 的盒子，盒子里的任何一个点被选中的概率都一样。</li>
+<li>特点： 简单粗暴。</li>
+</ul>
+</li>
+<li>B. 高斯游走 (Gaussian Random Walk)
+<ul>
+<li>代码：  <code>x_new = x_old + random.normal(0, sigma)</code></li>
+<li>逻辑： 以当前位置为中心，生成一个正态分布。离当前位置越近的点，越容易被提议；太远的点很少被提议。</li>
+<li>特点： 更符合自然界的移动规律（大多数时候迈小步，偶尔迈大步）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>接受 (Acceptance)</strong> $\alpha_{ij}$： 决定“我真的要跳过去吗，还是留在原地？”。
+<ul>
+<li>接受率虽然是由状态对 $(i, j)$ 决定的固定值，但在工程上，因为状态数量 $N$ 是天文数字，我们永远无法把这个 $N \times N$ 的表格预先算出来存储。我们只能 <strong>“走到哪，算到哪”</strong>。</li>
+<li>⚠️ Metropolis 算法存在的全部意义，就是因为状态空间太大（或连续无限），导致我们无法提前确定这个关于接受率的“二维数组”。</li>
+</ul>
+</li>
+</ol>
+<p>所以，实际的转移概率是：$P_{ij} = Q_{ij} \times \alpha_{ij}$。把它代入细致平衡方程：
+</p>
+$$\pi_i (Q_{ij} \alpha_{ij}) = \pi_j (Q_{ji} \alpha_{ji})$$<p>假设我们使用的是<strong>对称的提议规则</strong>（即 $Q_{ij} = Q_{ji}$，比如向左跳和向右跳的概率一样，都是 0.5）。那么方程就简化为：
+</p>
+$$\pi_i \alpha_{ij} = \pi_j \alpha_{ji}$$<p>
+或者写成比率：
+</p>
+$$\frac{\alpha_{ij}}{\alpha_{ji}} = \frac{\pi_j}{\pi_i}$$<p>假设你现在处于状态 $i$，系统建议你跳到状态 $j$。如果状态 $j$ 的概率比状态 $i$ 更高（即 $\pi_j > \pi_i$，这一步是往“高处”走），为了满足上面的比率，接受概率 $\alpha_{ij}$ 应该设为 1 (100%) 最合适（也最有效率）。因为既然 $\pi_j > \pi_i$，说明新状态 $j$ 是一个“更好”或者是“更重要”的状态，我们总是乐意往高处走，所以我们毫不犹豫地接受这个提议。</p>
+<p>这得到了著名的 Metropolis 接受准则 (Acceptance Probability)：
+</p>
+$$\alpha_{ij} = \min \left( 1, \frac{\pi_j}{\pi_i} \right)$$<p>
+它包含了两种情况：</p>
+<ol>
+<li>往高处走 ($\pi_j > \pi_i$)： 比值 $>1$，取 $\min$ 后得到 1。总是接受。</li>
+<li>往低处走 ($\pi_j < \pi_i$)： 比值 $<1$，取 $\min$ 后得到 $\frac{\pi_j}{\pi_i}$。
+<ul>
+<li>这才是算法的灵魂！</li>
+<li>即使新状态不如现在好，我们也有一定的概率（虽然不是 100%）接受它。</li>
+<li><strong>为什么？</strong> 为了防止陷入“局部最优” (Local Optima)。偶尔接受坏结果，能让你跳出小坑，去寻找更远处的最高峰。</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 定义目标分布 pi(x) (Target Distribution)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这里我们用标准正态分布: proportional to exp(-0.5 * x^2)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">target_pi</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Metropolis 算法设置</span>
+</span></span><span style="display:flex;"><span>num_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+</span></span><span style="display:flex;"><span>current_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e"># 随便找个起点</span>
+</span></span><span style="display:flex;"><span>samples <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 开始采样循环</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(num_samples):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># A. 提议 (Proposal): 在当前位置附近随便跳一下</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Q(j|i) 是对称的 (比如用均匀分布或高斯分布作为跳跃步长)</span>
+</span></span><span style="display:flex;"><span>    proposal_state <span style="color:#f92672">=</span> current_state <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># B. 计算接受率 (Acceptance Probability)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># alpha = min(1, pi_new / pi_old)</span>
+</span></span><span style="display:flex;"><span>    ratio <span style="color:#f92672">=</span> target_pi(proposal_state) <span style="color:#f92672">/</span> target_pi(current_state)
+</span></span><span style="display:flex;"><span>    acceptance_prob <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, ratio)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># C. 决定是否移动 (Accept/Reject Step)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 生成一个 0-1 之间的随机数，如果小于接受率，就接受</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> acceptance_prob:
+</span></span><span style="display:flex;"><span>        current_state <span style="color:#f92672">=</span> proposal_state  <span style="color:#75715e"># 移动到新位置</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 无论接受还是拒绝，都记录当前位置 (注意：如果拒绝，就是记录旧位置！)</span>
+</span></span><span style="display:flex;"><span>    samples<span style="color:#f92672">.</span>append(current_state)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 绘图验证 ---</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘制我们要采样的真实曲线（理论值）</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x, target_pi(x) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>sqrt(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>pi), <span style="color:#e6db74">&#39;r-&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True Target Distribution&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘制 Metropolis 算法采样得到的直方图</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;skyblue&#39;</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Metropolis Samples&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Metropolis Algorithm in Action&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_2_0.png" alt="png"></p>
+<h2 id="一维">一维</h2>
+<p><strong>输入</strong>：</p>
+<ul>
+<li>目标（未归一化）对数密度 $\log \tilde\pi(x)$</li>
+<li>初始点 $x_0$</li>
+<li>对称提议分布 $q(y\mid x)=\mathcal N(x,\sigma^2)$（高维可用多元正态）</li>
+<li>总步数 $T$，以及丢弃前 $B$ 步作为 burn-in</li>
+</ul>
+<p><strong>每一步</strong> $t=0,1,2,\dots,T-1$：</p>
+<ol>
+<li>从对称提议分布<strong>提议</strong>：$y \sim \mathcal N(x_t,\sigma^2)$。</li>
+<li>计算<strong>接受率</strong>：</li>
+</ol>
+$$
+\alpha(x_t,y)=\min\Big\{1,\ \frac{\tilde\pi(y)}{\tilde\pi(x_t)}\Big\}.
+$$<blockquote>
+<p>注意我们只用到了<strong>比值</strong>，不需要归一化常数！
+为了数值稳定，实际都是用 $\log\tilde\pi$：$\log\alpha = \min\{0,\ \log\tilde\pi(y)-\log\tilde\pi(x_t)\}$。</p></blockquote>
+<ol start="3">
+<li>以概率 $\alpha$ 接受：$x_{t+1}=y$；否则拒绝：$x_{t+1}=x_t$。</li>
+</ol>
+<p><strong>输出</strong>：</p>
+<ul>
+<li>丢弃前 $B$ 步后得到的样本序列作为近似来自 $\pi$ 的样本；</li>
+<li>报告<strong>接受率</strong>（accepted 次数 / 总步数）。</li>
+</ul>
+<h3 id="正确性解释">正确性解释</h3>
+<p>核心是<strong>详细平衡（可逆性）</strong>：对称提议 $q(y\mid x)=q(x\mid y)$ 时，Metropolis 的接受率确保</p>
+$$
+\pi(x)\,q(y\mid x)\,\alpha(x,y)=\pi(y)\,q(x\mid y)\,\alpha(y,x),
+$$<p>从而 $\pi$ 是<strong>平稳分布</strong>（不变分布）。只要链还<strong>不可约 + 非周期</strong>，就会从任意起点<strong>收敛</strong>到 $\pi$（TV 距离下）。</p>
+<p><strong>直觉</strong>：每次都让“从 $x$ 到 $y$”的概率流量恰好与“从 $y$ 到 $x$”相配平，长期没有净流，分布就稳在 $\pi$。</p>
+<h3 id="步长">$\sigma$（步长）</h3>
+<ul>
+<li>$\sigma$ <strong>太小</strong>：几乎都接受，但走得很慢，样本强相关，<strong>ESS 低</strong>；</li>
+<li>$\sigma$ <strong>太大</strong>：经常提议到低密度区，被拒绝很多，也不高效；</li>
+<li>$\sigma$ <strong>合适</strong>：接受率与移动幅度权衡较好，ACF 衰减快，<strong>ESS 高</strong>。</li>
+</ul>
+<p>经验上：随机游走型在<strong>1 维</strong>最优接受率常在 <strong>~0.4 左右</strong>；维度增大则常见在 <strong>0.2–0.3</strong> 之间较合理（只是经验，不是铁律）。</p>
+<h3 id="示例">示例</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng(<span style="color:#ae81ff">123</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">acf_1d</span>(x, max_lag<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(x)
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>mean(x) <span style="color:#75715e"># zero-mean</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(x)
+</span></span><span style="display:flex;"><span>    var <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>var(x) <span style="color:#75715e"># biased variance</span>
+</span></span><span style="display:flex;"><span>    out <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>empty(max_lag<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>    out[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, max_lag<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        out[k] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(x[:<span style="color:#f92672">-</span>k], x[k:]) <span style="color:#f92672">/</span> ((n<span style="color:#f92672">-</span>k) <span style="color:#f92672">*</span> var)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> out
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ess_from_acf</span>(acf_vals, n):
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, len(acf_vals)):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> acf_vals[k] <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> acf_vals[k]
+</span></span><span style="display:flex;"><span>    tau_int <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> s
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n <span style="color:#f92672">/</span> tau_int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normalize_pdf</span>(xs, logpdf):
+</span></span><span style="display:flex;"><span>    lps <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([logpdf(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> xs])
+</span></span><span style="display:flex;"><span>    lps <span style="color:#f92672">-=</span> np<span style="color:#f92672">.</span>max(lps)
+</span></span><span style="display:flex;"><span>    pdf_unnorm <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(lps)
+</span></span><span style="display:flex;"><span>    Z <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>trapezoid(pdf_unnorm, xs)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pdf_unnorm <span style="color:#f92672">/</span> Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">metropolis</span>(logpdf, x0, proposal_std, n_steps, burn_in<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, rng<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Metropolis algorithm for 1D distributions.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        logpdf: function that computes the log of the target PDF at a given x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        x0: initial position (float)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        proposal_std: standard deviation of the Gaussian proposal distribution (float)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        n_steps: total number of MCMC steps (int)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        burn_in: number of initial samples to discard (int, default=0)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        rng: optional numpy random generator (default=None, uses np.random.default_rng())
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> rng <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        local_rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>default_rng()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        local_rng <span style="color:#f92672">=</span> rng
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> float(x0)
+</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    accepted <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    accepts <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(n_steps): <span style="color:#75715e"># t = 0, 1, ..., n_steps-1</span>
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> local_rng<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0.0</span>, proposal_std) <span style="color:#75715e"># propose new position</span>
+</span></span><span style="display:flex;"><span>        logacc <span style="color:#f92672">=</span> logpdf(y) <span style="color:#f92672">-</span> logpdf(x) <span style="color:#75715e"># log acceptance ratio</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>log(local_rng<span style="color:#f92672">.</span>uniform()) <span style="color:#f92672">&lt;</span> logacc: <span style="color:#75715e"># accept/reject</span>
+</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>            accepted <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            accepts<span style="color:#f92672">.</span>append(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            accepts<span style="color:#f92672">.</span>append(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> t <span style="color:#f92672">&gt;=</span> burn_in: <span style="color:#75715e"># record sample after burn-in</span>
+</span></span><span style="display:flex;"><span>            samples<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>    acc_rate <span style="color:#f92672">=</span> accepted <span style="color:#f92672">/</span> n_steps <span style="color:#75715e"># acceptance rate</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(samples), acc_rate, np<span style="color:#f92672">.</span>array(accepts)
+</span></span></code></pre></div><h4 id="单峰示例">单峰示例</h4>
+<p>单峰难归一化分布**：$\pi(x)\propto e^{-x^4}$</p>
+<p>观察不同 $\sigma$ 下的接受率、ACF、ESS、直方图 vs 真实密度（数值归一化）。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Example : exp(-x^4)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">logpdf_expfour</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span> (x<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>save_folder <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./mcmc_meetropolis_results&#34;</span>
+</span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>makedirs(save_folder, exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>n_steps <span style="color:#f92672">=</span> <span style="color:#ae81ff">50000</span>
+</span></span><span style="display:flex;"><span>burn_in <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+</span></span><span style="display:flex;"><span>x0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>configs <span style="color:#f92672">=</span> [(<span style="color:#e6db74">&#34;small&#34;</span>, <span style="color:#ae81ff">0.15</span>), (<span style="color:#e6db74">&#34;tuned&#34;</span>, <span style="color:#ae81ff">0.8</span>), (<span style="color:#e6db74">&#34;large&#34;</span>, <span style="color:#ae81ff">3.0</span>)]
+</span></span><span style="display:flex;"><span>results_A <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> name, s <span style="color:#f92672">in</span> configs:
+</span></span><span style="display:flex;"><span>    samples, acc_rate, accepts <span style="color:#f92672">=</span> metropolis(logpdf_expfour, x0, s, n_steps, burn_in, rng)
+</span></span><span style="display:flex;"><span>    acf_vals <span style="color:#f92672">=</span> acf_1d(samples, max_lag<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>    ess <span style="color:#f92672">=</span> ess_from_acf(acf_vals, len(samples))
+</span></span><span style="display:flex;"><span>    results_A<span style="color:#f92672">.</span>append({<span style="color:#e6db74">&#34;config&#34;</span>: name, <span style="color:#e6db74">&#34;proposal_std&#34;</span>: s, <span style="color:#e6db74">&#34;accept_rate&#34;</span>: acc_rate, <span style="color:#e6db74">&#34;ESS&#34;</span>: ess, <span style="color:#e6db74">&#34;n_kept&#34;</span>: len(samples)})
+</span></span><span style="display:flex;"><span>    pd<span style="color:#f92672">.</span>DataFrame({<span style="color:#e6db74">&#34;x&#34;</span>: samples})<span style="color:#f92672">.</span>to_csv(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/metropolis_expfour_</span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">.csv&#34;</span>, index<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>samples_tuned <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/metropolis_expfour_tuned.csv&#34;</span>)[<span style="color:#e6db74">&#34;x&#34;</span>]<span style="color:#f92672">.</span>values
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(samples_tuned)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;iteration (post burn-in)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Metropolis trace on π(x) ∝ exp(-x^4) — tuned proposal&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/expfour_trace_tuned.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">4.5</span>, <span style="color:#ae81ff">4.5</span>, <span style="color:#ae81ff">600</span>)
+</span></span><span style="display:flex;"><span>true_pdf <span style="color:#f92672">=</span> normalize_pdf(xs, logpdf_expfour)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples_tuned, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">80</span>, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;samples&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(xs, true_pdf, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;true density (normalized numerically)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;density&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Metropolis on exp(-x^4): samples vs true density (tuned proposal)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/expfour_hist_tuned.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> name, _ <span style="color:#f92672">in</span> configs:
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/metropolis_expfour_</span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">.csv&#34;</span>)[<span style="color:#e6db74">&#34;x&#34;</span>]<span style="color:#f92672">.</span>values
+</span></span><span style="display:flex;"><span>    acf_vals <span style="color:#f92672">=</span> acf_1d(x, max_lag<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(acf_vals, label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;lag&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;autocorrelation&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;ACF comparison — exp(-x^4)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/expfour_acf_compare.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_2.png" alt="png"></p>
+<h4 id="双峰示例">双峰示例</h4>
+<p><strong>双峰混合</strong>：0.5 $\mathcal N(-3,1)$ + 0.5 $\mathcal N(3,1)$</p>
+<p>看随机游走在多峰地形里的“卡峰”问题，以及 $\sigma$ 太小/太大的反面教材。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Example: bimodal mixture</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>save_folder <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./mcmc_meetropolis_results&#34;</span>
+</span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>makedirs(save_folder, exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">logpdf_bimodal</span>(x):
+</span></span><span style="display:flex;"><span>    mu1, mu2, s <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>    l1 <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>((x<span style="color:#f92672">-</span>mu1)<span style="color:#f92672">/</span>s)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>pi<span style="color:#f92672">*</span>s<span style="color:#f92672">*</span>s) <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>    l2 <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>((x<span style="color:#f92672">-</span>mu2)<span style="color:#f92672">/</span>s)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>pi<span style="color:#f92672">*</span>s<span style="color:#f92672">*</span>s) <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>maximum(l1, l2)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> m <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>log(np<span style="color:#f92672">.</span>exp(l1<span style="color:#f92672">-</span>m) <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>exp(l2<span style="color:#f92672">-</span>m))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>configs_B <span style="color:#f92672">=</span> [(<span style="color:#e6db74">&#34;too_small&#34;</span>, <span style="color:#ae81ff">0.2</span>), (<span style="color:#e6db74">&#34;okay&#34;</span>, <span style="color:#ae81ff">1.2</span>), (<span style="color:#e6db74">&#34;too_large&#34;</span>, <span style="color:#ae81ff">4.0</span>)]
+</span></span><span style="display:flex;"><span>results_B <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> name, s <span style="color:#f92672">in</span> configs_B:
+</span></span><span style="display:flex;"><span>    samples, acc_rate, accepts <span style="color:#f92672">=</span> metropolis(logpdf_bimodal, x0<span style="color:#f92672">=-</span><span style="color:#ae81ff">5.0</span>, proposal_std<span style="color:#f92672">=</span>s, n_steps<span style="color:#f92672">=</span>n_steps, burn_in<span style="color:#f92672">=</span>burn_in, rng<span style="color:#f92672">=</span>rng)
+</span></span><span style="display:flex;"><span>    acf_vals <span style="color:#f92672">=</span> acf_1d(samples, max_lag<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>    ess <span style="color:#f92672">=</span> ess_from_acf(acf_vals, len(samples))
+</span></span><span style="display:flex;"><span>    frac_right <span style="color:#f92672">=</span> float(np<span style="color:#f92672">.</span>mean(samples <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span>    results_B<span style="color:#f92672">.</span>append({<span style="color:#e6db74">&#34;config&#34;</span>: name, <span style="color:#e6db74">&#34;proposal_std&#34;</span>: s, <span style="color:#e6db74">&#34;accept_rate&#34;</span>: acc_rate, <span style="color:#e6db74">&#34;ESS&#34;</span>: ess, <span style="color:#e6db74">&#34;frac_right_mode&#34;</span>: frac_right, <span style="color:#e6db74">&#34;n_kept&#34;</span>: len(samples)})
+</span></span><span style="display:flex;"><span>    pd<span style="color:#f92672">.</span>DataFrame({<span style="color:#e6db74">&#34;x&#34;</span>: samples})<span style="color:#f92672">.</span>to_csv(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/metropolis_bimodal_</span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">.csv&#34;</span>, index<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xs2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">700</span>)
+</span></span><span style="display:flex;"><span>pdf2 <span style="color:#f92672">=</span> normalize_pdf(xs2, logpdf_bimodal)
+</span></span><span style="display:flex;"><span>samples_ok <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/metropolis_bimodal_okay.csv&#34;</span>)[<span style="color:#e6db74">&#34;x&#34;</span>]<span style="color:#f92672">.</span>values
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples_ok, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">120</span>, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;samples (okay)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(xs2, pdf2, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;true density (normalized numerically)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;density&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Metropolis on bimodal mixture — histogram vs true density&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/bimodal_hist_okay.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> name, _ <span style="color:#f92672">in</span> configs_B:
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/metropolis_bimodal_</span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">.csv&#34;</span>)[<span style="color:#e6db74">&#34;x&#34;</span>]<span style="color:#f92672">.</span>values
+</span></span><span style="display:flex;"><span>    acf_vals <span style="color:#f92672">=</span> acf_1d(x, max_lag<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(acf_vals, label<span style="color:#f92672">=</span>name)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;lag&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;autocorrelation&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;ACF comparison — bimodal mixture&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>save_folder<span style="color:#e6db74">}</span><span style="color:#e6db74">/bimodal_acf_compare.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_9_1.png" alt="png"></p>
+<h2 id="2d高维版本相关高斯">2D/高维版本：相关高斯</h2>
+<blockquote>
+<p>直观体会：</p>
+<ol>
+<li><strong>高维时随机游走 Metropolis 的挑战</strong>；</li>
+<li><strong>提议分布协方差的缩放对接受率与有效样本数 (ESS) 的影响</strong>。</li>
+</ol></blockquote>
+<h3 id="目标分布二维相关高斯">目标分布：二维相关高斯</h3>
+<p>设目标分布为</p>
+$$
+\pi(x) = \mathcal N\Big(0, \Sigma\Big),\quad
+\Sigma = \begin{bmatrix}1 & 0.8\\0.8 & 1\end{bmatrix}.
+$$<p>这是一个“椭圆”形的二维高斯，主方向在 $y=x$。</p>
+<h3 id="metropolis-设置">Metropolis 设置</h3>
+<ul>
+<li>
+<p><strong>提议分布</strong>：对称高斯</p>
+$$
+  q(y\mid x) = \mathcal N(x,\, \sigma^2 I).
+  $$</li>
+<li>
+<p>我们比较三种 $\sigma$：</p>
+<ul>
+<li>太小（0.05）</li>
+<li>合适（0.5）</li>
+<li>太大（2.0）</li>
+</ul>
+</li>
+</ul>
+<h3 id="诊断指标">诊断指标</h3>
+<ul>
+<li><strong>接受率</strong>（accepted / 总步数）</li>
+<li><strong>ESS（有效样本数）</strong>：对每个维度单独算自相关后近似估计</li>
+<li><strong>轨迹/散点</strong>：观察是否沿椭圆主轴探索</li>
+<li><strong>自相关函数</strong>：对比不同 $\sigma$ 的衰减速度</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------- 目标分布（二维相关高斯） ----------</span>
+</span></span><span style="display:flex;"><span>Sigma <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.8</span>],
+</span></span><span style="display:flex;"><span>                  [<span style="color:#ae81ff">0.8</span>, <span style="color:#ae81ff">1.0</span>]])
+</span></span><span style="display:flex;"><span>Sigma_inv <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>inv(Sigma)
+</span></span><span style="display:flex;"><span>Sigma_det <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>det(Sigma)
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">log_target</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># log density of N(0, Sigma)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> x <span style="color:#f92672">@</span> Sigma_inv <span style="color:#f92672">@</span> x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------- Metropolis 实现 ----------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">metropolis_2d</span>(log_target, x0, sigma, n_samples<span style="color:#f92672">=</span><span style="color:#ae81ff">20000</span>, burn_in<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>):
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_samples, d))
+</span></span><span style="display:flex;"><span>    x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> x0
+</span></span><span style="display:flex;"><span>    accepted <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n_samples):
+</span></span><span style="display:flex;"><span>        proposal <span style="color:#f92672">=</span> x[t<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> sigma <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randn(d)
+</span></span><span style="display:flex;"><span>        log_alpha <span style="color:#f92672">=</span> log_target(proposal) <span style="color:#f92672">-</span> log_target(x[t<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>log(np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand()) <span style="color:#f92672">&lt;</span> log_alpha:
+</span></span><span style="display:flex;"><span>            x[t] <span style="color:#f92672">=</span> proposal
+</span></span><span style="display:flex;"><span>            accepted <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            x[t] <span style="color:#f92672">=</span> x[t<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x[burn_in:], accepted<span style="color:#f92672">/</span>(n_samples<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------- 自相关 &amp; ESS ----------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">autocorr</span>(x, lag):
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(x)
+</span></span><span style="display:flex;"><span>    x_mean <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(x)
+</span></span><span style="display:flex;"><span>    num <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum((x[:n<span style="color:#f92672">-</span>lag]<span style="color:#f92672">-</span>x_mean)<span style="color:#f92672">*</span>(x[lag:]<span style="color:#f92672">-</span>x_mean))
+</span></span><span style="display:flex;"><span>    den <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum((x<span style="color:#f92672">-</span>x_mean)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> num<span style="color:#f92672">/</span>den
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ess</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 简单近似 ESS = N / (1 + 2*sum_rho)</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(x)
+</span></span><span style="display:flex;"><span>    acfs <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> lag <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">200</span>):  <span style="color:#75715e"># 截断到200滞后</span>
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">=</span> autocorr(x, lag)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        acfs<span style="color:#f92672">.</span>append(r)
+</span></span><span style="display:flex;"><span>    tau <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>sum(acfs)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n<span style="color:#f92672">/</span>tau
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------- 运行不同sigma ----------</span>
+</span></span><span style="display:flex;"><span>sigmas <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">2.0</span>]
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> sigma <span style="color:#f92672">in</span> sigmas:
+</span></span><span style="display:flex;"><span>    samples, acc_rate <span style="color:#f92672">=</span> metropolis_2d(log_target, np<span style="color:#f92672">.</span>zeros(d), sigma)
+</span></span><span style="display:flex;"><span>    ess_x <span style="color:#f92672">=</span> ess(samples[:,<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>    ess_y <span style="color:#f92672">=</span> ess(samples[:,<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>    results[sigma] <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;samples&#34;</span>: samples,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;acc_rate&#34;</span>: acc_rate,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;ESS_x&#34;</span>: ess_x,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;ESS_y&#34;</span>: ess_y
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------- 绘图：散点 &amp; 轨迹 ----------</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">15</span>,<span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> ax, sigma <span style="color:#f92672">in</span> zip(axes, sigmas):
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> results[sigma][<span style="color:#e6db74">&#34;samples&#34;</span>]
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>scatter(s[:,<span style="color:#ae81ff">0</span>], s[:,<span style="color:#ae81ff">1</span>], s<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;σ=</span><span style="color:#e6db74">{</span>sigma<span style="color:#e6db74">}</span><span style="color:#e6db74">, acc=</span><span style="color:#e6db74">{</span>results[sigma][<span style="color:#e6db74">&#39;acc_rate&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">ESSx=</span><span style="color:#e6db74">{</span>results[sigma][<span style="color:#e6db74">&#39;ESS_x&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.0f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, ESSy=</span><span style="color:#e6db74">{</span>results[sigma][<span style="color:#e6db74">&#39;ESS_y&#39;</span>]<span style="color:#e6db74">:</span><span style="color:#e6db74">.0f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>); ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>suptitle(<span style="color:#e6db74">&#34;Metropolis in 2D Correlated Gaussian&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------- 绘制自相关函数对比 (x维度) ----------</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>lags <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> sigma <span style="color:#f92672">in</span> sigmas:
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> results[sigma][<span style="color:#e6db74">&#34;samples&#34;</span>][:,<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    acfs <span style="color:#f92672">=</span> [autocorr(s, lag) <span style="color:#66d9ef">for</span> lag <span style="color:#f92672">in</span> lags]
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(lags, acfs, label<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;σ=</span><span style="color:#e6db74">{</span>sigma<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Lag&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Autocorrelation (x-dim)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;ACF of Metropolis samples (x dimension)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>results
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_11_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_11_1.png" alt="png"></p>
+<pre><code>{0.05: {'samples': array([[-2.16572377, -0.77884803],
+         [-2.15834687, -0.90655463],
+         [-2.18296029, -0.78398635],
+         ...,
+         [ 1.51324889,  0.67798398],
+         [ 1.50519569,  0.65206217],
+         [ 1.50207077,  0.69648709]], shape=(18000, 2)),
+  'acc_rate': 0.9588479423971199,
+  'ESS_x': np.float64(53.51017982106769),
+  'ESS_y': np.float64(53.36453749200187)},
+ 0.5: {'samples': array([[ 0.22022266,  0.34438253],
+         [ 0.166778  ,  0.15202594],
+         [ 0.166778  ,  0.15202594],
+         ...,
+         [-0.66219976, -0.84027925],
+         [-0.66219976, -0.84027925],
+         [-0.93618224, -1.05758728]], shape=(18000, 2)),
+  'acc_rate': 0.6429821491074553,
+  'ESS_x': np.float64(306.2402365935577),
+  'ESS_y': np.float64(320.2125756843043)},
+ 2.0: {'samples': array([[ 0.38647484,  0.08333977],
+         [ 0.38647484,  0.08333977],
+         [ 0.38647484,  0.08333977],
+         ...,
+         [-0.1488856 ,  0.45357494],
+         [-0.1488856 ,  0.45357494],
+         [-0.02129455, -0.43894876]], shape=(18000, 2)),
+  'acc_rate': 0.1905095254762738,
+  'ESS_x': np.float64(1308.3542777464584),
+  'ESS_y': np.float64(1325.6521185465317)}}
+</code></pre>
+<h3 id="-诊断表">📊 诊断表</h3>
+<table>
+  <thead>
+      <tr>
+          <th>σ (proposal std)</th>
+          <th>接受率</th>
+          <th>ESS(x)</th>
+          <th>ESS(y)</th>
+          <th>直观表现</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>0.05</strong> (太小)</td>
+          <td>0.97</td>
+          <td>~53</td>
+          <td>~53</td>
+          <td>接受率极高，但样本走得像“蚂蚁挪步”，自相关极强，ESS 极低。</td>
+      </tr>
+      <tr>
+          <td><strong>0.5</strong> (合适)</td>
+          <td>0.64</td>
+          <td>~350</td>
+          <td>~385</td>
+          <td>接受率和移动幅度均衡，ESS 明显提升，样本沿椭圆充分探索。</td>
+      </tr>
+      <tr>
+          <td><strong>2.0</strong> (太大)</td>
+          <td>0.18</td>
+          <td>~1030</td>
+          <td>~929</td>
+          <td>接受率很低，但每次成功移动都很大，ESS 反而最高；不过链“抖动”，稳定性受限。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="-图解说明">📉 图解说明</h3>
+<ol>
+<li>
+<p><strong>散点图</strong></p>
+<ul>
+<li>σ=0.05：点云很密集，几乎粘在局部。</li>
+<li>σ=0.5：点云覆盖椭圆形分布，最合理。</li>
+<li>σ=2.0：点云分布合理，但轨迹很“跳跃”，很多拒绝（trace 会出现“卡住不动”）。</li>
+</ul>
+</li>
+<li>
+<p><strong>ACF (x维度)</strong></p>
+<ul>
+<li>σ=0.05：ACF 衰减非常慢 → 强相关。</li>
+<li>σ=0.5：ACF 快速下降 → 较高效率。</li>
+<li>σ=2.0：ACF 更快下降 → 看似效率高，但接受率低，导致采样不稳定。</li>
+</ul>
+</li>
+</ol>
+<h3 id="-直觉总结">✅ <strong>直觉总结</strong></h3>
+<ul>
+<li>高维情况下，<strong>步长缩放</strong>对 MCMC 性能影响更大。</li>
+<li>太小 → 接受率高但“蚂蚁爬”，ESS 低。</li>
+<li>太大 → 接受率低，链“卡住不动”。</li>
+<li>合适区间 → 兼顾接受率和探索能力。</li>
+</ul>
+<h1 id="实战注意事项">实战注意事项</h1>
+<ol>
+<li><strong>用 log 密度</strong>：永远在 log 域里做加减，避免数值下溢。</li>
+<li><strong>Burn-in</strong>：保守一点，前期样本丢掉；但别丢太多浪费。</li>
+<li><strong>不要盲目 thinning</strong>：存储允许的前提下保留全部样本，用 ACF/ESS 正确估计方差。</li>
+<li><strong>多链检查</strong>：多初值并行跑，看看是否都收敛并混合到同一个稳态（后续你学到 R-hat 等更规范的指标）。</li>
+<li><strong>调 $\sigma$</strong>：目标是让<strong>接受率</strong>与<strong>探索幅度</strong>取得平衡（看 ACF/ESS 和图）。</li>
+</ol>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://localhost:1313/zh-cn/tags/mcmc/">MCMC</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/metropolis/">Metropolis</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/algorithm/">Algorithm</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/monte-carlo/">Monte Carlo</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;text=Metropolis%20%e7%ae%97%e6%b3%95&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;title=Metropolis%20%e7%ae%97%e6%b3%95" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;title=Metropolis%20%e7%ae%97%e6%b3%95" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;title=Metropolis%20%e7%ae%97%e6%b3%95" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis%2f&amp;description=Metropolis%20%e7%ae%97%e6%b3%95" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/" data-toggle="tooltip" data-placement="top" title="理解马尔可夫链">&larr; 前一篇</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#我们要解决什么问题the-core-problem">我们要解决什么问题？(The Core Problem)</a>
+      <ul>
+        <li><a href="#1-核心困境无法计算的">1. 核心困境：无法计算的 </a></li>
+        <li><a href="#2-metropolis-的解决策略相对比值法">2. Metropolis 的解决策略：相对比值法</a></li>
+        <li><a href="#3-连接点为什么要用马尔可夫链">3. 连接点：为什么要用马尔可夫链？</a></li>
+      </ul>
+    </li>
+    <li><a href="#metropolis随机游走">Metropolis（随机游走）</a>
+      <ul>
+        <li><a href="#一维">一维</a></li>
+        <li><a href="#2d高维版本相关高斯">2D/高维版本：相关高斯</a></li>
+      </ul>
+    </li>
+    <li><a href="#实战注意事项">实战注意事项</a></li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/zh-cn/">琼呀</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="http://localhost:1313/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+

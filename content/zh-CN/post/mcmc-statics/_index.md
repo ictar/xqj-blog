@@ -1,6 +1,6 @@
 ---
 title: "蒙特卡洛-马尔可夫链统计方法"
-date: 2025-08-02
+date: 2026-01-24
 type: "docs"
 layout: "section"
 weight: 2
@@ -29,6 +29,9 @@ weight: 2
    - 从马尔可夫链到抽样
    - 理论与直觉
 6. [Metropolis 算法](./metropolis/)
+   - 核心困境：无法计算的归一化常数
+   - 随机游走 Metropolis 算法详解
+   - 高维分布中的采样表现与调参
 7. [Metropolis-Hastings 算法](./metropolis-hastings/)
 8. [Gibbs 采样详解](./gibbs/)
 9. [收敛性诊断](./convergence/)

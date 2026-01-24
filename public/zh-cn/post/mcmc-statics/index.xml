@@ -8,8 +8,15 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Fri, 23 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 24 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/post/mcmc-statics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Metropolis 算法</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</guid>
+      <description>详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。</description>
+    </item>
     <item>
       <title>理解马尔可夫链</title>
       <link>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</link>
