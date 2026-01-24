@@ -1,0 +1,59 @@
+{{ define "main" }}
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      {{/* Series / Sub-sections Area */}} {{ if .Sections }}
+      <div class="series-container">
+        <h3 class="section-heading">
+          {{ i18n "series" | default "Series & Collections" }}
+        </h3>
+        <div class="series-grid">
+          {{ range .Sections.ByWeight }}
+          <a href="{{ .Permalink }}" class="series-card source-sans-pro">
+            <div class="series-card-header">
+              <span class="series-icon">📂</span>
+              <h4 class="series-title">{{ .Title }}</h4>
+            </div>
+            <div class="series-card-body">
+              <p class="series-summary">
+                {{ if .Params.subtitle }} {{ .Params.subtitle }} {{ else if
+                .Params.summary }} {{ .Params.summary }} {{ else }} {{ .Summary
+                | plainify | truncate 80 }} {{ end }}
+              </p>
+            </div>
+          </a>
+          {{ end }}
+        </div>
+      </div>
+      <hr class="section-divider" />
+      {{ end }} {{/* Latest Posts Area */}} {{ with .Content }}
+      <div class="well">{{.}}</div>
+      {{ end }}
+
+      <h3 class="section-heading">
+        {{ i18n "latestDetails" | default "Latest Articles" }}
+      </h3>
+      <div class="posts-list">
+        {{/* Paginator iterates over all regular pages in 'post' section
+        recursively */}} {{ $paginator := .Paginate (where .Site.RegularPages
+        "Section" "post") }} {{ range $paginator.Pages }} {{ partial
+        "post_preview.html" .}} {{ end }}
+      </div>
+
+      {{/* Pagination */}} {{ if or ($paginator.HasPrev) ($paginator.HasNext) }}
+      <ul class="pager main-pager">
+        {{ if $paginator.HasPrev }}
+        <li class="previous">
+          <a href="{{ $paginator.Prev.URL }}">&larr; {{ i18n "newerPosts" }}</a>
+        </li>
+        {{ end }} {{ if $paginator.HasNext }}
+        <li class="next">
+          <a href="{{ $paginator.Next.URL }}">{{ i18n "olderPosts" }} &rarr;</a>
+        </li>
+        {{ end }}
+      </ul>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}
