@@ -8,8 +8,71 @@
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 24 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bayesian Statistics</title>
+      <link>http://localhost:1313/tags/bayesian-statistics/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/bayesian-statistics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MCMC</title>
+      <link>http://localhost:1313/tags/mcmc/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/mcmc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Metropolis Algorithm</title>
+      <link>http://localhost:1313/tags/metropolis-algorithm/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/metropolis-algorithm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Monte Carlo Simulation</title>
+      <link>http://localhost:1313/tags/monte-carlo-simulation/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/monte-carlo-simulation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python Implementation</title>
+      <link>http://localhost:1313/tags/python-implementation/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/python-implementation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Random Walk</title>
+      <link>http://localhost:1313/tags/random-walk/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/random-walk/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Markov Chain</title>
+      <link>http://localhost:1313/tags/markov-chain/</link>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/markov-chain/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mathematics</title>
+      <link>http://localhost:1313/tags/mathematics/</link>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/mathematics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>http://localhost:1313/tags/python/</link>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/python/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Joint Embedding</title>
       <link>http://localhost:1313/tags/joint-embedding/</link>
@@ -67,10 +130,45 @@
       <description></description>
     </item>
     <item>
-      <title>Mathematics</title>
-      <link>http://localhost:1313/tags/mathematics/</link>
-      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/mathematics/</guid>
+      <title>AI</title>
+      <link>http://localhost:1313/tags/ai/</link>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>EO</title>
+      <link>http://localhost:1313/tags/eo/</link>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/eo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GeoFM</title>
+      <link>http://localhost:1313/tags/geofm/</link>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/geofm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Large Model</title>
+      <link>http://localhost:1313/tags/large-model/</link>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/large-model/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Remote Sensing</title>
+      <link>http://localhost:1313/tags/remote-sensing/</link>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/remote-sensing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terramind</title>
+      <link>http://localhost:1313/tags/terramind/</link>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/terramind/</guid>
       <description></description>
     </item>
     <item>
@@ -81,24 +179,10 @@
       <description></description>
     </item>
     <item>
-      <title>Python</title>
-      <link>http://localhost:1313/tags/python/</link>
-      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/python/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Sampling</title>
       <link>http://localhost:1313/tags/sampling/</link>
       <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/tags/sampling/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Markov Chain</title>
-      <link>http://localhost:1313/tags/markov-chain/</link>
-      <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/markov-chain/</guid>
       <description></description>
     </item>
     <item>
@@ -144,6 +228,97 @@
       <description></description>
     </item>
     <item>
+      <title>Addition Principle</title>
+      <link>http://localhost:1313/tags/addition-principle/</link>
+      <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/addition-principle/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mathematical Statistics</title>
+      <link>http://localhost:1313/tags/mathematical-statistics/</link>
+      <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/mathematical-statistics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Multiplication Principle</title>
+      <link>http://localhost:1313/tags/multiplication-principle/</link>
+      <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/multiplication-principle/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Permutations and Combinations</title>
+      <link>http://localhost:1313/tags/permutations-and-combinations/</link>
+      <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/permutations-and-combinations/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Probability Theory</title>
+      <link>http://localhost:1313/tags/probability-theory/</link>
+      <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/probability-theory/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Random Events</title>
+      <link>http://localhost:1313/tags/random-events/</link>
+      <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/random-events/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Chat2Geo</title>
+      <link>http://localhost:1313/tags/chat2geo/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/chat2geo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Geo</title>
+      <link>http://localhost:1313/tags/geo/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/geo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM</title>
+      <link>http://localhost:1313/tags/llm/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Notellm</title>
+      <link>http://localhost:1313/tags/notellm/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/notellm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Notes</title>
+      <link>http://localhost:1313/tags/notes/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/notes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Podcast</title>
+      <link>http://localhost:1313/tags/podcast/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/podcast/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Podcast Notes</title>
+      <link>http://localhost:1313/tags/podcast-notes/</link>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/podcast-notes/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Raster</title>
       <link>http://localhost:1313/tags/raster/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
@@ -151,10 +326,10 @@
       <description></description>
     </item>
     <item>
-      <title>Remote Sensing</title>
-      <link>http://localhost:1313/tags/remote-sensing/</link>
+      <title>Satellite-Image-Deep-Learning</title>
+      <link>http://localhost:1313/tags/satellite-image-deep-learning/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/remote-sensing/</guid>
+      <guid>http://localhost:1313/tags/satellite-image-deep-learning/</guid>
       <description></description>
     </item>
     <item>

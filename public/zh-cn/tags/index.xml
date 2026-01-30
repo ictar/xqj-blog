@@ -8,8 +8,71 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Wed, 10 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 24 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MCMC</title>
+      <link>http://localhost:1313/zh-cn/tags/mcmc/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/mcmc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Metropolis算法</title>
+      <link>http://localhost:1313/zh-cn/tags/metropolis%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/metropolis%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python实现</title>
+      <link>http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>贝叶斯统计</title>
+      <link>http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>蒙特卡洛模拟</title>
+      <link>http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A8%A1%E6%8B%9F/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A8%A1%E6%8B%9F/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>随机游走</title>
+      <link>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0/</link>
+      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>http://localhost:1313/zh-cn/tags/python/</link>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>马尔可夫链</title>
+      <link>http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/</link>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>数学</title>
+      <link>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</link>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</guid>
+      <description></description>
+    </item>
     <item>
       <title>AI</title>
       <link>http://localhost:1313/zh-cn/tags/ai/</link>
@@ -53,13 +116,6 @@
       <description></description>
     </item>
     <item>
-      <title>Python</title>
-      <link>http://localhost:1313/zh-cn/tags/python/</link>
-      <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/tags/python/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>采样</title>
       <link>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</link>
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
@@ -67,24 +123,10 @@
       <description></description>
     </item>
     <item>
-      <title>马尔可夫链</title>
-      <link>http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/</link>
-      <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>蒙特卡洛</title>
       <link>http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/</link>
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>数学</title>
-      <link>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</link>
-      <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</guid>
       <description></description>
     </item>
     <item>

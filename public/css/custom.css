@@ -48,7 +48,6 @@
   border-color: #337ab7;
 }
 
-
 /* Projects Grid Layout */
 .container .projects-grid {
   display: grid !important;
@@ -157,4 +156,269 @@
 
 .read-more-link:hover {
   text-decoration: underline !important;
+}
+
+/* --- Enhanced Social Share Buttons --- */
+.share-box {
+  margin-top: 30px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+ul.share {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px; /* Space between icons */
+}
+
+ul.share li {
+  margin: 0 !important; /* Override default margin */
+}
+
+ul.share li a.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  color: #555;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-decoration: none !important;
+}
+
+ul.share li a.share-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+/* Brand Colors on Hover */
+ul.share li a.twitter:hover {
+  background-color: #1da1f2;
+}
+
+ul.share li a.facebook:hover {
+  background-color: #4267b2;
+}
+
+ul.share li a.weibo:hover {
+  background-color: #e6162d;
+}
+
+ul.share li a.wechat:hover {
+  background-color: #07c160;
+}
+
+ul.share li a.linkedin:hover {
+  background-color: #0077b5;
+}
+
+ul.share li a.copy-link:hover {
+  background-color: #6c757d;
+}
+
+/* WeChat Modal Styles */
+.wechat-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+}
+
+.wechat-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 300px; /* Fixed width for QR code */
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s;
+}
+
+.wechat-close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.wechat-close:hover,
+.wechat-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.wechat-modal-content h4 {
+  margin-top: 0;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.qrcode-container img {
+  border: 1px solid #eee;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark Mode Adjustments */
+@media (prefers-color-scheme: dark) {
+  .wechat-modal-content {
+    background-color: #2b2b2b;
+    color: #ddd;
+    border-color: #444;
+  }
+  .wechat-modal-content h4 {
+    color: #eee;
+  }
+  ul.share li a.share-btn {
+    background-color: #333;
+    color: #ccc;
+  }
+  ul.share li a.share-btn:hover {
+    color: white;
+  }
+}
+
+/* --- Series / Collections Styles --- */
+
+.section-heading {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #888;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 25px;
+  border-left: 4px solid #337ab7;
+  padding-left: 10px;
+}
+
+.series-container {
+  margin-bottom: 40px;
+}
+
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .series-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.series-card {
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+  height: 100%;
+}
+
+.series-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border-color: #337ab7;
+  background: #fff;
+}
+
+.series-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.series-icon {
+  font-size: 1.5em;
+  margin-right: 12px;
+}
+
+.series-title {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.series-card:hover .series-title {
+  color: #337ab7;
+}
+
+.series-card-body {
+  flex-grow: 1;
+}
+
+.series-summary {
+  font-size: 0.95em;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.section-divider {
+  margin: 40px 0;
+  border-top: 1px dashed #e0e0e0;
+}
+
+/* Dark Mode for Series */
+@media (prefers-color-scheme: dark) {
+  .series-card {
+    background: #1e1e1e;
+    border-color: #333;
+  }
+  .series-card:hover {
+    background: #252525;
+    border-color: #50afff;
+  }
+  .series-title {
+    color: #eee;
+  }
+  .series-card:hover .series-title {
+    color: #50afff;
+  }
+  .series-summary {
+    color: #bbb;
+  }
+  .section-divider {
+    border-color: #333;
+  }
 }

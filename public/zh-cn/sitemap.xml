@@ -18,7 +18,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/zh-cn/post/mcmc-statics/</loc>
-    <lastmod>2025-08-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -36,6 +36,16 @@
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/geoai/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/geoai/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/</loc>
     <lastmod>2025-09-24T00:00:00+00:00</lastmod>
@@ -67,6 +77,146 @@
                 href="http://localhost:1313/zh-cn/post/python-geodata/"
                 />
   </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/mcmc/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/mcmc/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/mcmc/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/metropolis/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/metropolis%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A8%A1%E6%8B%9F/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/post/</loc>
+    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/python/</loc>
+    <lastmod>2026-01-23T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/python/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/python/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</loc>
+    <lastmod>2026-01-23T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/markov-chains/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/</loc>
+    <lastmod>2026-01-23T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</loc>
+    <lastmod>2026-01-23T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>http://localhost:1313/zh-cn/projects/terraflow/</loc>
     <lastmod>2025-12-20T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -80,21 +230,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="http://localhost:1313/zh-cn/projects/terraflow/"
-                />
-  </url><url>
-    <loc>http://localhost:1313/zh-cn/</loc>
-    <lastmod>2025-12-20T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/"
                 />
   </url><url>
     <loc>http://localhost:1313/zh-cn/projects/</loc>
@@ -112,55 +247,65 @@
                 href="http://localhost:1313/zh-cn/projects/"
                 />
   </url><url>
-    <loc>http://localhost:1313/zh-cn/post/</loc>
-    <lastmod>2025-09-24T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/zh-cn/tags/ai/</loc>
+    <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="http://localhost:1313/post/"
+                href="http://localhost:1313/tags/ai/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/post/"
+                href="http://localhost:1313/zh-cn/tags/ai/"
                 />
-  </url><url>
-    <loc>http://localhost:1313/zh-cn/tags/ai/</loc>
-    <lastmod>2025-09-10T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/eo/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/eo/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/eo/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/geofm/</loc>
-    <lastmod>2025-09-10T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/zh-cn/tags/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="http://localhost:1313/tags/"
+                href="http://localhost:1313/tags/geofm/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/tags/"
+                href="http://localhost:1313/zh-cn/tags/geofm/"
                 />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/terramind/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/terramind/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/terramind/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
@@ -171,6 +316,16 @@
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/geoai/geofm-intro-terramind/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/geoai/geofm-intro-terramind/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E9%81%A5%E6%84%9F/</loc>
     <lastmod>2025-09-10T00:00:00+00:00</lastmod>
@@ -192,27 +347,7 @@
                 href="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/"
                 />
   </url><url>
-    <loc>http://localhost:1313/zh-cn/tags/python/</loc>
-    <lastmod>2025-08-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/tags/python/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/tags/python/"
-                />
-  </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/</loc>
-    <lastmod>2025-08-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/</loc>
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -221,26 +356,6 @@
     <lastmod>2025-08-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2025-08-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</loc>
-    <lastmod>2025-08-21T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/post/mcmc-statics/markov-chains/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/"
-                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</loc>
     <lastmod>2025-08-19T00:00:00+00:00</lastmod>
@@ -371,6 +486,16 @@
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/notes/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/notes/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E4%B9%98%E6%B3%95%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2025-07-05T00:00:00+00:00</lastmod>
@@ -411,26 +536,76 @@
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/chat2geo/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/chat2geo/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/geo/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/geo/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/geo/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/llm/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/llm/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/llm/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/notellm/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/notellm/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/notellm/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/notes/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/notes/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/notes/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/page/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
@@ -451,11 +626,31 @@
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/podcast/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/podcast/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/satellite-image-deep-learning/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/satellite-image-deep-learning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/satellite-image-deep-learning/"
+                />
   </url><url>
     <loc>http://localhost:1313/zh-cn/tags/%E6%92%AD%E5%AE%A2%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2025-07-02T00:00:00+00:00</lastmod>

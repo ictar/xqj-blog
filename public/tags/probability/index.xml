@@ -17,5 +17,12 @@
       <guid>http://localhost:1313/post/mcmc-statics/probability/</guid>
       <description>This article introduces the basic concepts and rigorous formulas of probability, serving as the foundation for understanding random variables, sampling, and MCMC.</description>
     </item>
+    <item>
+      <title>[Course Notes] Probability Theory and Mathematical Statistics | Random Events and Probability</title>
+      <link>http://localhost:1313/notes/probability_theory_random_events_and_probability/</link>
+      <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/notes/probability_theory_random_events_and_probability/</guid>
+      <description>&lt;h2 id=&#34;random-experiments-and-random-events&#34;&gt;Random Experiments and Random Events&lt;/h2&gt;&#xA;&lt;h3 id=&#34;definitions&#34;&gt;Definitions&lt;/h3&gt;&#xA;&lt;p&gt;In probability theory, an &lt;em&gt;experiment&lt;/em&gt; possessing the following three characteristics is called a &lt;strong&gt;random experiment&lt;/strong&gt;:&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

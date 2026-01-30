@@ -8,21 +8,21 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Fri, 22 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>理解马尔可夫链</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</link>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</guid>
+      <description>了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性</description>
+    </item>
     <item>
       <title>MCMC 初识</title>
       <link>http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/</link>
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/</guid>
       <description>我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。</description>
-    </item>
-    <item>
-      <title>理解马尔可夫链</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</link>
-      <pubDate>Thu, 21 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</guid>
-      <description>了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性</description>
     </item>
   </channel>
 </rss>

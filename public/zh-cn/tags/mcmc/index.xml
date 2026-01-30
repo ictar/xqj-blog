@@ -11,11 +11,11 @@
     <lastBuildDate>Sat, 24 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/tags/mcmc/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Metropolis 算法</title>
+      <title>Metropolis 算法详解：从原理到 Python 实现</title>
       <link>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</guid>
-      <description>详解 Metropolis 算法的核心思想、随机游走实现及其在高维分布中的表现。包含 Python 代码示例与可视化。</description>
+      <description>Metropolis 算法是 MCMC 的基石。本文深入探讨其应对未归一化概率密度的策略，从随机游走机制到高维相关高斯分布的采样实战，提供完整的 Python 实现与可视化分析。</description>
     </item>
   </channel>
 </rss>

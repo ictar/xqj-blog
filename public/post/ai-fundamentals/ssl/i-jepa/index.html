@@ -401,51 +401,166 @@
                 
 
 <div class="share-box" aria-hidden="true">
-    <ul class="share">
-      
-      <li>
-        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;text=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture&amp;via=" target="_blank" title="Share on Twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f" target="_blank" title="Share on Facebook">
-          <i class="fab fa-facebook"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;title=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture" target="_blank" title="Share on Reddit">
-          <i class="fab fa-reddit"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;title=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture" target="_blank" title="Share on LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;title=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture" target="_blank" title="Share on StumbleUpon">
-          <i class="fab fa-stumbleupon"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;description=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture" target="_blank" title="Share on Pinterest">
-          <i class="fab fa-pinterest"></i>
-        </a>
-      </li>
-    </ul>
+  <ul class="share">
+    
+    <li>
+      <a
+        href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;text=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture&amp;via="
+        target="_blank"
+        title="Share on Twitter"
+        class="share-btn twitter"
+      >
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f"
+        target="_blank"
+        title="Share on Facebook"
+        class="share-btn facebook"
+      >
+        <i class="fab fa-facebook"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;appkey=&amp;title=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture&amp;pic="
+        target="_blank"
+        title="Share on Weibo"
+        class="share-btn weibo"
+      >
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="openWechatModal('http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/i-jepa\/')"
+        title="Share on WeChat"
+        class="share-btn wechat"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fai-fundamentals%2fssl%2fi-jepa%2f&amp;title=I-JEPA%3a%20Image-based%20Joint%20Embedding%20Predictive%20Architecture"
+        target="_blank"
+        title="Share on LinkedIn"
+        class="share-btn linkedin"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="copyToClipboard('http:\/\/localhost:1313\/post\/ai-fundamentals\/ssl\/i-jepa\/', 'I-JEPA: Image-based Joint Embedding Predictive Architecture')"
+        title="Copy Link"
+        class="share-btn copy-link"
+      >
+        <i class="fas fa-link"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div id="wechat-modal" class="wechat-modal">
+  <div class="wechat-modal-content">
+    <span class="wechat-close" onclick="closeWechatModal()">&times;</span>
+    <h4>
+      Scan to Share <br />
+      微信扫一扫分享
+    </h4>
+    <div id="qrcode" class="qrcode-container"></div>
   </div>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(url, title) {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        
+        var existingToast = document.getElementById("share-toast");
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        var toast = document.createElement("div");
+        toast.id = "share-toast";
+        toast.innerText = "Link copied to clipboard!";
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = "rgba(0,0,0,0.8)";
+        toast.style.color = "#fff";
+        toast.style.padding = "10px 20px";
+        toast.style.borderRadius = "5px";
+        toast.style.zIndex = "10000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease-in-out";
+
+        document.body.appendChild(toast);
+
+        
+        void toast.offsetWidth;
+
+        toast.style.opacity = "1";
+
+        setTimeout(function () {
+          toast.style.opacity = "0";
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 500);
+        }, 3000);
+      },
+      function (err) {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
+  function openWechatModal(url) {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "flex";
+    var qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    var img = document.createElement("img");
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      encodeURIComponent(url);
+    img.style.width = "200px";
+    img.style.height = "200px";
+    qrcodeContainer.appendChild(img);
+  }
+
+  function closeWechatModal() {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "none";
+  }
+
   
+  window.onclick = function (event) {
+    var modal = document.getElementById("wechat-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
 
               </div>
             </section>
@@ -503,7 +618,11 @@
   <ul>
     <li>
       <ul>
-        <li></li>
+        <li>
+          <ul>
+            <li><a href="#-model-name">🏷️ Model Name</a></li>
+          </ul>
+        </li>
         <li><a href="#-core-idea">🧠 Core Idea</a></li>
         <li><a href="#-architecture">🖼️ Architecture</a></li>
         <li><a href="#-strengths">💡 Strengths</a></li>
@@ -570,7 +689,7 @@
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2025
+            2026
           
 
           

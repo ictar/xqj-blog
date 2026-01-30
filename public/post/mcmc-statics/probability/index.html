@@ -61,7 +61,7 @@
   "headline": "What is Probability?",
   "description" : "This article introduces the basic concepts and rigorous formulas of probability, serving as the foundation for understanding random variables, sampling, and MCMC.",
   "inLanguage" : "en",
-  "wordCount":  4301 ,
+  "wordCount":  4453 ,
   "datePublished" : "2025-08-15T00:00:00\u002b00:00",
   "dateModified" : "2025-08-15T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
@@ -314,7 +314,7 @@
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;4301&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;4453&nbsp;words
   
   
   &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/probability/" lang="zh-cn">CH</a>
@@ -345,17 +345,52 @@
   <ul>
     <li><a href="#three-interpretations-of-probability">Three Interpretations of Probability</a>
       <ul>
-        <li><a href="#-1-frequentist-interpretation">🔵 1. Frequentist Interpretation</a></li>
-        <li><a href="#-2-bayesian-interpretation">🔴 2. Bayesian Interpretation</a></li>
-        <li><a href="#-3-axiomatic-definition-kolmogorov-axiomatic-approach">⚫️ 3. Axiomatic Definition (Kolmogorov Axiomatic Approach)</a></li>
+        <li><a href="#-1-frequentist-interpretation">🔵 1. Frequentist Interpretation</a>
+          <ul>
+            <li><a href="#-core-idea">🌱 Core Idea:</a></li>
+            <li><a href="#-mathematical-expression">📌 Mathematical Expression:</a></li>
+            <li><a href="#-key-features">🧠 Key Features:</a></li>
+            <li><a href="#-application-examples">🎯 Application Examples:</a></li>
+            <li><a href="#-drawbacks">⚠️ Drawbacks:</a></li>
+          </ul>
+        </li>
+        <li><a href="#-2-bayesian-interpretation">🔴 2. Bayesian Interpretation</a>
+          <ul>
+            <li><a href="#-core-idea-1">🌱 Core Idea:</a></li>
+            <li><a href="#-mathematical-expression-1">📌 Mathematical Expression:</a></li>
+            <li><a href="#-key-features-1">🧠 Key Features:</a></li>
+            <li><a href="#-application-examples-1">🎯 Application Examples:</a></li>
+            <li><a href="#-drawbacks-1">⚠️ Drawbacks:</a></li>
+          </ul>
+        </li>
+        <li><a href="#-3-axiomatic-definition-kolmogorov-axiomatic-approach">⚫️ 3. Axiomatic Definition (Kolmogorov Axiomatic Approach)</a>
+          <ul>
+            <li><a href="#-core-idea-2">🌱 Core Idea:</a></li>
+            <li><a href="#-three-axioms-kolmogorov-axioms">📌 <a href="https://en.wikipedia.org/wiki/Probability_axioms">Three Axioms (Kolmogorov Axioms)</a>:</a></li>
+            <li><a href="#-key-features-2">🧠 Key Features:</a></li>
+            <li><a href="#-application-examples-2">🎯 Application Examples:</a></li>
+            <li><a href="#-drawbacks-2">⚠️ Drawbacks:</a></li>
+          </ul>
+        </li>
         <li><a href="#-summary">📌 Summary</a></li>
       </ul>
     </li>
     <li><a href="#events-and-sample-space">Events and Sample Space</a>
       <ul>
         <li><a href="#sample-space-1">Sample Space</a></li>
-        <li><a href="#event">Event</a></li>
-        <li><a href="#three-common-examples">Three Common Examples</a></li>
+        <li><a href="#event">Event</a>
+          <ul>
+            <li><a href="#operations-on-events">Operations on Events</a></li>
+            <li><a href="#how-to-assign-probability-to-events">How to Assign &ldquo;Probability&rdquo; to Events</a></li>
+          </ul>
+        </li>
+        <li><a href="#three-common-examples">Three Common Examples</a>
+          <ul>
+            <li><a href="#a-rolling-a-die-discrete-simple">A. Rolling a Die (Discrete, Simple)</a></li>
+            <li><a href="#b-weather-forecast-finite-discrete-but-probabilistic">B. Weather Forecast (Finite Discrete, but Probabilistic)</a></li>
+            <li><a href="#c-image-classification-high-dimensional-uncountable-discrete">C. Image Classification (High-dimensional, Uncountable Discrete)</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#basic-properties-of-probability">Basic Properties of Probability</a>
@@ -374,23 +409,56 @@
       <ul>
         <li><a href="#conditional-probability--rigorous-definition">Conditional Probability  (Rigorous Definition)</a></li>
         <li><a href="#joint-probability--and-multiplication-rule">Joint Probability  and Multiplication Rule</a></li>
-        <li><a href="#examples">Examples</a></li>
+        <li><a href="#examples">Examples</a>
+          <ul>
+            <li><a href="#example-a-drawing-cards-without-replacement">Example A: Drawing Cards (Without Replacement)</a></li>
+            <li><a href="#example-b-medical-testing-bayes-derived-from-multiplication-rule">Example B: Medical Testing (Bayes derived from Multiplication Rule)</a></li>
+          </ul>
+        </li>
         <li><a href="#summary">Summary</a></li>
       </ul>
     </li>
     <li><a href="#law-of-total-probability-and-bayes-theorem">Law of Total Probability and Bayes&rsquo; Theorem</a>
       <ul>
-        <li><a href="#law-of-total-probability-ltp">Law of Total Probability (LTP)</a></li>
-        <li><a href="#bayes-theorem">Bayes&rsquo; Theorem</a></li>
+        <li><a href="#law-of-total-probability-ltp">Law of Total Probability (LTP)</a>
+          <ul>
+            <li><a href="#rigorous-statement-discretecountable-partition">Rigorous Statement (Discrete/Countable Partition)</a></li>
+            <li><a href="#proof-by-countable-additivity--definition-of-conditional-probability">Proof (By Countable Additivity + Definition of Conditional Probability)</a></li>
+            <li><a href="#continuousdensity-version-common-equation">Continuous/Density Version (Common Equation)</a></li>
+          </ul>
+        </li>
+        <li><a href="#bayes-theorem">Bayes&rsquo; Theorem</a>
+          <ul>
+            <li><a href="#basic-form-two-events">Basic Form (Two Events)</a></li>
+            <li><a href="#multi-hypothesis-version-countable-partition-">Multi-Hypothesis Version (Countable Partition )</a></li>
+            <li><a href="#continuousdensity-version">Continuous/Density Version</a></li>
+          </ul>
+        </li>
         <li><a href="#the-power-of-reversing-causality-diagnostic-vs-causal">The Power of &ldquo;Reversing Causality&rdquo; (diagnostic vs. causal)</a></li>
-        <li><a href="#application-examples">Application Examples</a></li>
+        <li><a href="#application-examples">Application Examples</a>
+          <ul>
+            <li><a href="#spam-filter-naive-bayes-idea">Spam Filter (Naive Bayes Idea)</a></li>
+            <li><a href="#fault-diagnosis-multi-hypothesis-bayes">Fault Diagnosis (Multi-Hypothesis Bayes)</a></li>
+            <li><a href="#summary-1">Summary</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#independence-and-conditional-independence">Independence and Conditional Independence</a>
       <ul>
-        <li><a href="#rigorous-definition-and-equivalent-characterization">Rigorous Definition and Equivalent Characterization</a></li>
+        <li><a href="#rigorous-definition-and-equivalent-characterization">Rigorous Definition and Equivalent Characterization</a>
+          <ul>
+            <li><a href="#event-independence">Event Independence</a></li>
+            <li><a href="#conditional-independence">Conditional Independence</a></li>
+          </ul>
+        </li>
         <li><a href="#two-rigorous-corollaries">Two Rigorous Corollaries</a></li>
-        <li><a href="#examples-1">Examples</a></li>
+        <li><a href="#examples-1">Examples</a>
+          <ul>
+            <li><a href="#example-a-genetic-traits-common-cause-induces-correlation-indep-given-cause">Example A: Genetic Traits (&ldquo;Common Cause Induces Correlation; Indep Given Cause&rdquo;)</a></li>
+            <li><a href="#example-b-sensor-light-system-common-cause-induces-correlation-indep-after-conditioning">Example B: Sensor Light System (&ldquo;Common Cause&rdquo; Induces Correlation; Indep After Conditioning)</a></li>
+          </ul>
+        </li>
         <li><a href="#common-misconceptions-cheatsheet">Common Misconceptions Cheatsheet</a></li>
       </ul>
     </li>
@@ -1206,51 +1274,166 @@ $$<p>i.e., <strong>Conditional Independence</strong> holds. Intuition: The &ldqu
                 
 
 <div class="share-box" aria-hidden="true">
-    <ul class="share">
-      
-      <li>
-        <a href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;text=What%20is%20Probability%3f&amp;via=" target="_blank" title="Share on Twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f" target="_blank" title="Share on Facebook">
-          <i class="fab fa-facebook"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=What%20is%20Probability%3f" target="_blank" title="Share on Reddit">
-          <i class="fab fa-reddit"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=What%20is%20Probability%3f" target="_blank" title="Share on LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=What%20is%20Probability%3f" target="_blank" title="Share on StumbleUpon">
-          <i class="fab fa-stumbleupon"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;description=What%20is%20Probability%3f" target="_blank" title="Share on Pinterest">
-          <i class="fab fa-pinterest"></i>
-        </a>
-      </li>
-    </ul>
+  <ul class="share">
+    
+    <li>
+      <a
+        href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;text=What%20is%20Probability%3f&amp;via="
+        target="_blank"
+        title="Share on Twitter"
+        class="share-btn twitter"
+      >
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f"
+        target="_blank"
+        title="Share on Facebook"
+        class="share-btn facebook"
+      >
+        <i class="fab fa-facebook"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;appkey=&amp;title=What%20is%20Probability%3f&amp;pic="
+        target="_blank"
+        title="Share on Weibo"
+        class="share-btn weibo"
+      >
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="openWechatModal('http:\/\/localhost:1313\/post\/mcmc-statics\/probability\/')"
+        title="Share on WeChat"
+        class="share-btn wechat"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fprobability%2f&amp;title=What%20is%20Probability%3f"
+        target="_blank"
+        title="Share on LinkedIn"
+        class="share-btn linkedin"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="copyToClipboard('http:\/\/localhost:1313\/post\/mcmc-statics\/probability\/', 'What is Probability?')"
+        title="Copy Link"
+        class="share-btn copy-link"
+      >
+        <i class="fas fa-link"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div id="wechat-modal" class="wechat-modal">
+  <div class="wechat-modal-content">
+    <span class="wechat-close" onclick="closeWechatModal()">&times;</span>
+    <h4>
+      Scan to Share <br />
+      微信扫一扫分享
+    </h4>
+    <div id="qrcode" class="qrcode-container"></div>
   </div>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(url, title) {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        
+        var existingToast = document.getElementById("share-toast");
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        var toast = document.createElement("div");
+        toast.id = "share-toast";
+        toast.innerText = "Link copied to clipboard!";
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = "rgba(0,0,0,0.8)";
+        toast.style.color = "#fff";
+        toast.style.padding = "10px 20px";
+        toast.style.borderRadius = "5px";
+        toast.style.zIndex = "10000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease-in-out";
+
+        document.body.appendChild(toast);
+
+        
+        void toast.offsetWidth;
+
+        toast.style.opacity = "1";
+
+        setTimeout(function () {
+          toast.style.opacity = "0";
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 500);
+        }, 3000);
+      },
+      function (err) {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
+  function openWechatModal(url) {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "flex";
+    var qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    var img = document.createElement("img");
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      encodeURIComponent(url);
+    img.style.width = "200px";
+    img.style.height = "200px";
+    qrcodeContainer.appendChild(img);
+  }
+
+  function closeWechatModal() {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "none";
+  }
+
   
+  window.onclick = function (event) {
+    var modal = document.getElementById("wechat-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
 
               </div>
             </section>
@@ -1312,17 +1495,52 @@ $$<p>i.e., <strong>Conditional Independence</strong> holds. Intuition: The &ldqu
   <ul>
     <li><a href="#three-interpretations-of-probability">Three Interpretations of Probability</a>
       <ul>
-        <li><a href="#-1-frequentist-interpretation">🔵 1. Frequentist Interpretation</a></li>
-        <li><a href="#-2-bayesian-interpretation">🔴 2. Bayesian Interpretation</a></li>
-        <li><a href="#-3-axiomatic-definition-kolmogorov-axiomatic-approach">⚫️ 3. Axiomatic Definition (Kolmogorov Axiomatic Approach)</a></li>
+        <li><a href="#-1-frequentist-interpretation">🔵 1. Frequentist Interpretation</a>
+          <ul>
+            <li><a href="#-core-idea">🌱 Core Idea:</a></li>
+            <li><a href="#-mathematical-expression">📌 Mathematical Expression:</a></li>
+            <li><a href="#-key-features">🧠 Key Features:</a></li>
+            <li><a href="#-application-examples">🎯 Application Examples:</a></li>
+            <li><a href="#-drawbacks">⚠️ Drawbacks:</a></li>
+          </ul>
+        </li>
+        <li><a href="#-2-bayesian-interpretation">🔴 2. Bayesian Interpretation</a>
+          <ul>
+            <li><a href="#-core-idea-1">🌱 Core Idea:</a></li>
+            <li><a href="#-mathematical-expression-1">📌 Mathematical Expression:</a></li>
+            <li><a href="#-key-features-1">🧠 Key Features:</a></li>
+            <li><a href="#-application-examples-1">🎯 Application Examples:</a></li>
+            <li><a href="#-drawbacks-1">⚠️ Drawbacks:</a></li>
+          </ul>
+        </li>
+        <li><a href="#-3-axiomatic-definition-kolmogorov-axiomatic-approach">⚫️ 3. Axiomatic Definition (Kolmogorov Axiomatic Approach)</a>
+          <ul>
+            <li><a href="#-core-idea-2">🌱 Core Idea:</a></li>
+            <li><a href="#-three-axioms-kolmogorov-axioms">📌 <a href="https://en.wikipedia.org/wiki/Probability_axioms">Three Axioms (Kolmogorov Axioms)</a>:</a></li>
+            <li><a href="#-key-features-2">🧠 Key Features:</a></li>
+            <li><a href="#-application-examples-2">🎯 Application Examples:</a></li>
+            <li><a href="#-drawbacks-2">⚠️ Drawbacks:</a></li>
+          </ul>
+        </li>
         <li><a href="#-summary">📌 Summary</a></li>
       </ul>
     </li>
     <li><a href="#events-and-sample-space">Events and Sample Space</a>
       <ul>
         <li><a href="#sample-space-1">Sample Space</a></li>
-        <li><a href="#event">Event</a></li>
-        <li><a href="#three-common-examples">Three Common Examples</a></li>
+        <li><a href="#event">Event</a>
+          <ul>
+            <li><a href="#operations-on-events">Operations on Events</a></li>
+            <li><a href="#how-to-assign-probability-to-events">How to Assign &ldquo;Probability&rdquo; to Events</a></li>
+          </ul>
+        </li>
+        <li><a href="#three-common-examples">Three Common Examples</a>
+          <ul>
+            <li><a href="#a-rolling-a-die-discrete-simple">A. Rolling a Die (Discrete, Simple)</a></li>
+            <li><a href="#b-weather-forecast-finite-discrete-but-probabilistic">B. Weather Forecast (Finite Discrete, but Probabilistic)</a></li>
+            <li><a href="#c-image-classification-high-dimensional-uncountable-discrete">C. Image Classification (High-dimensional, Uncountable Discrete)</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#basic-properties-of-probability">Basic Properties of Probability</a>
@@ -1341,23 +1559,56 @@ $$<p>i.e., <strong>Conditional Independence</strong> holds. Intuition: The &ldqu
       <ul>
         <li><a href="#conditional-probability--rigorous-definition">Conditional Probability  (Rigorous Definition)</a></li>
         <li><a href="#joint-probability--and-multiplication-rule">Joint Probability  and Multiplication Rule</a></li>
-        <li><a href="#examples">Examples</a></li>
+        <li><a href="#examples">Examples</a>
+          <ul>
+            <li><a href="#example-a-drawing-cards-without-replacement">Example A: Drawing Cards (Without Replacement)</a></li>
+            <li><a href="#example-b-medical-testing-bayes-derived-from-multiplication-rule">Example B: Medical Testing (Bayes derived from Multiplication Rule)</a></li>
+          </ul>
+        </li>
         <li><a href="#summary">Summary</a></li>
       </ul>
     </li>
     <li><a href="#law-of-total-probability-and-bayes-theorem">Law of Total Probability and Bayes&rsquo; Theorem</a>
       <ul>
-        <li><a href="#law-of-total-probability-ltp">Law of Total Probability (LTP)</a></li>
-        <li><a href="#bayes-theorem">Bayes&rsquo; Theorem</a></li>
+        <li><a href="#law-of-total-probability-ltp">Law of Total Probability (LTP)</a>
+          <ul>
+            <li><a href="#rigorous-statement-discretecountable-partition">Rigorous Statement (Discrete/Countable Partition)</a></li>
+            <li><a href="#proof-by-countable-additivity--definition-of-conditional-probability">Proof (By Countable Additivity + Definition of Conditional Probability)</a></li>
+            <li><a href="#continuousdensity-version-common-equation">Continuous/Density Version (Common Equation)</a></li>
+          </ul>
+        </li>
+        <li><a href="#bayes-theorem">Bayes&rsquo; Theorem</a>
+          <ul>
+            <li><a href="#basic-form-two-events">Basic Form (Two Events)</a></li>
+            <li><a href="#multi-hypothesis-version-countable-partition-">Multi-Hypothesis Version (Countable Partition )</a></li>
+            <li><a href="#continuousdensity-version">Continuous/Density Version</a></li>
+          </ul>
+        </li>
         <li><a href="#the-power-of-reversing-causality-diagnostic-vs-causal">The Power of &ldquo;Reversing Causality&rdquo; (diagnostic vs. causal)</a></li>
-        <li><a href="#application-examples">Application Examples</a></li>
+        <li><a href="#application-examples">Application Examples</a>
+          <ul>
+            <li><a href="#spam-filter-naive-bayes-idea">Spam Filter (Naive Bayes Idea)</a></li>
+            <li><a href="#fault-diagnosis-multi-hypothesis-bayes">Fault Diagnosis (Multi-Hypothesis Bayes)</a></li>
+            <li><a href="#summary-1">Summary</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#independence-and-conditional-independence">Independence and Conditional Independence</a>
       <ul>
-        <li><a href="#rigorous-definition-and-equivalent-characterization">Rigorous Definition and Equivalent Characterization</a></li>
+        <li><a href="#rigorous-definition-and-equivalent-characterization">Rigorous Definition and Equivalent Characterization</a>
+          <ul>
+            <li><a href="#event-independence">Event Independence</a></li>
+            <li><a href="#conditional-independence">Conditional Independence</a></li>
+          </ul>
+        </li>
         <li><a href="#two-rigorous-corollaries">Two Rigorous Corollaries</a></li>
-        <li><a href="#examples-1">Examples</a></li>
+        <li><a href="#examples-1">Examples</a>
+          <ul>
+            <li><a href="#example-a-genetic-traits-common-cause-induces-correlation-indep-given-cause">Example A: Genetic Traits (&ldquo;Common Cause Induces Correlation; Indep Given Cause&rdquo;)</a></li>
+            <li><a href="#example-b-sensor-light-system-common-cause-induces-correlation-indep-after-conditioning">Example B: Sensor Light System (&ldquo;Common Cause&rdquo; Induces Correlation; Indep After Conditioning)</a></li>
+          </ul>
+        </li>
         <li><a href="#common-misconceptions-cheatsheet">Common Misconceptions Cheatsheet</a></li>
       </ul>
     </li>
