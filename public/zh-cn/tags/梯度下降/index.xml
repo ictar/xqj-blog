@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>梯度下降 on 琼呀</title>
+    <link>http://localhost:1313/zh-cn/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</link>
+    <description>Recent content in 梯度下降 on 琼呀</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>确定性优化算法详解：梯度下降的数学本质与代码实战</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</link>
+      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</guid>
+      <description>在机器学习的训练过程中，优化算法扮演着“导航员”的角色，指引模型参数从随机初始值逐步逼近最优解。本文将深入剖析最基础也是最重要的确定性优化算法——梯度下降（Gradient Descent）。我们将从其数学原理出发，推导其更新公式，探讨不同变体（批量、随机、小批量）的优缺点，并通过 Python 代码直观展示其收敛过程。</description>
+    </item>
+  </channel>
+</rss>

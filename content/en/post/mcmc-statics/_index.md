@@ -40,5 +40,10 @@ Welcome to the **Monte Carlo–Markov Chains Statistical Methods** series, where
    - High-dimensional dilemmas and the "Manhattan Walk" intuition
    - Mathematical principle: Brook's Lemma
    - Python implementation for discrete and continuous distributions
-9. [Convergence Diagnostics](./convergence/)
-10. [MCMC in Practice with Python](./python/)
+9. [Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent](./deterministic-optimization/)
+   - Geometric Intuition of Convex vs. Non-Convex Optimization
+   - Newton's Method and Second-Order Approximation
+   - Connection between Coordinate Descent and Gibbs Sampling
+   - Pros and Cons of Steepest Descent
+10. [Convergence Diagnostics](./convergence/)
+11. [Python Practical: MCMC Modeling](./python/)

@@ -8,8 +8,15 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/post/mcmc-statics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>确定性优化算法详解：梯度下降的数学本质与代码实战</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</link>
+      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</guid>
+      <description>确定性优化是理解现代 MCMC 算法（如 HMC, Langevin）的基石。本文深入解析了三种经典的确定性优化策略：牛顿法（利用曲率的二阶视角）、坐标下降法（分而治之的 Gibbs 前身）和最速下降法（贪婪的一阶探索）。通过数学推导与 Python 可视化，我们对比了它们在不同地形（凸面、狭长峡谷、强耦合）下的行为模式与收敛特性。</description>
+    </item>
     <item>
       <title>Gibbs 采样详解：分而治之的降维智慧</title>
       <link>http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/</link>

@@ -1,0 +1,1684 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent - </title>
+
+  <meta name="description" content="Deterministic optimization is the cornerstone for understanding modern MCMC algorithms (like HMC, Langevin). This article delves into three classic deterministic optimization strategies: Newton&rsquo;s Method (second-order perspective using curvature), Coordinate Descent (the divide-and-conquer predecessor to Gibbs), and Steepest Descent (greedy first-order exploration). Through mathematical derivation and Python visualization, we compare their behavioral patterns and convergence characteristics across different terrains (convex surfaces, narrow valleys, strong coupling).">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/post/mcmc-statics/deterministic-optimization/" />
+
+
+<meta name="keywords" content="Gradient Descent, Optimization Algorithms, Machine Learning, Deep Learning, Convex Optimization, Python Implementation" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/post\/mcmc-statics\/deterministic-optimization\/",
+          "name": "Deterministic optimization explained the mathematical essence of gradient descent"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent",
+  "description" : "Deterministic optimization is the cornerstone for understanding modern MCMC algorithms (like HMC, Langevin). This article delves into three classic deterministic optimization strategies: Newton\u0026rsquo;s Method (second-order perspective using curvature), Coordinate Descent (the divide-and-conquer predecessor to Gibbs), and Steepest Descent (greedy first-order exploration). Through mathematical derivation and Python visualization, we compare their behavioral patterns and convergence characteristics across different terrains (convex surfaces, narrow valleys, strong coupling).",
+  "inLanguage" : "en",
+  "wordCount":  5200 ,
+  "datePublished" : "2026-02-01T00:00:00\u002b00:00",
+  "dateModified" : "2026-02-01T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "Gradient Descent, Optimization Algorithms, Machine Learning, Deep Learning, Convex Optimization, Python Implementation" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/mcmc-statics\/deterministic-optimization\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent" />
+<meta property="og:description" content="Deterministic optimization is the cornerstone for understanding modern MCMC algorithms (like HMC, Langevin). This article delves into three classic deterministic optimization strategies: Newton&rsquo;s Method (second-order perspective using curvature), Coordinate Descent (the divide-and-conquer predecessor to Gibbs), and Steepest Descent (greedy first-order exploration). Through mathematical derivation and Python visualization, we compare their behavioral patterns and convergence characteristics across different terrains (convex surfaces, narrow valleys, strong coupling).">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/mcmc-statics/deterministic-optimization/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="Deterministic Optimization Explained: The Mathematical Essence of …" />
+  <meta name="twitter:description" content="Deterministic optimization is the cornerstone for understanding modern MCMC algorithms (like HMC, Langevin). This article delves into three classic deterministic optimization strategies: …">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/post">BLOG</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/projects">PROJECT</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/">CH</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on February 1, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;5200&nbsp;words
+  
+  
+  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/" lang="zh-cn">CH</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1 id="deterministic-optimization">Deterministic Optimization</h1>
+<blockquote>
+<p>They are thought for convex function. If the function is not convex, we change to stochastic optimization.</p></blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Algorithm</th>
+          <th style="text-align: left">Category</th>
+          <th style="text-align: left">Info Used</th>
+          <th style="text-align: left">Geometric Intuition</th>
+          <th style="text-align: left">Pros</th>
+          <th style="text-align: left">Cons</th>
+          <th style="text-align: left">MCMC Analog</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Newton&rsquo;s Method</td>
+          <td style="text-align: left">2nd Order</td>
+          <td style="text-align: left">Gradient + Curvature (Hessian)</td>
+          <td style="text-align: left">Parabolic Approximation (Bowl)</td>
+          <td style="text-align: left">Convergence is extremely fast</td>
+          <td style="text-align: left">Calculating $H^{-1}$ is too expensive</td>
+          <td style="text-align: left">Similar to Langevin (Uses 2nd order)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Coordinate Descent</td>
+          <td style="text-align: left">0/1st Order</td>
+          <td style="text-align: left">Single Variable Info</td>
+          <td style="text-align: left">Move along axes</td>
+          <td style="text-align: left">Simple, no full gradient needed</td>
+          <td style="text-align: left">Slow convergence with strong correlation</td>
+          <td style="text-align: left">Gibbs Sampling</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Steepest Descent</td>
+          <td style="text-align: left">1st Order</td>
+          <td style="text-align: left">Gradient</td>
+          <td style="text-align: left">Steepest direction on tangent plane</td>
+          <td style="text-align: left">Cheap computation, general</td>
+          <td style="text-align: left">Prone to oscillation, slow convergence</td>
+          <td style="text-align: left">Similar to HMC / MCMC</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="definition-of-optimization-problem">Definition of Optimization Problem</h2>
+<p>Mathematically, a standard optimization problem is typically written in this &ldquo;standard form&rdquo;:
+</p>
+$$\begin{aligned}
+& \underset{x}{\text{minimize}} & & f(x) \\
+& \text{subject to} & & g_i(x) \le 0, \quad i = 1, \dots, m \\
+& & & h_j(x) = 0, \quad j = 1, \dots, p
+\end{aligned}$$<p>
+Here are the three main characters:</p>
+<ul>
+<li><strong>Decision Variable</strong> ($x$): The knobs we can control (e.g., model parameter weights).</li>
+<li><strong>Objective Function</strong> ($f(x)$): Our metric. Usually minimizing &ldquo;loss/cost&rdquo; or maximizing &ldquo;profit/likelihood&rdquo;.
+<ul>
+<li>Note: Maximizing $f(x)$ is equivalent to minimizing $-f(x)$, so we usually only study minimization.</li>
+</ul>
+</li>
+<li><strong>Constraints</strong>:
+<ul>
+<li>Inequality Constraints ($g_i \le 0$): e.g., &ldquo;Speed cannot exceed 100&rdquo;.</li>
+<li>Equality Constraints ($h_j = 0$): e.g., &ldquo;Energy must be conserved&rdquo;.</li>
+</ul>
+</li>
+</ul>
+<h3 id="objective-function">Objective Function $f(x)$</h3>
+<p>To find the lowest point, this objective function $f(x)$ must follow three rules:</p>
+<ol>
+<li><strong>Must be Scalar-Valued</strong>
+<ul>
+<li>Requirement: Regardless of the dimension of input $x$ (e.g., you have 1 million parameters), the output of $f(x)$ must be a <strong>single real number (Scalar)</strong>.</li>
+<li>Mathematical notation: $f: \mathbb{R}^n \to \mathbb{R}$</li>
+<li>Why?
+<ul>
+<li>Because the core of optimization is <strong>&ldquo;comparison&rdquo;</strong>. We need to be able to say $f(x_1) < f(x_2)$. If $f(x)$ outputs a vector (e.g., two numbers &ldquo;cost&rdquo; and &ldquo;time&rdquo;), this becomes &ldquo;multi-objective optimization&rdquo;, which is another complex field. In standard optimization, you must synthesize them into one number (e.g., $0.5 \times \text{Cost} + 0.5 \times \text{Time}$).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Must be Bounded Below</strong>
+<ul>
+<li>This is to ensure <strong>&ldquo;an optimal solution exists&rdquo;</strong>.</li>
+<li>Requirement: The function cannot be a bottomless pit.</li>
+<li>Counter-example: $f(x) = x$ (domain is all real numbers).
+<ul>
+<li>Want to minimize? I can pick $-100, -10000, -\infty \dots$</li>
+<li>You will never find the lowest point because there is no lowest point. The algorithm will run until memory overflow.</li>
+</ul>
+</li>
+<li>Fix: Usually we require there exists a real number $M$ such that for all $x$, $f(x) \ge M$.</li>
+</ul>
+</li>
+<li><strong>Smoothness (for algorithms to run)</strong>: If you want to use advanced algorithms like Newton&rsquo;s method or Gradient Descent, the function $f(x)$ cannot look too arbitrary; it <strong>needs to satisfy continuity and differentiability</strong>.
+<ol>
+<li><strong>Continuity</strong> —— No broken roads
+<ul>
+<li>Intuition: Walking on a mountain, the terrain cannot suddenly have &ldquo;cliffs/fault lines&rdquo;.</li>
+<li>Bad function: Step Function.
+<ul>
+<li>e.g., $f(x)=1$ when $x < 0$, $f(x)=0$ when $x \ge 0$.</li>
+<li>This function is hard to optimize because at the break point, you don&rsquo;t know where to step.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Differentiability</strong> —— No sharp corners
+<ul>
+<li>Intuition: This is the prerequisite for <strong>&ldquo;Gradient Descent&rdquo;</strong>.</li>
+<li>Gradient (derivative) represents slope. If the function has a sharp corner, the slope at that point is undefined (derivative does not exist).</li>
+<li>Bad function: $f(x) = |x|$ (Absolute value function).
+<ul>
+<li>At the sharp point $x=0$, the derivative is undefined.</li>
+<li>Note: Although it is convex, standard gradient descent will fail here (needs Sub-gradient).</li>
+</ul>
+</li>
+<li>Worse function: $f(x)$ is nowhere differentiable (like a jagged stock chart). This can only be hard-searched using &ldquo;zero-order optimization&rdquo; (algorithms that don&rsquo;t look at gradients).</li>
+</ul>
+</li>
+<li><strong>Twice Differentiability</strong> —— For Newton&rsquo;s Method
+<ul>
+<li>If you want to use Newton&rsquo;s method, the function not only needs slope (first derivative), but also &ldquo;curvature&rdquo; (second derivative).</li>
+<li>This means the terrain not only needs to be smooth, but the degree of bending must also vary smoothly, without sudden changes.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="global-vs-local">Global vs. Local</h3>
+<ul>
+<li>Global Optimum: The lowest point in the entire domain.</li>
+<li>Local Optimum: The lowest point within a small neighborhood, but there might be lower points outside.</li>
+</ul>
+<p>Most deterministic algorithms (like Gradient Descent) can only guarantee finding a local optimum. Unless, the function has a special property —— <strong>Convexity</strong>.</p>
+<h2 id="convex-function">Convex Function</h2>
+<p>Convex functions are the &ldquo;good guys&rdquo; in the optimization world. If your optimization problem is convex (Convex Optimization), then Local Optimum = Global Optimum. This is the property every optimization engineer dreams of.</p>
+<p><strong>Intuitive Definition</strong></p>
+<p>Imagine a bowl. If you pick any two points on the function graph and connect them with a line segment (chord), all points on this line segment are above (or coincide with) the function graph, then it is a convex function.</p>
+<p><strong>Mathematical Definition</strong></p>
+<p>A function $f: \mathbb{R}^n \to \mathbb{R}$ is convex if and only if for any $x, y$ and any $\theta \in [0, 1]$, the following is satisfied:
+</p>
+$$f(\theta x + (1-\theta)y) \le \theta f(x) + (1-\theta)f(y)$$<ul>
+<li>Left side $f(\dots)$: Represents the actual height at a point between $x$ and $y$.</li>
+<li>Right side $\dots f(\dots)$: Represents the height of the line connecting $x$ and $y$ (chord) at that point.</li>
+<li>$\le$: Means the actual height is always lower than or equal to the chord height.</li>
+</ul>
+<h3 id="methods-of-judgment">Methods of Judgment</h3>
+<p><strong>1D Case ($x$ is a real number): Check second derivative</strong> $f''(x)$. If for all $x$, $f''(x) \ge 0$, then it is a convex function.</p>
+<ul>
+<li>Example: $f(x) = x^2 \to f''(x) = 2 > 0$ (Convex).</li>
+<li>Example: $f(x) = -\log(x) \to f'(x) = -1/x \to f''(x) = 1/x^2 > 0$ (Convex).</li>
+</ul>
+<p><strong>Multi-dimensional Case ($x$ is a vector): Check Hessian Matrix</strong> ($\nabla^2 f(x)$).
+If for all $x$, the Hessian matrix is <strong>Positive Semidefinite (PSD)</strong> (i.e., all eigenvalues $\ge 0$), then it is a convex function.</p>
+<h4 id="hessian-matrix">Hessian Matrix</h4>
+<blockquote>
+<p>The Hessian matrix is a square matrix of second-order partial derivatives of a multivariate function. It describes the local curvature of the function.</p></blockquote>
+<p><strong>Mathematical Definition: The &ldquo;Full Form&rdquo; of Second Derivatives</strong></p>
+<p>In high school math, for a single variable function $f(x)$:</p>
+<ul>
+<li>First derivative $f'(x)$: Slope.</li>
+<li>Second derivative $f''(x)$: Curvature (Concavity). $f''>0$ opens up, $f''<0$ opens down.</li>
+</ul>
+<p>For a multivariate function $f(x_1, x_2, \dots, x_n)$, there isn&rsquo;t just one second derivative, but a group. We need to consider the relationship between all pairs of variables. So we arrange them into an $n \times n$ matrix, which is the Hessian matrix $\mathbf{H}$ (or written as $\nabla^2 f(x)$):
+</p>
+$$\mathbf{H} = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}$$<ul>
+<li>Diagonal elements ($\frac{\partial^2 f}{\partial x_i^2}$): Represent the bending degree along the $i$-th coordinate axis.</li>
+<li>Off-diagonal elements ($\frac{\partial^2 f}{\partial x_i \partial x_j}$): Represent the &ldquo;entanglement&rdquo; degree between variable $i$ and variable $j$ (mixed partial derivatives). Usually, the matrix is symmetric (i.e., $H_{ij} = H_{ji}$).</li>
+</ul>
+<p>The Hessian matrix tells us what the terrain under our feet looks like through its Eigenvalues. Now, imagine you are standing on a curved surface:</p>
+<ul>
+<li>Positive Definite Matrix (All eigenvalues &gt; 0): Bowl bottom (Local Minimum)
+<ul>
+<li>No matter which direction you go, the terrain curves upwards.</li>
+<li>This is a convex function (strictly convex).</li>
+</ul>
+</li>
+<li>Negative Definite Matrix (All eigenvalues &lt; 0): Mountain peak (Local Maximum)
+<ul>
+<li>No matter which direction you go, the terrain curves downwards.</li>
+</ul>
+</li>
+<li>Indefinite Matrix (Eigenvalues have both positive and negative): Saddle Point
+<ul>
+<li>Going one direction is uphill (convex up), going another is downhill (concave down).</li>
+<li>Like a saddle, or a pass between two mountains. This is a headache in optimization because the gradient is also 0 here, easily fooling algorithms.</li>
+</ul>
+</li>
+</ul>
+<h4 id="positive-semidefinite-psd">Positive Semidefinite (PSD)</h4>
+<p>You can analogize it to &ldquo;non-negative numbers&rdquo; ($\ge 0$) in real numbers. Just as we say a number is non-negative, saying a matrix is &ldquo;positive semidefinite&rdquo; means it is in some sense always &ldquo;greater than or equal to zero&rdquo;.</p>
+<p><strong>Core Definition</strong></p>
+<p>For an $n \times n$ real symmetric matrix $A$, if for any non-zero vector $x$ ($n$-dimensional column vector), we have:
+</p>
+$$x^T A x \ge 0$$<p>
+Then we call matrix $A$ positive semidefinite. Here $x^T A x$ is called a Quadratic Form, which you can think of as an energy function or terrain height.</p>
+<p>Take a $2 \times 2$ matrix as an example.
+</p>
+$$A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$$<p><strong>Geometric Intuition: What does it look like?</strong></p>
+<p>The quadratic form $x^T A x$ mentioned above is actually a function that maps vector $x$ to a real number. If we set vector $x = \begin{pmatrix} u \\ v \end{pmatrix}$, then:
+</p>
+$$x^T A x = \begin{pmatrix} u & v \end{pmatrix} \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} u \\ v \end{pmatrix} = 2u^2 + 1v^2$$<p>Plotting $z = 2u^2 + v^2$ in a 3D coordinate system, it is an <strong>Elliptic Paraboloid</strong>.</p>
+<ul>
+<li>Shape: Like a bowl curving up on both sides.</li>
+<li>Height: No matter what non-zero $(u, v)$ you pick, the calculated height $z$ is always positive. The lowest point is at the origin $(0,0)$, height 0.</li>
+<li>Conclusion: Since everywhere (except the origin) is higher than 0, this matrix is positive definite (and of course belongs to positive semidefinite).</li>
+</ul>
+<p>Contrast: If one direction bends downwards (like a saddle surface), then it is not positive semidefinite.</p>
+<p><strong>Eigenvalue Judgment: What do the numbers say?</strong></p>
+<p>Without plotting, how do we know if the bowl opens upwards? This is where <strong>Eigenvalues</strong> come in.</p>
+<p>For the diagonal matrix $A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$, its eigenvalues are right on the diagonal, very obvious:</p>
+<ul>
+<li>$\lambda_1 = 2$</li>
+<li>$\lambda_2 = 1$</li>
+</ul>
+<p>Rule: All eigenvalues of a positive semidefinite matrix must be $\ge 0$. (If positive definite, eigenvalues must be strictly $> 0$).</p>
+<p><strong>So, why do eigenvalues determine the shape?</strong> Eigenvalues actually represent the <strong>bending degree of the paraboloid along the principal axes</strong> (i.e., curvature).</p>
+<ul>
+<li>$\lambda_1 = 2$: Indicates along the $u$ axis, the bowl wall is steeper (bends more, upwards).</li>
+<li>$\lambda_2 = 1$: Indicates along the $v$ axis, the bowl wall is slightly gentler (but also upwards).</li>
+</ul>
+<p>As long as all directions &ldquo;bend up&rdquo; or are &ldquo;flat&rdquo; ($\ge 0$), the whole shape must be a &ldquo;bowl&rdquo; or &ldquo;trough&rdquo;, and won&rsquo;t leak.</p>
+<h5 id="how-to-solve-for-eigenvalues-of-non-diagonal-matrices">How to solve for eigenvalues of non-diagonal matrices</h5>
+<p>For non-diagonal matrices, we usually use the <strong>Characteristic Equation</strong> to solve for eigenvalues. The core idea starts from the definition of eigenvalues:
+</p>
+$$A\mathbf{v} = \lambda\mathbf{v}$$<p>
+Here, $A$ is the matrix, $\mathbf{v}$ is a non-zero vector (eigenvector), and $\lambda$ is the eigenvalue we want to find.
+We can transform this equation into:
+</p>
+$$(A - \lambda I)\mathbf{v} = \mathbf{0}$$<p>
+For this equation to have a non-zero solution (i.e., $\mathbf{v} \neq \mathbf{0}$), the determinant of the coefficient matrix $(A - \lambda I)$ must be zero. This gives us the general solution formula:
+</p>
+$$\det(A - \lambda I) = 0$$<p>
+Here, $I$ is the Identity Matrix.</p>
+<p>Example: Solving for eigenvalues of matrix $C = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$.</p>
+<ol>
+<li>List the characteristic equation formula: $$\det(C - \lambda I) = 0$$</li>
+<li>Substitute the matrix: $$C - \lambda I = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix} - \lambda \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1-\lambda & 2 \\ 2 & 1-\lambda \end{pmatrix}$$</li>
+<li>Calculate determinant for $2 \times 2$ matrix: $$\det(C - \lambda I) = (1-\lambda)(1-\lambda) - (2 \times 2)$$</li>
+<li>Expand and simplify: $$(1 - 2\lambda + \lambda^2) - 4 = 0$$ $$\lambda^2 - 2\lambda - 3 = 0$$ This is the characteristic polynomial.</li>
+<li>Solve quadratic equation: $(\lambda - 3)(\lambda + 1) = 0$</li>
+<li>Result: $\lambda_1 = 3, \lambda_2 = -1$.</li>
+</ol>
+<p>Conclusion: Eigenvalues of matrix $C$ are 3 and -1.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Set x and y grid range</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x, y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Define two quadratic form functions</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Case 1: Positive Definite Matrix A = [[2, 0], [0, 1]]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># z = 2x^2 + 1y^2</span>
+</span></span><span style="display:flex;"><span>Z_positive <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Case 2: Indefinite Matrix B = [[1, 0], [0, -3]]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># z = 1x^2 - 3y^2</span>
+</span></span><span style="display:flex;"><span>Z_indefinite <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Create plot</span>
+</span></span><span style="display:flex;"><span>fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Plot 1 (Bowl) ---</span>
+</span></span><span style="display:flex;"><span>ax1 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, projection<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;3d&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>plot_surface(X, Y, Z_positive, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Positive Definite (Bowl)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Eigenvalues: 2, 1&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;X axis&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Y axis&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_zlabel(<span style="color:#e6db74">&#39;Z value&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Global Min&#39;</span>) <span style="color:#75715e"># Mark min</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Plot 2 (Saddle) ---</span>
+</span></span><span style="display:flex;"><span>ax2 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, projection<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;3d&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>plot_surface(X, Y, Z_indefinite, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;coolwarm&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Indefinite (Saddle)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Eigenvalues: 1, -3&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;X axis&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Y axis&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_zlabel(<span style="color:#e6db74">&#39;Z value&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Saddle Point&#39;</span>) <span style="color:#75715e"># Mark saddle</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_3_0.png" alt="png"></p>
+<p>Notice the origin $(0,0)$ in the image above:</p>
+<ul>
+<li>In the <strong>Left Image (Bowl)</strong>, if you place a small ball anywhere, it will eventually roll down to the red lowest point.</li>
+<li>In the <strong>Right Image (Saddle)</strong>, if you walk along the $X$ axis, it&rsquo;s uphill; but if you walk along the $Y$ axis, it&rsquo;s downhill.</li>
+</ul>
+<h2 id="newtons-method">Newton&rsquo;s Method</h2>
+<blockquote>
+<p>Suitable for 1D</p></blockquote>
+<p>Newton&rsquo;s method is a <strong>Second-Order Optimization Algorithm</strong>.</p>
+<ul>
+<li>First-order algorithms (like Gradient Descent): Only use gradient (slope) information, telling us which way to go to decrease the function value.</li>
+<li>Second-order algorithms (like Newton&rsquo;s Method): Use not only gradient, but also <strong>second derivative (curvature)</strong> information. It knows not only how steep the slope is, but also how much the slope bends.</li>
+</ul>
+<h3 id="core-idea-quadratic-approximation">Core Idea: Quadratic Approximation</h3>
+<p>The core logic of Newton&rsquo;s method is: <strong>Fit a quadratic function (parabola/paraboloid) to the curve at the current position, and then jump directly to the lowest point of this paraboloid.</strong></p>
+<p><strong>Step 1: Second-Order Taylor Expansion (Fitting)</strong></p>
+<p>Near the current point $x_k$, we expand the complex objective function $f(x)$ into a quadratic polynomial:
+</p>
+$$f(x) \approx f(x_k) + \nabla f(x_k)^T (x - x_k) + \frac{1}{2} (x - x_k)^T \mathbf{H}(x_k) (x - x_k)$$<ul>
+<li>The first part is a plane (gradient).</li>
+<li>The second part is bending (Hessian matrix).</li>
+</ul>
+<p><strong>Step 2: Take Derivative to Find Extremum (Jump)</strong></p>
+<p>We want to find the lowest point of this approximate paraboloid. Simple, take the derivative of the above expression and set it to 0:
+</p>
+$$\nabla f(x_k) + \mathbf{H}(x_k)(x - x_k) = 0$$<p><strong>Step 3: Derive Update Formula</strong></p>
+<p>Solve the above equation for $x$, which is the next point $x_{k+1}$ we want to go to:
+</p>
+$$\mathbf{x}_{k+1} = \mathbf{x}_k - \mathbf{H}^{-1}(x_k) \nabla f(x_k)$$<p>
+This is Newton&rsquo;s iterative formula. See, it multiplies by an extra $\mathbf{H}^{-1}$ (inverse of Hessian matrix) compared to Gradient Descent.</p>
+<h3 id="stopping-criteria">Stopping Criteria</h3>
+<ol>
+<li>
+<p><strong>Gradient Judgment</strong>: Is the slope flat?</p>
+<ul>
+<li>Theoretically the hardest standard. Necessary condition for optimum is gradient being 0.</li>
+<li>Criterion: Stop when gradient norm is less than a threshold (e.g., $10^{-6}$).</li>
+<li>Formula: $||\nabla f(x_k)|| < \epsilon$</li>
+<li>Intuition: If the ground under your feet is as flat as an airport (almost no slope), you are likely at the bottom.</li>
+</ul>
+</li>
+<li>
+<p><strong>Step Size Judgment</strong>: Still moving?</p>
+<ul>
+<li>Sometimes gradient calculation is expensive, or terrain is very flat, we can check change in $x$.</li>
+<li>Criterion: If update step $x_{k+1}$ and previous step $x_k$ almost overlap.</li>
+<li>Formula: $||x_{k+1} - x_k|| < \epsilon$</li>
+<li>Intuition: If one step only advances 0.000001 mm, not much point continuing.</li>
+</ul>
+</li>
+<li>
+<p><strong>Function Value Judgment</strong>: Is gain still significant?</p>
+<ul>
+<li>From a &ldquo;cost-benefit&rdquo; perspective.</li>
+<li>Criterion: Objective function value $f(x)$ almost stops decreasing.</li>
+<li>Formula: $|f(x_{k+1}) - f(x_k)| < \epsilon$</li>
+<li>Intuition: If after much effort, cost only drops by 1 cent, call it a day (Diminishing returns).</li>
+</ul>
+</li>
+<li>
+<p><strong>Budget Judgment (Mandatory)</strong>: Time up?</p>
+<ul>
+<li>Prevent infinite loops or timeout.</li>
+<li>Criterion: Reach Max Iterations.</li>
+<li>Intuition: Boss only gave 1000 bucks (compute resource), stop when money runs out regardless of result.</li>
+</ul>
+</li>
+</ol>
+<h3 id="pros--cons">Pros &amp; Cons</h3>
+<ul>
+<li>✅ Extremely fast convergence: Usually reaches bottom in a few steps (Quadratic convergence speed).</li>
+<li>❌ High computational cost: Calculating inverse of Hessian $\mathbf{H}$ takes $O(n^3)$. Almost unusable in high dimensions ($n$ is large). Thus, generally used for 1D problems.</li>
+<li>❌ Sensitive to initial value: If start point is too far from optimum and function is non-convex, Newton&rsquo;s method might fly off to space.</li>
+</ul>
+<h3 id="examples">Examples</h3>
+<h4 id="example-1-manual-calculation">Example 1: Manual Calculation</h4>
+<p>Objective: $f(x) = x^2 - 4x + 4$ (Parabola opening up, min clearly at $x=2$).</p>
+<p>Assume we start far away at $x_0 = 10$.</p>
+<ol>
+<li>Calc Gradient (1st deriv): $g(x) = f'(x) = 2x - 4$. At $x_0=10$, $g(10) = 16$.</li>
+<li>Calc Hessian (2nd deriv): $h(x) = f''(x) = 2$. Constant $2$ (Standard quadratic function).</li>
+<li>Newton Update: $x_{new} = x_{old} - \frac{g(x)}{h(x)}$ &ndash;&gt; $x_1 = 10 - \frac{16}{2} = 2$.</li>
+<li>Check if $x=2$ is optimal:
+<ul>
+<li>Gradient Check: $f'(2) = 2(2) - 4 = 0$. ✅ Slope is 0.</li>
+<li>Hessian Check: $f''(2) = 2 > 0$. ✅ Minimum.</li>
+<li>Try &ldquo;One More Step&rdquo;: $x_{new} = 2 - 0/2 = 2$. ✅ Algorithm stays put.</li>
+</ul>
+</li>
+</ol>
+<p>Result: Surprise? Just one step, jumped from $10$ directly to $2$ (Global Optimum).</p>
+<h4 id="example-2">Example 2</h4>
+<p>This example lets you intuitively feel the power of Newton&rsquo;s Method, especially its quadratic convergence and stopping criteria. A non-quadratic function is chosen: </p>
+$$f(x, y) = x^4 + y^4$$<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. Define objective, gradient, hessian ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Objective: f(x, y) = x^4 + y^4 (Min at 0,0)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Gradient: [4x^3, 4y^3]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradient</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Hessian: [[12x^2, 0], [0, 12y^2]]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hessian</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">12</span> <span style="color:#f92672">*</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>], 
+</span></span><span style="display:flex;"><span>                     [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">12</span> <span style="color:#f92672">*</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>]])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. Newton&#39;s Method Core ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newton_optimization</span>(start_point, tolerance<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-6</span>, max_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start_point, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Iter&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;x&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;20</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Grad Norm&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;15</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">45</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(max_iter):
+</span></span><span style="display:flex;"><span>        g <span style="color:#f92672">=</span> gradient(x)
+</span></span><span style="display:flex;"><span>        H <span style="color:#f92672">=</span> hessian(x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># --- Stop Criterion 1: Gradient small enough? ---</span>
+</span></span><span style="display:flex;"><span>        grad_norm <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(g)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>str(x)<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;20</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>grad_norm<span style="color:#e6db74">:</span><span style="color:#e6db74">.8f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> grad_norm <span style="color:#f92672">&lt;</span> tolerance:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">✅ Trigger Stop: Grad Norm </span><span style="color:#e6db74">{</span>grad_norm<span style="color:#e6db74">:</span><span style="color:#e6db74">.2e</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> &lt; </span><span style="color:#e6db74">{</span>tolerance<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># --- Newton Update ---</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Formula: x_new = x - H^-1 * g</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Tip: Don&#39;t use inv(), utilize solve() for stability</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            step <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>solve(H, g)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>LinAlgError:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;⚠️ Hessian singular, stop.&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> step
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 3. Run ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">2.5</span>] <span style="color:#75715e"># Start from (2, 2.5)</span>
+</span></span><span style="display:flex;"><span>path_newton <span style="color:#f92672">=</span> newton_optimization(start_pos)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 4. Visualize ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">7</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray_r&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>) <span style="color:#75715e"># Contours</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_newton[:, <span style="color:#ae81ff">0</span>], path_newton[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Newton&#39;s Path&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Mark start/end</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(path_newton[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>], path_newton[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(path_newton[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>], path_newton[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Converged&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Newton&#39;s Method Optimization on $f(x,y) = x^4 + y^4$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Iter  | x                    | Grad Norm      
+---------------------------------------------
+0     | [2.  2.5]            | 70.21573898
+1     | [1.33333333 1.66666667] | 20.80466340
+2     | [0.88888889 1.11111111] | 6.16434471
+3     | [0.59259259 0.74074074] | 1.82647251
+4     | [0.39506173 0.49382716] | 0.54117704
+5     | [0.26337449 0.32921811] | 0.16034875
+6     | [0.17558299 0.21947874] | 0.04751074
+7     | [0.11705533 0.14631916] | 0.01407726
+8     | [0.07803688 0.09754611] | 0.00417104
+9     | [0.05202459 0.06503074] | 0.00123586
+10    | [0.03468306 0.04335382] | 0.00036618
+11    | [0.02312204 0.02890255] | 0.00010850
+12    | [0.01541469 0.01926837] | 0.00003215
+13    | [0.01027646 0.01284558] | 0.00000953
+14    | [0.00685097 0.00856372] | 0.00000282
+15    | [0.00456732 0.00570915] | 0.00000084
+
+✅ Trigger Stop: Grad Norm 8.36e-07 &lt; 1e-06
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_6_1.png" alt="png"></p>
+<p><strong>Code Highlights</strong></p>
+<ol>
+<li>Convergence Speed: Observe Grad Norm. Once near the bottom, gradient norm drops precipitously (e.g., from 0.1 to 0.0001). Characteristic of quadratic convergence.</li>
+<li><code>np.linalg.solve(H, g)</code>: Do not use <code>inv()</code>. Solving linear equations is faster and more stable.</li>
+<li>Stopping Criteria: Hard threshold <code>grad_norm &lt; tolerance</code>.</li>
+</ol>
+<h2 id="coordinate-descent-simple-relaxation">Coordinate Descent (Simple Relaxation)</h2>
+<blockquote>
+<p>Suitable for N dim</p></blockquote>
+<p>In continuous optimization context, this usually refers to Coordinate Descent, or Gauss-Seidel method in linear equations. This is actually <strong>the deterministic version of Gibbs Sampling!</strong></p>
+<p>Coordinate Descent is a <strong>&ldquo;Divide and Conquer&rdquo;</strong> strategy.</p>
+<ul>
+<li>Newton/Gradient Descent: &ldquo;All-in attack&rdquo;. All variables $(x_1, \dots, x_n)$ move together.</li>
+<li>Coordinate Descent (Relaxation): &ldquo;Single soldier combat&rdquo;. Only one variable moves at a time, others fixed.</li>
+</ul>
+<p>Geometric Intuition: Walking in Manhattan. Can only move East-West (X-axis) or North-South (Y-axis). To reach the lowest point, move East, stop, move South, repeat.</p>
+<h3 id="algorithm-flow">Algorithm Flow</h3>
+<p>Minimize $f(x_1, \dots, x_n)$.</p>
+<ul>
+<li>Init: Pick $x^{(0)}$.</li>
+<li>Loop (until converge):
+<ol>
+<li>Update $x_1$: Fix $x_2, \dots, x_n$, find $x_1$ minimizing $f$.
+$$x_1^{(new)} = \underset{x_1}{\text{argmin}} \ f(x_1, x_2^{(old)}, \dots, x_n^{(old)})$$
+<ul>
+<li>$f$ becomes 1D function, use derivatives to solve min.</li>
+</ul>
+</li>
+<li>Update $x_2$: Fix $x_1^{(new)}, x_3, \dots, x_n$, find $x_2$.</li>
+<li>&hellip;</li>
+<li>Update $x_n$: Fix previous, find $x_n$.</li>
+</ol>
+</li>
+</ul>
+<p>Core Logic: Solve one 1D optimization problem at a time.</p>
+<h3 id="pros--cons-1">Pros &amp; Cons</h3>
+<p>Pros</p>
+<ul>
+<li>No Gradient: If single variable optimization is easy (analytic solution), no gradient needed.</li>
+<li>Manhattan Move: Zig-zag trajectory along axes.</li>
+<li>Applicability: Great for low coupling variables, or L1 regularization (Lasso).</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>Very slow with strong correlation. Imagine a narrow diagonal valley (variables $x$ and $y$ highly correlated, e.g., $f=(x-y)^2$). Coordinate descent struggles, hitting walls, advancing tiny bits.</li>
+</ul>
+<h3 id="examples-1">Examples</h3>
+<h4 id="basic-example">Basic Example</h4>
+<p>Objective: $f(x, y) = x^2 + xy + y^2$. 1D bowl, but $xy$ term makes contours slanted ellipses.</p>
+<p>Manual Derivation:</p>
+<ul>
+<li>Optimize $x$: Fix $y$. $d/dx = 2x + y = 0 \implies x = -y/2$.</li>
+<li>Optimize $y$: Fix $x$. $d/dy = x + 2y = 0 \implies y = -x/2$.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Objective: f(x,y) = x^2 + xy + y^2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Coordinate Descent ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">coordinate_descent</span>(start_point, n_cycles<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> start_point
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Step&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;x&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;y&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Action&#39;</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">45</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_cycles):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 1. Fix y, optimize x</span>
+</span></span><span style="display:flex;"><span>        x_new <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>y <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x_new, y]) 
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>x_new<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>y<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | Update x&#34;</span>)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x_new 
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 2. Fix x, optimize y</span>
+</span></span><span style="display:flex;"><span>        y_new <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>x <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y_new]) 
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>x<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>y_new<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | Update y&#34;</span>)
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> y_new 
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Run ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">2.0</span>]
+</span></span><span style="display:flex;"><span>path_cd <span style="color:#f92672">=</span> coordinate_descent(start_pos, n_cycles<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Visualize ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> X<span style="color:#f92672">*</span>Y <span style="color:#f92672">+</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">7</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot zig-zag path</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_cd[:, <span style="color:#ae81ff">0</span>], path_cd[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Coordinate Descent Path&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gold&#39;</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Global Min&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Simple Relaxation (Coordinate Descent) on $x^2 + xy + y^2$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Step  | x          | y          | Action
+---------------------------------------------
+1     | -1.0000    | 2.0000     | Update x
+2     | -1.0000    | 0.5000     | Update y
+3     | -0.2500    | 0.5000     | Update x
+4     | -0.2500    | 0.1250     | Update y
+5     | -0.0625    | 0.1250     | Update x
+6     | -0.0625    | 0.0312     | Update y
+7     | -0.0156    | 0.0312     | Update x
+8     | -0.0156    | 0.0078     | Update y
+9     | -0.0039    | 0.0078     | Update x
+10    | -0.0039    | 0.0020     | Update y
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_10_1.png" alt="png"></p>
+<p><strong>Image Analysis</strong>:</p>
+<ul>
+<li><strong>Right angle turns</strong>: Path completely horizontal/vertical. Manhattan distance.</li>
+<li>Convergence: Slowly spirals in due to $x, y$ coupling.</li>
+<li>Contrast: Newton&rsquo;s method would jump to $(0,0)$ in one step.</li>
+</ul>
+<h4 id="example-extremely-slow-with-strong-correlation">Example: Extremely Slow with Strong Correlation</h4>
+<p><strong>Scenario: The Narrow Diagonal Valley</strong></p>
+<p>Terrain is a very narrow, slanted valley.</p>
+<ul>
+<li>Bottom is a diagonal line ($y \approx -x$).</li>
+<li>To descend, must adjust both $x$ and $y$.</li>
+</ul>
+<p>Coordinate Descent is OCD, only moves one coordinate.</p>
+<ol>
+<li>Wants to go left-down, moves left, hits wall.</li>
+<li>Stops, moves down, hits wall.</li>
+<li>Bounces between walls, tiny steps, running in place.</li>
+</ol>
+<p><strong>Mathematical Construction</strong>
+Change coupling coefficient from 1 to 1.9. $f(x, y) = x^2 + \mathbf{1.9}xy + y^2$.</p>
+<ul>
+<li>Update: $x = -0.95y$, $y = -0.95x$.</li>
+<li>Values shrink by only 5% each iteration. Extremely slow.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Pathological function, high coupling</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1.9 coefficient makes ellipse extremely narrow</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.9</span> <span style="color:#f92672">*</span> x <span style="color:#f92672">*</span> y <span style="color:#f92672">+</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Coordinate Descent ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">coordinate_descent_bad_case</span>(start_point, n_cycles<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> start_point
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_cycles):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 1. Update x: 2x + 1.9y = 0 =&gt; x = -0.95y</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.95</span> <span style="color:#f92672">*</span> y
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 2. Update y: 1.9x + 2y = 0 =&gt; y = -0.95x</span>
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.95</span> <span style="color:#f92672">*</span> x
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Run Contrast ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">4.0</span>, <span style="color:#ae81ff">3.0</span>] 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run 20 cycles</span>
+</span></span><span style="display:flex;"><span>path_cd <span style="color:#f92672">=</span> coordinate_descent_bad_case(start_pos, n_cycles<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Visualize ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.9</span><span style="color:#f92672">*</span>X<span style="color:#f92672">*</span>Y <span style="color:#f92672">+</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>logspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">20</span>), cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;magma&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot path</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_cd[:, <span style="color:#ae81ff">0</span>], path_cd[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;.-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Coordinate Descent Path&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gold&#39;</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Global Min&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(start_pos[<span style="color:#ae81ff">0</span>], start_pos[<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;The Weakness: Zig-zagging in a Narrow Valley</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">$f(x,y) = x^2 + 1.9xy + y^2$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Start: </span><span style="color:#e6db74">{</span>start_pos<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;End (after 40 steps): </span><span style="color:#e6db74">{</span>path_cd[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;True Min: [0, 0]&#34;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_13_0.png" alt="png"></p>
+<pre><code>Start: [4.0, 3.0]
+End (after 40 steps): [-0.40582786  0.38553647]
+True Min: [0, 0]
+</code></pre>
+<p>Analysis:</p>
+<ul>
+<li>&ldquo;Sewing Machine&rdquo; Effect: Path is dense red zigzag lines.</li>
+<li>Running in Place: After 40 steps, still far from origin. Previous example took 5 cycles.</li>
+<li>Intuition: Moving a wide sofa through a narrow corridor. Gradient Descent tilts the sofa. Coordinate Descent moves left 1cm, hits wall, down 1cm, hits wall.</li>
+</ul>
+<h2 id="steepest-descent">Steepest Descent</h2>
+<blockquote>
+<p>Suitable for N dim</p></blockquote>
+<p>Steepest Descent is a <strong>First-Order Optimization Algorithm</strong>.</p>
+<ul>
+<li>Intuition: Blindfolded on a mountain. To get down fast, feel around with feet, step in direction of steepest downward slope.</li>
+<li>Math Core:
+<ul>
+<li>Gradient ($\nabla f$): Steepest uphill.</li>
+<li>Negative Gradient ($-\nabla f$): Steepest downhill.</li>
+</ul>
+</li>
+<li>Contrast:
+<ul>
+<li>Unlike Coordinate Descent, can move any direction.</li>
+<li>Unlike Newton&rsquo;s, is &ldquo;myopic&rdquo;, only sees slope under feet.</li>
+</ul>
+</li>
+</ul>
+<h3 id="core-idea-greedy-downhill">Core Idea: Greedy Downhill</h3>
+<p>Core formula:
+</p>
+$$x_{k+1} = x_k - \alpha \nabla f(x_k)$$<p>
+Two key roles:</p>
+<ul>
+<li>Direction ($\nabla f(x_k)$): Where to go.</li>
+<li>Step Size ($\alpha$, Learning Rate): How big a step.</li>
+</ul>
+<blockquote>
+<p>In classical definition, $\alpha$ is determined by <strong>Line Search</strong>. In modern ML, often a fixed hyperparameter.</p></blockquote>
+<h3 id="choice-of-step-size--line-search">Choice of Step Size $\alpha$ (Line Search)</h3>
+<p>Strict &ldquo;Steepest Descent&rdquo; uses <strong>Line Search</strong>: </p>
+$$\alpha_k = \underset{\alpha > 0}{\text{argmin}} \ f(x_k - \alpha \nabla f(x_k))$$<p>
+Determine direction, walk to lowest point in that direction, then change direction.</p>
+<h3 id="pros--cons-2">Pros &amp; Cons</h3>
+<ul>
+<li>Low cost: Fast gradient calculation.</li>
+<li>Path shape: Vertical Zig-zag.</li>
+<li>Convergence: Linear.</li>
+<li>Weakness: Sensitive to step size &amp; oscillation in valleys.</li>
+</ul>
+<h4 id="zig-zagging">Zig-Zagging</h4>
+<p>Famous weakness. Adjacent steps are orthogonal (perpindicular) with <strong>Exact Line Search</strong>. In narrow valleys, bounces between walls, oscillating wildly. Reasons for Momentum.</p>
+<h3 id="examples-2">Examples</h3>
+<h4 id="basic-example-1">Basic Example</h4>
+<p>Using the narrow valley function $f(x, y) = x^2 + 10y^2$. $y$ slope is 10x steeper.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Objective: f(x,y) = x^2 + 10y^2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Gradient: [2x, 20y]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradient</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> x, <span style="color:#ae81ff">20</span> <span style="color:#f92672">*</span> y])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Steepest Descent ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">steepest_descent</span>(start_point, learning_rate, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start_point)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>        grad <span style="color:#f92672">=</span> gradient(p)
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> p <span style="color:#f92672">-</span> learning_rate <span style="color:#f92672">*</span> grad
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(p)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Run ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">8.0</span>, <span style="color:#ae81ff">2.0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Moderate LR (0.05)</span>
+</span></span><span style="display:flex;"><span>path_good <span style="color:#f92672">=</span> steepest_descent(start_pos, learning_rate<span style="color:#f92672">=</span><span style="color:#ae81ff">0.05</span>, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Large LR (0.09) - Near oscillation</span>
+</span></span><span style="display:flex;"><span>path_oscillate <span style="color:#f92672">=</span> steepest_descent(start_pos, learning_rate<span style="color:#f92672">=</span><span style="color:#ae81ff">0.09</span>, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Visualize ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">100</span>) 
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">*</span>Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Left: Normal LR</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_good[:, <span style="color:#ae81ff">0</span>], path_good[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;LR=0.05&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Good Learning Rate</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Steady Descent)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Right: Oscillating LR</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_oscillate[:, <span style="color:#ae81ff">0</span>], path_oscillate[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;LR=0.09&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Large Learning Rate</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Zig-zag / Oscillation)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_17_0.png" alt="png"></p>
+<ul>
+<li>Left (Good LR): Curved path, steady approach. Not straight line to center.</li>
+<li>Right (Large LR - Oscillation): Jumping crazily in $y$ direction (Steep). Wasting energy bouncing between North/South walls while slowly advancing East/West.</li>
+</ul>
+<h4 id="example-exact-line-search">Example: Exact Line Search</h4>
+<blockquote>
+<p>Orthogonal steps.</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.optimize <span style="color:#f92672">import</span> minimize_scalar
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradient</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> x, <span style="color:#ae81ff">20</span> <span style="color:#f92672">*</span> y])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Steepest Descent w/ Exact Line Search ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">steepest_descent_exact_line_search</span>(start_point, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    x_k <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start_point)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>        grad <span style="color:#f92672">=</span> gradient(x_k)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Define 1D function for alpha</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">line_obj</span>(alpha):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> func(x_k <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> grad)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Find best alpha</span>
+</span></span><span style="display:flex;"><span>        res <span style="color:#f92672">=</span> minimize_scalar(line_obj)
+</span></span><span style="display:flex;"><span>        best_alpha <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span>x
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        x_new <span style="color:#f92672">=</span> x_k <span style="color:#f92672">-</span> best_alpha <span style="color:#f92672">*</span> grad
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(x_new)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(x_new <span style="color:#f92672">-</span> x_k) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-6</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        x_k <span style="color:#f92672">=</span> x_new
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Run ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">1.0</span>] 
+</span></span><span style="display:flex;"><span>path_exact <span style="color:#f92672">=</span> steepest_descent_exact_line_search(start_pos, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Visualize ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">*</span>Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_exact[:, <span style="color:#ae81ff">0</span>], path_exact[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Steepest Descent (Exact Line Search)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Annotate Right Angles</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(path_exact)<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    p1 <span style="color:#f92672">=</span> path_exact[i]
+</span></span><span style="display:flex;"><span>    p2 <span style="color:#f92672">=</span> path_exact[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    p3 <span style="color:#f92672">=</span> path_exact[i<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    v1 <span style="color:#f92672">=</span> p2 <span style="color:#f92672">-</span> p1
+</span></span><span style="display:flex;"><span>    v2 <span style="color:#f92672">=</span> p3 <span style="color:#f92672">-</span> p2
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    dot_product <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(v1, v2)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>:
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>annotate(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Dot: </span><span style="color:#e6db74">{</span>dot_product<span style="color:#e6db74">:</span><span style="color:#e6db74">.1e</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>, xy<span style="color:#f92672">=</span>p2, xytext<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>), textcoords<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;offset points&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Orthogonality of Steps with Exact Line Search</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Notice the Zig-Zag is strictly 90 degrees)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>) 
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_20_0.png" alt="png"></p>
+<h2 id="example-the-grand-showdown">Example: The Grand Showdown</h2>
+<p>Three algorithms in one arena. Terrain: <strong>Skewed &amp; Coupled</strong>:
+</p>
+$$f(x, y) = x^2 + 1.5xy + 2y^2$$<p>Analysis: Elliptical bowl, slanted ($1.5xy$ term).</p>
+<ul>
+<li>Coordinate Descent: Nightmare (no slanted moves).</li>
+<li>Steepest Descent: Challenge (oscillation).</li>
+<li>Newton&rsquo;s Method: Piece of cake (Quadratic surface).</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. Arena ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># f(x, y) = x^2 + 1.5xy + 2y^2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.5</span><span style="color:#f92672">*</span>x<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradient</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.5</span><span style="color:#f92672">*</span>y, <span style="color:#ae81ff">1.5</span><span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>y])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hessian</span>(p):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1.5</span>], 
+</span></span><span style="display:flex;"><span>                     [<span style="color:#ae81ff">1.5</span>, <span style="color:#ae81ff">4</span>]])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. Player 1: Steepest Descent ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">steepest_descent</span>(start, lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.15</span>, steps<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start]
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(steps):
+</span></span><span style="display:flex;"><span>        grad <span style="color:#f92672">=</span> gradient(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> lr <span style="color:#f92672">*</span> grad
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 3. Player 2: Coordinate Descent ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">coordinate_descent</span>(start, steps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start]
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> start
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(steps):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Opt x: d/dx = 2x + 1.5y = 0 -&gt; x = -0.75y</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.75</span> <span style="color:#f92672">*</span> y
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Opt y: d/dy = 1.5x + 4y = 0 -&gt; y = -0.375x</span>
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.375</span> <span style="color:#f92672">*</span> x
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 4. Player 3: Newton&#39;s Method ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newton_method</span>(start, steps<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start]
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start)
+</span></span><span style="display:flex;"><span>    H <span style="color:#f92672">=</span> hessian(x)
+</span></span><span style="display:flex;"><span>    H_inv <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>inv(H) 
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(steps):
+</span></span><span style="display:flex;"><span>        grad <span style="color:#f92672">=</span> gradient(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> H_inv <span style="color:#f92672">@</span> grad
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(grad) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-6</span>: <span style="color:#66d9ef">break</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 5. Visuals ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">8.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">6.0</span>] 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>path_sd <span style="color:#f92672">=</span> steepest_descent(start_pos)
+</span></span><span style="display:flex;"><span>path_cd <span style="color:#f92672">=</span> coordinate_descent(start_pos)
+</span></span><span style="display:flex;"><span>path_newton <span style="color:#f92672">=</span> newton_method(start_pos)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.5</span><span style="color:#f92672">*</span>X<span style="color:#f92672">*</span>Y <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">9</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray_r&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_sd[:,<span style="color:#ae81ff">0</span>], path_sd[:,<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Steepest Descent (Gradient)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_cd[:,<span style="color:#ae81ff">0</span>], path_cd[:,<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;.-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Coordinate Descent (Staircase)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_newton[:,<span style="color:#ae81ff">0</span>], path_newton[:,<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;x--&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Newton&#39;s Method (Direct)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(start_pos[<span style="color:#ae81ff">0</span>], start_pos[<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gold&#39;</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Global Min&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Deterministic Optimization Showdown</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">$f(x,y) = x^2 + 1.5xy + 2y^2$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_22_0.png" alt="png"></p>
+<p>Comparison:</p>
+<ul>
+<li>Newton&rsquo;s Method (Blue): 1 step to bullseye. &ldquo;God mode&rdquo; with curvature info.</li>
+<li>Steepest Descent (Red): Curved path, steady approach. Good cost-performance.</li>
+<li>Coordinate Descent (Orange): Staircase. Struggles with coupling. Least efficient here.</li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://localhost:1313/tags/gradient-descent/">Gradient Descent</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/optimization-algorithms/">Optimization Algorithms</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/machine-learning/">Machine Learning</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/deep-learning/">Deep Learning</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/convex-optimization/">Convex Optimization</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/python-implementation/">Python Implementation</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+    <li>
+      <a
+        href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fdeterministic-optimization%2f&amp;text=Deterministic%20Optimization%20Explained%3a%20The%20Mathematical%20Essence%20of%20Gradient%20Descent&amp;via="
+        target="_blank"
+        title="Share on Twitter"
+        class="share-btn twitter"
+      >
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fdeterministic-optimization%2f"
+        target="_blank"
+        title="Share on Facebook"
+        class="share-btn facebook"
+      >
+        <i class="fab fa-facebook"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fdeterministic-optimization%2f&amp;appkey=&amp;title=Deterministic%20Optimization%20Explained%3a%20The%20Mathematical%20Essence%20of%20Gradient%20Descent&amp;pic="
+        target="_blank"
+        title="Share on Weibo"
+        class="share-btn weibo"
+      >
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="openWechatModal('http:\/\/localhost:1313\/post\/mcmc-statics\/deterministic-optimization\/')"
+        title="Share on WeChat"
+        class="share-btn wechat"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fdeterministic-optimization%2f&amp;title=Deterministic%20Optimization%20Explained%3a%20The%20Mathematical%20Essence%20of%20Gradient%20Descent"
+        target="_blank"
+        title="Share on LinkedIn"
+        class="share-btn linkedin"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="copyToClipboard('http:\/\/localhost:1313\/post\/mcmc-statics\/deterministic-optimization\/', 'Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent')"
+        title="Copy Link"
+        class="share-btn copy-link"
+      >
+        <i class="fas fa-link"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div id="wechat-modal" class="wechat-modal">
+  <div class="wechat-modal-content">
+    <span class="wechat-close" onclick="closeWechatModal()">&times;</span>
+    <h4>
+      Scan to Share <br />
+      微信扫一扫分享
+    </h4>
+    <div id="qrcode" class="qrcode-container"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(url, title) {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        
+        var existingToast = document.getElementById("share-toast");
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        var toast = document.createElement("div");
+        toast.id = "share-toast";
+        toast.innerText = "Link copied to clipboard!";
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = "rgba(0,0,0,0.8)";
+        toast.style.color = "#fff";
+        toast.style.padding = "10px 20px";
+        toast.style.borderRadius = "5px";
+        toast.style.zIndex = "10000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease-in-out";
+
+        document.body.appendChild(toast);
+
+        
+        void toast.offsetWidth;
+
+        toast.style.opacity = "1";
+
+        setTimeout(function () {
+          toast.style.opacity = "0";
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 500);
+        }, 3000);
+      },
+      function (err) {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
+  function openWechatModal(url) {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "flex";
+    var qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    var img = document.createElement("img");
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      encodeURIComponent(url);
+    img.style.width = "200px";
+    img.style.height = "200px";
+    qrcodeContainer.appendChild(img);
+  }
+
+  function closeWechatModal() {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "none";
+  }
+
+  
+  window.onclick = function (event) {
+    var modal = document.getElementById("wechat-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/mcmc-statics/metropolis/">Metropolis Algorithm Explained: Implementation &amp; Intuition</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/post/mcmc-statics/gibbs-sampling/" data-toggle="tooltip" data-placement="top" title="Gibbs Sampling Explained: The Wisdom of Divide and Conquer">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#deterministic-optimization">Deterministic Optimization</a>
+      <ul>
+        <li><a href="#definition-of-optimization-problem">Definition of Optimization Problem</a>
+          <ul>
+            <li><a href="#objective-function">Objective Function </a></li>
+            <li><a href="#global-vs-local">Global vs. Local</a></li>
+          </ul>
+        </li>
+        <li><a href="#convex-function">Convex Function</a>
+          <ul>
+            <li><a href="#methods-of-judgment">Methods of Judgment</a></li>
+          </ul>
+        </li>
+        <li><a href="#newtons-method">Newton&rsquo;s Method</a>
+          <ul>
+            <li><a href="#core-idea-quadratic-approximation">Core Idea: Quadratic Approximation</a></li>
+            <li><a href="#stopping-criteria">Stopping Criteria</a></li>
+            <li><a href="#pros--cons">Pros &amp; Cons</a></li>
+            <li><a href="#examples">Examples</a></li>
+          </ul>
+        </li>
+        <li><a href="#coordinate-descent-simple-relaxation">Coordinate Descent (Simple Relaxation)</a>
+          <ul>
+            <li><a href="#algorithm-flow">Algorithm Flow</a></li>
+            <li><a href="#pros--cons-1">Pros &amp; Cons</a></li>
+            <li><a href="#examples-1">Examples</a></li>
+          </ul>
+        </li>
+        <li><a href="#steepest-descent">Steepest Descent</a>
+          <ul>
+            <li><a href="#core-idea-greedy-downhill">Core Idea: Greedy Downhill</a></li>
+            <li><a href="#choice-of-step-size--line-search">Choice of Step Size  (Line Search)</a></li>
+            <li><a href="#pros--cons-2">Pros &amp; Cons</a></li>
+            <li><a href="#examples-2">Examples</a></li>
+          </ul>
+        </li>
+        <li><a href="#example-the-grand-showdown">Example: The Grand Showdown</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="http://localhost:1313/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+

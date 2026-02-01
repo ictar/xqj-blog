@@ -77,13 +77,43 @@
                 href="http://localhost:1313/post/python-geodata/"
                 />
   </url><url>
-    <loc>http://localhost:1313/tags/bayesian-statistics/</loc>
-    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/tags/bayesian-inference/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>http://localhost:1313/tags/conditional-distribution/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/dimensionality-reduction/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/gibbs-sampling/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/gibbs-sampling/"
+                />
+  </url><url>
     <loc>http://localhost:1313/tags/mcmc/</loc>
-    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -95,6 +125,101 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="http://localhost:1313/tags/mcmc/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/post/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/python/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/python/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/python/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2026-01-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/tags/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/bayesian-statistics/</loc>
+    <lastmod>2026-01-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/detailed-balance/</loc>
+    <lastmod>2026-01-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/hastings-correction/</loc>
+    <lastmod>2026-01-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/mh-algorithm/</loc>
+    <lastmod>2026-01-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</loc>
+    <lastmod>2026-01-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="http://localhost:1313/post/mcmc-statics/metropolis-hastings/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/metropolis-algorithm/</loc>
@@ -122,60 +247,15 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/post/</loc>
-    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/post/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/post/"
-                />
-  </url><url>
     <loc>http://localhost:1313/tags/python-implementation/</loc>
     <lastmod>2026-01-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/"
-                />
-  </url><url>
     <loc>http://localhost:1313/tags/random-walk/</loc>
     <lastmod>2026-01-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2026-01-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/tags/"
-                />
   </url><url>
     <loc>http://localhost:1313/tags/markov-chain/</loc>
     <lastmod>2026-01-23T00:00:00+00:00</lastmod>
@@ -186,21 +266,6 @@
     <lastmod>2026-01-23T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/tags/python/</loc>
-    <lastmod>2026-01-23T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/tags/python/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="http://localhost:1313/tags/python/"
-                />
   </url><url>
     <loc>http://localhost:1313/post/mcmc-statics/markov-chains/</loc>
     <lastmod>2026-01-23T00:00:00+00:00</lastmod>

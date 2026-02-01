@@ -8,8 +8,22 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Sat, 24 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/tags/mcmc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gibbs 采样详解：分而治之的降维智慧</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/</link>
+      <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/</guid>
+      <description>当高维空间让人无从下手时，Gibbs 采样采用了“各个击破”的策略。通过利用满条件分布，它将复杂的 N 维联合分布采样拆解为 N 个简单的 1 维采样。本文解析其直观直觉、数学证明（Brook&amp;rsquo;s Lemma）及代码实战。</description>
+    </item>
+    <item>
+      <title>Metropolis-Hastings 算法：打破对称性的束缚</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/</link>
+      <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/</guid>
+      <description>原版 Metropolis 受限于对称提议，常在边界“撞墙”或高维迷路。MH 算法引入“哈斯廷斯修正项”，允许不对称提议（如 Langevin 动力学）并维持细致平衡，大幅提升效率。</description>
+    </item>
     <item>
       <title>Metropolis 算法详解：从原理到 Python 实现</title>
       <link>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</link>

@@ -40,7 +40,12 @@ weight: 2
    - 高维困境与“曼哈顿漫步”直觉
    - 及其数学原理：布鲁克引理 (Brook's Lemma)
    - 离散与连续分布的 Python 代码实现
-9. [收敛性诊断](./convergence/)
-10. [Python 实战：MCMC 建模](./python/)
+9. [确定性优化算法详解：梯度下降的数学本质与代码实战](./deterministic-optimization/)
+   - 凸优化与非凸优化的几何直觉
+   - 牛顿法 (Newton's Method) 与二阶近似
+   - 坐标下降 (Coordinate Descent) 与 Gibbs 采样的联系
+   - 最速下降法 (Steepest Descent) 的优缺点
+10. [收敛性诊断](./convergence/)
+11. [Python 实战：MCMC 建模](./python/)
 
 ## 快速访问

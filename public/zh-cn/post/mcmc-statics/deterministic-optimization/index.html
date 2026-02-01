@@ -1,0 +1,1795 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>确定性优化算法详解：梯度下降的数学本质与代码实战 - </title>
+
+  <meta name="description" content="确定性优化是理解现代 MCMC 算法（如 HMC, Langevin）的基石。本文深入解析了三种经典的确定性优化策略：牛顿法（利用曲率的二阶视角）、坐标下降法（分而治之的 Gibbs 前身）和最速下降法（贪婪的一阶探索）。通过数学推导与 Python 可视化，我们对比了它们在不同地形（凸面、狭长峡谷、强耦合）下的行为模式与收敛特性。">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/" />
+
+
+<meta name="keywords" content="梯度下降, 优化算法, 机器学习, 深度学习, 凸优化, Python实现" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼呀",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/deterministic-optimization\/",
+          "name": "确定性优化算法详解：梯度下降的数学本质与代码实战"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "确定性优化算法详解：梯度下降的数学本质与代码实战",
+  "description" : "确定性优化是理解现代 MCMC 算法（如 HMC, Langevin）的基石。本文深入解析了三种经典的确定性优化策略：牛顿法（利用曲率的二阶视角）、坐标下降法（分而治之的 Gibbs 前身）和最速下降法（贪婪的一阶探索）。通过数学推导与 Python 可视化，我们对比了它们在不同地形（凸面、狭长峡谷、强耦合）下的行为模式与收敛特性。",
+  "inLanguage" : "zh-cn",
+  "wordCount":  3431 ,
+  "datePublished" : "2026-02-01T00:00:00\u002b00:00",
+  "dateModified" : "2026-02-01T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "梯度下降, 优化算法, 机器学习, 深度学习, 凸优化, Python实现" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/deterministic-optimization\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="确定性优化算法详解：梯度下降的数学本质与代码实战" />
+<meta property="og:description" content="确定性优化是理解现代 MCMC 算法（如 HMC, Langevin）的基石。本文深入解析了三种经典的确定性优化策略：牛顿法（利用曲率的二阶视角）、坐标下降法（分而治之的 Gibbs 前身）和最速下降法（贪婪的一阶探索）。通过数学推导与 Python 可视化，我们对比了它们在不同地形（凸面、狭长峡谷、强耦合）下的行为模式与收敛特性。">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼呀" />
+
+  <meta name="twitter:title" content="确定性优化算法详解：梯度下降的数学本质与代码实战" />
+  <meta name="twitter:description" content="确定性优化是理解现代 MCMC 算法（如 HMC, Langevin）的基石。本文深入解析了三种经典的确定性优化策略：牛顿法（利用曲率的二阶视角）、坐标下降法（分而治之的 Gibbs 前身）和最速下降法（贪婪的一阶探索）。通过数学推导与 Python 可视化，我们对比了它们在不同地形（凸面、狭长峡谷、强耦合）下的行为模式与收敛特性。">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/zh-cn/">琼呀</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/post">文章</a>
+              <div class="navlinks-children">
+                
+                  <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
+                
+                  <a href="/zh-cn/post/ai-fundamentals">AI 基础系列</a>
+                
+                  <a href="/zh-cn/post/geoai">GeoAI 系列</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/projects">项目</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="笔记" href="/zh-cn/notes">笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="标签" href="/zh-cn/tags">标签</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="关于我" href="/zh-cn/page/about/">关于我</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/post/mcmc-statics/deterministic-optimization/">EN</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼呀" href="http://localhost:1313/zh-cn/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="琼呀" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>确定性优化算法详解：梯度下降的数学本质与代码实战</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 February 1, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3431&nbsp;个字
+  
+  
+  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/deterministic-optimization/" lang="en">EN</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1 id="确定性优化deterministic-optimization">确定性优化（Deterministic optimization）</h1>
+<blockquote>
+<p>They are thought for convext function. If the function is not convext, we change to stochastic optimization.</p></blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">算法</th>
+          <th style="text-align: left">类别</th>
+          <th style="text-align: left">利用信息</th>
+          <th style="text-align: left">几何直觉</th>
+          <th style="text-align: left">优点</th>
+          <th style="text-align: left">缺点</th>
+          <th style="text-align: left">对应 MCMC</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">牛顿法</td>
+          <td style="text-align: left">二阶</td>
+          <td style="text-align: left">梯度 + 曲率 (Hessian)</td>
+          <td style="text-align: left">抛物面近似 (碗)</td>
+          <td style="text-align: left">收敛极快</td>
+          <td style="text-align: left">计算 H 逆太贵</td>
+          <td style="text-align: left">类似 Langevin (利用二阶)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">坐标下降法</td>
+          <td style="text-align: left">零阶/一阶</td>
+          <td style="text-align: left">单变量信息</td>
+          <td style="text-align: left">沿坐标轴移动</td>
+          <td style="text-align: left">简单，无需全梯度</td>
+          <td style="text-align: left">强相关时收敛慢</td>
+          <td style="text-align: left">Gibbs Sampling</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">最速下降法</td>
+          <td style="text-align: left">一阶</td>
+          <td style="text-align: left">梯度</td>
+          <td style="text-align: left">切平面最陡方向</td>
+          <td style="text-align: left">计算便宜，通用</td>
+          <td style="text-align: left">容易震荡，收敛慢</td>
+          <td style="text-align: left">类似 HMC / MCMC</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="优化问题的定义-definition-of-optimization-problem">优化问题的定义 (Definition of Optimization Problem)</h2>
+<p>在数学层面，一个标准的优化问题通常被写成这种“八股文”格式：
+</p>
+$$\begin{aligned}
+& \underset{x}{\text{minimize}} & & f(x) \\
+& \text{subject to} & & g_i(x) \le 0, \quad i = 1, \dots, m \\
+& & & h_j(x) = 0, \quad j = 1, \dots, p
+\end{aligned}$$<p>
+这里有三个主角：</p>
+<ul>
+<li><strong>决策变量</strong> (Decision Variable, $x$)：我们可以控制的旋钮（比如模型的参数权重）。</li>
+<li><strong>目标函数</strong> (Objective Function, $f(x)$)：我们的度量标准。通常是最小化“损失/成本”或最大化“收益/似然”。
+<ul>
+<li>注：最大化 $f(x)$ 等价于最小化 $-f(x)$，所以我们通常只研究最小化。</li>
+</ul>
+</li>
+<li>约束条件 (Constraints)：
+<ul>
+<li>不等式约束 ($g_i \le 0$)：比如“速度不能超过 100”。</li>
+<li>等式约束 ($h_j = 0$)：比如“能量必须守恒”。</li>
+</ul>
+</li>
+</ul>
+<h3 id="目标函数">目标函数 $f(x)$</h3>
+<p>为了能找到最低点，这个目标函数 $f(x)$ 必须遵守以下三条规则：</p>
+<ol>
+<li>必须是“单值实数” (Scalar-Valued)
+<ul>
+<li>要求：不管输入 $x$ 是多少维的向量（比如你有100万个参数），$f(x)$ 输出的必须是一个<strong>单一的实数（Scalar）</strong>。</li>
+<li>数学写法：$f: \mathbb{R}^n \to \mathbb{R}$</li>
+<li>为什么？
+<ul>
+<li>因为优化问题的核心是 <strong>“比较”</strong>。我们需要能说出 $f(x_1) < f(x_2)$。如果 $f(x)$ 输出的是一个向量（比如“成本”和“时间”两个数），这就变成了“多目标优化”，那是另一个复杂的领域。在标准优化里，你必须把它们合成一个数（比如 $0.5 \times \text{成本} + 0.5 \times \text{时间}$）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>必须“有底” (Bounded Below)
+<ul>
+<li>这是为了保证 <strong>“最优解存在”</strong>。</li>
+<li>要求：函数不能是无底洞。</li>
+<li>反例：$f(x) = x$（定义域为全体实数）。
+<ul>
+<li>你想求最小化？我可以取 $-100, -10000, -\infty \dots$</li>
+<li>你永远找不到最低点，因为根本没有最低点。算法会一直跑到内存溢出。</li>
+</ul>
+</li>
+<li>修正：通常我们要求存在一个实数 $M$，使得对于所有的 $x$，都有 $f(x) \ge M$。</li>
+</ul>
+</li>
+<li>为了“算法能跑”，通常还要更顺滑 (Smoothness)：如果你想用牛顿法、梯度下降这些高级算法，函数 $f(x)$ 不能长得太随心所欲，它 <strong>需要满足连续性和可导性</strong>。
+<ol>
+<li><strong>连续性 (Continuity)</strong> —— 路不能断
+<ul>
+<li>直觉：你在山上走，地形不能突然出现“悬崖断层”。</li>
+<li>坏函数：阶梯函数（Step Function）。
+<ul>
+<li>比如 $x < 0$ 时 $f(x)=1$， $x \ge 0$ 时 $f(x)=0$。</li>
+<li>这种函数很难优化，因为在断开的地方，你不知道该往哪迈步。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>可导性 (Differentiability)</strong> —— 路不能有尖角
+<ul>
+<li>直觉：这是 <strong>“梯度下降”</strong> 的前提。</li>
+<li>梯度（导数）代表坡度。如果函数有一个尖锐的折角，那一点是没有坡度的（导数不存在）。</li>
+<li>坏函数：$f(x) = |x|$（绝对值函数）。
+<ul>
+<li>在 $x=0$ 这个尖尖的地方，导数没定义。</li>
+<li>注：虽然它是凸函数，但标准的梯度下降在这里会失效（需要用次梯度 Sub-gradient）。</li>
+</ul>
+</li>
+<li>更坏的函数：$f(x)$ 处处不可导（比如股票走势图那样的锯齿）。这种只能用“零阶优化”（不看梯度的算法）硬搜。</li>
+</ul>
+</li>
+<li><strong>二阶可导 (Twice Differentiability)</strong> —— 为了牛顿法
+<ul>
+<li>如果你想用牛顿法，函数不仅要有坡度（一阶导），还得有“曲率”（二阶导）。</li>
+<li>这意味着地形不仅要平滑，而且弯曲的程度也要是平滑变化的，不能突变。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="全局-vs-局部">全局 vs. 局部</h3>
+<ul>
+<li>全局最优 (Global Optimum)：整个定义域内最低的点。</li>
+<li>局部最优 (Local Optimum)：在一个小邻域内是最低的，但外面可能有更低的点。</li>
+</ul>
+<p>大多数确定性算法（如梯度下降）只能保证找到局部最优。除非，这个函数具有一种特殊的性质——<strong>凸性（convex）</strong>。</p>
+<h2 id="凸函数convex-function">凸函数（Convex Function）</h2>
+<p>凸函数是优化领域里的“好人”。如果你的优化问题是凸的（Convex Optimization），那么局部最优解 = 全局最优解。这是所有优化工程师梦寐以求的性质。</p>
+<p><strong>直观定义</strong></p>
+<p>想象一个碗。 如果你在函数图像上任意取两点连一条线段（弦），这条线段上的所有点都在函数图像的上方（或重合），那么它就是凸函数。</p>
+<p><strong>数学定义</strong></p>
+<p>函数 $f: \mathbb{R}^n \to \mathbb{R}$ 是凸的，当且仅当对于任意 $x, y$ 和任意 $\theta \in [0, 1]$，满足：
+</p>
+$$f(\theta x + (1-\theta)y) \le \theta f(x) + (1-\theta)f(y)$$<ul>
+<li>左边 $f(\dots)$：表示我们在 $x$ 和 $y$ 之间找一点，看它的实际高度。</li>
+<li>右边 $\dots f(\dots)$：表示 $x$ 和 $y$ 的连线（弦）在那一点的高度。</li>
+<li>$\le$ 号：意味着实际高度永远低于或等于弦的高度。</li>
+</ul>
+<h3 id="判定方法">判定方法</h3>
+<p><strong>一维情况 ($x$ 是实数)：看二阶导数</strong> $f''(x)$。如果对于所有的 $x$，都有 $f''(x) \ge 0$，那么它就是凸函数。</p>
+<ul>
+<li>例子： $f(x) = x^2 \to f''(x) = 2 > 0$ （凸的）。</li>
+<li>例子： $f(x) = -\log(x) \to f'(x) = -1/x \to f''(x) = 1/x^2 > 0$ （凸的）。</li>
+</ul>
+<p><strong>多维情况 ($x$ 是向量)：看海森矩阵</strong> (Hessian Matrix, $\nabla^2 f(x)$)。
+如果对于所有的 $x$，海森矩阵都是 <strong>半正定 (Positive Semidefinite, PSD)</strong> 的（即所有特征值 $\ge 0$），那么它就是凸函数。</p>
+<h4 id="海森矩阵hessian-matrix">海森矩阵（Hessian Matrix）</h4>
+<blockquote>
+<p>海森矩阵是多元函数的二阶偏导数构成的方阵。它描述了函数的局部曲率（Curvature）。</p></blockquote>
+<p><strong>数学定义：二阶导数的“完全体”</strong></p>
+<p>在高中数学里，对于单变量函数 $f(x)$，我们有：</p>
+<ul>
+<li>一阶导 $f'(x)$：斜率。</li>
+<li>二阶导 $f''(x)$：曲率（凹凸性）。$f''>0$ 开口向上，$f''<0$ 开口向下。</li>
+</ul>
+<p>到了多变量函数 $f(x_1, x_2, \dots, x_n)$，二阶导数就不止一个了，而是一群。我们需要考虑所有变量两两之间的关系。于是我们就把它们排成一个 $n \times n$ 的矩阵，这就是海森矩阵 $\mathbf{H}$ (或者写成 $\nabla^2 f(x)$)：
+</p>
+$$\mathbf{H} = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}$$<ul>
+<li>对角线元素 ($\frac{\partial^2 f}{\partial x_i^2}$)：表示在第 $i$ 个坐标轴方向上的弯曲程度。</li>
+<li>非对角线元素 ($\frac{\partial^2 f}{\partial x_i \partial x_j}$)：表示变量 $i$ 和变量 $j$ 之间的“纠缠”程度（混合偏导数）。通常情况下，矩阵是对称的（即 $H_{ij} = H_{ji}$）。</li>
+</ul>
+<p>海森矩阵通过它的特征值 (Eigenvalues) 告诉我们脚下的地形长什么样。现在，想象你站在一个曲面上：</p>
+<ul>
+<li>正定矩阵 (所有特征值 &gt; 0)：碗底 (Local Minimum)
+<ul>
+<li>无论你往哪个方向走，地势都是向上弯曲的。</li>
+<li>这就是凸函数（严格凸）。</li>
+</ul>
+</li>
+<li>负定矩阵 (所有特征值 &lt; 0)：山顶 (Local Maximum)
+<ul>
+<li>无论往哪个方向走，地势都是向下弯曲的。</li>
+</ul>
+</li>
+<li>不定矩阵 (特征值有正有负)：马鞍面 (Saddle Point)
+<ul>
+<li>往一个方向走是上坡（上凸），往另一个方向走是下坡（下凹）。</li>
+<li>就像马鞍一样，或者是两座山之间的那个山口。这是优化中最头疼的地方，因为梯度在这里也是 0，很容易骗过算法。</li>
+</ul>
+</li>
+</ul>
+<h4 id="半正定-positive-semidefinite-psd">半正定 (Positive Semidefinite, PSD)</h4>
+<p>可以把它类比为实数中的“非负数”（$\ge 0$）。就像我们说一个数是非负的一样，说一个矩阵是“半正定”的，意味着它在某种意义上总是“大于或等于零”的。</p>
+<p><strong>核心定义</strong></p>
+<p>对于一个 $n \times n$ 的实对称矩阵 $A$，如果对于任意的非零向量 $x$（$n$ 维列向量），都有：</p>
+$$x^T A x \ge 0$$<p>那么我们就称矩阵 $A$ 是半正定的。这里的 $x^T A x$ 叫做二次型，你可以把它看作是一个能量函数或者地形的高度。</p>
+<p>以一个 $2 \times 2$ 矩阵为例子。
+</p>
+$$A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$$<p><strong>几何直觉：看着像什么？</strong></p>
+<p>上面提到的二次型 $x^T A x$ 其实就是一个把向量 $x$ 映射成一个实数的函数。如果我们设向量 $x = \begin{pmatrix} u \\ v \end{pmatrix}$，那么：</p>
+$$x^T A x = \begin{pmatrix} u & v \end{pmatrix} \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} u \\ v \end{pmatrix} = 2u^2 + 1v^2$$<p>把 $z = 2u^2 + v^2$ 画在三维坐标系里，它就是一个<strong>椭圆抛物面</strong>。</p>
+<ul>
+<li>形状：它像一个两边往上翘的碗。</li>
+<li>高度：无论你取什么非零的 $(u, v)$，算出来的高度 $z$ 永远是正数。最低点在原点 $(0,0)$，高度为 0。</li>
+<li>结论：因为所有地方（除了原点）都比 0 高，所以这个矩阵是正定的（当然也属于半正定）。</li>
+</ul>
+<p>对比一下： 如果有一个方向是往下弯的（比如马鞍面），那它就不是半正定的。</p>
+<p><strong>特征值判定：数字说明了什么？</strong></p>
+<p>如果不画图，我们怎么知道这个碗是不是开口朝上呢？这就轮到 <strong>特征值</strong> 出场了。</p>
+<p>对于对角矩阵 $A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$，它的特征值就在对角线上，非常明显：</p>
+<ul>
+<li>$\lambda_1 = 2$</li>
+<li>$\lambda_2 = 1$</li>
+</ul>
+<p>判定规则：半正定矩阵的所有特征值都必须 $\ge 0$。（如果是正定矩阵，特征值必须严格 $> 0$）。</p>
+<p><strong>那么，为什么特征值能决定形状？</strong> 特征值其实代表了<strong>抛物面在主轴方向上的弯曲程度</strong>（也就是曲率）。</p>
+<ul>
+<li>$\lambda_1 = 2$：表示在 $u$ 轴方向上，碗壁比较陡峭（弯得厉害，向上）。</li>
+<li>$\lambda_2 = 1$：表示在 $v$ 轴方向上，碗壁稍微平缓一点（但也向上）。</li>
+</ul>
+<p>只要所有方向都“向上弯”或者“平着”（$\ge 0$），整个形状就一定是个“碗”或者“槽”，不会漏底。</p>
+<h5 id="如何求解非对角矩阵的特征值">如何求解非对角矩阵的特征值</h5>
+<p>对于非对角矩阵，我们通常使用 **特征方程（Characteristic Equation）**来求解特征值。核心思路是从特征值的定义出发：
+</p>
+$$A\mathbf{v} = \lambda\mathbf{v}$$<p>
+这里，$A$ 是矩阵，$\mathbf{v}$ 是非零向量（特征向量），$\lambda$ 就是我们要找的特征值。
+我们可以把这个等式变形为：
+</p>
+$$(A - \lambda I)\mathbf{v} = \mathbf{0}$$<p>
+为了让这个方程有非零解（即 $\mathbf{v} \neq \mathbf{0}$），系数矩阵 $(A - \lambda I)$ 的行列式必须等于零。这就得到了我们的通用解法公式：
+</p>
+$$\det(A - \lambda I) = 0$$<p>
+这里，$I$ 是单位矩阵 (Identity Matrix)。</p>
+<p>以求解矩阵 $C = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$ 特征值为例。</p>
+<ol>
+<li>列出特征方程求解特征值的核心公式是：$$\det(C - \lambda I) = 0$$</li>
+<li>代入矩阵将矩阵 $C$ 和单位矩阵 $I$ 代入公式。$$C - \lambda I = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix} - \lambda \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1-\lambda & 2 \\ 2 & 1-\lambda \end{pmatrix}$$</li>
+<li>计算行列式对于 $2 \times 2$ 矩阵 $\begin{pmatrix} a & b \\ c & d \end{pmatrix}$，行列式是 $ad - bc$。这里 $a = 1-\lambda, d = 1-\lambda, b = 2, c = 2$。$$\det(C - \lambda I) = (1-\lambda)(1-\lambda) - (2 \times 2)$$</li>
+<li>展开并化简方程展开上面的式子：$$(1 - 2\lambda + \lambda^2) - 4 = 0$$ $$\lambda^2 - 2\lambda - 3 = 0$$这就是这个矩阵的特征多项式。</li>
+<li>求解一元二次方程我们要解方程 $\lambda^2 - 2\lambda - 3 = 0$。可以通过因式分解来做：我们要找两个数，乘积是 -3，和是 -2。这两个数是 -3 和 +1。$$(\lambda - 3)(\lambda + 1) = 0$$或者使用求根公式 $\lambda = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$：$$\lambda = \frac{2 \pm \sqrt{(-2)^2 - 4(1)(-3)}}{2} = \frac{2 \pm \sqrt{4 + 12}}{2} = \frac{2 \pm 4}{2}$$</li>
+<li>最终结果解得两个特征值为：$\lambda_1 = \frac{2+4}{2} = 3, \lambda_2 = \frac{2-4}{2} = -1$</li>
+</ol>
+<p>结论：矩阵 $C$ 的特征值是 3 和 -1。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 设置 x 和 y 的网格范围</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x, y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 定义两个二次型函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 例子 1: 正定矩阵 A = [[2, 0], [0, 1]]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># z = 2x^2 + 1y^2</span>
+</span></span><span style="display:flex;"><span>Z_positive <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 例子 2: 不定矩阵 B = [[1, 0], [0, -3]]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># z = 1x^2 - 3y^2</span>
+</span></span><span style="display:flex;"><span>Z_indefinite <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 创建绘图</span>
+</span></span><span style="display:flex;"><span>fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 绘制第一个图 (碗) ---</span>
+</span></span><span style="display:flex;"><span>ax1 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, projection<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;3d&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>plot_surface(X, Y, Z_positive, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Positive Definite (Bowl)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Eigenvalues: 2, 1&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;X axis&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Y axis&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_zlabel(<span style="color:#e6db74">&#39;Z value&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Global Min&#39;</span>) <span style="color:#75715e"># 标记最低点</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 绘制第二个图 (马鞍) ---</span>
+</span></span><span style="display:flex;"><span>ax2 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, projection<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;3d&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>plot_surface(X, Y, Z_indefinite, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;coolwarm&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Indefinite (Saddle)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Eigenvalues: 1, -3&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;X axis&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Y axis&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_zlabel(<span style="color:#e6db74">&#39;Z value&#39;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Saddle Point&#39;</span>) <span style="color:#75715e"># 标记鞍点</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_3_0.png" alt="png"></p>
+<p>留意上图中的原点 $(0,0)$：</p>
+<ul>
+<li>在 <strong>左图（碗）</strong> 中，如果你放一个小球在任意位置，它最终都会滚落到红色的最低点。</li>
+<li>在 <strong>右图（马鞍）</strong> 中，如果你从 $X$ 轴方向走，那是上坡；但如果你从 $Y$ 轴方向走，那就是下坡。</li>
+</ul>
+<h2 id="牛顿法newtons-method">牛顿法（Newton&rsquo;s Method）</h2>
+<blockquote>
+<p>适用于 1 维</p></blockquote>
+<p>牛顿法是一种 <strong>二阶优化算法</strong>。</p>
+<ul>
+<li>一阶算法（如梯度下降）： 只利用梯度（坡度/斜率）信息，告诉我们往哪走会让函数值下降。</li>
+<li>二阶算法（如牛顿法）： 不仅利用梯度，还利用 <strong>二阶导数（曲率）</strong> 信息。它不仅知道坡有多陡，还知道坡的弯曲程度。</li>
+</ul>
+<h3 id="核心思想二次近似-quadratic-approximation">核心思想：二次近似 (Quadratic Approximation)**</h3>
+<p>牛顿法的核心逻辑是：<strong>用一个二次函数（抛物线/抛物面）去拟合当前位置的曲线，然后直接跳到这个抛物面的最低点。</strong></p>
+<p><strong>步骤 1：二阶泰勒展开 (拟合)</strong></p>
+<p>我们在当前点 $x_k$ 附近，把复杂的目标函数 $f(x)$ 展开成一个二次多项式：
+</p>
+$$f(x) \approx f(x_k) + \nabla f(x_k)^T (x - x_k) + \frac{1}{2} (x - x_k)^T \mathbf{H}(x_k) (x - x_k)$$<ul>
+<li>第一部分是平面（梯度）。</li>
+<li>第二部分是弯曲（海森矩阵）。</li>
+</ul>
+<p><strong>步骤 2：求导找极值 (跳跃)</strong></p>
+<p>我们想找到这个近似抛物面的最低点。这就很简单了，对上面的式子求导，并令导数为 0：
+</p>
+$$\nabla f(x_k) + \mathbf{H}(x_k)(x - x_k) = 0$$<p><strong>步骤 3：得出更新公式</strong></p>
+<p>解上面的方程，把 $x$ 算出来，就是我们要去的下一个点 $x_{k+1}$：
+</p>
+$$\mathbf{x}_{k+1} = \mathbf{x}_k - \mathbf{H}^{-1}(x_k) \nabla f(x_k)$$<p>
+这就是牛顿法的迭代公式。看，它比梯度下降多乘了一个 $\mathbf{H}^{-1}$（海森矩阵的逆）。</p>
+<h3 id="更新停止准则-stopping-criteria">更新停止准则 (Stopping Criteria)</h3>
+<ol>
+<li>
+<p><strong>梯度判定</strong>：坡度变平了吗？</p>
+<ul>
+<li>这是理论上最过硬的标准。最优点的必要条件是梯度为 0。</li>
+<li>准则：当梯度的范数 (Norm) 小于某个阈值（比如 $10^{-6}$）时停止。</li>
+<li>数学公式：$$||\nabla f(x_k)|| < \epsilon$$</li>
+<li>直觉：如果你脚下的地已经平得像飞机场一样（坡度几乎没有了），那你大概率已经在谷底了。</li>
+</ul>
+</li>
+<li>
+<p><strong>步长判定</strong>：还在移动吗？</p>
+<ul>
+<li>有时候梯度计算很贵，或者地形非常平坦，我们可以看 $x$ 的变化量。</li>
+<li>准则：如果这一步更新的位置 $x_{k+1}$ 和上一步 $x_k$ 几乎重合，说明算法已经走不动了。</li>
+<li>数学公式：$$||x_{k+1} - x_k|| < \epsilon$$</li>
+<li>直觉：如果你迈一步只能前进 0.000001 毫米，那继续走的意义不大了。</li>
+</ul>
+</li>
+<li>
+<p><strong>函数值判定</strong>：收益还明显吗？</p>
+<ul>
+<li>这是从“性价比”角度考虑。</li>
+<li>准则：如果目标函数的值 $f(x)$ 几乎不再下降。</li>
+<li>数学公式：$$|f(x_{k+1}) - f(x_k)| < \epsilon$$</li>
+<li>直觉：如果折腾了一大顿，成本只降低了 1 分钱，这时候通常就会叫停（Diminishing returns）。</li>
+</ul>
+</li>
+<li>
+<p>预算判定（强制）：时间到了吗？</p>
+<ul>
+<li>这是为了防止死循环或计算超时。</li>
+<li>准则：达到预设的最大迭代次数 (Max Iterations)。</li>
+<li>直觉：老板只给了 1000 块钱（计算资源），不管有没有找到最好的解，钱花完就得停。</li>
+</ul>
+</li>
+</ol>
+<h3 id="优缺点">优缺点</h3>
+<ul>
+<li>✅ 极速收敛：通常几步就能走到谷底（二次收敛速度）。</li>
+<li>❌ 计算代价极高：计算海森矩阵 $\mathbf{H}$ 的逆矩阵需要 $O(n^3)$ 的复杂度。在高维问题中（$n$ 很大）几乎不可用。因此，一般我们将其用在一维问题上。</li>
+<li>❌ 对初值敏感：如果初始点离最优解太远，且函数非凸，牛顿法可能会飞到外太空去。</li>
+</ul>
+<h3 id="示例">示例</h3>
+<h4 id="示例一手算">示例一：手算</h4>
+<p>目标函数：$f(x) = x^2 - 4x + 4$ （这是一个开口向上的抛物线，最小值显然在 $x=2$）。</p>
+<p>假设我们从 $x_0 = 10$ 这个很远的地方开始。</p>
+<ol>
+<li>计算梯度 (一阶导)：$g(x) = f'(x) = 2x - 4$在 $x_0=10$ 处，$g(10) = 2(10) - 4 = 16$。</li>
+<li>计算海森 (二阶导)：$h(x) = f''(x) = 2$注意：这里的二阶导是一个常数 $2$（这说明原函数本身就是个标准的二次函数）。</li>
+<li>牛顿法更新：公式：$x_{new} = x_{old} - \frac{g(x)}{h(x)}$$$x_1 = 10 - \frac{16}{2} = 10 - 8 = 2$$</li>
+<li>确定 $x=2$ 是不是最优值
+<ul>
+<li>方法一：验算梯度（最硬核的标准）
+<ul>
+<li>这是最直接的数学判断。最优点的定义就是 <strong>“斜率为 0 的点”</strong>。只要我们算出新位置的梯度（一阶导数）是 0，就说明我们到了一个平坦的地方（极值点）</li>
+<li>。回顾我们的函数：$f'(x) = 2x - 4$</li>
+<li>代入结果 $x=2$：$$f'(2) = 2(2) - 4 = 4 - 4 = 0$$</li>
+<li>✅ 验证成功：斜率为 0，说明我们确实站在了谷底（或者山顶/鞍点）。</li>
+</ul>
+</li>
+<li>方法二：验算二阶导数（确认是谷底）
+<ul>
+<li>梯度为 0 也有可能是山顶（最大值）。要确定是最小值，我们要看海森（二阶导）。</li>
+<li>回顾：$f''(x) = 2$</li>
+<li>判断：$2 > 0$（正数）。</li>
+</ul>
+</li>
+<li>尝试“再走一步”（算法视角的验证）
+<ul>
+<li>可以告诉算法：“你在 $x=2$ 这个位置，再给我做一次牛顿法更新！”来看看会发生什么：
+<ul>
+<li>当前位置：$x_{old} = 2$</li>
+<li>当前梯度：$g(2) = 0$</li>
+<li>当前二阶导：$h(2) = 2$</li>
+<li>牛顿法公式：$$x_{new} = x_{old} - \frac{g(x_{old})}{h(x_{old})} = 2 - \frac{0}{2} = 2 - 0 = 2$$</li>
+<li>✅ 验证成功：算法走不动了。无论你让它再跑 100 轮，它都会死死钉在 $x=2$ 这个位置。这意味着收敛（Convergence）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>结果：惊不惊喜？只用了一步，我们就从 $10$ 直接跳到了 $2$（也就是全局最优解）。</p>
+<h4 id="示例二">示例二</h4>
+<p>这个例子让你直观地感受到牛顿法 (Newton&rsquo;s Method) 的威力，特别是它的二阶收敛速度和停止准则。这里特意选择了一个非二次函数：</p>
+$$f(x, y) = x^4 + y^4$$<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. 定义目标函数、梯度、海森矩阵 ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 目标函数: f(x, y) = x^4 + y^4 (最小值在 0,0)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 一阶导数 (梯度 Gradient): [4x^3, 4y^3]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradient</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 二阶导数 (海森矩阵 Hessian): [[12x^2, 0], [0, 12y^2]]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hessian</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">12</span> <span style="color:#f92672">*</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>], 
+</span></span><span style="display:flex;"><span>                     [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">12</span> <span style="color:#f92672">*</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>]])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. 牛顿法核心算法 ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newton_optimization</span>(start_point, tolerance<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-6</span>, max_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start_point, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Iter&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;x&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;20</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Grad Norm&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;15</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">45</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(max_iter):
+</span></span><span style="display:flex;"><span>        g <span style="color:#f92672">=</span> gradient(x)
+</span></span><span style="display:flex;"><span>        H <span style="color:#f92672">=</span> hessian(x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># --- 停止准则 1: 梯度足够小吗？ ---</span>
+</span></span><span style="display:flex;"><span>        grad_norm <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(g)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>str(x)<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;20</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>grad_norm<span style="color:#e6db74">:</span><span style="color:#e6db74">.8f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> grad_norm <span style="color:#f92672">&lt;</span> tolerance:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">✅ 达到停止准则: 梯度范数 </span><span style="color:#e6db74">{</span>grad_norm<span style="color:#e6db74">:</span><span style="color:#e6db74">.2e</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> &lt; </span><span style="color:#e6db74">{</span>tolerance<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># --- 牛顿法更新 ---</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 公式: x_new = x - H^-1 * g</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 工程技巧: 尽量不要直接求逆矩阵 (inv)，解线性方程组 (solve) 更快更稳</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># H * step = g  =&gt;  step = H^-1 * g</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            step <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>solve(H, g)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>LinAlgError:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;⚠️ 海森矩阵不可逆（可能是奇异矩阵），停止迭代。&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> step
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 3. 运行算法 ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">2.5</span>] <span style="color:#75715e"># 从 (2, 2.5) 开始</span>
+</span></span><span style="display:flex;"><span>path_newton <span style="color:#f92672">=</span> newton_optimization(start_pos)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 4. 可视化结果 ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">7</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray_r&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>) <span style="color:#75715e"># 画等高线</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_newton[:, <span style="color:#ae81ff">0</span>], path_newton[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Newton&#39;s Path&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 标记起点和终点</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(path_newton[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>], path_newton[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(path_newton[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>], path_newton[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Converged&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Newton&#39;s Method Optimization on $f(x,y) = x^4 + y^4$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Iter  | x                    | Grad Norm      
+---------------------------------------------
+0     | [2.  2.5]            | 70.21573898
+1     | [1.33333333 1.66666667] | 20.80466340
+2     | [0.88888889 1.11111111] | 6.16434471
+3     | [0.59259259 0.74074074] | 1.82647251
+4     | [0.39506173 0.49382716] | 0.54117704
+5     | [0.26337449 0.32921811] | 0.16034875
+6     | [0.17558299 0.21947874] | 0.04751074
+7     | [0.11705533 0.14631916] | 0.01407726
+8     | [0.07803688 0.09754611] | 0.00417104
+9     | [0.05202459 0.06503074] | 0.00123586
+10    | [0.03468306 0.04335382] | 0.00036618
+11    | [0.02312204 0.02890255] | 0.00010850
+12    | [0.01541469 0.01926837] | 0.00003215
+13    | [0.01027646 0.01284558] | 0.00000953
+14    | [0.00685097 0.00856372] | 0.00000282
+15    | [0.00456732 0.00570915] | 0.00000084
+
+✅ 达到停止准则: 梯度范数 8.36e-07 &lt; 1e-06
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_6_1.png" alt="png"></p>
+<p>代码解析 (Highlights)</p>
+<ol>
+<li>收敛速度：
+<ul>
+<li>你可以看到打印出来的 Grad Norm。注意看它下降的速度。</li>
+<li>一开始可能比较慢，但一旦接近谷底，梯度范数会呈现断崖式下跌（比如从 0.1 直接变 0.0001）。这就是二次收敛的特征。</li>
+</ul>
+</li>
+<li><code>np.linalg.solve(H, g)</code>：
+<ul>
+<li>虽然数学公式写的是 $\mathbf{H}^{-1} \mathbf{g}$，但在写代码时，永远不要调用  <code>inv()</code> (求逆) 除非万不得已。</li>
+<li>解线性方程组 $Ax=b$ 比求 $A^{-1}$ 效率更高，数值误差更小。</li>
+</ul>
+</li>
+<li>停止准则：
+<ul>
+<li>代码中用 <code>grad_norm &lt; tolerance</code> 作为一个硬性指标。你可以试着把 start_pos 改远一点，看看它需要多少步。</li>
+</ul>
+</li>
+</ol>
+<h2 id="坐标下降法simple-relaxation">坐标下降法（Simple Relaxation）</h2>
+<blockquote>
+<p>适用于 N 维</p></blockquote>
+<p>在连续优化算法的语境下，这通常指的是 Coordinate Descent (坐标下降法)，或者在线性方程组求解中的 Gauss-Seidel 方法。这其实就是 <strong>Gibbs Sampling 的确定性版本</strong>！</p>
+<p>坐标下降法是一种 <strong>“分而治之”</strong> 的策略。</p>
+<ul>
+<li>牛顿法/梯度下降：是“全军出击”。每次更新时，所有变量 $(x_1, x_2, \dots, x_n)$ 一起动，沿着合力的方向走。</li>
+<li>坐标下降 (Relaxation)：是“单兵作战”。每次只允许一个变量动，其他变量全部被锁死（视为常数）。</li>
+</ul>
+<p>几何直觉：想象你在一个城市里（曼哈顿），你只能沿着东西向（X轴）或者南北向（Y轴）的街道走，不能走斜线。你要去城市的最低点，只能先往东走一段，停下来，再往南走一段，如此循环。</p>
+<h3 id="算法流程分而治之">算法流程（分而治之）</h3>
+<p>假设我们要最小化 $f(x_1, x_2, \dots, x_n)$。</p>
+<ul>
+<li>初始化：随便选个起点 $x^{(0)}$。</li>
+<li>循环（直到收敛）：
+<ol>
+<li>更新 $x_1$：固定 $x_2, \dots, x_n$，找一个 $x_1$ 让 $f$ 最小。$$x_1^{(new)} = \underset{x_1}{\text{argmin}} \ f(x_1, x_2^{(old)}, \dots, x_n^{(old)})$$
+<ul>
+<li>此时 $f$ 退化成一个一维函数，我们就可以利用导数（例如牛顿法）来求解最小值了。</li>
+</ul>
+</li>
+<li>更新 $x_2$：固定 $x_1^{(new)}, x_3, \dots, x_n$，找一个 $x_2$ 让 $f$ 最小。</li>
+<li>&hellip;</li>
+<li>更新 $x_n$：固定前面所有新的，找 $x_n$。</li>
+</ol>
+</li>
+</ul>
+<p>核心逻辑：每次只解决一个一维优化问题。</p>
+<h3 id="优缺点-1">优缺点</h3>
+<p>优点</p>
+<ul>
+<li>无需梯度：如果单变量优化很容易解（比如有解析解），你甚至不需要算梯度。</li>
+<li>曼哈顿移动：轨迹是锯齿状(Zig-zag)的，只能沿着坐标轴走。</li>
+<li>适用性：非常适合变量之间耦合度低，或者有 L1 正则化（Lasso）的情况。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>变量强相关时极慢。想象一个斜向摆放的狭长山谷（变量 $x$ 和 $y$ 高度相关，比如 $f = (x-y)^2$），坐标下降法会非常痛苦。它想往谷底走，但因为不能走斜线，只能在两壁之间疯狂撞墙，每一步都只能前进一点点。</li>
+</ul>
+<h3 id="示例-1">示例</h3>
+<h4 id="基础示例">基础示例</h4>
+<p>目标函数：$f(x, y) = x^2 + xy + y^2$这是一维碗状函数，但是 $xy$ 这一项让它的等高线变成了斜椭圆。</p>
+<p>手动推导更新公式（为了代码写得快）：</p>
+<ul>
+<li>针对 $x$ 优化：把 $y$ 当常数。$f$ 对 $x$ 求导 $= 2x + y = 0 \implies x = -y/2$。</li>
+<li>针对 $y$ 优化：把 $x$ 当常数。$f$ 对 $y$ 求导 $= x + 2y = 0 \implies y = -x/2$。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 目标函数: f(x,y) = x^2 + xy + y^2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 坐标下降法 (Simple Relaxation) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">coordinate_descent</span>(start_point, n_cycles<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> start_point
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Step&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;x&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;y&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Action&#39;</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">45</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_cycles):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 1. 固定 y, 优化 x</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 导数 2x + y = 0  =&gt;  x = -y / 2</span>
+</span></span><span style="display:flex;"><span>        x_new <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>y <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x_new, y]) <span style="color:#75715e"># 记录路径</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>x_new<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>y<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | Update x&#34;</span>)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x_new <span style="color:#75715e"># 更新当前x</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 2. 固定 x, 优化 y</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 导数 x + 2y = 0  =&gt;  y = -x / 2</span>
+</span></span><span style="display:flex;"><span>        y_new <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>x <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y_new]) <span style="color:#75715e"># 记录路径</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;5</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>x<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>y_new<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | Update y&#34;</span>)
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> y_new <span style="color:#75715e"># 更新当前y</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 运行 ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">2.0</span>]
+</span></span><span style="display:flex;"><span>path_cd <span style="color:#f92672">=</span> coordinate_descent(start_pos, n_cycles<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 可视化 ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> X<span style="color:#f92672">*</span>Y <span style="color:#f92672">+</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">7</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 画出锯齿状路径</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_cd[:, <span style="color:#ae81ff">0</span>], path_cd[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Coordinate Descent Path&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gold&#39;</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Global Min&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Simple Relaxation (Coordinate Descent) on $x^2 + xy + y^2$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Step  | x          | y          | Action
+---------------------------------------------
+1     | -1.0000    | 2.0000     | Update x
+2     | -1.0000    | 0.5000     | Update y
+3     | -0.2500    | 0.5000     | Update x
+4     | -0.2500    | 0.1250     | Update y
+5     | -0.0625    | 0.1250     | Update x
+6     | -0.0625    | 0.0312     | Update y
+7     | -0.0156    | 0.0312     | Update x
+8     | -0.0156    | 0.0078     | Update y
+9     | -0.0039    | 0.0078     | Update x
+10    | -0.0039    | 0.0020     | Update y
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_10_1.png" alt="png"></p>
+<p>看上图：</p>
+<ul>
+<li><strong>直角转弯</strong>：你会发现路径完全由水平线和垂直线组成。这就是“曼哈顿距离”式的移动。</li>
+<li>收敛：虽然每一步都是精准的（直接跳到当前维度最小值），但由于 $x$ 和 $y$ 互相牵制（$xy$ 那个耦合项），它不能直接跳到原点，而是像走楼梯一样慢慢旋进去。</li>
+<li>对比：如果是牛顿法，对于这个二次函数，它依然是一步就跳到原点 $(0,0)$。但牛顿法需要算矩阵逆，而这里我们只需要做除法<code>/2</code>。</li>
+</ul>
+<h4 id="示例变量强相关时极慢">示例：变量强相关时极慢</h4>
+<p><strong>场景设定：狭窄的斜谷 (The Narrow Diagonal Valley)</strong></p>
+<p>想象地形是一个非常狭窄、且斜着摆放的山谷。</p>
+<ul>
+<li>谷底是一条斜线（比如 $y \approx -x$）。</li>
+<li>要想走到最低点，你必须同时调整 $x$ 和 $y$（即走斜线）。</li>
+</ul>
+<p>但坐标下降法是个“强迫症患者”，它每次只能动一个坐标：</p>
+<ol>
+<li>它想往左下走，但只能先往左挪一点点，然后撞到了谷壁（函数值变高）。</li>
+<li>它只好停下来，改为往下挪一点点，又撞到了谷壁。</li>
+<li>于是它只能在两堵墙之间疯狂弹球，步长变得极短，仿佛在原地踏步。</li>
+</ol>
+<p><strong>数学构造</strong></p>
+<p>我们把上一个例子里的耦合项 $xy$ 的系数加大。上个例子是 $x^2 + xy + y^2$（系数 1），这次我们改成 1.9（接近 2）。</p>
+$$f(x, y) = x^2 + \mathbf{1.9}xy + y^2$$<ul>
+<li>当这个中间系数接近 2 时，等高线会被压得极其扁平。</li>
+<li>更新公式变化：
+<ul>
+<li>对 $x$ 求导 $= 2x + 1.9y = 0 \implies x = -0.95y$</li>
+<li>对 $y$ 求导 $= 1.9x + 2y = 0 \implies y = -0.95x$</li>
+</ul>
+</li>
+</ul>
+<p>你看，每次更新，$x$ 只是变成了 $y$ 的 -0.95 倍。这意味着每次迭代，数值只缩小了 5%。这是一个极其缓慢的收敛过程。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这是一个&#34;病态&#34;函数，变量高度耦合</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 系数 1.9 让椭圆变得极其狭长</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.9</span> <span style="color:#f92672">*</span> x <span style="color:#f92672">*</span> y <span style="color:#f92672">+</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 坐标下降法 ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">coordinate_descent_bad_case</span>(start_point, n_cycles<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> start_point
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_cycles):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 1. Update x: 2x + 1.9y = 0 =&gt; x = -0.95y</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.95</span> <span style="color:#f92672">*</span> y
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 2. Update y: 1.9x + 2y = 0 =&gt; y = -0.95x</span>
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.95</span> <span style="color:#f92672">*</span> x
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 运行对比 ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">4.0</span>, <span style="color:#ae81ff">3.0</span>] <span style="color:#75715e"># 从远一点开始</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 我们跑个 20 轮，看看它能走多远</span>
+</span></span><span style="display:flex;"><span>path_cd <span style="color:#f92672">=</span> coordinate_descent_bad_case(start_pos, n_cycles<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 可视化 ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.9</span><span style="color:#f92672">*</span>X<span style="color:#f92672">*</span>Y <span style="color:#f92672">+</span> Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 画出非常扁平的等高线</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>logspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">20</span>), cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;magma&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 画路径</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_cd[:, <span style="color:#ae81ff">0</span>], path_cd[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;.-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Coordinate Descent Path&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gold&#39;</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Global Min&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(start_pos[<span style="color:#ae81ff">0</span>], start_pos[<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;The Weakness: Zig-zagging in a Narrow Valley</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">$f(x,y) = x^2 + 1.9xy + y^2$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 打印最后几步的值看看有没有到原点</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Start: </span><span style="color:#e6db74">{</span>start_pos<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;End (after 40 steps): </span><span style="color:#e6db74">{</span>path_cd[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;True Min: [0, 0]&#34;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_13_0.png" alt="png"></p>
+<pre><code>Start: [4.0, 3.0]
+End (after 40 steps): [-0.40582786  0.38553647]
+True Min: [0, 0]
+</code></pre>
+<p>上图是一张非常有冲击力的图：</p>
+<ul>
+<li>&ldquo;缝纫机&quot;效应：路径变成了密密麻麻的红色折线，像缝纫机的针脚一样紧密。</li>
+<li>原地踏步：虽然我们跑了 20 轮（40 步更新），但你可以看打印出来的 End 坐标。它离原点 $(0,0)$ 可能还有很长一段距离。而在上一个例子里，5 轮就差不多到了。</li>
+<li>直觉理解：这就好比你要把一个很宽的沙发搬进一个很窄的走廊。
+<ul>
+<li>如果是梯度下降（或者人搬沙发），我们会把沙发斜过来，顺着走廊的方向直接推过去。</li>
+<li>坐标下降法就像是一个只能横着走或竖着走的机器人。它只能把沙发往左蹭 1 厘米，碰壁了；再往下蹭 1 厘米，又碰壁了。如此循环，效率极其低下。</li>
+</ul>
+</li>
+</ul>
+<h2 id="最速下降法steepest-descent">最速下降法（Steepest Descent）</h2>
+<blockquote>
+<p>适用于 N 维</p></blockquote>
+<p>Steepest Descent 是一种 <strong>一阶优化算法</strong>。</p>
+<ul>
+<li>直觉：想象你在山上，眼睛蒙着布。为了尽快下山，你用脚探一探四周，感觉到哪个方向向下倾斜得最厉害，你就往那个方向迈一步。</li>
+<li>数学核心：
+<ul>
+<li>梯度 ($\nabla f$)：指向函数增长最快（上坡最陡）的方向。</li>
+<li>负梯度 ($-\nabla f$)：指向函数下降最快（下坡最陡）的方向。</li>
+</ul>
+</li>
+<li>对比：
+<ul>
+<li>它不像 Coordinate Descent 那样只能走直角，它可以走任意方向。</li>
+<li>它不像 Newton&rsquo;s Method 那样能看到地形弯曲，它是个“近视眼”，只看脚下的坡度。</li>
+</ul>
+</li>
+</ul>
+<h3 id="核心思想贪婪下坡">核心思想：贪婪下坡</h3>
+<p>我们在当前位置，环顾四周，寻找下坡最陡的方向。数学告诉我们，梯度的方向 $\nabla f(x)$ 是上坡最陡的，所以负梯度方向 $-\nabla f(x)$ 就是下坡最陡的。</p>
+<p>所以核心公式非常简单，只有一步：
+</p>
+$$x_{k+1} = x_k - \alpha \nabla f(x_k)$$<p>这里有两个关键角色：</p>
+<ul>
+<li>方向 ($\nabla f(x_k)$)：告诉我们要往哪里走。</li>
+<li>步长 ($\alpha$, Learning Rate)：告诉我们这一步迈多大。</li>
+</ul>
+<blockquote>
+<p>在最古典的“最速下降法”定义中，$\alpha$ 是通过 <strong>线性搜索 (Line Search)</strong> 确定的（即在这个方向上走多远能让函数值降得最低，我就走多远）。但在现代机器学习中，我们通常把 $\alpha$ 设为一个固定的超参数。</p></blockquote>
+<h3 id="步长--的选择-line-search">步长 $\alpha$ 的选择 (Line Search)</h3>
+<p>在最简单的梯度下降中，$\alpha$ 是个常数。但在严谨的 &ldquo;Steepest Descent&rdquo; 定义中，我们通常需要进行 线性搜索 (Line Search) 来决定这一步走多远：</p>
+$$\alpha_k = \underset{\alpha > 0}{\text{argmin}} \ f(x_k - \alpha \nabla f(x_k))$$<p>即：确定了方向后，我要在这个方向上走到最低点，然后再换方向。</p>
+<h3 id="优缺点-2">优缺点</h3>
+<ul>
+<li>计算成本：低。算一次梯度很快。</li>
+<li>路径形态：垂直锯齿 (Zig-zag)。</li>
+<li>收敛速度：线性收敛 (Linear)。不快不慢。</li>
+<li>致命弱点：对步长敏感 &amp; 峡谷震荡。</li>
+</ul>
+<h4 id="锯齿-现象-zig-zagging">&ldquo;锯齿&rdquo; 现象 (Zig-Zagging)</h4>
+<p>Steepest Descent 有一个著名的弱点。当它使用 <strong>精确线性搜索</strong> 时，相邻的两次迭代方向是正交（垂直）的。如果地形是一个狭长的椭圆峡谷，这种正交性会导致算法在峡谷两壁之间来回震荡，前进极其缓慢。这也正是为什么我们需要 Momentum（动量）等改进方法的原因。</p>
+<h3 id="示例-2">示例</h3>
+<h4 id="基础示例-1">基础示例</h4>
+<p>为了展示 Steepest Descent 的特性，我们依然选用那个让坐标下降法头疼的狭长山谷类型的函数：</p>
+$$f(x, y) = x^2 + 10y^2$$<blockquote>
+<p>注意：$y$ 方向的坡度是 $x$ 方向的 10 倍，这就是所谓的条件数差 (Ill-conditioned)。</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 目标函数: f(x,y) = x^2 + 10y^2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这是一个被拉长的椭圆碗</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 梯度: [2x, 20y]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradient</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> x, <span style="color:#ae81ff">20</span> <span style="color:#f92672">*</span> y])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Steepest Descent 算法 ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">steepest_descent</span>(start_point, learning_rate, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start_point)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>        grad <span style="color:#f92672">=</span> gradient(p)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 核心公式: p_new = p - lr * grad</span>
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> p <span style="color:#f92672">-</span> learning_rate <span style="color:#f92672">*</span> grad
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(p)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 运行对比 ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">8.0</span>, <span style="color:#ae81ff">2.0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 步长适中 (0.05)</span>
+</span></span><span style="display:flex;"><span>path_good <span style="color:#f92672">=</span> steepest_descent(start_pos, learning_rate<span style="color:#f92672">=</span><span style="color:#ae81ff">0.05</span>, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 步长偏大 (0.09) - 接近震荡边缘</span>
+</span></span><span style="display:flex;"><span>path_oscillate <span style="color:#f92672">=</span> steepest_descent(start_pos, learning_rate<span style="color:#f92672">=</span><span style="color:#ae81ff">0.09</span>, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 可视化 ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">100</span>) <span style="color:#75715e"># Y轴范围小一点，因为它是狭窄方向</span>
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">*</span>Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 左图: 正常步长</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_good[:, <span style="color:#ae81ff">0</span>], path_good[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;LR=0.05&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Good Learning Rate</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Steady Descent)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 右图: 震荡步长</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_oscillate[:, <span style="color:#ae81ff">0</span>], path_oscillate[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;LR=0.09&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Large Learning Rate</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Zig-zag / Oscillation)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_17_0.png" alt="png"></p>
+<ul>
+<li>左图 (Good LR)：
+<ul>
+<li>虽然它走了斜线，但你发现它并不是直奔圆心（最低点）。</li>
+<li>因为它先要把陡峭方向 ($y$) 的高度降下来，然后再慢慢搞定平缓方向 ($x$)。</li>
+<li>它的路径是弯曲的。</li>
+</ul>
+</li>
+<li>右图 (Large LR - 震荡)：
+<ul>
+<li>请看红色的线。它在 $y$ 轴方向（陡峭方向）疯狂地跳来跳去。</li>
+<li>它从峡谷的北壁直接跳到了南壁，又跳回北壁。</li>
+<li>虽然它在 $x$ 轴方向上确实在慢慢前进，但大量的能量被浪费在了 $y$ 轴的反复横跳上。</li>
+<li>这就是 Steepest Descent 最大的痛点：面对不同方向坡度差异大的地形（Ill-conditioned），它非常容易震荡，收敛变慢。</li>
+</ul>
+</li>
+</ul>
+<h4 id="示例精确线性搜索">示例：精确线性搜索</h4>
+<blockquote>
+<p>只有当使用“精确线性搜索 (Exact Line Search)”来确定步长时，相邻的两次迭代路径才会严格垂直。</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.optimize <span style="color:#f92672">import</span> minimize_scalar
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 目标函数: f(x,y) = x^2 + 10y^2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 梯度</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradient</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> x, <span style="color:#ae81ff">20</span> <span style="color:#f92672">*</span> y])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 带有精确线性搜索的最速下降法 ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">steepest_descent_exact_line_search</span>(start_point, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start_point]
+</span></span><span style="display:flex;"><span>    x_k <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start_point)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>        grad <span style="color:#f92672">=</span> gradient(x_k)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 定义一个关于 alpha (步长) 的一元函数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 我们要找到 alpha 使得 f(x_k - alpha * grad) 最小</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">line_obj</span>(alpha):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> func(x_k <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> grad)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 使用优化算法找到在这个方向上的最优 alpha</span>
+</span></span><span style="display:flex;"><span>        res <span style="color:#f92672">=</span> minimize_scalar(line_obj)
+</span></span><span style="display:flex;"><span>        best_alpha <span style="color:#f92672">=</span> res<span style="color:#f92672">.</span>x
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 更新位置</span>
+</span></span><span style="display:flex;"><span>        x_new <span style="color:#f92672">=</span> x_k <span style="color:#f92672">-</span> best_alpha <span style="color:#f92672">*</span> grad
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(x_new)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 检查是否收敛（避免除零错误）</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(x_new <span style="color:#f92672">-</span> x_k) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-6</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        x_k <span style="color:#f92672">=</span> x_new
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 运行 ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">1.0</span>] <span style="color:#75715e"># 选一个容易观察的角度</span>
+</span></span><span style="display:flex;"><span>path_exact <span style="color:#f92672">=</span> steepest_descent_exact_line_search(start_pos, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 可视化 ---</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">*</span>Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 画路径</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_exact[:, <span style="color:#ae81ff">0</span>], path_exact[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Steepest Descent (Exact Line Search)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 标注直角</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(path_exact)<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    p1 <span style="color:#f92672">=</span> path_exact[i]
+</span></span><span style="display:flex;"><span>    p2 <span style="color:#f92672">=</span> path_exact[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    p3 <span style="color:#f92672">=</span> path_exact[i<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 计算向量</span>
+</span></span><span style="display:flex;"><span>    v1 <span style="color:#f92672">=</span> p2 <span style="color:#f92672">-</span> p1
+</span></span><span style="display:flex;"><span>    v2 <span style="color:#f92672">=</span> p3 <span style="color:#f92672">-</span> p2
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 验证点积是否为 0 (即垂直)</span>
+</span></span><span style="display:flex;"><span>    dot_product <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(v1, v2)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 为了显示直观，我们只标注前几个明显的转角</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>:
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>annotate(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Dot: </span><span style="color:#e6db74">{</span>dot_product<span style="color:#e6db74">:</span><span style="color:#e6db74">.1e</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>, xy<span style="color:#f92672">=</span>p2, xytext<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>), textcoords<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;offset points&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Orthogonality of Steps with Exact Line Search</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Notice the Zig-Zag is strictly 90 degrees)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>) <span style="color:#75715e"># 这一步很关键！如果不设为 equal，坐标轴比例不同，直角看起来就不像直角了</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_20_0.png" alt="png"></p>
+<h2 id="示例三个算法大比拼">示例：三个算法大比拼</h2>
+<p>把这三个算法放在同一个“竞技场”里，理解它们性格差异的最好方式。为了让比赛更精彩，我们选择一个 **“既有偏斜、又有耦合”**的地形：
+</p>
+$$f(x, y) = x^2 + 1.5xy + 2y^2$$<p>地形分析：这是一个椭圆碗，但是它是斜着放的（因为有 $1.5xy$ 这个耦合项）。</p>
+<ul>
+<li>这对 Coordinate Descent 是噩梦：因为不能走斜线，它必须画无数个直角楼梯。</li>
+<li>这对 Steepest Descent 是挑战：因为它容易震荡。</li>
+<li>这对 Newton&rsquo;s Method 是送分题：因为它是二次面，牛顿法应该能一眼看穿底牌，一步到位。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. 定义竞技场 (目标函数) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># f(x, y) = x^2 + 1.5xy + 2y^2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.5</span><span style="color:#f92672">*</span>x<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradient</span>(p):
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.5</span><span style="color:#f92672">*</span>y, <span style="color:#ae81ff">1.5</span><span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>y])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hessian</span>(p):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 二阶导全是常数</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1.5</span>], 
+</span></span><span style="display:flex;"><span>                     [<span style="color:#ae81ff">1.5</span>, <span style="color:#ae81ff">4</span>]])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. 选手一: Steepest Descent (小步慢跑) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">steepest_descent</span>(start, lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.15</span>, steps<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start]
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(steps):
+</span></span><span style="display:flex;"><span>        grad <span style="color:#f92672">=</span> gradient(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> lr <span style="color:#f92672">*</span> grad
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 3. 选手二: Coordinate Descent (走楼梯) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">coordinate_descent</span>(start, steps<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start]
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> start
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(steps):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 优化 x: d/dx = 2x + 1.5y = 0 -&gt; x = -0.75y</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.75</span> <span style="color:#f92672">*</span> y
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 优化 y: d/dy = 1.5x + 4y = 0 -&gt; y = -0.375x</span>
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.375</span> <span style="color:#f92672">*</span> x
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append([x, y])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 4. 选手三: Newton&#39;s Method (瞬间移动) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newton_method</span>(start, steps<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [start]
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(start)
+</span></span><span style="display:flex;"><span>    H <span style="color:#f92672">=</span> hessian(x)
+</span></span><span style="display:flex;"><span>    H_inv <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>inv(H) <span style="color:#75715e"># 这里直接求逆，因为是常数矩阵</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(steps):
+</span></span><span style="display:flex;"><span>        grad <span style="color:#f92672">=</span> gradient(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 核心: x = x - H^-1 * g</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> H_inv <span style="color:#f92672">@</span> grad
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 对于二次函数，理论上一步就到了，但为了画图我们多跑几次（虽然都在原地）</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(grad) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-6</span>: <span style="color:#66d9ef">break</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 5. 比赛开始 &amp; 可视化 ---</span>
+</span></span><span style="display:flex;"><span>start_pos <span style="color:#f92672">=</span> [<span style="color:#ae81ff">8.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">6.0</span>] <span style="color:#75715e"># 从远处出发</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>path_sd <span style="color:#f92672">=</span> steepest_descent(start_pos)
+</span></span><span style="display:flex;"><span>path_cd <span style="color:#f92672">=</span> coordinate_descent(start_pos)
+</span></span><span style="display:flex;"><span>path_newton <span style="color:#f92672">=</span> newton_method(start_pos)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 作图</span>
+</span></span><span style="display:flex;"><span>x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> X<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.5</span><span style="color:#f92672">*</span>X<span style="color:#f92672">*</span>Y <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>Y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">9</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contour(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray_r&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘制路径</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_sd[:,<span style="color:#ae81ff">0</span>], path_sd[:,<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Steepest Descent (Gradient)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_cd[:,<span style="color:#ae81ff">0</span>], path_cd[:,<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;.-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Coordinate Descent (Staircase)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path_newton[:,<span style="color:#ae81ff">0</span>], path_newton[:,<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;x--&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Newton&#39;s Method (Direct)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 标记起点终点</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(start_pos[<span style="color:#ae81ff">0</span>], start_pos[<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gold&#39;</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Global Min&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Deterministic Optimization Showdown</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">$f(x,y) = x^2 + 1.5xy + 2y^2$&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/9_deterministic_optimization/9_mcmc_deterministic_optimization_22_0.png" alt="png"></p>
+<p>上面一张极其清晰的对比图：</p>
+<ul>
+<li>Newton&rsquo;s Method (蓝线)：
+<ul>
+<li>表现：直接画了一条直线，一步命中红心（金色的星星）。</li>
+<li>原因：它拥有“上帝视角”（曲率信息）。它看穿了这个函数是个二次碗，计算出了精确的底坐标。</li>
+<li>代价：入场费最贵（要算矩阵逆）。</li>
+</ul>
+</li>
+<li>Steepest Descent (红线)：
+<ul>
+<li>表现：走了一条平滑的曲线，虽然有点绕弯（因为它垂直于等高线走），但方向感还不错，稳步逼近中心。</li>
+<li>原因：它只看局部斜率。虽然不如牛顿法直，但比只能走直角的坐标下降法灵活。</li>
+<li>代价：性价比高，中规中矩。</li>
+</ul>
+</li>
+<li>Coordinate Descent (橙线)：
+<ul>
+<li>表现：经典的楼梯形状。</li>
+<li>原因：由于 $1.5xy$ 这一项的存在，变量 $x$ 和 $y$ 是耦合的。
+<ul>
+<li>当你想优化 $x$ 时，不得不考虑 $y$；</li>
+<li>当你动了 $x$ 后，$y$ 的最佳位置又变了。</li>
+<li>这导致它只能在这两个变量之间来回拉扯，效率最低。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/">梯度下降</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">优化算法</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E5%87%B8%E4%BC%98%E5%8C%96/">凸优化</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+    <li>
+      <a
+        href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fdeterministic-optimization%2f&amp;text=%e7%a1%ae%e5%ae%9a%e6%80%a7%e4%bc%98%e5%8c%96%e7%ae%97%e6%b3%95%e8%af%a6%e8%a7%a3%ef%bc%9a%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e7%9a%84%e6%95%b0%e5%ad%a6%e6%9c%ac%e8%b4%a8%e4%b8%8e%e4%bb%a3%e7%a0%81%e5%ae%9e%e6%88%98&amp;via="
+        target="_blank"
+        title="Share on Twitter"
+        class="share-btn twitter"
+      >
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fdeterministic-optimization%2f"
+        target="_blank"
+        title="Share on Facebook"
+        class="share-btn facebook"
+      >
+        <i class="fab fa-facebook"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fdeterministic-optimization%2f&amp;appkey=&amp;title=%e7%a1%ae%e5%ae%9a%e6%80%a7%e4%bc%98%e5%8c%96%e7%ae%97%e6%b3%95%e8%af%a6%e8%a7%a3%ef%bc%9a%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e7%9a%84%e6%95%b0%e5%ad%a6%e6%9c%ac%e8%b4%a8%e4%b8%8e%e4%bb%a3%e7%a0%81%e5%ae%9e%e6%88%98&amp;pic="
+        target="_blank"
+        title="Share on Weibo"
+        class="share-btn weibo"
+      >
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="openWechatModal('http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/deterministic-optimization\/')"
+        title="Share on WeChat"
+        class="share-btn wechat"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fdeterministic-optimization%2f&amp;title=%e7%a1%ae%e5%ae%9a%e6%80%a7%e4%bc%98%e5%8c%96%e7%ae%97%e6%b3%95%e8%af%a6%e8%a7%a3%ef%bc%9a%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e7%9a%84%e6%95%b0%e5%ad%a6%e6%9c%ac%e8%b4%a8%e4%b8%8e%e4%bb%a3%e7%a0%81%e5%ae%9e%e6%88%98"
+        target="_blank"
+        title="Share on LinkedIn"
+        class="share-btn linkedin"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="copyToClipboard('http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/deterministic-optimization\/', '确定性优化算法详解：梯度下降的数学本质与代码实战')"
+        title="Copy Link"
+        class="share-btn copy-link"
+      >
+        <i class="fas fa-link"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div id="wechat-modal" class="wechat-modal">
+  <div class="wechat-modal-content">
+    <span class="wechat-close" onclick="closeWechatModal()">&times;</span>
+    <h4>
+      Scan to Share <br />
+      微信扫一扫分享
+    </h4>
+    <div id="qrcode" class="qrcode-container"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(url, title) {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        
+        var existingToast = document.getElementById("share-toast");
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        var toast = document.createElement("div");
+        toast.id = "share-toast";
+        toast.innerText = "Link copied to clipboard!";
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = "rgba(0,0,0,0.8)";
+        toast.style.color = "#fff";
+        toast.style.padding = "10px 20px";
+        toast.style.borderRadius = "5px";
+        toast.style.zIndex = "10000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease-in-out";
+
+        document.body.appendChild(toast);
+
+        
+        void toast.offsetWidth;
+
+        toast.style.opacity = "1";
+
+        setTimeout(function () {
+          toast.style.opacity = "0";
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 500);
+        }, 3000);
+      },
+      function (err) {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
+  function openWechatModal(url) {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "flex";
+    var qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    var img = document.createElement("img");
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      encodeURIComponent(url);
+    img.style.width = "200px";
+    img.style.height = "200px";
+    qrcodeContainer.appendChild(img);
+  }
+
+  function closeWechatModal() {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "none";
+  }
+
+  
+  window.onclick = function (event) {
+    var modal = document.getElementById("wechat-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">也可以看看</h4>
+                  <ul>
+                
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/gibbs-sampling/">Gibbs 采样详解：分而治之的降维智慧</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/metropolis-hastings/">Metropolis-Hastings 算法：打破对称性的束缚</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/metropolis/">Metropolis 算法详解：从原理到 Python 实现</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/" data-toggle="tooltip" data-placement="top" title="Gibbs 采样详解：分而治之的降维智慧">&larr; 前一篇</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#确定性优化deterministic-optimization">确定性优化（Deterministic optimization）</a>
+      <ul>
+        <li><a href="#优化问题的定义-definition-of-optimization-problem">优化问题的定义 (Definition of Optimization Problem)</a>
+          <ul>
+            <li><a href="#目标函数">目标函数 </a></li>
+            <li><a href="#全局-vs-局部">全局 vs. 局部</a></li>
+          </ul>
+        </li>
+        <li><a href="#凸函数convex-function">凸函数（Convex Function）</a>
+          <ul>
+            <li><a href="#判定方法">判定方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#牛顿法newtons-method">牛顿法（Newton&rsquo;s Method）</a>
+          <ul>
+            <li><a href="#核心思想二次近似-quadratic-approximation">核心思想：二次近似 (Quadratic Approximation)**</a></li>
+            <li><a href="#更新停止准则-stopping-criteria">更新停止准则 (Stopping Criteria)</a></li>
+            <li><a href="#优缺点">优缺点</a></li>
+            <li><a href="#示例">示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#坐标下降法simple-relaxation">坐标下降法（Simple Relaxation）</a>
+          <ul>
+            <li><a href="#算法流程分而治之">算法流程（分而治之）</a></li>
+            <li><a href="#优缺点-1">优缺点</a></li>
+            <li><a href="#示例-1">示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#最速下降法steepest-descent">最速下降法（Steepest Descent）</a>
+          <ul>
+            <li><a href="#核心思想贪婪下坡">核心思想：贪婪下坡</a></li>
+            <li><a href="#步长--的选择-line-search">步长  的选择 (Line Search)</a></li>
+            <li><a href="#优缺点-2">优缺点</a></li>
+            <li><a href="#示例-2">示例</a></li>
+          </ul>
+        </li>
+        <li><a href="#示例三个算法大比拼">示例：三个算法大比拼</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/zh-cn/">琼呀</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="http://localhost:1313/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+
