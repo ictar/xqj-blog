@@ -8,8 +8,22 @@
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Sat, 24 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/post/mcmc-statics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gibbs Sampling Explained: The Wisdom of Divide and Conquer</title>
+      <link>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</link>
+      <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</guid>
+      <description>When high-dimensional spaces are overwhelming, Gibbs sampling adopts a &amp;lsquo;divide and conquer&amp;rsquo; strategy. By utilizing full conditional distributions, it breaks down complex N-dimensional joint sampling into N simple 1-dimensional sampling steps. This article explains its intuition, mathematical proof (Brook&amp;rsquo;s Lemma), and Python implementation.</description>
+    </item>
+    <item>
+      <title>The Metropolis-Hastings Algorithm: Breaking the Symmetry</title>
+      <link>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</link>
+      <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</guid>
+      <description>The original Metropolis is limited by symmetric proposals, often &amp;lsquo;hitting walls&amp;rsquo; at boundaries or getting lost in high dimensions. The MH algorithm introduces the &amp;lsquo;Hastings Correction&amp;rsquo;, allowing asymmetric proposals (like Langevin dynamics) while maintaining detailed balance, significantly improving efficiency.</description>
+    </item>
     <item>
       <title>Metropolis Algorithm Explained: Implementation &amp; Intuition</title>
       <link>http://localhost:1313/post/mcmc-statics/metropolis/</link>

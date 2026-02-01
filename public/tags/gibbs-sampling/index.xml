@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gibbs Sampling on Qiongjie&#39;s Notes</title>
+    <link>http://localhost:1313/tags/gibbs-sampling/</link>
+    <description>Recent content in Gibbs Sampling on Qiongjie&#39;s Notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/gibbs-sampling/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gibbs Sampling Explained: The Wisdom of Divide and Conquer</title>
+      <link>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</link>
+      <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</guid>
+      <description>When high-dimensional spaces are overwhelming, Gibbs sampling adopts a &amp;lsquo;divide and conquer&amp;rsquo; strategy. By utilizing full conditional distributions, it breaks down complex N-dimensional joint sampling into N simple 1-dimensional sampling steps. This article explains its intuition, mathematical proof (Brook&amp;rsquo;s Lemma), and Python implementation.</description>
+    </item>
+  </channel>
+</rss>

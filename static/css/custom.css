@@ -356,7 +356,7 @@ ul.share li a.copy-link:hover {
 
 .series-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   border-color: #337ab7;
   background: #fff;
 }
@@ -420,5 +420,33 @@ ul.share li a.copy-link:hover {
   }
   .section-divider {
     border-color: #333;
+  }
+}
+
+/* --- Fix for 'docs' type heading alignment --- */
+/* The theme defaults center alignment for page-heading, post-heading etc, 
+   but not for custom types like 'docs'. We strictly enforce center alignment here. */
+
+.intro-header .docs-heading {
+  text-align: center;
+}
+
+.intro-header .docs-heading h1 {
+  margin-top: 0;
+  font-size: 50px;
+}
+
+.intro-header .docs-heading .docs-subheading {
+  font-size: 27px;
+  line-height: 1.1;
+  display: block;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  margin: 10px 0 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .intro-header .docs-heading h1 {
+    font-size: 80px;
   }
 }

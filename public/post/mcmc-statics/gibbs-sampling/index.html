@@ -1,0 +1,1166 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>Gibbs Sampling Explained: The Wisdom of Divide and Conquer - </title>
+
+  <meta name="description" content="When high-dimensional spaces are overwhelming, Gibbs sampling adopts a &lsquo;divide and conquer&rsquo; strategy. By utilizing full conditional distributions, it breaks down complex N-dimensional joint sampling into N simple 1-dimensional sampling steps. This article explains its intuition, mathematical proof (Brook&rsquo;s Lemma), and Python implementation.">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/post/mcmc-statics/gibbs-sampling/" />
+
+
+<meta name="keywords" content="Gibbs Sampling, MCMC, Conditional Distribution, Bayesian Inference, Dimensionality Reduction, Python" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/post\/mcmc-statics\/gibbs-sampling\/",
+          "name": "Gibbs sampling explained the wisdom of divide and conquer"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "Gibbs Sampling Explained: The Wisdom of Divide and Conquer",
+  "description" : "When high-dimensional spaces are overwhelming, Gibbs sampling adopts a \u0026lsquo;divide and conquer\u0026rsquo; strategy. By utilizing full conditional distributions, it breaks down complex N-dimensional joint sampling into N simple 1-dimensional sampling steps. This article explains its intuition, mathematical proof (Brook\u0026rsquo;s Lemma), and Python implementation.",
+  "inLanguage" : "en",
+  "wordCount":  2103 ,
+  "datePublished" : "2026-01-30T00:00:00\u002b00:00",
+  "dateModified" : "2026-01-30T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "Gibbs Sampling, MCMC, Conditional Distribution, Bayesian Inference, Dimensionality Reduction, Python" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/mcmc-statics\/gibbs-sampling\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="Gibbs Sampling Explained: The Wisdom of Divide and Conquer" />
+<meta property="og:description" content="When high-dimensional spaces are overwhelming, Gibbs sampling adopts a &lsquo;divide and conquer&rsquo; strategy. By utilizing full conditional distributions, it breaks down complex N-dimensional joint sampling into N simple 1-dimensional sampling steps. This article explains its intuition, mathematical proof (Brook&rsquo;s Lemma), and Python implementation.">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/mcmc-statics/gibbs-sampling/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="Gibbs Sampling Explained: The Wisdom of Divide and Conquer" />
+  <meta name="twitter:description" content="When high-dimensional spaces are overwhelming, Gibbs sampling adopts a &lsquo;divide and conquer&rsquo; strategy. By utilizing full conditional distributions, it breaks down complex N-dimensional …">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/post">BLOG</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/projects">PROJECT</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/">CH</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Gibbs Sampling Explained: The Wisdom of Divide and Conquer</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on January 30, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2103&nbsp;words
+  
+  
+  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/" lang="zh-cn">CH</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+  <aside class="toc">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-divide-and-conquer-intuition">The &ldquo;Divide and Conquer&rdquo; Intuition</a>
+      <ul>
+        <li><a href="#the-mh-dilemma-high-dimensional-lottery">The MH Dilemma: High-Dimensional &ldquo;Lottery&rdquo;</a></li>
+        <li><a href="#gibbs-strategy-one-thing-at-a-time">Gibbs Strategy: One Thing at a Time</a></li>
+        <li><a href="#visual-intuition-manhattan-walk">Visual Intuition: Manhattan Walk</a></li>
+        <li><a href="#why-is-it-easy-slicing-thought">Why is it Easy? (Slicing Thought)</a></li>
+      </ul>
+    </li>
+    <li><a href="#mathematical-principles">Mathematical Principles</a>
+      <ul>
+        <li><a href="#joint-distribution-equivalent-to-all-full-conditionals">Joint Distribution Equivalent to All &ldquo;Full Conditionals&rdquo;</a>
+          <ul>
+            <li><a href="#proof">Proof</a></li>
+            <li><a href="#general-n-dim-brooks-lemma">General N-Dim (Brook&rsquo;s Lemma)</a></li>
+            <li><a href="#crucial-prerequisite-positivity-condition">Crucial Prerequisite: Positivity Condition</a></li>
+          </ul>
+        </li>
+        <li><a href="#why-no-rejection-why-acceptance-is-100">Why No Rejection? (Why Acceptance is 100%?)</a>
+          <ul>
+            <li><a href="#intuitive-why-no-audit">Intuitive: Why no &ldquo;Audit&rdquo;?</a></li>
+            <li><a href="#math-proof-mh-formula-cancellation">Math Proof: MH Formula Cancellation</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#algorithm-flow">Algorithm Flow</a>
+      <ul>
+        <li><a href="#update-strategies">Update Strategies</a></li>
+      </ul>
+    </li>
+    <li><a href="#code-practice">Code Practice</a>
+      <ul>
+        <li><a href="#discrete-bivariate-system">Discrete: Bivariate System</a></li>
+        <li><a href="#continuous-bivariate-normal">Continuous: Bivariate Normal</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-kryptonite-high-correlation">The Kryptonite: High Correlation</a></li>
+  </ul>
+</nav>
+  </aside>
+
+<blockquote>
+<p>Gibbs Sampler is an algorithm to build a <strong>Markov Chain</strong> having a given N-dimension <strong>limit distribution</strong>, exploring its <strong>conditional distribution</strong>.</p></blockquote>
+<h1 id="the-divide-and-conquer-intuition">The &ldquo;Divide and Conquer&rdquo; Intuition</h1>
+<ul>
+<li>
+<p><strong>Recap of Pain:</strong> In high-dimensional space (e.g., 100D), making a single acceptable proposal ($x_{new}$) with MH sampling is incredibly hard. It&rsquo;s like trying to guess 100 coin flips correctly at once.</p>
+<ul>
+<li>While we can reduce multi-dimensional problems to one dimension via combination, when dimensions and state spaces are large, the resulting 1D state space becomes unmanageably huge.</li>
+</ul>
+</li>
+<li>
+<p><strong>Gibbs Strategy:</strong> <strong>Dimensionality Reduction (Divide and Conquer)</strong>.</p>
+<ul>
+<li>We don&rsquo;t change all dimensions at once.</li>
+<li>We update <strong>only one dimension at a time</strong>, treating the other 99 as constants (fixed).</li>
+</ul>
+</li>
+<li>
+<p><strong>Intuitive Analogy:</strong></p>
+<ul>
+<li><strong>MH Algorithm:</strong> Jumping randomly on a map like a helicopter.</li>
+<li><strong>Gibbs Sampling:</strong> Walking on the streets of Manhattan, only moving East-West or North-South (Axis-aligned moves).</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-mh-dilemma-high-dimensional-lottery">The MH Dilemma: High-Dimensional &ldquo;Lottery&rdquo;</h2>
+<p>Imagine you are doing a <strong>100-dimensional</strong> sampling task (like generating a 10x10 pixel image, where each pixel is a dimension).</p>
+<p>In <strong>Metropolis-Hastings (MH)</strong>, you need a proposal distribution $Q$. If you try to update all 100 pixels at once:</p>
+<ul>
+<li>You are asking: &ldquo;Hey, does this new combination of 100 numbers look like a reasonable image?&rdquo;</li>
+<li>The probability of randomly guessing a &ldquo;good point&rdquo; in 100D space is as low as winning the lottery!</li>
+<li>Result: Your proposals are almost always rejected. Acceptance rate near 0, computer runs for days with no movement.</li>
+</ul>
+<h2 id="gibbs-strategy-one-thing-at-a-time">Gibbs Strategy: One Thing at a Time</h2>
+<p><strong>Gibbs Sampling</strong> says: &ldquo;Don&rsquo;t be greedy. Since guessing 100 numbers is too hard, how about guessing just 1?&rdquo;</p>
+<p>Its logic:</p>
+<ol>
+<li>Lock dimensions 2 to 100 (pretend they are constants).</li>
+<li>Now, the question becomes: &ldquo;<strong>Given everyone else is fixed, what is the best value for dimension 1?</strong>&rdquo;</li>
+<li>This is a 1-dimensional problem! Too easy. We draw a number directly from this <strong>Conditional Distribution</strong>.</li>
+<li>Update dimension 1. Next, lock 1, 3&hellip;100, update dimension 2&hellip;</li>
+</ol>
+<blockquote>
+<p>Core Philosophy: Break a complex $N$-dimensional problem into $N$ simple $1$-dimensional problems.</p>
+<p>Math perspective: <strong>Convert Joint Distribution to Conditional Distributions.</strong></p></blockquote>
+<h2 id="visual-intuition-manhattan-walk">Visual Intuition: Manhattan Walk</h2>
+<p>To visualize the trajectory, let&rsquo;s compare MH and Gibbs on a 2D map.
+Assume we are climbing a mountain (Target $\pi$), peak is at top-right.</p>
+<p>🚁 <strong>MH Algorithm: Helicopter Jump</strong></p>
+<ul>
+<li>Action: Disregards terrain, throws a probe in a random direction (diagonal, far).</li>
+<li>Trajectory: Can move at any angle.</li>
+<li>Cost: If it lands on a cliff (low prob), it bounces back (Rejected).</li>
+</ul>
+<p>🚶 <strong>Gibbs Sampling: Manhattan Walk</strong></p>
+<ul>
+<li>Action: Imagine walking in Manhattan&rsquo;s grid city. You can&rsquo;t walk through walls or diagonally. You follow streets (axes).</li>
+<li>Trajectory:
+<ol>
+<li>Move along X-axis (Update $x$, fixed $y$).</li>
+<li>Move along Y-axis (Update $y$, fixed $x$).</li>
+<li>Repeat.</li>
+</ol>
+</li>
+<li>Feature: Trajectory is always orthogonal zig-zag, like climbing stairs.</li>
+</ul>
+<h2 id="why-is-it-easy-slicing-thought">Why is it Easy? (Slicing Thought)</h2>
+<p>You might ask: <strong>&ldquo;Just changing direction, why no rejection needed?&rdquo;</strong></p>
+<p>Imagine a 2D Normal distribution (like a hill). Each step of Gibbs is actually <strong>&ldquo;Slicing&rdquo;</strong> the hill.</p>
+<ol>
+<li>When you fix $y=5$, you slice the hill horizontally at $y=5$.</li>
+<li><strong>The cross-section is a 1D curve.</strong></li>
+<li>Gibbs says: &ldquo;Please sample directly from this 1D curve.&rdquo;</li>
+<li>Since you sample directly from the valid slice, the result is always valid. Acceptance Rate = 100%!</li>
+</ol>
+<h1 id="mathematical-principles">Mathematical Principles</h1>
+<h2 id="joint-distribution-equivalent-to-all-full-conditionals">Joint Distribution Equivalent to All &ldquo;Full Conditionals&rdquo;</h2>
+<p>Usually we think: <strong>Joint Distribution $P(x_1, \dots, x_n)$</strong> holds all info. From it, deriving marginals or conditionals is easy. But the reverse isn&rsquo;t intuitive: <strong>If I give you all &ldquo;Full Conditionals&rdquo; $P(x_i | x_{-i})$, can you uniquely reconstruct the original Joint Distribution?</strong></p>
+<p>Answer: <strong>Yes, under a condition (Positivity Assumption)</strong>. This is <strong><a href="https://en.wikipedia.org/wiki/Brook%27s_Lemma">Brook&rsquo;s Lemma</a></strong>.</p>
+<h3 id="proof">Proof</h3>
+<p><strong>Step 1: Joint $\Rightarrow$ Conditionals (Easy)</strong></p>
+<p>This is just definition.
+</p>
+$$
+P(x_i | x_{-i}) = \frac{P(x_1, \dots, x_n)}{P(x_{-i})} = \frac{P(x_1, \dots, x_n)}{\int P(x_1, \dots, x_n) dx_i}
+$$<p>
+Obviously, given Joint, Conditionals are determined.</p>
+<p><strong>Step 2: Conditionals $\Rightarrow$ Joint (Hard: Brook&rsquo;s Lemma)</strong></p>
+<p>This is the core of Gibbs. Without this, we wouldn&rsquo;t know if sampling conditionals converges to the correct joint.</p>
+<p>We need to prove: <strong>Full Conditionals uniquely determine Joint Distribution (up to a constant).</strong></p>
+<p>Let&rsquo;s use <strong>Bivariate (2D)</strong> case ($x, y$).</p>
+<ol>
+<li>Goal: Find expression for $\frac{P(x, y)}{P(x_0, y_0)}$, where $(x_0, y_0)$ is an arbitrary reference point.</li>
+<li>Identity: Break ratio into two steps (via $(x_0, y)$): $$\frac{P(x, y)}{P(x_0, y_0)} = \frac{P(x, y)}{P(x_0, y)} \cdot \frac{P(x_0, y)}{P(x_0, y_0)}$$</li>
+<li>Expand Term 1 (Bayes): $P(x, y) = P(x | y) P(y)$. $$\frac{P(x, y)}{P(x_0, y)} = \frac{P(x | y) \cancel{P(y)}}{P(x_0 | y) \cancel{P(y)}} = \frac{P(x | y)}{P(x_0 | y)}$$ See! Marginal $P(y)$ cancels! Only conditionals remain.</li>
+<li>Expand Term 2: $P(x_0, y) = P(y | x_0) P(x_0)$. $$\frac{P(x_0, y)}{P(x_0, y_0)} = \frac{P(y | x_0) \cancel{P(x_0)}}{P(y_0 | x_0) \cancel{P(x_0)}} = \frac{P(y | x_0)}{P(y_0 | x_0)}$$ Marginal $P(x_0)$ cancels too!</li>
+<li>Combine (Brook&rsquo;s Lemma for 2D): $$P(x, y) \propto \frac{P(x | y)}{P(x_0 | y)} \cdot \frac{P(y | x_0)}{P(y_0 | x_0)}$$</li>
+</ol>
+<p>Conclusion: The RHS contains <strong>only conditional distributions</strong>. Thus, knowing $P(x|y)$ and $P(y|x)$ uniquely determines the shape of $P(x,y)$.</p>
+<h3 id="general-n-dim-brooks-lemma">General N-Dim (Brook&rsquo;s Lemma)</h3>
+<p>Ideally walking steps from $\mathbf{x}^0$ to $\mathbf{x}$: $(0,0,0) \to (x_1, 0, 0) \to (x_1, x_2, 0) \to (x_1, x_2, x_3)$.</p>
+<p>Formula: </p>
+$$P(\mathbf{x}) \propto \prod_{i=1}^n \frac{P(x_i | x_1, \dots, x_{i-1}, x_{i+1}^0, \dots, x_n^0)}{P(x_i^0 | x_1, \dots, x_{i-1}, x_{i+1}^0, \dots, x_n^0)}$$<h3 id="crucial-prerequisite-positivity-condition">Crucial Prerequisite: Positivity Condition</h3>
+<p>Did you spot a bug? We are dividing! Denominators like $P(x_0 | y)$ appear.
+If probability is 0 somewhere, dividing by 0 is illegal.</p>
+<p>This is the <strong>Hammersley-Clifford Theorem</strong> requirement: <strong>Joint distribution must satisfy Positivity Assumption.</strong> i.e., For any $x_i$, if meaningful marginally, their combination $(x_1, \dots, x_n)$ must have prob &gt; 0.</p>
+<p>Counter-example: Chessboard where only white squares have prob=1, black=0.</p>
+<ul>
+<li>$P(x|y)$ tells you where white squares are in a row.</li>
+<li>But you can&rsquo;t compare probability of white squares in different rows because &ldquo;paths&rdquo; are blocked by black squares (prob 0 abyss).</li>
+</ul>
+<h2 id="why-no-rejection-why-acceptance-is-100">Why No Rejection? (Why Acceptance is 100%?)</h2>
+<blockquote>
+<p>Gibbs Sampling is essentially Metropolis-Hastings with acceptance rate $\alpha=1$.</p></blockquote>
+<h3 id="intuitive-why-no-audit">Intuitive: Why no &ldquo;Audit&rdquo;?</h3>
+<ul>
+<li>Metropolis (Blind Guess): You grab a shirt with eyes closed (Proposal $Q$). Open eyes, check fit ($\pi$). If bad, throw back (Reject). Blindness requires audit.</li>
+<li>Gibbs (Tailor-made): You go to a tailor. Tailor measures you (Fixed $x_{-i}$), makes shirt exactly to size (Sample from $P(x_i | x_{-i})$). Does this custom shirt need &ldquo;audit&rdquo;? No. It&rsquo;s born valid.</li>
+</ul>
+<h3 id="math-proof-mh-formula-cancellation">Math Proof: MH Formula Cancellation</h3>
+<p>Assume variables $x, y$. <strong>Current: $(x, y)$</strong></p>
+<ul>
+<li>Action: Update $x$, fix $y$.</li>
+<li>Gibbs Proposal: Sample new $x^*$ from full conditional.
+$$Q(\text{new} | \text{old}) = Q(x^*, y | x, y) = P(x^* | y)$$</li>
+</ul>
+<blockquote>
+<p>Note: Depends only on $y$, not old $x$.</p></blockquote>
+<p>Reverse proposal: </p>
+$$Q(\text{old} | \text{new}) = Q(x, y | x^*, y) = P(x | y)$$<p>Substitute into MH Acceptance: </p>
+$$\alpha = \frac{\pi(\text{new})}{\pi(\text{old})} \times \frac{Q(\text{old} | \text{new})}{Q(\text{new} | \text{old})}$$<ol>
+<li>Target $\pi$ is Joint $P(x, y)$. $$\text{Target Ratio} = \frac{P(x^*, y)}{P(x, y)}$$</li>
+<li>Proposal $Q$. $$\text{Proposal Ratio} = \frac{P(x | y)}{P(x^* | y)}$$</li>
+<li>Combine ($P(a,b) = P(a|b)P(b)$):
+$$A = \frac{P(x^*, y)}{P(x, y)} \times \frac{P(x | y)}{P(x^* | y)} = \frac{\mathbf{P(x^* | y)} \cdot \mathbf{P(y)}}{\mathbf{P(x | y)} \cdot \mathbf{P(y)}} \times \frac{\mathbf{P(x | y)}}{\mathbf{P(x^* | y)}}$$</li>
+<li><strong>The Cancellation:</strong>
+<ul>
+<li>$P(y)$: Cancels.</li>
+<li>$P(x^* | y)$ and $P(x | y)$: Cancel cross-wise.</li>
+<li>Result: $$A = 1$$</li>
+</ul>
+</li>
+</ol>
+<p>So $\alpha = 1$.</p>
+<h1 id="algorithm-flow">Algorithm Flow</h1>
+<p>To sample from $n$-dim joint $P(x_1, \dots, x_n)$.</p>
+<ol>
+<li><strong>Initialization:</strong> Pick start $\mathbf{x}^{(0)}$.</li>
+<li><strong>Iteration Loop ($t=1 \dots T$):</strong> Update each component sequentially. Updated values used immediately.
+<ol>
+<li>Update Dim 1: Sample $x_1^{(t)} \sim P(x_1 \mid x_2^{(t-1)}, \dots, x_n^{(t-1)})$</li>
+<li>Update Dim 2: Sample $x_2^{(t)} \sim P(x_2 \mid x_1^{(t)}, x_3^{(t-1)}, \dots)$
+&hellip;</li>
+<li>Update Dim $n$: Sample $x_n^{(t)} \sim P(x_n \mid x_1^{(t)}, \dots, x_{n-1}^{(t)})$</li>
+</ol>
+</li>
+<li><strong>Collect:</strong> $\mathbf{x}^{(t)}$ is a sample.</li>
+</ol>
+<h2 id="update-strategies">Update Strategies</h2>
+<ol>
+<li><strong>Systematic Scan:</strong> Order $1 \to 2 \to \dots \to n$. Most common.</li>
+<li><strong>Random Scan:</strong> Randomly pick dimension $i$ to update. Easier for some proofs.</li>
+<li><strong>Blocked Gibbs:</strong> Group correlated variables (e.g., $x_1, x_2$) and sample joint $P(x_1, x_2 | \dots)$. Solves slow mixing in correlated features.</li>
+</ol>
+<h1 id="code-practice">Code Practice</h1>
+<h2 id="discrete-bivariate-system">Discrete: Bivariate System</h2>
+<p>Two variables $x, y \in \{0, 1\}$. Known joint probability table:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">x</th>
+          <th style="text-align: left">y</th>
+          <th style="text-align: left">P(x,y)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">0</td>
+          <td style="text-align: left">0</td>
+          <td style="text-align: left">0.1</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">0</td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">0.4</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">0</td>
+          <td style="text-align: left">0.3</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">0.2</td>
+      </tr>
+  </tbody>
+</table>
+<p>Goal: Sample to match these frequencies using only local conditional rules.</p>
+<p>Conditionals:</p>
+<ol>
+<li>Given $y$, $P(x|y)$:
+<ul>
+<li>$y=0$: $P(x=0|0) = 0.1/(0.1+0.3) = 0.25$, $P(x=1|0)=0.75$</li>
+<li>$y=1$: $P(x=0|1) = 0.4/(0.4+0.2) \approx 0.67$, $P(x=1|1)=0.33$</li>
+</ul>
+</li>
+<li>Given $x$, $P(y|x)$:
+<ul>
+<li>$x=0$: $P(y=0|0) = 0.2$, $P(y=1|0)=0.8$</li>
+<li>$x=1$: $P(y=0|1) = 0.6$, $P(y=1|1)=0.4$</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Conditionals</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_x_given_y</span>(y):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], p<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.75</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], p<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0.67</span>, <span style="color:#ae81ff">0.33</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_y_given_x</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], p<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.8</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], p<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0.6</span>, <span style="color:#ae81ff">0.4</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Gibbs Loop</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">discrete_gibbs</span>(n_iter):
+</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>  <span style="color:#75715e"># Init</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> sample_x_given_y(y) <span style="color:#75715e"># Update x</span>
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> sample_y_given_x(x) <span style="color:#75715e"># Update y</span>
+</span></span><span style="display:flex;"><span>        samples<span style="color:#f92672">.</span>append((x, y))
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(samples)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Run</span>
+</span></span><span style="display:flex;"><span>n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">=</span> discrete_gibbs(n_iter)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Frequency Analysis</span>
+</span></span><span style="display:flex;"><span>unique, counts <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>unique(results, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, return_counts<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>frequencies <span style="color:#f92672">=</span> counts <span style="color:#f92672">/</span> n_iter
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;--- Discrete Gibbs Results ---&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> state, freq <span style="color:#f92672">in</span> zip(unique, frequencies):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;State </span><span style="color:#e6db74">{</span>state<span style="color:#e6db74">}</span><span style="color:#e6db74">: Freq </span><span style="color:#e6db74">{</span>freq<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Visualize first 50 steps</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(results[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.02</span>, <span style="color:#ae81ff">50</span>), 
+</span></span><span style="display:flex;"><span>         results[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.02</span>, <span style="color:#ae81ff">50</span>), 
+</span></span><span style="display:flex;"><span>         <span style="color:#e6db74">&#39;o-&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xticks([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>yticks([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Trace of First 50 Discrete Gibbs Steps</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(with small jitter for visibility)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;X state&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Y state&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>--- Discrete Gibbs Results ---
+State [0 0]: Freq 0.1017
+State [0 1]: Freq 0.4054
+State [1 0]: Freq 0.2928
+State [1 1]: Freq 0.2001
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_10_1.png" alt="png"></p>
+<ul>
+<li><strong>Fast Convergence:</strong> Instantly locks to target propertions.</li>
+<li><strong>Trajectory:</strong> Jumps between (0,0), (0,1), (1,0), (1,1) strictly along axes.</li>
+<li><strong>Application:</strong> Core of Image Denoising (Ising) and NLP (LDA).</li>
+</ul>
+<h2 id="continuous-bivariate-normal">Continuous: Bivariate Normal</h2>
+<p>Target $(x, y)$: Standard Bivariate Normal.</p>
+<ul>
+<li>$\mu_x = 0, \mu_y = 0, \sigma_x = 1, \sigma_y = 1$</li>
+<li>Correlation $\rho$.</li>
+</ul>
+<p>Direct formula is messy. Gibbs is easy.
+Conditionals:
+</p>
+$$P(x | y) = \mathcal{N}(\text{mean}=\rho y, \text{var}=1-\rho^2)$$<p>
+</p>
+$$P(y | x) = \mathcal{N}(\text{mean}=\rho x, \text{var}=1-\rho^2)$$<p>Intuition:</p>
+<ul>
+<li>Mean $\rho y$: If $y$ is positive and $\rho>0$, $x$ is likely positive. Center shifts.</li>
+<li>Var $1-\rho^2$: If correlated ($\rho \to 1$), variance $\to 0$. $x$ is locked by $y$.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. Params ---</span>
+</span></span><span style="display:flex;"><span>rho <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span>             <span style="color:#75715e"># Correlation</span>
+</span></span><span style="display:flex;"><span>n_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>
+</span></span><span style="display:flex;"><span>start_x, start_y <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">4.0</span> <span style="color:#75715e"># Far corner start</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. Gibbs Sampler ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_gibbs_sampler</span>(n, rho, start_x, start_y):
+</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n, <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> start_x, start_y
+</span></span><span style="display:flex;"><span>    cond_std <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sqrt(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> rho<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># A. Fix y, sample x</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(loc<span style="color:#f92672">=</span>rho <span style="color:#f92672">*</span> y, scale<span style="color:#f92672">=</span>cond_std)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># B. Fix x, sample y (use new x)</span>
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(loc<span style="color:#f92672">=</span>rho <span style="color:#f92672">*</span> x, scale<span style="color:#f92672">=</span>cond_std)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        samples[i] <span style="color:#f92672">=</span> [x, y]
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> samples
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run</span>
+</span></span><span style="display:flex;"><span>chain <span style="color:#f92672">=</span> run_gibbs_sampler(n_samples, rho, start_x, start_y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 3. Viz ---</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot 1: Trace (First 50)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(chain[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">0</span>], chain[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Gibbs Path&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(start_x, start_y, <span style="color:#e6db74">&#39;ro&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Gibbs Trajectory (First 50 Steps)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Correlation rho=</span><span style="color:#e6db74">{</span>rho<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;X&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Y&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot 2: Final Scatter</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(chain[:, <span style="color:#ae81ff">0</span>], chain[:, <span style="color:#ae81ff">1</span>], s<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Final Samples (N=</span><span style="color:#e6db74">{</span>n_samples<span style="color:#e6db74">}</span><span style="color:#e6db74">)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Target: Bivariate Normal&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;X&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Y&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_13_0.png" alt="png"></p>
+<p><strong>Trajectory (Left Plot):</strong></p>
+<ol>
+<li><strong>Orthogonal Moves:</strong> Steps are purely horizontal or vertical. Zig-zag.</li>
+<li><strong>Burn-in:</strong> Starts at $(-4, -4)$ and quickly (5-10 steps) climbs to the center $(0,0)$.</li>
+</ol>
+<h1 id="the-kryptonite-high-correlation">The Kryptonite: High Correlation</h1>
+<ul>
+<li><strong>Defect:</strong> 100% acceptance $\neq$ Efficiency.</li>
+<li><strong>Scenario:</strong> High correlation ($\rho = 0.99$). Distribution is a thin canyon.</li>
+<li><strong>Dilemma:</strong> Gibbs moves orthogonally. In a diagonal canyon, it must take tiny baby steps (staircase). <strong>Slow Mixing.</strong></li>
+<li><strong>Solution:</strong> Blocked Gibbs / Reparameterization.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. Params ---</span>
+</span></span><span style="display:flex;"><span>rhos <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>: <span style="color:#e6db74">&#39;No Corr&#39;</span>, <span style="color:#ae81ff">0.99</span>: <span style="color:#e6db74">&#39;High Corr&#39;</span>}
+</span></span><span style="display:flex;"><span>n_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>
+</span></span><span style="display:flex;"><span>start_x, start_y <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">4.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. Gibbs Sampler (Reusable) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ... (same function)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run</span>
+</span></span><span style="display:flex;"><span>index <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> rho, rho_label <span style="color:#f92672">in</span> rhos<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>    chain <span style="color:#f92672">=</span> run_gibbs_sampler(n_samples, rho, start_x, start_y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># --- 3. Viz ---</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Trace</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, index)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(chain[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">0</span>], chain[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Gibbs Path&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(start_x, start_y, <span style="color:#e6db74">&#39;ro&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Gibbs Trajectory (First 50 Steps)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Correlation rho=</span><span style="color:#e6db74">{</span>rho<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;X&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Y&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)
+</span></span><span style="display:flex;"><span>    index <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Scatter</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, index)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>scatter(chain[:, <span style="color:#ae81ff">0</span>], chain[:, <span style="color:#ae81ff">1</span>], s<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Final Samples (N=</span><span style="color:#e6db74">{</span>n_samples<span style="color:#e6db74">}</span><span style="color:#e6db74">)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Target: Bivariate Normal&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;X&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Y&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>    index <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_1.png" alt="png"></p>
+<ul>
+<li><strong>rho = 0:</strong> Circle. Gibbs jumps freely. Fast mixing.</li>
+<li><strong>rho = 0.99:</strong> Thin line. Gibbs takes tiny steps along diagonal. Slow convergence.</li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://localhost:1313/tags/gibbs-sampling/">Gibbs Sampling</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/mcmc/">MCMC</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/conditional-distribution/">Conditional Distribution</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/bayesian-inference/">Bayesian Inference</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/dimensionality-reduction/">Dimensionality Reduction</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/python/">Python</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+    <li>
+      <a
+        href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fgibbs-sampling%2f&amp;text=Gibbs%20Sampling%20Explained%3a%20The%20Wisdom%20of%20Divide%20and%20Conquer&amp;via="
+        target="_blank"
+        title="Share on Twitter"
+        class="share-btn twitter"
+      >
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fgibbs-sampling%2f"
+        target="_blank"
+        title="Share on Facebook"
+        class="share-btn facebook"
+      >
+        <i class="fab fa-facebook"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fgibbs-sampling%2f&amp;appkey=&amp;title=Gibbs%20Sampling%20Explained%3a%20The%20Wisdom%20of%20Divide%20and%20Conquer&amp;pic="
+        target="_blank"
+        title="Share on Weibo"
+        class="share-btn weibo"
+      >
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="openWechatModal('http:\/\/localhost:1313\/post\/mcmc-statics\/gibbs-sampling\/')"
+        title="Share on WeChat"
+        class="share-btn wechat"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fgibbs-sampling%2f&amp;title=Gibbs%20Sampling%20Explained%3a%20The%20Wisdom%20of%20Divide%20and%20Conquer"
+        target="_blank"
+        title="Share on LinkedIn"
+        class="share-btn linkedin"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="copyToClipboard('http:\/\/localhost:1313\/post\/mcmc-statics\/gibbs-sampling\/', 'Gibbs Sampling Explained: The Wisdom of Divide and Conquer')"
+        title="Copy Link"
+        class="share-btn copy-link"
+      >
+        <i class="fas fa-link"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div id="wechat-modal" class="wechat-modal">
+  <div class="wechat-modal-content">
+    <span class="wechat-close" onclick="closeWechatModal()">&times;</span>
+    <h4>
+      Scan to Share <br />
+      微信扫一扫分享
+    </h4>
+    <div id="qrcode" class="qrcode-container"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(url, title) {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        
+        var existingToast = document.getElementById("share-toast");
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        var toast = document.createElement("div");
+        toast.id = "share-toast";
+        toast.innerText = "Link copied to clipboard!";
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = "rgba(0,0,0,0.8)";
+        toast.style.color = "#fff";
+        toast.style.padding = "10px 20px";
+        toast.style.borderRadius = "5px";
+        toast.style.zIndex = "10000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease-in-out";
+
+        document.body.appendChild(toast);
+
+        
+        void toast.offsetWidth;
+
+        toast.style.opacity = "1";
+
+        setTimeout(function () {
+          toast.style.opacity = "0";
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 500);
+        }, 3000);
+      },
+      function (err) {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
+  function openWechatModal(url) {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "flex";
+    var qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    var img = document.createElement("img");
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      encodeURIComponent(url);
+    img.style.width = "200px";
+    img.style.height = "200px";
+    qrcodeContainer.appendChild(img);
+  }
+
+  function closeWechatModal() {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "none";
+  }
+
+  
+  window.onclick = function (event) {
+    var modal = document.getElementById("wechat-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/mcmc-statics/metropolis-hastings/">The Metropolis-Hastings Algorithm: Breaking the Symmetry</a></li>
+                
+                    <li><a href="/post/mcmc-statics/metropolis/">Metropolis Algorithm Explained: Implementation &amp; Intuition</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/post/mcmc-statics/metropolis-hastings/" data-toggle="tooltip" data-placement="top" title="The Metropolis-Hastings Algorithm: Breaking the Symmetry">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-divide-and-conquer-intuition">The &ldquo;Divide and Conquer&rdquo; Intuition</a>
+      <ul>
+        <li><a href="#the-mh-dilemma-high-dimensional-lottery">The MH Dilemma: High-Dimensional &ldquo;Lottery&rdquo;</a></li>
+        <li><a href="#gibbs-strategy-one-thing-at-a-time">Gibbs Strategy: One Thing at a Time</a></li>
+        <li><a href="#visual-intuition-manhattan-walk">Visual Intuition: Manhattan Walk</a></li>
+        <li><a href="#why-is-it-easy-slicing-thought">Why is it Easy? (Slicing Thought)</a></li>
+      </ul>
+    </li>
+    <li><a href="#mathematical-principles">Mathematical Principles</a>
+      <ul>
+        <li><a href="#joint-distribution-equivalent-to-all-full-conditionals">Joint Distribution Equivalent to All &ldquo;Full Conditionals&rdquo;</a>
+          <ul>
+            <li><a href="#proof">Proof</a></li>
+            <li><a href="#general-n-dim-brooks-lemma">General N-Dim (Brook&rsquo;s Lemma)</a></li>
+            <li><a href="#crucial-prerequisite-positivity-condition">Crucial Prerequisite: Positivity Condition</a></li>
+          </ul>
+        </li>
+        <li><a href="#why-no-rejection-why-acceptance-is-100">Why No Rejection? (Why Acceptance is 100%?)</a>
+          <ul>
+            <li><a href="#intuitive-why-no-audit">Intuitive: Why no &ldquo;Audit&rdquo;?</a></li>
+            <li><a href="#math-proof-mh-formula-cancellation">Math Proof: MH Formula Cancellation</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#algorithm-flow">Algorithm Flow</a>
+      <ul>
+        <li><a href="#update-strategies">Update Strategies</a></li>
+      </ul>
+    </li>
+    <li><a href="#code-practice">Code Practice</a>
+      <ul>
+        <li><a href="#discrete-bivariate-system">Discrete: Bivariate System</a></li>
+        <li><a href="#continuous-bivariate-normal">Continuous: Bivariate Normal</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-kryptonite-high-correlation">The Kryptonite: High Correlation</a></li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="http://localhost:1313/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MH Algorithm on Qiongjie&#39;s Notes</title>
+    <link>http://localhost:1313/tags/mh-algorithm/</link>
+    <description>Recent content in MH Algorithm on Qiongjie&#39;s Notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Thu, 29 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/mh-algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Metropolis-Hastings Algorithm: Breaking the Symmetry</title>
+      <link>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</link>
+      <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</guid>
+      <description>The original Metropolis is limited by symmetric proposals, often &amp;lsquo;hitting walls&amp;rsquo; at boundaries or getting lost in high dimensions. The MH algorithm introduces the &amp;lsquo;Hastings Correction&amp;rsquo;, allowing asymmetric proposals (like Langevin dynamics) while maintaining detailed balance, significantly improving efficiency.</description>
+    </item>
+  </channel>
+</rss>

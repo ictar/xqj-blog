@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>哈斯廷斯修正 on 琼呀</title>
+    <link>http://localhost:1313/zh-cn/tags/%E5%93%88%E6%96%AF%E5%BB%B7%E6%96%AF%E4%BF%AE%E6%AD%A3/</link>
+    <description>Recent content in 哈斯廷斯修正 on 琼呀</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Thu, 29 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/tags/%E5%93%88%E6%96%AF%E5%BB%B7%E6%96%AF%E4%BF%AE%E6%AD%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Metropolis-Hastings 算法：打破对称性的束缚</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/</link>
+      <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/</guid>
+      <description>原版 Metropolis 受限于对称提议，常在边界“撞墙”或高维迷路。MH 算法引入“哈斯廷斯修正项”，允许不对称提议（如 Langevin 动力学）并维持细致平衡，大幅提升效率。</description>
+    </item>
+  </channel>
+</rss>

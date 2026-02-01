@@ -7,6 +7,7 @@ summary: "The Metropolis algorithm is the cornerstone of MCMC. We delve into its
 toc: true
 draft: false
 tags: ["MCMC", "Metropolis Algorithm", "Monte Carlo Simulation", "Bayesian Statistics", "Python Implementation", "Random Walk"]
+series: ["MCMC"]
 keywords: ["Metropolis Algorithm", "MCMC sampling", "Markov Chain Monte Carlo", "Random Walk Metropolis", "Normalization Constant", "Acceptance Rejection", "Detailed Balance"]
 ---
 

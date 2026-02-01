@@ -1,0 +1,1372 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>Metropolis-Hastings 算法：打破对称性的束缚 - </title>
+
+  <meta name="description" content="原版 Metropolis 受限于对称提议，常在边界“撞墙”或高维迷路。MH 算法引入“哈斯廷斯修正项”，允许不对称提议（如 Langevin 动力学）并维持细致平衡，大幅提升效率。">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/" />
+
+
+<meta name="keywords" content="MCMC, MH算法, 哈斯廷斯修正, 细致平衡, Python实现, 贝叶斯统计" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼呀",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/metropolis-hastings\/",
+          "name": "Metropolis hastings 算法：打破对称性的束缚"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "Metropolis-Hastings 算法：打破对称性的束缚",
+  "description" : "原版 Metropolis 受限于对称提议，常在边界“撞墙”或高维迷路。MH 算法引入“哈斯廷斯修正项”，允许不对称提议（如 Langevin 动力学）并维持细致平衡，大幅提升效率。",
+  "inLanguage" : "zh-cn",
+  "wordCount":  1891 ,
+  "datePublished" : "2026-01-29T00:00:00\u002b00:00",
+  "dateModified" : "2026-01-29T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "MCMC, MH算法, 哈斯廷斯修正, 细致平衡, Python实现, 贝叶斯统计" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/metropolis-hastings\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="Metropolis-Hastings 算法：打破对称性的束缚" />
+<meta property="og:description" content="原版 Metropolis 受限于对称提议，常在边界“撞墙”或高维迷路。MH 算法引入“哈斯廷斯修正项”，允许不对称提议（如 Langevin 动力学）并维持细致平衡，大幅提升效率。">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼呀" />
+
+  <meta name="twitter:title" content="Metropolis-Hastings 算法：打破对称性的束缚" />
+  <meta name="twitter:description" content="原版 Metropolis 受限于对称提议，常在边界“撞墙”或高维迷路。MH 算法引入“哈斯廷斯修正项”，允许不对称提议（如 Langevin 动力学）并维持细致平衡，大幅提升效率。">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/zh-cn/">琼呀</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/post">文章</a>
+              <div class="navlinks-children">
+                
+                  <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
+                
+                  <a href="/zh-cn/post/ai-fundamentals">AI 基础系列</a>
+                
+                  <a href="/zh-cn/post/geoai">GeoAI 系列</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/projects">项目</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="笔记" href="/zh-cn/notes">笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="标签" href="/zh-cn/tags">标签</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="关于我" href="/zh-cn/page/about/">关于我</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/post/mcmc-statics/metropolis-hastings/">EN</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼呀" href="http://localhost:1313/zh-cn/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="琼呀" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Metropolis-Hastings 算法：打破对称性的束缚</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 January 29, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1891&nbsp;个字
+  
+  
+  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/metropolis-hastings/" lang="en">EN</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+  <aside class="toc">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么要不对称-the-motivation">为什么要“不对称”？ (The Motivation)</a>
+      <ul>
+        <li><a href="#现实痛点">现实痛点</a>
+          <ul>
+            <li><a href="#痛点-1边界问题-the-wall-problem">痛点 1：边界问题 (The &ldquo;Wall&rdquo; Problem)</a></li>
+            <li><a href="#痛点-2高维空间的迷路-the-high-dim-maze">痛点 2：高维空间的迷路 (The High-Dim Maze)</a></li>
+          </ul>
+        </li>
+        <li><a href="#核心冲突不对称带来的流量危机">核心冲突：不对称带来的“流量危机”</a></li>
+        <li><a href="#-破局思路">💡 破局思路</a></li>
+      </ul>
+    </li>
+    <li><a href="#哈斯廷斯的修正-the-hastings-correction">哈斯廷斯的修正 (The Hastings Correction)</a>
+      <ul>
+        <li><a href="#核心公式从-metropolis-到-mh">核心公式：从 Metropolis 到 MH</a></li>
+        <li><a href="#直观理解城市与高速公路-">直观理解：城市与高速公路 🏙️🛣️</a></li>
+        <li><a href="#数学证明为什么它刚好能平衡the-proof">数学证明：为什么它刚好能平衡？(The Proof)</a></li>
+      </ul>
+    </li>
+    <li><a href="#实战中的--the-choice-of-proposals">实战中的  (The Choice of Proposals)</a>
+      <ul>
+        <li><a href="#独立采样器-independent-sampler">独立采样器 (Independent Sampler)</a></li>
+        <li><a href="#对数正态游走-log-normal-walk">对数正态游走 (Log-normal Walk)</a></li>
+        <li><a href="#mala-metropolis-adjusted-langevin-algorithm">MALA (Metropolis-Adjusted Langevin Algorithm)</a></li>
+      </ul>
+    </li>
+    <li><a href="#代码实战-python-implementation">代码实战 (Python Implementation)</a></li>
+    <li><a href="#mcmc-的诊断与调优-diagnostics--tuning">MCMC 的诊断与调优 (Diagnostics &amp; Tuning)</a>
+      <ul>
+        <li><a href="#核心概念三个体检指标">核心概念：三个体检指标</a>
+          <ul>
+            <li><a href="#轨迹图-trace-plot--mcmc-的心电图">轨迹图 (Trace Plot) —— MCMC 的心电图</a></li>
+            <li><a href="#预热-burn-in--丢弃垃圾时间">预热 (Burn-in) —— 丢弃垃圾时间</a></li>
+            <li><a href="#接受率-acceptance-rate--步长的金发姑娘原则">接受率 (Acceptance Rate) —— 步长的金发姑娘原则</a></li>
+          </ul>
+        </li>
+        <li><a href="#python-代码实战诊断生病的链">Python 代码实战：诊断“生病”的链</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </aside>
+
+<h1 id="为什么要不对称-the-motivation">为什么要“不对称”？ (The Motivation)</h1>
+<ul>
+<li>回顾限制： Metropolis 算法要求 $Q(x|y) = Q(y|x)$（像个醉汉，往左往右概率一样）。</li>
+<li>现实痛点：
+<ul>
+<li>边界问题： 如果变量必须大于 0（比如身高、价格），用对称的高斯分布去跳，总会跳到负数区被拒绝，效率极低。</li>
+<li>聪明移动： 如果我们知道山顶大概在东方，我们能不能让 $Q$ 偏向东方跳？（引入有偏见的 $Q$）。</li>
+</ul>
+</li>
+<li>核心冲突： 一旦 $Q$ 不对称，原来的细致平衡就被打破了，怎么修补？</li>
+</ul>
+<p>在原始 Metropolis 中，提议分布 $Q$ 必须满足 <strong>对称性 (Symmetry)</strong>：
+</p>
+$$Q(x_{new} | x_{old}) = Q(x_{old} | x_{new})$$<p>这意味着：<strong>从 A 跳到 B 的概率，必须完全等于从 B 跳回 A 的概率。</strong>(比如：往左跳 1 米和往右跳 1 米，概率必须一样。)这听起来很公平，但在实际应用中，这种“公平”往往意味着<strong>低效</strong>，甚至是<strong>灾难</strong>。</p>
+<h2 id="现实痛点">现实痛点</h2>
+<h3 id="痛点-1边界问题-the-wall-problem">痛点 1：边界问题 (The &ldquo;Wall&rdquo; Problem)</h3>
+<p>现实世界中，很多变量是有物理限制的。</p>
+<ul>
+<li>例子： 假设你在模拟人的身高、红细胞数量或者商品价格。这些数值必须是 正数 ($x > 0$)。</li>
+<li>Metropolis 的尴尬： 假设你现在处于 $x=0.1$（很靠近 0）。你用一个对称的高斯分布去跳。
+<ul>
+<li>有 50% 的概率，你会跳到负数（比如 -0.5）。</li>
+<li>因为目标分布 $\pi(x)$ 在负数区是 0，这次提议会被直接拒绝。</li>
+<li>结果： 在边界附近，你的采样器有一半的时间都在“撞墙”，计算资源被大量浪费。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 设定目标：指数分布 (必须 &gt; 0)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">target_pi</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>  <span style="color:#75715e"># 边界！</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 模拟参数</span>
+</span></span><span style="display:flex;"><span>current_x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>  <span style="color:#75715e"># 当前位置非常靠近边界</span>
+</span></span><span style="display:flex;"><span>sigma <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>      <span style="color:#75715e"># 步长比较大</span>
+</span></span><span style="display:flex;"><span>n_trials <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>  <span style="color:#75715e"># 尝试提议 1000 次</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rejected_by_wall <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>valid_proposals <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;--- 开始模拟：当前位置 x = </span><span style="color:#e6db74">{</span>current_x<span style="color:#e6db74">}</span><span style="color:#e6db74"> ---&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 看看“对称提议”会发生什么</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_trials):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 对称的高斯提议 (Symmetric Gaussian Proposal)</span>
+</span></span><span style="display:flex;"><span>    proposal_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(current_x, sigma)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 检查是否“撞墙”</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> proposal_x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        rejected_by_wall <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        valid_proposals <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;尝试总次数: </span><span style="color:#e6db74">{</span>n_trials<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;撞墙次数 (跳到负数区): </span><span style="color:#e6db74">{</span>rejected_by_wall<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;有效提议次数: </span><span style="color:#e6db74">{</span>valid_proposals<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;⚠️ 浪费率: </span><span style="color:#e6db74">{</span>rejected_by_wall <span style="color:#f92672">/</span> n_trials <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span><span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">%&#34;</span>)
+</span></span></code></pre></div><pre><code>--- 开始模拟：当前位置 x = 0.1 ---
+尝试总次数: 1000
+撞墙次数 (跳到负数区): 451
+有效提议次数: 549
+⚠️ 浪费率: 45.1%
+</code></pre>
+<p><strong>我们想要什么？</strong></p>
+<p>我们希望有一个“聪明的向导”，在边界附近时，能自动建议我们：“嘿，后面是墙，我们只往正方向跳吧！”这就需要一个不对称的分布（比如对数正态分布 Log-Normal），它只会生成正数。</p>
+<h3 id="痛点-2高维空间的迷路-the-high-dim-maze">痛点 2：高维空间的迷路 (The High-Dim Maze)</h3>
+<p>在二维平面上，“醉汉随机乱跳”可能还能凑合。但在 100 维空间里，随机乱跳几乎等于找死。</p>
+<ul>
+<li>Metropolis 的尴尬： 它的 $Q$ 是盲目的。它不知道哪里是山峰（高概率区）。它只是向四周均匀地发射探测器。</li>
+<li>结果： 在高维空间，绝大多数方向都是“下坡路”（概率极低）。如果你盲目乱跳，你的提议会被疯狂拒绝，导致接受率极低，采样器卡在原地不动。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_simulation</span>(dim):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 目标：标准正态分布</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 提议：对称的高斯游走</span>
+</span></span><span style="display:flex;"><span>    n_steps <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>    current_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(dim) <span style="color:#75715e"># 从原点出发</span>
+</span></span><span style="display:flex;"><span>    accepted <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    step_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#75715e"># 固定的步长</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_steps):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 1. 盲目地向四周随机跳一步 (Symmetric)</span>
+</span></span><span style="display:flex;"><span>        proposal_x <span style="color:#f92672">=</span> current_x <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0</span>, step_size, size<span style="color:#f92672">=</span>dim)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 2. 计算接受率 (Metropolis 简化版)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># log 形式计算防止数值溢出</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># log_ratio = -0.5 * (new^2 - old^2)</span>
+</span></span><span style="display:flex;"><span>        log_ratio <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (np<span style="color:#f92672">.</span>sum(proposal_x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>sum(current_x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 接受/拒绝</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>log(np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand()) <span style="color:#f92672">&lt;</span> log_ratio:
+</span></span><span style="display:flex;"><span>            current_x <span style="color:#f92672">=</span> proposal_x
+</span></span><span style="display:flex;"><span>            accepted <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> accepted <span style="color:#f92672">/</span> n_steps
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;--- 高维空间的迷路测试 (固定步长 0.5) ---&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 测试 2D</span>
+</span></span><span style="display:flex;"><span>acc_rate_2d <span style="color:#f92672">=</span> run_simulation(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;维度 = 2   时的接受率: </span><span style="color:#e6db74">{</span>acc_rate_2d <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span><span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">% (非常健康)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 测试 100D</span>
+</span></span><span style="display:flex;"><span>acc_rate_100d <span style="color:#f92672">=</span> run_simulation(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;维度 = 100 时的接受率: </span><span style="color:#e6db74">{</span>acc_rate_100d <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span><span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">% (几乎卡死)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">结论：在高维空间，如果不使用梯度指引方向，盲目乱跳几乎总是会被拒绝。&#34;</span>)
+</span></span></code></pre></div><pre><code>--- 高维空间的迷路测试 (固定步长 0.5) ---
+维度 = 2   时的接受率: 72.6% (非常健康)
+维度 = 100 时的接受率: 0.0% (几乎卡死)
+
+结论：在高维空间，如果不使用梯度指引方向，盲目乱跳几乎总是会被拒绝。
+</code></pre>
+<p><strong>我们想要什么？</strong></p>
+<p>我们希望利用 <strong>梯度 (Gradient)</strong> 信息。如果知道东边是上坡，我们就让 $Q$ 往东跳的概率大一点（比如 80%），往西跳的概率小一点（20%）。这显然打破了对称性：$Q(A \to B) \neq Q(B \to A)$。</p>
+<h2 id="核心冲突不对称带来的流量危机">核心冲突：不对称带来的“流量危机”</h2>
+<p>那么，如果现在我们决定引入“不对称”的 $Q$（比如我们偏向于往山顶跳）。</p>
+<p>但这带来了一个严重的数学危机：<strong>细致平衡 (Detailed Balance) 被破坏了</strong>。</p>
+<p>让我们想象两个城市：<strong>低城 (Low City, A)</strong> 和 <strong>高城 (High City, B)</strong>。</p>
+<ol>
+<li>原来的 Metropolis (对称)：
+<ul>
+<li>路修得一样宽。从 A 去 B 的车道，和从 B 回 A 的车道一样多。</li>
+<li>系统靠 $\pi(B) > \pi(A)$ 这个自然吸引力来调节人口。</li>
+</ul>
+</li>
+<li>现在的 MH (不对称/有偏见)：
+<ul>
+<li>你为了让小人更快爬山，你人为地修了一条从 A 到 B 的高速公路（$Q(B|A)$ 很大）。</li>
+<li>同时，你把从 B 回 A 的路变成了羊肠小道（$Q(A|B)$ 很小）。</li>
+</ul>
+</li>
+</ol>
+<p>后果：如果不加干预，所有人都会顺着高速公路涌向 B，并且很难从 B 回来。最终，系统在 B 处积压的人口会远超 $\pi(B)$ 应有的比例。你的采样结果这就 <strong>失真了（Over-represented the high probability region）</strong>。</p>
+<h2 id="-破局思路">💡 破局思路</h2>
+<p>我们想要“不对称提议”带来的效率（不撞墙、指引方向），但又不想失去“细致平衡”带来的准确性。</p>
+<p><strong>怎么办？</strong></p>
+<p>既然 $Q$（提议）这边的交通流已经变得不平衡了（去程容易回程难），我们就必须在 $\alpha$ (接受率/海关) 那里找补回来。</p>
+<ul>
+<li>如果去程的路太顺了（$Q$ 偏大），那海关（$\alpha$）就要严一点，多拒签一些人。</li>
+<li>如果回程的路太难走（$Q$ 偏小），那海关（$\alpha$）就要宽一点，多放行一些人。</li>
+</ul>
+<p>这就是 Metropolis-Hastings 算法诞生的那一刻：<strong>通过修改接受率公式，来抵消提议分布的不对称性。</strong></p>
+<h1 id="哈斯廷斯的修正-the-hastings-correction">哈斯廷斯的修正 (The Hastings Correction)</h1>
+<h2 id="核心公式从-metropolis-到-mh">核心公式：从 Metropolis 到 MH</h2>
+<p>回顾一下，我们的目标是构造一个满足 细致平衡 的马尔可夫链：
+</p>
+$$\pi(x) \cdot Q(x \to x') \cdot \alpha(x \to x') = \pi(x') \cdot Q(x' \to x) \cdot \alpha(x' \to x)$$<p>
+(当前概率 $\times$ 提议概率 $\times$ 接受率 = 逆向的三个量)</p>
+<p>在 Metropolis 中，因为 $Q$ 是对称的（$Q(x \to x') = Q(x' \to x)$），中间那一项直接消掉了。</p>
+<p>但在 MH 中，因为 $Q$ 不对称，我们必须把 $Q$ 保留下来。经过推导，Hastings 给出的新的接受率公式如下：
+</p>
+$$\alpha = \min\left(1, \underbrace{\frac{\pi(x_{new})}{\pi(x_{old})}}_{\text{目标比率}} \times \underbrace{\frac{Q(x_{old}|x_{new})}{Q(x_{new}|x_{old})}}_{\text{哈斯廷斯修正项}} \right)$$<p>这个新增的 修正项 (Correction Term)：</p>
+<ul>
+<li>分母 ($Q_{new}|Q_{old}$)：是正向跳过去的概率。</li>
+<li>分子 ($Q_{old}|Q_{new}$)：是逆向跳回来的概率。</li>
+</ul>
+<p>这个修正项的意思是：“如果你跳过去很容易，但跳回来很难，那我就要降低你的通过率，以此来维持平衡。”</p>
+<h2 id="直观理解城市与高速公路-">直观理解：城市与高速公路 🏙️🛣️</h2>
+<p>用一个 **“人口流动模型”**来类比。场景设定如下：</p>
+<ul>
+<li>城市 A (小镇)： 目标人口 $\pi(A) = 100$。</li>
+<li>城市 B (大都会)： 目标人口 $\pi(B) = 200$。</li>
+<li>平衡目标： 我们希望 B 的人口始终是 A 的 2 倍 ($\frac{\pi(B)}{\pi(A)} = 2$)。</li>
+</ul>
+<p>不对称的道路 ($Q$)。现在，你设计了一个极其不对称的交通系统：</p>
+<ul>
+<li>A $\to$ B (高速公路)： 非常容易走。$Q(B|A) = 0.9$ (90% 的人都想去大城市)。</li>
+<li>B $\to$ A (泥泞小路)： 非常难走。$Q(A|B) = 0.1$ (只有 10% 的人想回小镇)。</li>
+</ul>
+<p>如果不加修正 (原始 Metropolis)：</p>
+<ul>
+<li>接受率只看人口吸引力：$\alpha = \min(1, \frac{200}{100}) = 1$。</li>
+<li>后果： 人们疯狂地通过高速公路涌向 B，但很少有人能从 B 回来。不久之后，B 的人口会爆炸，变成 A 的 100 倍，而不是 2 倍。<strong>细致平衡崩溃。</strong></li>
+</ul>
+<p>加上哈斯廷斯修正 (MH 算法)：让我们看看修正项是如何作为 <strong>“交通管制员”</strong> 介入的。</p>
+<p>情况 1：有人想从 A 去 B (走高速公路)
+</p>
+$$
+\alpha(A \to B) = \min\left(1, \frac{200}{100} \times \frac{0.1 \text{ (回程难)}}{0.9 \text{ (去程易)}} \right) \\
+\alpha = \min\left(1, 2 \times 0.11 \right) = \mathbf{0.22}
+$$<ul>
+<li>解读： 虽然 B 城市更有吸引力（2倍），但因为去 B 的路太容易了（不对称），如果放任不管就会失衡。所以海关狠狠地砍了一刀，只批准 22% 的人通行。</li>
+</ul>
+<p>情况 2：有人想从 B 回 A (走泥泞小路)
+</p>
+$$
+\alpha(B \to A) = \min\left(1, \frac{100}{200} \times \frac{0.9 \text{ (回程易)}}{0.1 \text{ (去程难)}} \right)\\
+\alpha = \min\left(1, 0.5 \times 9 \right) = \min(1, 4.5) = \mathbf{1}
+$$<ul>
+<li>解读： 虽然 A 城市没什么吸引力（0.5倍），但因为回 A 的路太难走了，几乎没人愿意尝试。所以海关规定：只要有人愿意回 A，统统放行！ (100% 接受)。</li>
+</ul>
+<p>结果：通过严控“容易的路”，放宽“艰难的路”，人口流动最终在 A 和 B 之间达成了完美的 1:2 动态平衡。</p>
+<h2 id="数学证明为什么它刚好能平衡the-proof">数学证明：为什么它刚好能平衡？(The Proof)</h2>
+<p>我们要证明以下等式成立（细致平衡）：
+</p>
+$$\pi(x) Q(x'|x) \alpha(x \to x') = \pi(x') Q(x|x') \alpha(x' \to x)$$<p>
+假设 $x'$ 是那个“更好”的状态（即 $\pi(x') Q(x|x') > \pi(x) Q(x'|x)$，这一边更有优势）。</p>
+<ol>
+<li>看左边 (从 $x$ 跳到 $x'$)：根据公式，这一侧处于劣势，所以接受率 $\alpha(x \to x') = 1$（完全接受）。$$\text{Left Flow} = \pi(x) \cdot Q(x'|x) \cdot 1$$</li>
+<li>看右边 (从 $x'$ 跳回 $x$)：这一侧处于优势，所以接受率需要修正：$$\alpha(x' \to x) = \frac{\pi(x)}{\pi(x')} \times \frac{Q(x'|x)}{Q(x|x')}$$那么右边的流量是：$$\text{Right Flow} = \pi(x') \cdot Q(x|x') \cdot \left( \frac{\pi(x)}{\pi(x')} \frac{Q(x'|x)}{Q(x|x')} \right)$$</li>
+<li>奇迹般的抵消：注意看右边的式子，$\pi(x')$ 和 $Q(x|x')$ 全部抵消了！$$\text{Right Flow} = \pi(x) \cdot Q(x'|x)$$</li>
+<li>结论：$$\text{Left Flow} = \text{Right Flow}$$</li>
+</ol>
+<p>证毕。✅</p>
+<h1 id="实战中的--the-choice-of-proposals">实战中的 $Q$ (The Choice of Proposals)</h1>
+<p>哈斯廷斯修正公式意味着，只要算出那个修正项，就可以使用任何提议分布 $Q$！</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">你的困境</th>
+          <th style="text-align: left">推荐的 $Q$</th>
+          <th style="text-align: left">修正项 $\frac{Q(x\|x')}{Q(x'\|x)}$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">标准情况 (无边界)</td>
+          <td style="text-align: left">对称高斯游走 (Symmetric Random Walk)</td>
+          <td style="text-align: left">1 (不用算，直接消掉)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">有边界约束 (如 $x > 0$)</td>
+          <td style="text-align: left">对数正态游走 (Log-Normal Walk)</td>
+          <td style="text-align: left">$\frac{x_{new}}{x_{old}}$ (极为简单)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">高维复杂地形</td>
+          <td style="text-align: left">MALA / HMC (Langevin Dynamics)</td>
+          <td style="text-align: left">复杂公式 (但计算机能算)</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="独立采样器-independent-sampler">独立采样器 (Independent Sampler)</h2>
+<blockquote>
+<p>完全不看脚下，直接根据猜测的新分布乱跳。</p></blockquote>
+<p>这是最极端的一种设计。</p>
+<ul>
+<li>规则： $Q(x_{new} | x_{old}) = Q(x_{new})$。无论你现在在哪，我都完全忽略，$x_{new}$ 是从一个固定的全局分布里抽出来的。</li>
+<li>适用场景： 当你对目标分布 $\pi$ 已经有一个大概的了解，能构造出一个跟 $\pi$ 长得很像的 $Q$ 时。</li>
+<li>修正项简化：$$\frac{Q(x_{old})}{Q(x_{new})}$$</li>
+<li>接受率变为：$$\alpha = \min\left(1, \frac{\pi(x_{new}) / Q(x_{new})}{\pi(x_{old}) / Q(x_{old})} \right) = \min\left(1, \frac{w_{new}}{w_{old}} \right)$$(这里的 $w = \pi/Q$ 叫权重)</li>
+<li>评价：
+<ul>
+<li>优点： 如果 $Q$ 选得好（跟 $\pi$ 很像），收敛速度极快，几步就能遍历全图。</li>
+<li>缺点： 只要 $\pi$ 有一点点地方比 $Q$ “胖”（Q 覆盖不住的地方），算法就会在那里卡死极长时间。高维空间中极其危险。</li>
+</ul>
+</li>
+</ul>
+<h2 id="对数正态游走-log-normal-walk">对数正态游走 (Log-normal Walk)</h2>
+<blockquote>
+<p>专门用于处理必须为正数的变量（解决边界问题）。</p></blockquote>
+<p>我们不再用 $x_{new} = x_{old} + \text{Noise}$，而是用乘法或者对数空间的加法。</p>
+<ul>
+<li>规则：$$\ln(x_{new}) \sim \text{Normal}(\ln(x_{old}), \sigma^2)$$也就是说，我们在“对数尺度”上进行对称游走，但在“原始尺度”上，这完全是不对称的。</li>
+<li>为什么是不对称的？
+<ul>
+<li>从 1 跳到 2 的概率，不等于 从 2 跳到 1 的概率。</li>
+<li>对数正态分布的形状是“左边陡，右边拖尾”。</li>
+<li>数学推导（省略过程，直接给结论）：$Q(x'|x)$ 正比于 $\frac{1}{x'}$。</li>
+</ul>
+</li>
+<li>修正项（非常优雅）：$$\frac{Q(x_{old}|x_{new})}{Q(x_{new}|x_{old})} = \frac{x_{new}}{x_{old}}$$</li>
+<li>直观理解修正项：
+<ul>
+<li>因为对数正态分布倾向于往“大数值”的方向扩散（右偏）。</li>
+<li>如果你提议了一个很大的 $x_{new}$（跳得远了），修正项 $\frac{x_{new}}{x_{old}} > 1$ 会奖励这次跳跃，增加接受率。</li>
+<li>这完美抵消了分布本身的偏差。</li>
+</ul>
+</li>
+</ul>
+<h2 id="mala-metropolis-adjusted-langevin-algorithm">MALA (Metropolis-Adjusted Langevin Algorithm)</h2>
+<blockquote>
+<p>利用梯度信息，让 $Q$ 总是倾向于往概率高的地方“漂移”。</p></blockquote>
+<p>这是现代机器学习（如贝叶斯神经网络）中最常用的高级策略。它是解决第一阶段“高维迷路”痛点的神器。</p>
+<ul>
+<li>直觉：与其盲目乱跳，不如算一下目标分布的梯度 $\nabla \log \pi(x)$（地形的坡度）。
+<ul>
+<li>如果东边是上坡，那我就给 $Q$ 加一个向东的 <strong>“漂移力” (Drift)</strong>。</li>
+</ul>
+</li>
+<li>规则：$$x_{new} = x_{old} + \underbrace{\frac{\tau}{2} \nabla \log \pi(x_{old})}_{\text{向高处漂移}} + \underbrace{\sqrt{\tau} \xi}_{\text{随机噪声}}$$(这就好比：我想往山顶走，但我还是喝醉了，所以走得歪歪扭扭)</li>
+<li><strong>为什么需要 MH 修正？</strong> 虽然是往高处走，但因为我们需要把连续的时间离散化（步长 $\tau$），这会引入误差。如果不加修正，最后采样的分布会略微偏离真实的 $\pi$。MH 的修正项在这里起到了“纠错”的作用，确保即使步长没设好，最终结果也是精确的 $\pi$。</li>
+</ul>
+<h1 id="代码实战-python-implementation">代码实战 (Python Implementation)</h1>
+<ul>
+<li>任务： 模拟一个经典的 <strong>Gamma 分布</strong>（形状类似钟形，但左边被 0 截断，右边拖尾）</li>
+<li>对比实验：
+<ul>
+<li>方案 A：Naive Metropolis。对称高斯游走（虽然对，但在边界处效率低）。</li>
+<li>方案 B：Broken MH (错误示范)。用了不对称的 Log-Normal 提议，但是忘记加修正项。
+<ul>
+<li>预期后果： 因为 Log-Normal 倾向于往数值大的方向跳，如果不加修正，样本会整体向右偏移（偏大）。</li>
+</ul>
+</li>
+<li>方案 C：orrect MH (正确示范): 用 Log-Normal 提议，并且加上修正项。
+<ul>
+<li>预期后果： 完美贴合。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. 设定目标分布 ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Gamma 分布 (必须 &gt; 0)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">target_pi</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 使用 np.where 修复之前的报错</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>where(x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, x <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>x <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 场景 A: Naive Metropolis (撞墙选手) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_naive_metropolis</span>(n_samples, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>):
+</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    current_x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>    wall_hits <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>  <span style="color:#75715e"># 计数器：记录撞墙次数</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_samples):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 对称提议：可能跳到负数</span>
+</span></span><span style="display:flex;"><span>        proposal_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(current_x, sigma)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 撞墙检查</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> proposal_x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            wall_hits <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># 记录撞墙</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, target_pi(proposal_x) <span style="color:#f92672">/</span> target_pi(current_x))
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>            current_x <span style="color:#f92672">=</span> proposal_x
+</span></span><span style="display:flex;"><span>        samples<span style="color:#f92672">.</span>append(current_x)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> samples, wall_hits
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 场景 B: Broken MH (有偏见，无修正) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_broken_mh</span>(n_samples, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>):
+</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    current_x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># LogNormal 永远大于 0，所以不会撞墙，不需要 wall_hits 计数</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_samples):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 不对称提议 (倾向于变大)</span>
+</span></span><span style="display:flex;"><span>        proposal_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>lognormal(np<span style="color:#f92672">.</span>log(current_x), sigma)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># ❌ 错误核心：只计算概率比，忘记乘修正项！</span>
+</span></span><span style="display:flex;"><span>        ratio_pi <span style="color:#f92672">=</span> target_pi(proposal_x) <span style="color:#f92672">/</span> target_pi(current_x)
+</span></span><span style="display:flex;"><span>        alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, ratio_pi) 
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>            current_x <span style="color:#f92672">=</span> proposal_x
+</span></span><span style="display:flex;"><span>        samples<span style="color:#f92672">.</span>append(current_x)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> samples
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 场景 C: Correct MH (有偏见，有修正) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_correct_mh</span>(n_samples, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>):
+</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    current_x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_samples):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 不对称提议</span>
+</span></span><span style="display:flex;"><span>        proposal_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>lognormal(np<span style="color:#f92672">.</span>log(current_x), sigma)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># ✅ 正确核心：加上 Hastings 修正项 (new / old)</span>
+</span></span><span style="display:flex;"><span>        ratio_pi <span style="color:#f92672">=</span> target_pi(proposal_x) <span style="color:#f92672">/</span> target_pi(current_x)
+</span></span><span style="display:flex;"><span>        correction <span style="color:#f92672">=</span> proposal_x <span style="color:#f92672">/</span> current_x 
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, ratio_pi <span style="color:#f92672">*</span> correction)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>            current_x <span style="color:#f92672">=</span> proposal_x
+</span></span><span style="display:flex;"><span>        samples<span style="color:#f92672">.</span>append(current_x)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> samples
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 4. 运行模拟并打印数据 ---</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+</span></span><span style="display:flex;"><span>sigma_val <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;--- 正在运行模拟 (N=</span><span style="color:#e6db74">{</span>N<span style="color:#e6db74">}</span><span style="color:#e6db74">) ---&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 运行 A</span>
+</span></span><span style="display:flex;"><span>samples_naive, walls <span style="color:#f92672">=</span> run_naive_metropolis(N, sigma_val)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[A. Naive Metropolis]&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;❌ 撞墙次数: </span><span style="color:#e6db74">{</span>walls<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;📉 算力浪费率: </span><span style="color:#e6db74">{</span>walls<span style="color:#f92672">/</span>N<span style="color:#f92672">*</span><span style="color:#ae81ff">100</span><span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">% (这些计算完全白费了)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 运行 B</span>
+</span></span><span style="display:flex;"><span>samples_broken <span style="color:#f92672">=</span> run_broken_mh(N, sigma_val)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[B. Broken MH]&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ 撞墙次数: 0 (天生免疫)&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;⚠️ 这里的平均值会偏大，因为没有修正项&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 运行 C</span>
+</span></span><span style="display:flex;"><span>samples_correct <span style="color:#f92672">=</span> run_correct_mh(N, sigma_val)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[C. Correct MH]&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ 撞墙次数: 0&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;🎉 既不浪费算力，分布也是对的&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 5. 绘图对比 ---</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">正在绘图...&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>x_true <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>y_true <span style="color:#f92672">=</span> target_pi(x_true)
+</span></span><span style="display:flex;"><span>y_true <span style="color:#f92672">=</span> y_true <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>trapz(y_true, x_true) <span style="color:#75715e"># 归一化</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 图 1</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples_naive, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">80</span>, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Samples&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_true, y_true, <span style="color:#e6db74">&#39;r-&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True Target&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;A. Naive (Symmetric)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Wasted </span><span style="color:#e6db74">{</span>walls<span style="color:#f92672">/</span>N<span style="color:#f92672">*</span><span style="color:#ae81ff">100</span><span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">% Calc&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 图 2</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples_broken, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">80</span>, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Biased Samples&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_true, y_true, <span style="color:#e6db74">&#39;r-&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True Target&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;B. Broken MH (No Correction)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">⚠️ Curve Shifted Right!&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 图 3</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>hist(samples_correct, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">80</span>, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Correct Samples&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_true, y_true, <span style="color:#e6db74">&#39;r-&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;True Target&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;C. Correct MH (With Correction)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Perfect Fit&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>--- 正在运行模拟 (N=100000) ---
+
+[A. Naive Metropolis]
+❌ 撞墙次数: 2606
+📉 算力浪费率: 2.61% (这些计算完全白费了)
+
+[B. Broken MH]
+✅ 撞墙次数: 0 (天生免疫)
+⚠️ 这里的平均值会偏大，因为没有修正项
+
+[C. Correct MH]
+✅ 撞墙次数: 0
+🎉 既不浪费算力，分布也是对的
+
+正在绘图...
+
+
+/var/folders/mx/684cy0qs5zd3c_pdx4wy4pkc0000gn/T/ipykernel_28347/4241814712.py:99: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  y_true = y_true / np.trapz(y_true, x_true) # 归一化
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/7_metropolis_hastings/7_mcmc_metropolis-hastings_18_2.png" alt="png"></p>
+<p><strong>关于撞墙次数：</strong></p>
+<ul>
+<li>Naive 方法在 $x$ 接近 0 的时候（比如 $x=0.5$），一半的提议都会跳到负数去。这些计算完全是无用功。</li>
+<li>而 MH 方法利用 Log-Normal 提议，每次提议都是有效的正数。</li>
+</ul>
+<p><strong>正确性的验证 (Correctness)</strong></p>
+<ul>
+<li>图B：Broken MH (橙色)
+<ul>
+<li>直方图明显向左偏移（堆积在 0 附近），而红色理论曲线在右边。</li>
+<li>数学解释
+<ul>
+<li>当你试图往右跳时 (x 变大，例如 1 -&gt; 2)：修正项 $= 2/1 = 2$ (大于 1)。
+<ul>
+<li>这意味着：修正项原本的作用是 <strong>“奖励”</strong> 往右跳的行为，增加接受率。</li>
+<li>Broken 算法删掉了这个奖励 $\to$导致往右跳变得比理论上更难 $\to$ 样本很难去右边。</li>
+</ul>
+</li>
+<li>当你试图往左跳时 (x 变小，例如 2 -&gt; 1)：修正项 $= 1/2 = 0.5$ (小于 1)。
+<ul>
+<li>这意味着：修正项原本的作用是**“惩罚”**往左跳的行为，降低接受率。</li>
+<li>Broken 算法删掉了这个惩罚 $\to$ 导致往左跳变得太容易了 $\to$ 样本更容易回到左边。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>但加上修正项后，你可以看到绿色直方图（图C）完美地贴合了红色曲线。
+<ul>
+<li>这意味着：哈斯廷斯修正项成功地抵消了不对称提议带来的偏差！</li>
+</ul>
+</li>
+</ul>
+<h1 id="mcmc-的诊断与调优-diagnostics--tuning">MCMC 的诊断与调优 (Diagnostics &amp; Tuning)</h1>
+<h2 id="核心概念三个体检指标">核心概念：三个体检指标</h2>
+<h3 id="轨迹图-trace-plot--mcmc-的心电图">轨迹图 (Trace Plot) —— MCMC 的心电图</h3>
+<p>轨迹图的横轴是 <strong>迭代次数 (Time)</strong>，纵轴是 <strong>采样值 (Value)</strong>。它记录了小人走的每一步。</p>
+<ul>
+<li>✅ 好的轨迹（毛毛虫）： 上下跳动非常剧烈，没有明显的趋势，看起来像一条毛茸茸的毛毛虫。这说明小人充分遍历了整个空间。</li>
+<li>❌ 坏的轨迹（蛇）： 缓慢地游走，或者长时间卡在一个地方不动。说明混合（Mixing）很差。</li>
+</ul>
+<h3 id="预热-burn-in--丢弃垃圾时间">预热 (Burn-in) —— 丢弃垃圾时间</h3>
+<p>如果你把小人随机扔在了一个离山峰很远的地方（比如山峰在 0，你从 1000 开始跑）。小人需要花很多步才能从 1000 慢慢走到 0。这段“赶路”的时间，采样的并不是目标分布，而是过渡状态。</p>
+<ul>
+<li>操作： 我们通常直接丢弃前 1000 或 5000 个样本，这一步叫 <strong>Burn-in</strong>。</li>
+</ul>
+<h3 id="接受率-acceptance-rate--步长的金发姑娘原则">接受率 (Acceptance Rate) —— 步长的金发姑娘原则</h3>
+<p>步长 $\sigma$ 决定了接受率：</p>
+<ul>
+<li>太小（胆小鬼）： 接受率 $\approx 99\%$。大家都在动，但走不远。轨迹图会像一条<strong>平滑的蛇</strong>。</li>
+<li>太大（莽夫）： 接受率 $\approx 1\%$。总是被拒绝。轨迹图会像<strong>方波</strong>（长时间平线，偶尔跳一下）。</li>
+<li>完美（黄金区）： 理论证明，对于高维高斯分布，最佳接受率在 23.4% 左右（一维可以在 40%-50%）。轨迹图是<strong>毛毛虫</strong>。</li>
+</ul>
+<h2 id="python-代码实战诊断生病的链">Python 代码实战：诊断“生病”的链</h2>
+<p>我们要模拟一个 <strong>标准正态分布</strong>（中心在 0），但我们将展示两种病态和一种健康的情况。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 目标：标准正态分布</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">target_pi</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 通用的 Metropolis 采样器</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_metropolis</span>(n_samples, start_x, sigma):
+</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    current_x <span style="color:#f92672">=</span> start_x
+</span></span><span style="display:flex;"><span>    accepted_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n_samples):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 对称提议</span>
+</span></span><span style="display:flex;"><span>        proposal_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(current_x, sigma)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 计算接受率</span>
+</span></span><span style="display:flex;"><span>        alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, target_pi(proposal_x) <span style="color:#f92672">/</span> target_pi(current_x))
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>            current_x <span style="color:#f92672">=</span> proposal_x
+</span></span><span style="display:flex;"><span>            accepted_count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        samples<span style="color:#f92672">.</span>append(current_x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    acc_rate <span style="color:#f92672">=</span> accepted_count <span style="color:#f92672">/</span> n_samples
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(samples), acc_rate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 实验设置 ---</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>
+</span></span><span style="display:flex;"><span>start_bad <span style="color:#f92672">=</span> <span style="color:#ae81ff">20.0</span>  <span style="color:#75715e"># 离中心(0)很远，模拟初始化不当</span>
+</span></span><span style="display:flex;"><span>start_good <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 病态 A: 步长太小 (胆小鬼) + 初始位置差</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sigma=0.1, start=20</span>
+</span></span><span style="display:flex;"><span>samples_slow, acc_slow <span style="color:#f92672">=</span> run_metropolis(N, start_bad, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 病态 B: 步长太大 (莽夫)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sigma=50, start=0</span>
+</span></span><span style="display:flex;"><span>samples_stuck, acc_stuck <span style="color:#f92672">=</span> run_metropolis(N, start_good, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">50.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 健康 C: 步长适中 + 初始位置好</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sigma=1.0, start=0</span>
+</span></span><span style="display:flex;"><span>samples_good, acc_good <span style="color:#f92672">=</span> run_metropolis(N, start_good, sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 绘图诊断 ---</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 图 A: 步长太小 (Slow Mixing)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(samples_slow, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;A. Step Size Too Small (Sigma=0.1) - Acc Rate: </span><span style="color:#e6db74">{</span>acc_slow<span style="color:#e6db74">:</span><span style="color:#e6db74">.1%</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Sample Value&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">0</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;r&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Target Mean (0)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axvline(<span style="color:#ae81ff">750</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;k&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;:&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Burn-in Cutoff?&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">15</span>, <span style="color:#e6db74">&#34;Drifting slowly...&#34;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, fontweight<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bold&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 图 B: 步长太大 (Stuck)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(samples_stuck, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;purple&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;B. Step Size Too Large (Sigma=50) - Acc Rate: </span><span style="color:#e6db74">{</span>acc_stuck<span style="color:#e6db74">:</span><span style="color:#e6db74">.1%</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Sample Value&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">0</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;r&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Target Mean (0)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;Stuck (Flat lines)&#34;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, fontweight<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bold&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 图 C: 健康 (Good Mixing)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(samples_good, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;C. Optimal Step Size (Sigma=1.0) - Acc Rate: </span><span style="color:#e6db74">{</span>acc_good<span style="color:#e6db74">:</span><span style="color:#e6db74">.1%</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Sample Value&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Iteration&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">0</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;r&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Target Mean (0)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;Fuzzy Caterpillar (Healthy)&#34;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>, fontweight<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bold&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/7_metropolis_hastings/7_mcmc_metropolis-hastings_23_0.png" alt="png"></p>
+<p><strong>图 A：步长太小 (The Snake)</strong></p>
+<ul>
+<li>表现： 接受率极高（可能 &gt;90%）。</li>
+<li>轨迹形态： 线条虽然连续，但像蛇一样缓慢爬行。</li>
+<li>Burn-in 问题： 你会看到它从 20 开始，花了很久很久（可能 500-1000 步）才慢慢爬到 0 附近。</li>
+<li>诊断： 这种链的相关性太强，收敛极慢。你需要增大步长，并且丢弃掉前面爬坡的数据 (Burn-in)。</li>
+</ul>
+<p><strong>图 B：步长太大 (The Square Wave)</strong></p>
+<ul>
+<li>表现： 接受率极低（可能 &lt;5%）。</li>
+<li>轨迹形态： 像方波或者楼梯。长时间是一条直线（一直被拒绝，值没变），突然跳一下，又是一条直线。</li>
+<li>诊断： 这种链几乎没采到几个有效样本，效率极低。你需要减小步长。</li>
+</ul>
+<p><strong>图 C：健康 (The Caterpillar) 🐛</strong></p>
+<ul>
+<li>表现： 接受率适中（30% - 50%）。</li>
+<li>轨迹形态： 毛茸茸的毛毛虫。你看不到明显的趋势，它围绕着中心 0 剧烈地震荡。</li>
+<li>诊断： 这就是完美的 MCMC 链！这样的样本才是独立且有效的。</li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://localhost:1313/zh-cn/tags/mcmc/">MCMC</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/mh%E7%AE%97%E6%B3%95/">MH算法</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E5%93%88%E6%96%AF%E5%BB%B7%E6%96%AF%E4%BF%AE%E6%AD%A3/">哈斯廷斯修正</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E7%BB%86%E8%87%B4%E5%B9%B3%E8%A1%A1/">细致平衡</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/">贝叶斯统计</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+    <li>
+      <a
+        href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis-hastings%2f&amp;text=Metropolis-Hastings%20%e7%ae%97%e6%b3%95%ef%bc%9a%e6%89%93%e7%a0%b4%e5%af%b9%e7%a7%b0%e6%80%a7%e7%9a%84%e6%9d%9f%e7%bc%9a&amp;via="
+        target="_blank"
+        title="Share on Twitter"
+        class="share-btn twitter"
+      >
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis-hastings%2f"
+        target="_blank"
+        title="Share on Facebook"
+        class="share-btn facebook"
+      >
+        <i class="fab fa-facebook"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis-hastings%2f&amp;appkey=&amp;title=Metropolis-Hastings%20%e7%ae%97%e6%b3%95%ef%bc%9a%e6%89%93%e7%a0%b4%e5%af%b9%e7%a7%b0%e6%80%a7%e7%9a%84%e6%9d%9f%e7%bc%9a&amp;pic="
+        target="_blank"
+        title="Share on Weibo"
+        class="share-btn weibo"
+      >
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="openWechatModal('http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/metropolis-hastings\/')"
+        title="Share on WeChat"
+        class="share-btn wechat"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fmetropolis-hastings%2f&amp;title=Metropolis-Hastings%20%e7%ae%97%e6%b3%95%ef%bc%9a%e6%89%93%e7%a0%b4%e5%af%b9%e7%a7%b0%e6%80%a7%e7%9a%84%e6%9d%9f%e7%bc%9a"
+        target="_blank"
+        title="Share on LinkedIn"
+        class="share-btn linkedin"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="copyToClipboard('http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/metropolis-hastings\/', 'Metropolis-Hastings 算法：打破对称性的束缚')"
+        title="Copy Link"
+        class="share-btn copy-link"
+      >
+        <i class="fas fa-link"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div id="wechat-modal" class="wechat-modal">
+  <div class="wechat-modal-content">
+    <span class="wechat-close" onclick="closeWechatModal()">&times;</span>
+    <h4>
+      Scan to Share <br />
+      微信扫一扫分享
+    </h4>
+    <div id="qrcode" class="qrcode-container"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(url, title) {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        
+        var existingToast = document.getElementById("share-toast");
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        var toast = document.createElement("div");
+        toast.id = "share-toast";
+        toast.innerText = "Link copied to clipboard!";
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = "rgba(0,0,0,0.8)";
+        toast.style.color = "#fff";
+        toast.style.padding = "10px 20px";
+        toast.style.borderRadius = "5px";
+        toast.style.zIndex = "10000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease-in-out";
+
+        document.body.appendChild(toast);
+
+        
+        void toast.offsetWidth;
+
+        toast.style.opacity = "1";
+
+        setTimeout(function () {
+          toast.style.opacity = "0";
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 500);
+        }, 3000);
+      },
+      function (err) {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
+  function openWechatModal(url) {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "flex";
+    var qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    var img = document.createElement("img");
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      encodeURIComponent(url);
+    img.style.width = "200px";
+    img.style.height = "200px";
+    qrcodeContainer.appendChild(img);
+  }
+
+  function closeWechatModal() {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "none";
+  }
+
+  
+  window.onclick = function (event) {
+    var modal = document.getElementById("wechat-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">也可以看看</h4>
+                  <ul>
+                
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/gibbs-sampling/">Gibbs 采样详解：分而治之的降维智慧</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/metropolis/">Metropolis 算法详解：从原理到 Python 实现</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/" data-toggle="tooltip" data-placement="top" title="Metropolis 算法详解：从原理到 Python 实现">&larr; 前一篇</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/" data-toggle="tooltip" data-placement="top" title="Gibbs 采样详解：分而治之的降维智慧">后一篇 &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么要不对称-the-motivation">为什么要“不对称”？ (The Motivation)</a>
+      <ul>
+        <li><a href="#现实痛点">现实痛点</a>
+          <ul>
+            <li><a href="#痛点-1边界问题-the-wall-problem">痛点 1：边界问题 (The &ldquo;Wall&rdquo; Problem)</a></li>
+            <li><a href="#痛点-2高维空间的迷路-the-high-dim-maze">痛点 2：高维空间的迷路 (The High-Dim Maze)</a></li>
+          </ul>
+        </li>
+        <li><a href="#核心冲突不对称带来的流量危机">核心冲突：不对称带来的“流量危机”</a></li>
+        <li><a href="#-破局思路">💡 破局思路</a></li>
+      </ul>
+    </li>
+    <li><a href="#哈斯廷斯的修正-the-hastings-correction">哈斯廷斯的修正 (The Hastings Correction)</a>
+      <ul>
+        <li><a href="#核心公式从-metropolis-到-mh">核心公式：从 Metropolis 到 MH</a></li>
+        <li><a href="#直观理解城市与高速公路-">直观理解：城市与高速公路 🏙️🛣️</a></li>
+        <li><a href="#数学证明为什么它刚好能平衡the-proof">数学证明：为什么它刚好能平衡？(The Proof)</a></li>
+      </ul>
+    </li>
+    <li><a href="#实战中的--the-choice-of-proposals">实战中的  (The Choice of Proposals)</a>
+      <ul>
+        <li><a href="#独立采样器-independent-sampler">独立采样器 (Independent Sampler)</a></li>
+        <li><a href="#对数正态游走-log-normal-walk">对数正态游走 (Log-normal Walk)</a></li>
+        <li><a href="#mala-metropolis-adjusted-langevin-algorithm">MALA (Metropolis-Adjusted Langevin Algorithm)</a></li>
+      </ul>
+    </li>
+    <li><a href="#代码实战-python-implementation">代码实战 (Python Implementation)</a></li>
+    <li><a href="#mcmc-的诊断与调优-diagnostics--tuning">MCMC 的诊断与调优 (Diagnostics &amp; Tuning)</a>
+      <ul>
+        <li><a href="#核心概念三个体检指标">核心概念：三个体检指标</a>
+          <ul>
+            <li><a href="#轨迹图-trace-plot--mcmc-的心电图">轨迹图 (Trace Plot) —— MCMC 的心电图</a></li>
+            <li><a href="#预热-burn-in--丢弃垃圾时间">预热 (Burn-in) —— 丢弃垃圾时间</a></li>
+            <li><a href="#接受率-acceptance-rate--步长的金发姑娘原则">接受率 (Acceptance Rate) —— 步长的金发姑娘原则</a></li>
+          </ul>
+        </li>
+        <li><a href="#python-代码实战诊断生病的链">Python 代码实战：诊断“生病”的链</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/zh-cn/">琼呀</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="http://localhost:1313/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+

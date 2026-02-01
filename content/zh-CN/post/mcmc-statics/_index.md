@@ -28,12 +28,18 @@ weight: 2
    - 为什么我们需要 MCMC？
    - 从马尔可夫链到抽样
    - 理论与直觉
-6. [Metropolis 算法](./metropolis/)
+6. [Metropolis 算法详解：从原理到 Python 实现](./metropolis/)
    - 核心困境：无法计算的归一化常数
    - 随机游走 Metropolis 算法详解
    - 高维分布中的采样表现与调参
-7. [Metropolis-Hastings 算法](./metropolis-hastings/)
-8. [Gibbs 采样详解](./gibbs/)
+7. [Metropolis-Hastings 算法：打破对称性的束缚](./metropolis-hastings/)
+   - 为什么我们需要“不对称”的提议？
+   - 哈斯廷斯修正项 (Hastings Correction) 的推导与直觉
+   - 实战案例：利用 Log-Normal 解决边界问题
+8. [Gibbs 采样详解：分而治之的降维智慧](./gibbs-sampling/)
+   - 高维困境与“曼哈顿漫步”直觉
+   - 及其数学原理：布鲁克引理 (Brook's Lemma)
+   - 离散与连续分布的 Python 代码实现
 9. [收敛性诊断](./convergence/)
 10. [Python 实战：MCMC 建模](./python/)
 

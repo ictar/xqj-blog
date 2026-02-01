@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>降维打击 on 琼呀</title>
+    <link>http://localhost:1313/zh-cn/tags/%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB/</link>
+    <description>Recent content in 降维打击 on 琼呀</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/tags/%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gibbs 采样详解：分而治之的降维智慧</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/</link>
+      <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/</guid>
+      <description>当高维空间让人无从下手时，Gibbs 采样采用了“各个击破”的策略。通过利用满条件分布，它将复杂的 N 维联合分布采样拆解为 N 个简单的 1 维采样。本文解析其直观直觉、数学证明（Brook&amp;rsquo;s Lemma）及代码实战。</description>
+    </item>
+  </channel>
+</rss>

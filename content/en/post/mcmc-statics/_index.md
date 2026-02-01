@@ -28,11 +28,17 @@ Welcome to the **Monte Carlo–Markov Chains Statistical Methods** series, where
    - Why do we need MCMC?
    - From Markov Chains to Sampling
    - Theory and Intuition
-6. [The Metropolis Algorithm](./metropolis/)
+6. [Metropolis Algorithm Explained: Implementation & Intuition](./metropolis/)
    - The Core Dilemma: Intractable Normalization Constants
    - Random Walk Metropolis Explained
    - Performance in High-Dimensional Distributions
-7. [The Metropolis-Hastings Algorithm](./metropolis-hastings/)
-8. [Gibbs Sampling Explained](./gibbs/)
+7. [The Metropolis-Hastings Algorithm: Breaking the Symmetry](./metropolis-hastings/)
+   - Why do we need "asymmetric" proposals?
+   - Derivation and intuition of the Hastings Correction
+   - Practical Case: Solving boundary problems with Log-Normal proposals
+8. [Gibbs Sampling Explained: The Wisdom of Divide and Conquer](./gibbs-sampling/)
+   - High-dimensional dilemmas and the "Manhattan Walk" intuition
+   - Mathematical principle: Brook's Lemma
+   - Python implementation for discrete and continuous distributions
 9. [Convergence Diagnostics](./convergence/)
 10. [MCMC in Practice with Python](./python/)
