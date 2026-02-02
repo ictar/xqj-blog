@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pincus定理 on 琼呀</title>
+    <link>http://localhost:1313/zh-cn/tags/pincus%E5%AE%9A%E7%90%86/</link>
+    <description>Recent content in Pincus定理 on 琼呀</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/tags/pincus%E5%AE%9A%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>随机优化算法详解：模拟退火与 Pincus 定理</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/</guid>
+      <description>当优化问题陷于局部最优的迷宫时，确定性算法往往束手无策。本文将带你进入随机优化的世界，探索如何将寻找最小能量的问题转化为寻找最大概率的问题。我们将深入剖析模拟退火算法（Simulated Annealing）的物理直觉与数学原理，通过动态可视化展示其“高温探索、低温锁定”的优雅机制，并详细推导 Pincus 定理，从数学上证明为何退火算法能找到全局最优解。</description>
+    </item>
+  </channel>
+</rss>

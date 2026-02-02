@@ -8,8 +8,15 @@
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/post/mcmc-statics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stochastic Optimization Explained: Simulated Annealing &amp; Pincus Theorem</title>
+      <link>http://localhost:1313/post/mcmc-statics/stochastic-optimization/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/stochastic-optimization/</guid>
+      <description>When optimization problems are trapped in the maze of local optima, deterministic algorithms are often helpless. This article takes you into the world of stochastic optimization, exploring how to transform the problem of finding minimum energy into finding maximum probability. We will delve into the physical intuition and mathematical principles of the Simulated Annealing algorithm, demonstrate its elegant mechanism of &amp;lsquo;high-temperature exploration, low-temperature locking&amp;rsquo; through dynamic visualization, and derive the Pincus Theorem in detail, mathematically proving why the annealing algorithm can find the global optimal solution.</description>
+    </item>
     <item>
       <title>Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent</title>
       <link>http://localhost:1313/post/mcmc-statics/deterministic-optimization/</link>

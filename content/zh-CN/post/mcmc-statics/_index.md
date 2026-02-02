@@ -45,7 +45,11 @@ weight: 2
    - 牛顿法 (Newton's Method) 与二阶近似
    - 坐标下降 (Coordinate Descent) 与 Gibbs 采样的联系
    - 最速下降法 (Steepest Descent) 的优缺点
-10. [收敛性诊断](./convergence/)
-11. [Python 实战：MCMC 建模](./python/)
+10. [随机优化算法详解：模拟退火与 Pincus 定理](./stochastic-optimization/)
+    - 从能量最小化到概率最大化：模拟退火的物理本质
+    - 高温探索与低温锁定：Metropolis 采样的另一种视角
+    - Pincus 定理：退火算法收敛到全局最优的数学证明
+11. [收敛性诊断](./convergence/)
+12. [Python 实战：MCMC 建模](./python/)
 
 ## 快速访问

@@ -1,0 +1,1211 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>Stochastic Optimization Explained: Simulated Annealing &amp; Pincus Theorem - </title>
+
+  <meta name="description" content="When optimization problems are trapped in the maze of local optima, deterministic algorithms are often helpless. This article takes you into the world of stochastic optimization, exploring how to transform the problem of finding minimum energy into finding maximum probability. We will delve into the physical intuition and mathematical principles of the Simulated Annealing algorithm, demonstrate its elegant mechanism of &lsquo;high-temperature exploration, low-temperature locking&rsquo; through dynamic visualization, and derive the Pincus Theorem in detail, mathematically proving why the annealing algorithm can find the global optimal solution.">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/post/mcmc-statics/stochastic-optimization/" />
+
+
+<meta name="keywords" content="Stochastic Optimization, Simulated Annealing, Optimization Algorithms, Machine Learning, Pincus Theorem, Python Implementation" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/post\/mcmc-statics\/stochastic-optimization\/",
+          "name": "Stochastic optimization explained simulated annealing \u0026 pincus theorem"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "Stochastic Optimization Explained: Simulated Annealing \u0026 Pincus Theorem",
+  "description" : "When optimization problems are trapped in the maze of local optima, deterministic algorithms are often helpless. This article takes you into the world of stochastic optimization, exploring how to transform the problem of finding minimum energy into finding maximum probability. We will delve into the physical intuition and mathematical principles of the Simulated Annealing algorithm, demonstrate its elegant mechanism of \u0026lsquo;high-temperature exploration, low-temperature locking\u0026rsquo; through dynamic visualization, and derive the Pincus Theorem in detail, mathematically proving why the annealing algorithm can find the global optimal solution.",
+  "inLanguage" : "en",
+  "wordCount":  2792 ,
+  "datePublished" : "2026-02-02T00:00:00\u002b00:00",
+  "dateModified" : "2026-02-02T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "Stochastic Optimization, Simulated Annealing, Optimization Algorithms, Machine Learning, Pincus Theorem, Python Implementation" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/mcmc-statics\/stochastic-optimization\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="Stochastic Optimization Explained: Simulated Annealing &amp; Pincus Theorem" />
+<meta property="og:description" content="When optimization problems are trapped in the maze of local optima, deterministic algorithms are often helpless. This article takes you into the world of stochastic optimization, exploring how to transform the problem of finding minimum energy into finding maximum probability. We will delve into the physical intuition and mathematical principles of the Simulated Annealing algorithm, demonstrate its elegant mechanism of &lsquo;high-temperature exploration, low-temperature locking&rsquo; through dynamic visualization, and derive the Pincus Theorem in detail, mathematically proving why the annealing algorithm can find the global optimal solution.">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/mcmc-statics/stochastic-optimization/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="Stochastic Optimization Explained: Simulated Annealing &amp; Pincus …" />
+  <meta name="twitter:description" content="When optimization problems are trapped in the maze of local optima, deterministic algorithms are often helpless. This article takes you into the world of stochastic optimization, exploring how to …">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/post">BLOG</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/projects">PROJECT</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/">CH</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Stochastic Optimization Explained: Simulated Annealing &amp; Pincus Theorem</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on February 2, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2792&nbsp;words
+  
+  
+  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/" lang="zh-cn">CH</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1 id="stochastic-optimization">Stochastic Optimization</h1>
+<blockquote>
+<p>In an environment full of uncertainty (noise) or extreme complexity (non-convexity), how do we use &ldquo;randomness&rdquo; to find the best solution?</p></blockquote>
+<h2 id="from-deterministic-to-stochastic-optimization">From Deterministic to Stochastic Optimization</h2>
+<h3 id="problem-definition-starting-from-the-deterministic-world">Problem Definition: Starting from the Deterministic World</h3>
+<p>It all starts with a classic optimization puzzle. Minimize a system&rsquo;s state, described mathematically as:
+</p>
+$$\min_{x \in Q} E(x) = m$$<p>
+Where:</p>
+<ul>
+<li>$x$ is the parameter we are looking for (e.g., model weights, molecular configuration).</li>
+<li>$E(x)$ is our energy function (called Loss Function in machine learning). The goal is to make it as small as possible.</li>
+<li>$m$ is the theoretical global minimum.</li>
+</ul>
+<p>In the world of Deterministic Methods, we usually move step by step along the gradient direction, like a blind person walking down a hill. This is effective in simple terrains (convex functions), but in complex real-world problems, we easily get trapped in &ldquo;pits&rdquo; of local optima.</p>
+<h3 id="welcome-to-stochastic-world">Welcome to Stochastic World</h3>
+<p>To escape the trap of local optima, we use a key transformation: <strong>We convert the problem of &ldquo;finding minimum energy&rdquo; into &ldquo;finding maximum probability&rdquo;.</strong></p>
+<p>This transformation is based on the <strong><a href="https://en.wikipedia.org/wiki/Boltzmann_distribution">Boltzmann Distribution</a></strong> in physics. We define a new probability density function (PDF):
+</p>
+$$f(x) = A e^{-E(x)}$$<p>Where:</p>
+<ul>
+<li>$f(x)$: Probability density function, must be positive.</li>
+<li>$A = \frac{1}{\int e^{-E(x)} \, dx}$ is the <strong>Normalization Constant</strong>.
+<ul>
+<li>In statistical physics, the reciprocal of $A$ has a famous name: Partition Function, usually denoted by $Z$. $$Z = \frac{1}{A} = \int e^{-E(x)} \, dx$$</li>
+</ul>
+</li>
+</ul>
+<p>There is an ingenious correspondence here:</p>
+<ul>
+<li>The smaller $E(x)$ (lower energy, which is what we want).</li>
+<li>The larger $e^{-E(x)}$.</li>
+<li>This means the <strong>minimum point</strong> of $E(x)$ corresponds exactly to the <strong>peak (maximum)</strong> of the probability distribution $f(x)$.</li>
+</ul>
+<p>Thus, the original problem corresponds to:
+</p>
+$$\min E(x) \iff \max f(x)$$<h4 id="why-make-this-transformation">Why make this transformation?</h4>
+<p>Because in the stochastic world, we are no longer obsessed with &ldquo;going down every step&rdquo;, but view the solution space as a probability field. We allow the algorithm to accept &ldquo;bad results&rdquo; with a certain probability, and it is this mechanism that gives us the opportunity to jump out of local traps.</p>
+<h4 id="introducing-temperature-parameter">Introducing Temperature Parameter $\lambda$</h4>
+<p>To control the search process, we introduce a crucial parameter $\lambda$. So the probability density function becomes:
+</p>
+$$f(x, \lambda) = A_\lambda e^{-\lambda E(x)}$$<p>
+Where $\lambda$ is positive and inversely proportional to temperature $T$: </p>
+$$\lambda = \frac{1}{T} \ge 0$$<p>Thus, $A$ becomes $A = \frac{1}{\int e^{-\lambda E(x)} \, dx}$</p>
+<p>This $\lambda$ (or $T$) acts like a regulator, determining the &ldquo;resolution&rdquo; or &ldquo;contrast&rdquo; of the terrain. We can change the shape of the probability distribution $f(x, \lambda)$ by adjusting it.</p>
+<h4 id="two-extreme-states-exploration-and-exploitation">Two Extreme States: Exploration and Exploitation</h4>
+<p>By analyzing the limit cases of $\lambda$, we can perfectly reveal the mechanism of stochastic optimization:</p>
+<p><strong>State A: High Temperature Mode</strong></p>
+<p>When $\lambda \to 0$ (meaning $T \to \infty$):</p>
+<ul>
+<li>Mathematically: $-\lambda E(x) \to 0$, leading to $e^{-\lambda E(x)} \to 1$.</li>
+<li>Result: $f(x, \lambda) \to \text{Constant}$.</li>
+<li>Physical Picture: The probability distribution tends to be uniform throughout the space. Regardless of $E(x)$, the probability of sampling any point is almost equal.</li>
+<li>Significance: This is the <strong>Exploration</strong> phase. The algorithm moves violently in space like gas molecules, easily crossing any high mountains and deep valleys, ensuring we don&rsquo;t miss the region where the global optimum is located.</li>
+</ul>
+<p><strong>State B: Low Temperature Mode</strong></p>
+<p>When $\lambda \to \infty$ (meaning $T \to 0$):</p>
+<ul>
+<li>Mathematically: Differences are amplified infinitely. As long as $E(x)$ is slightly larger, $e^{-\lambda E(x)}$ decays extremely fast.</li>
+<li>Result: The probability distribution becomes a sharp peak (similar to a Dirac $\delta$ function), having value only at the lowest energy point $m$.</li>
+<li>Physical Picture: The system &ldquo;freezes&rdquo;.</li>
+<li>Significance: This is the <strong>Exploitation</strong> phase. The algorithm locks onto the lowest point of the current region and stops running around, thus obtaining a high-precision solution.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> matplotlib.animation <span style="color:#f92672">import</span> FuncAnimation, PillowWriter
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. Define Energy Function ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># We design an asymmetric double well:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># A deep pit (global optimum), a shallow pit (local optimum)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">energy_function</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># (x^2 - 1)^2 is standard W-shaped double well</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># + 0.3*x tilts it, making the left pit deeper than the right</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.3</span> <span style="color:#f92672">*</span> x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. Prepare Data ---</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">500</span>)
+</span></span><span style="display:flex;"><span>E <span style="color:#f92672">=</span> energy_function(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Find true global min for plotting</span>
+</span></span><span style="display:flex;"><span>min_idx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>argmin(E)
+</span></span><span style="display:flex;"><span>global_min_x <span style="color:#f92672">=</span> x[min_idx]
+</span></span><span style="display:flex;"><span>global_min_y <span style="color:#f92672">=</span> E[min_idx]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 3. Setup Plot ---</span>
+</span></span><span style="display:flex;"><span>fig, (ax1, ax2) <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">10</span>), constrained_layout<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Top: Energy Landscape E(x) - Static</span>
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>plot(x, E, <span style="color:#e6db74">&#39;k-&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Energy $E(x)$&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>scatter(global_min_x, global_min_y, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gold&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">150</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, edgecolors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;k&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Global Min&#39;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;The Problem: Energy Landscape $E(x)$&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#34;Energy&#34;</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>ax1<span style="color:#f92672">.</span>set_xlim(<span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">2.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Bottom: Probability Distribution f(x) - Changes with T</span>
+</span></span><span style="display:flex;"><span>line, <span style="color:#f92672">=</span> ax2<span style="color:#f92672">.</span>plot([], [], <span style="color:#e6db74">&#39;r-&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>)
+</span></span><span style="display:flex;"><span>fill_poly <span style="color:#f92672">=</span> ax2<span style="color:#f92672">.</span>fill_between(x, np<span style="color:#f92672">.</span>zeros_like(x), np<span style="color:#f92672">.</span>zeros_like(x), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_xlim(<span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">2.5</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#34;Probability Density $f(x)$&#34;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#34;x&#34;</span>)
+</span></span><span style="display:flex;"><span>ax2<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Dynamic Text: Lambda and Temperature</span>
+</span></span><span style="display:flex;"><span>text_info <span style="color:#f92672">=</span> ax2<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.9</span>, <span style="color:#e6db74">&#39;&#39;</span>, transform<span style="color:#f92672">=</span>ax2<span style="color:#f92672">.</span>transAxes, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, 
+</span></span><span style="display:flex;"><span>                     bbox<span style="color:#f92672">=</span>dict(facecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;white&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 4. Animation Logic ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Lambda from 0.1 (High T) to 15.0 (Low T)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Log scale to show high T phase slowly, low T phase quickly</span>
+</span></span><span style="display:flex;"><span>lambdas <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>logspace(np<span style="color:#f92672">.</span>log10(<span style="color:#ae81ff">0.1</span>), np<span style="color:#f92672">.</span>log10(<span style="color:#ae81ff">15.0</span>), <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>():
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data([], [])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(frame_lambda):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> fill_poly
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># === Core Physics ===</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. Boltzmann Factor (Unnormalized Prob)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># e^(-lambda * E)</span>
+</span></span><span style="display:flex;"><span>    unnormalized_prob <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>frame_lambda <span style="color:#f92672">*</span> E)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. Normalization Constant A (Partition Function Z)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Numerical integration using trapezoidal rule</span>
+</span></span><span style="display:flex;"><span>    integral_Z <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>trapezoid(unnormalized_prob, x)
+</span></span><span style="display:flex;"><span>    A <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> integral_Z
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 3. Final PDF f(x)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># f(x) = A * e^(-lambda * E)</span>
+</span></span><span style="display:flex;"><span>    pdf <span style="color:#f92672">=</span> A <span style="color:#f92672">*</span> unnormalized_prob
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># =================</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Update curve</span>
+</span></span><span style="display:flex;"><span>    line<span style="color:#f92672">.</span>set_data(x, pdf)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Update fill (remove old, add new)</span>
+</span></span><span style="display:flex;"><span>    fill_poly<span style="color:#f92672">.</span>remove()
+</span></span><span style="display:flex;"><span>    fill_poly <span style="color:#f92672">=</span> ax2<span style="color:#f92672">.</span>fill_between(x, <span style="color:#ae81ff">0</span>, pdf, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Dynamically adjust Y limit (peaks get higher)</span>
+</span></span><span style="display:flex;"><span>    ax2<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, np<span style="color:#f92672">.</span>max(pdf) <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.2</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Update title and text</span>
+</span></span><span style="display:flex;"><span>    T <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> frame_lambda
+</span></span><span style="display:flex;"><span>    ax2<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;The Stochastic Solution: Probability Distribution&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>    text_info<span style="color:#f92672">.</span>set_text(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;$\lambda$ = </span><span style="color:#e6db74">{</span>frame_lambda<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (Inverse Temp)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">$T$ = </span><span style="color:#e6db74">{</span>T<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (Temperature)&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> line, fill_poly, text_info
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 5. Generate and Save ---</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Generating animation...&#34;</span>)
+</span></span><span style="display:flex;"><span>ani <span style="color:#f92672">=</span> FuncAnimation(fig, update, frames<span style="color:#f92672">=</span>lambdas, init_func<span style="color:#f92672">=</span>init, blit<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save as GIF</span>
+</span></span><span style="display:flex;"><span>ani<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;simulated_annealing.gif&#39;</span>, writer<span style="color:#f92672">=</span>PillowWriter(fps<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;✅ Saved as &#39;simulated_annealing.gif&#39;&#34;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/simulated_annealing.gif" alt=""></p>
+<p>This is a classic <strong>&ldquo;Double Well&rdquo;</strong> energy function:</p>
+<ul>
+<li>It has a global optimum (deep pit).</li>
+<li>And a local optimum (shallow pit).</li>
+</ul>
+<p>At high temperatures, the probability distribution covers both pits; as temperature drops ($\lambda$ increases), the probability distribution gradually &ldquo;abandons&rdquo; the local optimum and squeezes entirely into the &ldquo;peak&rdquo; of the global optimum.</p>
+<h2 id="from-mcmc-to-optimization-the-art-of-annealing-the-bridge-simulated-annealing">From MCMC to Optimization: The Art of Annealing (The Bridge: Simulated Annealing)</h2>
+<p><strong>Simulated Annealing (SA)</strong> is a general probabilistic optimization algorithm.</p>
+<ul>
+<li>Name Origin: From the &ldquo;annealing&rdquo; process in metallurgy.
+<ul>
+<li>Physical Annealing: Heat metal to high temp (atoms move freely), then cool slowly. Atoms have time to find the lowest energy crystal structure, making metal hard and defect-free.</li>
+<li>Algorithmic Annealing: Throw parameter $x$ into high temp (random walk), then slowly lower $T$. $x$ has time to escape local optima and settle in global optimum.</li>
+</ul>
+</li>
+<li>Core Feature: It is an algorithm that <strong>&ldquo;allows regret&rdquo;</strong>. During search, it accepts not only &ldquo;good&rdquo; solutions but also &ldquo;bad&rdquo; solutions with some probability (to jump out of pits).</li>
+</ul>
+<p>Steepest Descent mentioned before is &ldquo;snobbish&rdquo;, only going downhill. If the terrain is like an egg carton (countless small pits), gradient descent dies in the first pit it falls into.</p>
+<p>SA&rsquo;s advantages:</p>
+<ul>
+<li>Global Search Capability: Because it accepts &ldquo;bad solutions&rdquo; at high T, it can climb over hills to explore unknown territories.</li>
+<li>Gradient-Free: No derivatives needed ($f(x)$ can even be discontinuous).</li>
+<li>Versatile: Works on any ugly function as long as you can calculate the value.
+<ul>
+<li>Applicable even if $f(x)$ is non-convex.</li>
+</ul>
+</li>
+</ul>
+<h3 id="algorithm-flow">Algorithm Flow</h3>
+<ol>
+<li><strong>Transform</strong>: We don&rsquo;t solve $\min E(x)$ directly, but construct a probability distribution: $$f(x) \propto e^{-E(x)/T}$$
+<ul>
+<li>Here $\lambda = 1/T$.</li>
+<li>Intuition: Turn &ldquo;terrain height&rdquo; into &ldquo;probability density&rdquo;. Deeper pit ($E$ small) -&gt; higher probability. Higher mountain ($E$ large) -&gt; lower probability.</li>
+</ul>
+</li>
+<li><strong>High Temperature Exploration</strong> (High T Sampling):
+<ul>
+<li>Action: Set a high initial temperature $T_{max}$.</li>
+<li>Phenomenon:
+<ul>
+<li>When $T$ is large, $E(x)/T \approx 0$, so $e^0 \approx 1$.</li>
+<li>The whole probability distribution is Flat, close to uniform.</li>
+<li>Your &ldquo;particle&rdquo; (sample) will run around the map (since probability of going anywhere is similar), easily crossing mountains and escaping local traps.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Cooling / Annealing</strong>: Slowly lower temperature $T$ (increase $\lambda$).
+<ul>
+<li>Action: Lower $T$ according to a schedule.
+<ul>
+<li>Theoretical: $T(t) \sim \frac{c}{\log(1+t)}$ (Guarantees global opt, but strictly slow).</li>
+<li>Practical: $T_{new} = T_{old} \times 0.99$.</li>
+</ul>
+</li>
+<li>Phenomenon: As T drops, distribution &ldquo;deforms&rdquo;. Flat areas get lower, deep pits get deeper (peaks get sharper).</li>
+</ul>
+</li>
+<li><strong>Low Temperature Exploitation</strong>: Loop till Low T.
+<ul>
+<li>Action: Continue &ldquo;Sample -&gt; Cool -&gt; Sample&rdquo; until $T$ is very low.
+<ul>
+<li>⚠️ But not 0, or division is undefined.</li>
+</ul>
+</li>
+<li>Phenomenon: Probability distribution becomes a needle (Dirac Delta). Particle is essentially &ldquo;locked&rdquo; in the deepest pit.</li>
+</ul>
+</li>
+<li><strong>Sample &amp; Average</strong>:
+<ul>
+<li>Action: Collect samples $x_1, \dots, x_n$ at low temp stage, calculate their mean.</li>
+<li>Conclusion: This mean $\bar{x}$ is our estimated global minimum $x_{min}$.</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>Note:</p>
+<ul>
+<li>At first $T$ is huge, $\Delta E / T$ small, $P$ near 1. Algorithm accepts almost all bad moves (Crazy run).</li>
+<li>Later $T$ is tiny, $\Delta E / T$ huge, $P$ near 0. Algorithm rejects almost all bad moves (Becomes gradient descent).</li>
+</ul></blockquote>
+<h4 id="examples">Examples</h4>
+<h5 id="1d-example">1D Example</h5>
+<p>Using a function with multiple traps to show &ldquo;Temperature Control&rdquo; + &ldquo;Metropolis Sampling&rdquo;: $E(x) = x^2 - \cos(\pi x)$.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. Objective Function ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">E</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>cos(np<span style="color:#f92672">.</span>pi <span style="color:#f92672">*</span> x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. Sampling Core: Metropolis Criterion ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This is a &#34;sampler&#34;, generates sample based on current T</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_one_step</span>(x_curr, T):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># a. Propose: Random step left or right</span>
+</span></span><span style="display:flex;"><span>    x_next <span style="color:#f92672">=</span> x_curr <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># b. Delta E</span>
+</span></span><span style="display:flex;"><span>    dE <span style="color:#f92672">=</span> E(x_next) <span style="color:#f92672">-</span> E(x_curr)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># c. Accept/Reject</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Core Logic: If new energy is lower, go; if higher, go with prob (depends on T)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> dE <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>dE <span style="color:#f92672">/</span> T):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x_next <span style="color:#75715e"># Accept</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x_curr <span style="color:#75715e"># Reject</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Main Flow ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_stochastic_optimization</span>():
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2.5</span>       <span style="color:#75715e"># Start (Deliberately far local opt)</span>
+</span></span><span style="display:flex;"><span>    T <span style="color:#f92672">=</span> <span style="color:#ae81ff">10.0</span>       <span style="color:#75715e"># T_max</span>
+</span></span><span style="display:flex;"><span>    T_min <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>   <span style="color:#75715e"># T_min</span>
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.99</span>   <span style="color:#75715e"># Cooling rate</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> []      
+</span></span><span style="display:flex;"><span>    temps <span style="color:#f92672">=</span> []     
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Step&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;6</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Temp&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;8</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Current x&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span><span style="color:#e6db74">&#39;Action&#39;</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">45</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    step <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Flow 4: Till very low T</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> T <span style="color:#f92672">&gt;</span> T_min:
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Flow 2 &amp; 3: Sample &amp; Cool</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> sample_one_step(x, T)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>        temps<span style="color:#f92672">.</span>append(T)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Print intermediate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> step <span style="color:#f92672">%</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            status <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Explore 🎲&#34;</span> <span style="color:#66d9ef">if</span> T <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1.0</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;Exploit 🎯&#34;</span>
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>step<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;6</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>T<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;8.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>x<span style="color:#e6db74">:</span><span style="color:#e6db74">&lt;10.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | </span><span style="color:#e6db74">{</span>status<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        T <span style="color:#f92672">=</span> T <span style="color:#f92672">*</span> alpha 
+</span></span><span style="display:flex;"><span>        step <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Flow 5: Avg Samples</span>
+</span></span><span style="display:flex;"><span>    final_samples <span style="color:#f92672">=</span> path[<span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>:]
+</span></span><span style="display:flex;"><span>    estimated_min <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(final_samples)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">45</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ Final Estimate: x = </span><span style="color:#e6db74">{</span>estimated_min<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ True Min: x = 0.0000&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> path, temps
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Run &amp; Visualize ---</span>
+</span></span><span style="display:flex;"><span>path, temps <span style="color:#f92672">=</span> run_stochastic_optimization()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(path, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Particle Path&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;Iterations (Time)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;Position x&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Algorithm Flow: From Exploration (High T) to Exploitation (Low T)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">0</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;r&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Global Min (x=0)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Step   | Temp     | Current x  | Action
+---------------------------------------------
+0      | 10.0000  | -2.5000    | Explore 🎲
+200    | 1.3398   | 2.2058     | Explore 🎲
+400    | 0.1795   | 0.2473     | Exploit 🎯
+600    | 0.0241   | -0.0782    | Exploit 🎯
+---------------------------------------------
+✅ Final Estimate: x = -0.0115
+✅ True Min: x = 0.0000
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_5_1.png" alt="png"></p>
+<p>Graph Analysis:</p>
+<ul>
+<li>First half (Left): Curve oscillates violently. High temp exploration, particle doesn&rsquo;t care about pits, jumping everywhere.</li>
+<li>Second half (Right): Curve becomes a straight line. Low temp locking, particle trapped near $x=0$.</li>
+<li>Result: Averaging the &ldquo;static&rdquo; points at the end gives precise minimum.</li>
+</ul>
+<h5 id="n-dimensional-example">N-Dimensional Example</h5>
+<p>Using the famous <strong>Rastrigin Function</strong>. It&rsquo;s notorious: macroscopically a bowl (global opt exists), microscopically full of pits (egg carton).</p>
+<p>Formula ($A=10$):
+</p>
+$$f(\mathbf{x}) = 10n + \sum_{i=1}^n (x_i^2 - 10 \cos(2\pi x_i))$$<p>
+Global min at origin $\mathbf{x} = [0, \dots, 0]$, value 0.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. N-D Objective (Rastrigin) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rastrigin</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># x is vector</span>
+</span></span><span style="display:flex;"><span>    A <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(x)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> A <span style="color:#f92672">*</span> n <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>sum(x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> A <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>cos(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>pi <span style="color:#f92672">*</span> x))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. N-D Proposal ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_neighbor</span>(x_curr, step_size<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Key: Random walk in N-D space</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># size=len(x_curr) ensures dimension match</span>
+</span></span><span style="display:flex;"><span>    perturbation <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span>step_size, step_size, size<span style="color:#f92672">=</span>len(x_curr))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x_curr <span style="color:#f92672">+</span> perturbation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 3. Simulated Annealing Main ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simulated_annealing_nd</span>(n_dim<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Init: Random start in range [-5.12, 5.12]</span>
+</span></span><span style="display:flex;"><span>    current_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span><span style="color:#ae81ff">5.12</span>, <span style="color:#ae81ff">5.12</span>, size<span style="color:#f92672">=</span>n_dim)
+</span></span><span style="display:flex;"><span>    current_E <span style="color:#f92672">=</span> rastrigin(current_x)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Track Best So Far</span>
+</span></span><span style="display:flex;"><span>    best_x <span style="color:#f92672">=</span> current_x<span style="color:#f92672">.</span>copy()
+</span></span><span style="display:flex;"><span>    best_E <span style="color:#f92672">=</span> current_E
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Temps</span>
+</span></span><span style="display:flex;"><span>    T <span style="color:#f92672">=</span> <span style="color:#ae81ff">100.0</span>
+</span></span><span style="display:flex;"><span>    T_min <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-4</span>
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.99</span> 
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> [current_x] 
+</span></span><span style="display:flex;"><span>    energy_history <span style="color:#f92672">=</span> [current_E]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Start </span><span style="color:#e6db74">{</span>n_dim<span style="color:#e6db74">}</span><span style="color:#e6db74">-D Optimization...&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Start: </span><span style="color:#e6db74">{</span>np<span style="color:#f92672">.</span>round(current_x, <span style="color:#ae81ff">2</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">, Energy: </span><span style="color:#e6db74">{</span>current_E<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    iter_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> T <span style="color:#f92672">&gt;</span> T_min <span style="color:#f92672">and</span> iter_count <span style="color:#f92672">&lt;</span> n_iter:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 1. Propose</span>
+</span></span><span style="display:flex;"><span>        new_x <span style="color:#f92672">=</span> get_neighbor(current_x)
+</span></span><span style="display:flex;"><span>        new_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>clip(new_x, <span style="color:#f92672">-</span><span style="color:#ae81ff">5.12</span>, <span style="color:#ae81ff">5.12</span>) <span style="color:#75715e"># Clip to domain</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        new_E <span style="color:#f92672">=</span> rastrigin(new_x)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 2. Delta E</span>
+</span></span><span style="display:flex;"><span>        dE <span style="color:#f92672">=</span> new_E <span style="color:#f92672">-</span> current_E
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 3. Metropolis Criterion</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> dE <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>dE <span style="color:#f92672">/</span> T):
+</span></span><span style="display:flex;"><span>            current_x <span style="color:#f92672">=</span> new_x
+</span></span><span style="display:flex;"><span>            current_E <span style="color:#f92672">=</span> new_E
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> current_E <span style="color:#f92672">&lt;</span> best_E:
+</span></span><span style="display:flex;"><span>                best_x <span style="color:#f92672">=</span> current_x<span style="color:#f92672">.</span>copy()
+</span></span><span style="display:flex;"><span>                best_E <span style="color:#f92672">=</span> current_E
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        path<span style="color:#f92672">.</span>append(current_x)
+</span></span><span style="display:flex;"><span>        energy_history<span style="color:#f92672">.</span>append(current_E)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        T <span style="color:#f92672">*=</span> alpha
+</span></span><span style="display:flex;"><span>        iter_count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;End. Final Loc: </span><span style="color:#e6db74">{</span>np<span style="color:#f92672">.</span>round(best_x, <span style="color:#ae81ff">4</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Final Energy: </span><span style="color:#e6db74">{</span>best_E<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (Theoretical 0.0)&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(path), energy_history, best_x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Run ---</span>
+</span></span><span style="display:flex;"><span>DIMENSION <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>path, energies, final_sol <span style="color:#f92672">=</span> simulated_annealing_nd(n_dim<span style="color:#f92672">=</span>DIMENSION, n_iter<span style="color:#f92672">=</span><span style="color:#ae81ff">3000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 4. Visualize (2D only) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> DIMENSION <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Subplot 1: Terrain &amp; Path</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    x_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">5.12</span>, <span style="color:#ae81ff">5.12</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>    y_grid <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">5.12</span>, <span style="color:#ae81ff">5.12</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>    X, Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(x_grid, y_grid)
+</span></span><span style="display:flex;"><span>    Z <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(X)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(X<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(X<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]):
+</span></span><span style="display:flex;"><span>            Z[i,j] <span style="color:#f92672">=</span> rastrigin(np<span style="color:#f92672">.</span>array([X[i,j], Y[i,j]]))
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>contourf(X, Y, Z, levels<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.7</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>colorbar(label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Energy&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Path: White start, Red end</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(path[:, <span style="color:#ae81ff">0</span>], path[:, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;w-&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>scatter(path[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>], path[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;white&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>scatter(final_sol[<span style="color:#ae81ff">0</span>], final_sol[<span style="color:#ae81ff">1</span>], c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;End&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;2D Rastrigin Optimization Path</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Escaping many local minima)&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Subplot 2: Energy Drop</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(energies)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>yscale(<span style="color:#e6db74">&#39;log&#39;</span>) 
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;Iteration&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;Energy (Log Scale)&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Energy Minimization Process&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, which<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;both&#34;</span>, ls<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;--&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Start 2-D Optimization...
+Start: [-0.04  4.85], Energy: 28.08
+End. Final Loc: [1.0266 2.0164]
+Final Energy: 5.312337 (Theoretical 0.0)
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_8_1.png" alt="png"></p>
+<ol>
+<li>Key code: <code>perturbation = np.random.uniform(-step_size, step_size, size=len(x_curr))</code>. This is the core of N-D extension. We generate an N-D random vector at once.</li>
+<li>Terrain (Left): Many deep blue circles, each is a local trap.
+<ul>
+<li><strong>Gradient Descent</strong>: Likely falls into the nearest blue circle and dies.</li>
+<li><strong>Simulated Annealing</strong>: White path scurries around (especially early on). Jumps in, jumps out, until T drops, sucked into the middle deepest pit (Red Star).</li>
+</ul>
+</li>
+</ol>
+<h3 id="proof-of-correctness-pincus-theorem">Proof of Correctness: Pincus Theorem</h3>
+<blockquote>
+<p>Pincus Theorem provides the <strong>Theoretical Guarantee</strong> for SA convergence.</p></blockquote>
+<h4 id="pincus-theorem-mark-pincus-1968">Pincus Theorem (Mark Pincus, 1968)</h4>
+<p>Pincus Theorem is a bridge proving: When we lower T to extremely low ($\lambda \to \infty$), the &ldquo;weighted average&rdquo; (expectation) of a function converges to its &ldquo;global minimum point&rdquo;.</p>
+<p>It turns an <strong>&ldquo;Optimization Problem&rdquo; into an &ldquo;Integration Problem&rdquo;</strong>.</p>
+<p>Assume objective $f(x)$ on domain $D$, global min $x^*$. Pincus Theorem states:
+</p>
+$$x^* = \lim_{\lambda \to \infty} \frac{\int_D x \cdot e^{-\lambda f(x)} \, dx}{\int_D e^{-\lambda f(x)} \, dx}$$<p>
+Or in expectation form:
+</p>
+$$x^* = \lim_{\lambda \to \infty} \mathbb{E}_{\lambda}[x]$$<h4 id="proof">Proof</h4>
+<p>Goal: Limit of fraction:
+</p>
+$$\langle x \rangle_\lambda = \frac{\int x \cdot e^{-\lambda E(x)} \, dx}{\int e^{-\lambda E(x)} \, dx}$$<p>
+Prove finding $x^*$.</p>
+<p><strong>Step 1: Extract &ldquo;Greatest Common Divisor&rdquo;</strong></p>
+<p>Assume unique global min $x^*$. For any $x \neq x^*$, $E(x) > E(x^*)$.</p>
+<p>Factor out $e^{-\lambda E(x^*)}$ from numerator and denominator.</p>
+<ul>
+<li>Denom: $\int e^{-\lambda E(x)} \, dx = e^{-\lambda E(x^*)} \int e^{-\lambda (E(x) - E(x^*))} \, dx$</li>
+<li>Num: $\int x e^{-\lambda E(x)} \, dx = e^{-\lambda E(x^*)} \int x \cdot e^{-\lambda (E(x) - E(x^*))} \, dx$</li>
+</ul>
+<p>Substitute back, $e^{-\lambda E(x^*)}$ cancels out!
+</p>
+$$\langle x \rangle_\lambda = \frac{\int x \cdot e^{-\lambda (E(x) - E(x^*))} \, dx}{\int e^{-\lambda (E(x) - E(x^*))} \, dx}$$<p>Now exponent is $-\lambda (E(x) - E(x^*))$. Note $\Delta E = E(x) - E(x^*) \ge 0$.</p>
+<p><strong>Step 2: Split Integration Domain (Neighborhood vs. Far Away)</strong></p>
+<p>Split domain into:</p>
+<ol>
+<li>Small neighborhood $U_\epsilon$ around min: $|x - x^*| < \epsilon$.</li>
+<li>Rest $R$: Far away.</li>
+</ol>
+<p>As $\lambda \to \infty$:</p>
+<ul>
+<li>Region $R$: $\Delta E \ge \delta > 0$. Term $e^{-\lambda \Delta E} \le e^{-\lambda \delta}$. Decays exponentially to 0. Contributions from far regions are negligible.</li>
+<li>Neighborhood $U_\epsilon$: $\Delta E \approx 0$, so $e^{-\lambda \Delta E} \approx 1$. Integral dominated by this tiny region.</li>
+</ul>
+<p><strong>Step 3: Taylor Expansion</strong></p>
+<p>Near $x^*$:
+</p>
+$$E(x) \approx E(x^*) + E'(x^*)(x-x^*) + \frac{1}{2}E''(x^*)(x-x^*)^2$$<p>Since $x^*$ is min, $E'(x^*) = 0$, $E''(x^*) = k > 0$.
+</p>
+$$E(x) - E(x^*) \approx \frac{1}{2} k (x-x^*)^2$$<p>Substitute into integral (only neighborhood):
+</p>
+$$\text{Denom} \approx \int_{x^*-\epsilon}^{x^*+\epsilon} e^{-\lambda \frac{1}{2} k (x-x^*)^2} \, dx$$<p>This is a <strong>Gaussian Integral</strong>. Recall $\int e^{-ax^2} dx = \sqrt{\frac{\pi}{a}}$, here $a = \frac{\lambda k}{2}$.
+</p>
+$$\text{Denom} \approx \sqrt{\frac{2\pi}{\lambda k}}$$<p>Similarly for Numerator: $x \approx x^*$ is constant in small neighborhood.
+</p>
+$$
+\text{Num} \approx x^* \cdot \sqrt{\frac{2\pi}{\lambda k}}
+$$<p><strong>Step 4: Cancellation</strong></p>
+$$\lim_{\lambda \to \infty} \langle x \rangle_\lambda \approx \frac{x^* \cdot \sqrt{\frac{2\pi}{\lambda k}}}{\sqrt{\frac{2\pi}{\lambda k}}}$$<p>
+Roots, $\pi$, derivative $k$, and $\lambda$ all cancel out! Remaining:
+</p>
+$$= x^*$$
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://localhost:1313/tags/stochastic-optimization/">Stochastic Optimization</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/simulated-annealing/">Simulated Annealing</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/optimization-algorithms/">Optimization Algorithms</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/machine-learning/">Machine Learning</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/pincus-theorem/">Pincus Theorem</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/python-implementation/">Python Implementation</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+    <li>
+      <a
+        href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fstochastic-optimization%2f&amp;text=Stochastic%20Optimization%20Explained%3a%20Simulated%20Annealing%20%26%20Pincus%20Theorem&amp;via="
+        target="_blank"
+        title="Share on Twitter"
+        class="share-btn twitter"
+      >
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fstochastic-optimization%2f"
+        target="_blank"
+        title="Share on Facebook"
+        class="share-btn facebook"
+      >
+        <i class="fab fa-facebook"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fstochastic-optimization%2f&amp;appkey=&amp;title=Stochastic%20Optimization%20Explained%3a%20Simulated%20Annealing%20%26%20Pincus%20Theorem&amp;pic="
+        target="_blank"
+        title="Share on Weibo"
+        class="share-btn weibo"
+      >
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="openWechatModal('http:\/\/localhost:1313\/post\/mcmc-statics\/stochastic-optimization\/')"
+        title="Share on WeChat"
+        class="share-btn wechat"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fstochastic-optimization%2f&amp;title=Stochastic%20Optimization%20Explained%3a%20Simulated%20Annealing%20%26%20Pincus%20Theorem"
+        target="_blank"
+        title="Share on LinkedIn"
+        class="share-btn linkedin"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="copyToClipboard('http:\/\/localhost:1313\/post\/mcmc-statics\/stochastic-optimization\/', 'Stochastic Optimization Explained: Simulated Annealing \u0026 Pincus Theorem')"
+        title="Copy Link"
+        class="share-btn copy-link"
+      >
+        <i class="fas fa-link"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div id="wechat-modal" class="wechat-modal">
+  <div class="wechat-modal-content">
+    <span class="wechat-close" onclick="closeWechatModal()">&times;</span>
+    <h4>
+      Scan to Share <br />
+      微信扫一扫分享
+    </h4>
+    <div id="qrcode" class="qrcode-container"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(url, title) {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        
+        var existingToast = document.getElementById("share-toast");
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        var toast = document.createElement("div");
+        toast.id = "share-toast";
+        toast.innerText = "Link copied to clipboard!";
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = "rgba(0,0,0,0.8)";
+        toast.style.color = "#fff";
+        toast.style.padding = "10px 20px";
+        toast.style.borderRadius = "5px";
+        toast.style.zIndex = "10000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease-in-out";
+
+        document.body.appendChild(toast);
+
+        
+        void toast.offsetWidth;
+
+        toast.style.opacity = "1";
+
+        setTimeout(function () {
+          toast.style.opacity = "0";
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 500);
+        }, 3000);
+      },
+      function (err) {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
+  function openWechatModal(url) {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "flex";
+    var qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    var img = document.createElement("img");
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      encodeURIComponent(url);
+    img.style.width = "200px";
+    img.style.height = "200px";
+    qrcodeContainer.appendChild(img);
+  }
+
+  function closeWechatModal() {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "none";
+  }
+
+  
+  window.onclick = function (event) {
+    var modal = document.getElementById("wechat-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/mcmc-statics/deterministic-optimization/">Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent</a></li>
+                
+                    <li><a href="/post/mcmc-statics/metropolis/">Metropolis Algorithm Explained: Implementation &amp; Intuition</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/post/mcmc-statics/deterministic-optimization/" data-toggle="tooltip" data-placement="top" title="Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#stochastic-optimization">Stochastic Optimization</a>
+      <ul>
+        <li><a href="#from-deterministic-to-stochastic-optimization">From Deterministic to Stochastic Optimization</a>
+          <ul>
+            <li><a href="#problem-definition-starting-from-the-deterministic-world">Problem Definition: Starting from the Deterministic World</a></li>
+            <li><a href="#welcome-to-stochastic-world">Welcome to Stochastic World</a></li>
+          </ul>
+        </li>
+        <li><a href="#from-mcmc-to-optimization-the-art-of-annealing-the-bridge-simulated-annealing">From MCMC to Optimization: The Art of Annealing (The Bridge: Simulated Annealing)</a>
+          <ul>
+            <li><a href="#algorithm-flow">Algorithm Flow</a></li>
+            <li><a href="#proof-of-correctness-pincus-theorem">Proof of Correctness: Pincus Theorem</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="http://localhost:1313/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+
