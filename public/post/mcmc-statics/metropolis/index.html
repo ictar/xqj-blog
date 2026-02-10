@@ -61,7 +61,7 @@
   "headline": "Metropolis Algorithm Explained: Implementation \u0026 Intuition",
   "description" : "How does the Metropolis algorithm solve the intractable normalization constant problem? This guide explains the detailed balance principle and demonstrates random walk sampling in high-dimensional distributions with Python code.",
   "inLanguage" : "en",
-  "wordCount":  2757 ,
+  "wordCount":  2734 ,
   "datePublished" : "2026-01-24T00:00:00\u002b00:00",
   "dateModified" : "2026-01-24T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
@@ -314,7 +314,7 @@
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2757&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2734&nbsp;words
   
   
   &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/" lang="zh-cn">CH</a>
@@ -343,45 +343,30 @@
     <h2>目录</h2>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#what-problem-are-we-trying-to-solve-the-core-problem">What Problem Are We Trying to Solve? (The Core Problem)</a>
+    <li>
       <ul>
-        <li><a href="#1-the-core-dilemma-intractable">1. The Core Dilemma: Intractable </a>
+        <li><a href="#what-problem-are-we-trying-to-solve-the-core-problem">What Problem Are We Trying to Solve? (The Core Problem)</a>
           <ul>
-            <li><a href="#about">About </a></li>
+            <li><a href="#1-the-core-dilemma-intractable">1. The Core Dilemma: Intractable </a></li>
+            <li><a href="#2-metropolis-strategy-relative-ratios">2. Metropolis Strategy: Relative Ratios</a></li>
+            <li><a href="#3-connection-why-use-markov-chains">3. Connection: Why Use Markov Chains?</a></li>
           </ul>
         </li>
-        <li><a href="#2-metropolis-strategy-relative-ratios">2. Metropolis Strategy: Relative Ratios</a></li>
-        <li><a href="#3-connection-why-use-markov-chains">3. Connection: Why Use Markov Chains?</a></li>
+        <li><a href="#metropolis-random-walk">Metropolis (Random Walk)</a>
+          <ul>
+            <li><a href="#one-dimensional-case">One-Dimensional case</a></li>
+            <li><a href="#2dhigh-dim-version-correlated-gaussian">2D/High-Dim Version: Correlated Gaussian</a></li>
+          </ul>
+        </li>
+        <li><a href="#practical-tips">Practical Tips</a></li>
       </ul>
     </li>
-    <li><a href="#metropolis-random-walk">Metropolis (Random Walk)</a>
-      <ul>
-        <li><a href="#one-dimensional-case">One-Dimensional case</a>
-          <ul>
-            <li><a href="#correctness-explanation">Correctness Explanation</a></li>
-            <li><a href="#step-size"> (Step Size)</a></li>
-            <li><a href="#example">Example</a></li>
-          </ul>
-        </li>
-        <li><a href="#2dhigh-dim-version-correlated-gaussian">2D/High-Dim Version: Correlated Gaussian</a>
-          <ul>
-            <li><a href="#target-distribution-2d-correlated-gaussian">Target Distribution: 2D Correlated Gaussian</a></li>
-            <li><a href="#metropolis-settings">Metropolis Settings</a></li>
-            <li><a href="#diagnostics">Diagnostics</a></li>
-            <li><a href="#-diagnostic-table">📊 Diagnostic Table</a></li>
-            <li><a href="#-graphic-explanation">📉 Graphic Explanation</a></li>
-            <li><a href="#-intuition-summary">✅ <strong>Intuition Summary</strong></a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li><a href="#practical-tips">Practical Tips</a></li>
   </ul>
 </nav>
   </aside>
 
-<h1 id="what-problem-are-we-trying-to-solve-the-core-problem">What Problem Are We Trying to Solve? (The Core Problem)</h1>
-<h2 id="1-the-core-dilemma-intractable">1. The Core Dilemma: Intractable $Z$</h2>
+<h2 id="what-problem-are-we-trying-to-solve-the-core-problem">What Problem Are We Trying to Solve? (The Core Problem)</h2>
+<h3 id="1-the-core-dilemma-intractable">1. The Core Dilemma: Intractable $Z$</h3>
 <p>In Bayesian statistics, physics simulations, and high-dimensional computing, we often need to sample from a complex probability distribution $\pi(x)$. However, we typically only know the &ldquo;shape&rdquo; of this distribution, but not its &ldquo;scale&rdquo;.</p>
 <ul>
 <li><strong>Known</strong>: Unnormalized density function $f(x)$ (relative weights).</li>
@@ -389,7 +374,7 @@
 <li><strong>Pain Point</strong>: In high-dimensional spaces, calculating $Z$ (summing over the entire space) is computationally intractable.</li>
 <li><strong>Consequence</strong>: Because we don&rsquo;t know $Z$, we cannot calculate the absolute probability $\pi(x)$, and traditional direct sampling methods (like inverse transform sampling) fail completely.</li>
 </ul>
-<h3 id="about">About $\pi$</h3>
+<h4 id="about">About $\pi$</h4>
 <table>
   <thead>
       <tr>
@@ -414,12 +399,12 @@
       </tr>
   </tbody>
 </table>
-<h2 id="2-metropolis-strategy-relative-ratios">2. Metropolis Strategy: Relative Ratios</h2>
+<h3 id="2-metropolis-strategy-relative-ratios">2. Metropolis Strategy: Relative Ratios</h3>
 <p>The core insight of the Metropolis algorithm is: <strong>Since we can&rsquo;t calculate $Z$, let&rsquo;s cancel it out.</strong></p>
 <p>Instead of calculating absolute probabilities, if we compare the <strong>relative probability ratio</strong> between two states, the constant $Z$ automatically cancels out in the numerator and denominator:
 </p>
 $$\frac{\pi(x_{\text{new}})}{\pi(x_{\text{old}})} = \frac{f(x_{\text{new}}) / Z}{f(x_{\text{old}}) / Z} = \frac{f(x_{\text{new}})}{f(x_{\text{old}})}$$<p>This allows us to judge the superiority of two states using only <strong>relative heights</strong> (ratio of $f(x)$), thereby bypassing the difficulty of calculating $Z$.</p>
-<h2 id="3-connection-why-use-markov-chains">3. Connection: Why Use Markov Chains?</h2>
+<h3 id="3-connection-why-use-markov-chains">3. Connection: Why Use Markov Chains?</h3>
 <p>Since we can only make &ldquo;local comparisons&rdquo; (comparing current position with next position), we cannot generate independent samples in one go. We need a mechanism to <strong>wander through the space</strong>, which introduces Markov chains.</p>
 <ul>
 <li>
@@ -444,7 +429,7 @@ According to the <strong>Ergodic Theorem</strong>, the <strong>trajectory</stron
 <blockquote>
 <p><strong>One-sentence Summary:</strong>
 The Metropolis algorithm is designed to solve the problem of <strong>&ldquo;sampling when the normalization constant $Z$ is unknown&rdquo;</strong> by <strong>&ldquo;constructing a Markov chain with the target distribution as its stationary state&rdquo;</strong>.</p></blockquote>
-<h1 id="metropolis-random-walk">Metropolis (Random Walk)</h1>
+<h2 id="metropolis-random-walk">Metropolis (Random Walk)</h2>
 <p>To ensure convergence to $\pi$, we just need to construct a chain that satisfies the Detailed Balance Equation:
 </p>
 $$\pi_i P_{ij} = \pi_j P_{ji}$$<p>The Metropolis algorithm splits the transition process into two steps:</p>
@@ -552,7 +537,7 @@ It covers two cases:</p>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
 </span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_2_0.png" alt="Metropolis algorithm sampling a 1D normal distribution"></p>
-<h2 id="one-dimensional-case">One-Dimensional case</h2>
+<h3 id="one-dimensional-case">One-Dimensional case</h3>
 <p><strong>Input</strong>:</p>
 <ul>
 <li>Target (unnormalized) log density $\log \tilde\pi(x)$</li>
@@ -578,20 +563,20 @@ For numerical stability, use $\log\tilde\pi$: $\log\alpha = \min\{0,\ \log\tilde
 <li>Sample sequence after discarding first $B$ steps as approximate samples from $\pi$;</li>
 <li>Report <strong>Acceptance Rate</strong> (accepted count / total steps).</li>
 </ul>
-<h3 id="correctness-explanation">Correctness Explanation</h3>
+<h4 id="correctness-explanation">Correctness Explanation</h4>
 <p>Core is <strong>Detailed Balance (Reversibility)</strong>: With symmetric proposal $q(y\mid x)=q(x\mid y)$, Metropolis acceptance rate ensures</p>
 $$
 \pi(x)\,q(y\mid x)\,\alpha(x,y)=\pi(y)\,q(x\mid y)\,\alpha(y,x),
 $$<p>Thus $\pi$ is the <strong>Stationary Distribution</strong> (invariant distribution). As long as the chain is also <strong>Irreducible + Aperiodic</strong>, it will <strong>converge</strong> to $\pi$ from any start point (in TV distance).</p>
 <p><strong>Intuition</strong>: Balance the probability flow &ldquo;from $x$ to $y$&rdquo; exactly with &ldquo;from $y$ to $x$&rdquo; at each step, so there is no net flow in long term, stabilizing at $\pi$.</p>
-<h3 id="step-size">$\sigma$ (Step Size)</h3>
+<h4 id="step-size">$\sigma$ (Step Size)</h4>
 <ul>
 <li>$\sigma$ <strong>Too Small</strong>: Almost always accept, but moves very slowly, samples strongly correlated, <strong>Low ESS</strong>;</li>
 <li>$\sigma$ <strong>Too Large</strong>: Often propose to low density areas, high rejection, inefficient;</li>
 <li>$\sigma$ <strong>Appropriate</strong>: Good tradeoff between acceptance and move size, fast ACF decay, <strong>High ESS</strong>.</li>
 </ul>
 <p>Empirically: For Random Walk Metropolis, optimal acceptance rate is around <strong>~0.4</strong> for <strong>1D</strong>; for higher dimensions, <strong>0.2–0.3</strong> is common (rule of thumb, not law).</p>
-<h3 id="example">Example</h3>
+<h4 id="example">Example</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
@@ -657,7 +642,7 @@ $$<p>Thus $\pi$ is the <strong>Stationary Distribution</strong> (invariant distr
 </span></span><span style="display:flex;"><span>            samples<span style="color:#f92672">.</span>append(x)
 </span></span><span style="display:flex;"><span>    acc_rate <span style="color:#f92672">=</span> accepted <span style="color:#f92672">/</span> n_steps <span style="color:#75715e"># acceptance rate</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>array(samples), acc_rate, np<span style="color:#f92672">.</span>array(accepts)
-</span></span></code></pre></div><h4 id="unimodal-example">Unimodal Example</h4>
+</span></span></code></pre></div><h5 id="unimodal-example">Unimodal Example</h5>
 <p>Unimodal hard-to-normalize distribution: $\pi(x)\propto e^{-x^4}$</p>
 <p>Observe acceptance rate, ACF, ESS, histogram vs true density (numerically normalized) under different $\sigma$.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
@@ -717,7 +702,7 @@ $$<p>Thus $\pi$ is the <strong>Stationary Distribution</strong> (invariant distr
 </span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_5_0.png" alt="Trace plot of Metropolis sampling on exp(-x^4) target"></p>
 <p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_5_1.png" alt="Histogram of samples vs true density for exp(-x^4)"></p>
 <p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_5_2.png" alt="Autocorrelation function (ACF) comparison for different step sizes"></p>
-<h4 id="bimodal-example">Bimodal Example</h4>
+<h5 id="bimodal-example">Bimodal Example</h5>
 <p><strong>Bimodal Mixture</strong>: 0.5 $\mathcal N(-3,1)$ + 0.5 $\mathcal N(3,1)$</p>
 <p>Observe &ldquo;mode trapping&rdquo; of random walk in multi-modal terrain, and counter-examples of $\sigma$ too small/large.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Example: bimodal mixture</span>
@@ -769,20 +754,20 @@ $$<p>Thus $\pi$ is the <strong>Stationary Distribution</strong> (invariant distr
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
 </span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_0.png" alt="Bimodal mixture distribution and Metropolis sampling histogram"></p>
 <p><img src="/img/contents/post/mcmc-statics/6_metropolis/6_mcmc_metropolis_7_1.png" alt="ACF comparison for bimodal distribution sampling"></p>
-<h2 id="2dhigh-dim-version-correlated-gaussian">2D/High-Dim Version: Correlated Gaussian</h2>
+<h3 id="2dhigh-dim-version-correlated-gaussian">2D/High-Dim Version: Correlated Gaussian</h3>
 <blockquote>
 <p>Intuition:</p>
 <ol>
 <li><strong>Challenges of Random Walk Metropolis in High Dimensions</strong>;</li>
 <li><strong>Impact of proposal covariance scaling on acceptance rate and ESS</strong>.</li>
 </ol></blockquote>
-<h3 id="target-distribution-2d-correlated-gaussian">Target Distribution: 2D Correlated Gaussian</h3>
+<h4 id="target-distribution-2d-correlated-gaussian">Target Distribution: 2D Correlated Gaussian</h4>
 <p>Target distribution:</p>
 $$
 \pi(x) = \mathcal N\Big(0, \Sigma\Big),\quad
 \Sigma = \begin{bmatrix}1 & 0.8\\0.8 & 1\end{bmatrix}.
 $$<p>This is an &ldquo;elliptical&rdquo; 2D Gaussian, main direction along $y=x$.</p>
-<h3 id="metropolis-settings">Metropolis Settings</h3>
+<h4 id="metropolis-settings">Metropolis Settings</h4>
 <ul>
 <li>
 <p><strong>Proposal Distribution</strong>: Symmetric Gaussian</p>
@@ -798,7 +783,7 @@ $$
 </ul>
 </li>
 </ul>
-<h3 id="diagnostics">Diagnostics</h3>
+<h4 id="diagnostics">Diagnostics</h4>
 <ul>
 <li><strong>Acceptance Rate</strong> (accepted / total steps)</li>
 <li><strong>ESS (Effective Sample Size)</strong>: Estimated approximately for each dimension using autocorrelation</li>
@@ -926,7 +911,7 @@ $$
   'ESS_x': np.float64(1308.3542777464584),
   'ESS_y': np.float64(1325.6521185465317)}}
 </code></pre>
-<h3 id="-diagnostic-table">📊 Diagnostic Table</h3>
+<h4 id="-diagnostic-table">📊 Diagnostic Table</h4>
 <table>
   <thead>
       <tr>
@@ -961,7 +946,7 @@ $$
       </tr>
   </tbody>
 </table>
-<h3 id="-graphic-explanation">📉 Graphic Explanation</h3>
+<h4 id="-graphic-explanation">📉 Graphic Explanation</h4>
 <ol>
 <li>
 <p><strong>Scatter Plot</strong></p>
@@ -980,14 +965,14 @@ $$
 </ul>
 </li>
 </ol>
-<h3 id="-intuition-summary">✅ <strong>Intuition Summary</strong></h3>
+<h4 id="-intuition-summary">✅ <strong>Intuition Summary</strong></h4>
 <ul>
 <li>In high dimensions, <strong>step size scaling</strong> impacts MCMC performance significantly.</li>
 <li>Too small → High acceptance but &ldquo;crawling&rdquo;, low ESS.</li>
 <li>Too large → Low acceptance, chain &ldquo;stuck&rdquo;.</li>
 <li>Good range → Balance between acceptance rate and exploration.</li>
 </ul>
-<h1 id="practical-tips">Practical Tips</h1>
+<h2 id="practical-tips">Practical Tips</h2>
 <ol>
 <li><strong>Use Log Density</strong>: Always work in log domain to avoid underflow.</li>
 <li><strong>Burn-in</strong>: Be conservative, discard initial samples; but don&rsquo;t waste too many.</li>
@@ -1239,39 +1224,24 @@ $$
         <h2 class="sidebar-toc-title">目录</h2>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#what-problem-are-we-trying-to-solve-the-core-problem">What Problem Are We Trying to Solve? (The Core Problem)</a>
+    <li>
       <ul>
-        <li><a href="#1-the-core-dilemma-intractable">1. The Core Dilemma: Intractable </a>
+        <li><a href="#what-problem-are-we-trying-to-solve-the-core-problem">What Problem Are We Trying to Solve? (The Core Problem)</a>
           <ul>
-            <li><a href="#about">About </a></li>
+            <li><a href="#1-the-core-dilemma-intractable">1. The Core Dilemma: Intractable </a></li>
+            <li><a href="#2-metropolis-strategy-relative-ratios">2. Metropolis Strategy: Relative Ratios</a></li>
+            <li><a href="#3-connection-why-use-markov-chains">3. Connection: Why Use Markov Chains?</a></li>
           </ul>
         </li>
-        <li><a href="#2-metropolis-strategy-relative-ratios">2. Metropolis Strategy: Relative Ratios</a></li>
-        <li><a href="#3-connection-why-use-markov-chains">3. Connection: Why Use Markov Chains?</a></li>
+        <li><a href="#metropolis-random-walk">Metropolis (Random Walk)</a>
+          <ul>
+            <li><a href="#one-dimensional-case">One-Dimensional case</a></li>
+            <li><a href="#2dhigh-dim-version-correlated-gaussian">2D/High-Dim Version: Correlated Gaussian</a></li>
+          </ul>
+        </li>
+        <li><a href="#practical-tips">Practical Tips</a></li>
       </ul>
     </li>
-    <li><a href="#metropolis-random-walk">Metropolis (Random Walk)</a>
-      <ul>
-        <li><a href="#one-dimensional-case">One-Dimensional case</a>
-          <ul>
-            <li><a href="#correctness-explanation">Correctness Explanation</a></li>
-            <li><a href="#step-size"> (Step Size)</a></li>
-            <li><a href="#example">Example</a></li>
-          </ul>
-        </li>
-        <li><a href="#2dhigh-dim-version-correlated-gaussian">2D/High-Dim Version: Correlated Gaussian</a>
-          <ul>
-            <li><a href="#target-distribution-2d-correlated-gaussian">Target Distribution: 2D Correlated Gaussian</a></li>
-            <li><a href="#metropolis-settings">Metropolis Settings</a></li>
-            <li><a href="#diagnostics">Diagnostics</a></li>
-            <li><a href="#-diagnostic-table">📊 Diagnostic Table</a></li>
-            <li><a href="#-graphic-explanation">📉 Graphic Explanation</a></li>
-            <li><a href="#-intuition-summary">✅ <strong>Intuition Summary</strong></a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li><a href="#practical-tips">Practical Tips</a></li>
   </ul>
 </nav>
       </div>

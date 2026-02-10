@@ -8,14 +8,21 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>随机优化算法详解：模拟退火与 Pincus 定理</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/</guid>
+      <description>当优化问题陷于局部最优的迷宫时，确定性算法往往束手无策。本文将带你进入随机优化的世界，探索如何将寻找最小能量的问题转化为寻找最大概率的问题。我们将深入剖析模拟退火算法（Simulated Annealing）的物理直觉与数学原理，通过动态可视化展示其“高温探索、低温锁定”的优雅机制，并详细推导 Pincus 定理，从数学上证明为何退火算法能找到全局最优解。</description>
+    </item>
     <item>
       <title>确定性优化算法详解：梯度下降的数学本质与代码实战</title>
       <link>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</link>
       <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</guid>
-      <description>在机器学习的训练过程中，优化算法扮演着“导航员”的角色，指引模型参数从随机初始值逐步逼近最优解。本文将深入剖析最基础也是最重要的确定性优化算法——梯度下降（Gradient Descent）。我们将从其数学原理出发，推导其更新公式，探讨不同变体（批量、随机、小批量）的优缺点，并通过 Python 代码直观展示其收敛过程。</description>
+      <description>确定性优化是理解现代 MCMC 算法（如 HMC, Langevin）的基石。本文深入解析了三种经典的确定性优化策略：牛顿法（利用曲率的二阶视角）、坐标下降法（分而治之的 Gibbs 前身）和最速下降法（贪婪的一阶探索）。通过数学推导与 Python 可视化，我们对比了它们在不同地形（凸面、狭长峡谷、强耦合）下的行为模式与收敛特性。</description>
     </item>
     <item>
       <title>Gibbs 采样详解：分而治之的降维智慧</title>

@@ -8,8 +8,71 @@
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Machine Learning</title>
+      <link>http://localhost:1313/tags/machine-learning/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Optimization Algorithms</title>
+      <link>http://localhost:1313/tags/optimization-algorithms/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/optimization-algorithms/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pincus Theorem</title>
+      <link>http://localhost:1313/tags/pincus-theorem/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/pincus-theorem/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python Implementation</title>
+      <link>http://localhost:1313/tags/python-implementation/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/python-implementation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Simulated Annealing</title>
+      <link>http://localhost:1313/tags/simulated-annealing/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/simulated-annealing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Stochastic Optimization</title>
+      <link>http://localhost:1313/tags/stochastic-optimization/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/stochastic-optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Convex Optimization</title>
+      <link>http://localhost:1313/tags/convex-optimization/</link>
+      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/convex-optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Deep Learning</title>
+      <link>http://localhost:1313/tags/deep-learning/</link>
+      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Gradient Descent</title>
+      <link>http://localhost:1313/tags/gradient-descent/</link>
+      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/gradient-descent/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Bayesian Inference</title>
       <link>http://localhost:1313/tags/bayesian-inference/</link>
@@ -92,13 +155,6 @@
       <link>http://localhost:1313/tags/monte-carlo-simulation/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/tags/monte-carlo-simulation/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Python Implementation</title>
-      <link>http://localhost:1313/tags/python-implementation/</link>
-      <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/python-implementation/</guid>
       <description></description>
     </item>
     <item>

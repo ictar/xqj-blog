@@ -8,20 +8,48 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pincus定理</title>
+      <link>http://localhost:1313/zh-cn/tags/pincus%E5%AE%9A%E7%90%86/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/pincus%E5%AE%9A%E7%90%86/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Python实现</title>
       <link>http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/</link>
-      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/</guid>
       <description></description>
     </item>
     <item>
       <title>机器学习</title>
       <link>http://localhost:1313/zh-cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
-      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>模拟退火</title>
+      <link>http://localhost:1313/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>随机优化</title>
+      <link>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BC%98%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>优化算法</title>
+      <link>http://localhost:1313/zh-cn/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/</guid>
       <description></description>
     </item>
     <item>
@@ -43,13 +71,6 @@
       <link>http://localhost:1313/zh-cn/tags/%E5%87%B8%E4%BC%98%E5%8C%96/</link>
       <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/zh-cn/tags/%E5%87%B8%E4%BC%98%E5%8C%96/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>优化算法</title>
-      <link>http://localhost:1313/zh-cn/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/</guid>
       <description></description>
     </item>
     <item>

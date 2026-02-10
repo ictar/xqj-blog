@@ -13,9 +13,9 @@ keywords: ["Metropolis Algorithm", "MCMC sampling", "Markov Chain Monte Carlo", 
 
 {{< toc >}}
 
-# What Problem Are We Trying to Solve? (The Core Problem)
+## What Problem Are We Trying to Solve? (The Core Problem)
 
-## 1. The Core Dilemma: Intractable $Z$
+### 1. The Core Dilemma: Intractable $Z$
 
 In Bayesian statistics, physics simulations, and high-dimensional computing, we often need to sample from a complex probability distribution $\pi(x)$. However, we typically only know the "shape" of this distribution, but not its "scale".
 - **Known**: Unnormalized density function $f(x)$ (relative weights).
@@ -23,14 +23,14 @@ In Bayesian statistics, physics simulations, and high-dimensional computing, we 
 - **Pain Point**: In high-dimensional spaces, calculating $Z$ (summing over the entire space) is computationally intractable.
 - **Consequence**: Because we don't know $Z$, we cannot calculate the absolute probability $\pi(x)$, and traditional direct sampling methods (like inverse transform sampling) fail completely.
 
-### About $\pi$
+#### About $\pi$
 
 | Scenario | Form of $\pi$ | Mathematical Name | Physical Meaning |
 | --- | --- | --- | --- |
 | **Basic Markov Chains** | Vector | Stationary Distribution Vector | Long-term probability of being in each state |
 | **Metropolis (MCMC)** | Function | Target Probability Density | The "shape" we want to sample from |
 
-## 2. Metropolis Strategy: Relative Ratios
+### 2. Metropolis Strategy: Relative Ratios
 
 The core insight of the Metropolis algorithm is: **Since we can't calculate $Z$, let's cancel it out.**
 
@@ -40,7 +40,7 @@ $$\frac{\pi(x_{\text{new}})}{\pi(x_{\text{old}})} = \frac{f(x_{\text{new}}) / Z}
 This allows us to judge the superiority of two states using only **relative heights** (ratio of $f(x)$), thereby bypassing the difficulty of calculating $Z$.
 
 
-## 3. Connection: Why Use Markov Chains?
+### 3. Connection: Why Use Markov Chains?
 
 Since we can only make "local comparisons" (comparing current position with next position), we cannot generate independent samples in one go. We need a mechanism to **wander through the space**, which introduces Markov chains.
 
@@ -58,7 +58,7 @@ The Metropolis algorithm constructs a special "accept/reject" rule via **Detaile
 > **One-sentence Summary:**
 > The Metropolis algorithm is designed to solve the problem of **"sampling when the normalization constant $Z$ is unknown"** by **"constructing a Markov chain with the target distribution as its stationary state"**.
 
-# Metropolis (Random Walk)
+## Metropolis (Random Walk)
 
 To ensure convergence to $\pi$, we just need to construct a chain that satisfies the Detailed Balance Equation:
 $$\pi_i P_{ij} = \pi_j P_{ji}$$
@@ -158,7 +158,7 @@ plt.show()
     
 
 
-## One-Dimensional case
+### One-Dimensional case
 
 **Input**:
 
@@ -186,7 +186,7 @@ $$
 * Report **Acceptance Rate** (accepted count / total steps).
 
 
-### Correctness Explanation
+#### Correctness Explanation
 
 Core is **Detailed Balance (Reversibility)**: With symmetric proposal $q(y\mid x)=q(x\mid y)$, Metropolis acceptance rate ensures
 
@@ -200,7 +200,7 @@ Thus $\pi$ is the **Stationary Distribution** (invariant distribution). As long 
 
 
 
-### $\sigma$ (Step Size)
+#### $\sigma$ (Step Size)
 
 * $\sigma$ **Too Small**: Almost always accept, but moves very slowly, samples strongly correlated, **Low ESS**;
 * $\sigma$ **Too Large**: Often propose to low density areas, high rejection, inefficient;
@@ -208,7 +208,7 @@ Thus $\pi$ is the **Stationary Distribution** (invariant distribution). As long 
 
 Empirically: For Random Walk Metropolis, optimal acceptance rate is around **\~0.4** for **1D**; for higher dimensions, **0.2–0.3** is common (rule of thumb, not law).
 
-### Example
+#### Example
 
 
 ```python
@@ -279,7 +279,7 @@ def metropolis(logpdf, x0, proposal_std, n_steps, burn_in=0, rng=None):
     return np.array(samples), acc_rate, np.array(accepts)
 ```
 
-#### Unimodal Example
+##### Unimodal Example
 Unimodal hard-to-normalize distribution: $\pi(x)\propto e^{-x^4}$
 
 Observe acceptance rate, ACF, ESS, histogram vs true density (numerically normalized) under different $\sigma$.
@@ -366,7 +366,7 @@ plt.show()
     
 
 
-#### Bimodal Example
+##### Bimodal Example
 **Bimodal Mixture**: 0.5 $\mathcal N(-3,1)$ + 0.5 $\mathcal N(3,1)$
 
 Observe "mode trapping" of random walk in multi-modal terrain, and counter-examples of $\sigma$ too small/large.
@@ -439,12 +439,12 @@ plt.show()
     
 
 
-## 2D/High-Dim Version: Correlated Gaussian
+### 2D/High-Dim Version: Correlated Gaussian
 > Intuition:
 > 1. **Challenges of Random Walk Metropolis in High Dimensions**;
 > 2. **Impact of proposal covariance scaling on acceptance rate and ESS**.
 
-### Target Distribution: 2D Correlated Gaussian
+#### Target Distribution: 2D Correlated Gaussian
 
 Target distribution:
 
@@ -456,7 +456,7 @@ $$
 This is an "elliptical" 2D Gaussian, main direction along $y=x$.
 
 
-### Metropolis Settings
+#### Metropolis Settings
 
 * **Proposal Distribution**: Symmetric Gaussian
 
@@ -470,7 +470,7 @@ This is an "elliptical" 2D Gaussian, main direction along $y=x$.
   * Too Large (2.0)
 
 
-### Diagnostics
+#### Diagnostics
 
 * **Acceptance Rate** (accepted / total steps)
 * **ESS (Effective Sample Size)**: Estimated approximately for each dimension using autocorrelation
@@ -622,7 +622,7 @@ results
 
 
 
-### 📊 Diagnostic Table
+#### 📊 Diagnostic Table
 
 | σ (proposal std) | Acc Rate | ESS(x) | ESS(y) | Intuitive Behavior                           |
 | ---------------- | -------- | ------ | ------ | -------------------------------------------- |
@@ -631,7 +631,7 @@ results
 | **2.0** (Large)  | 0.18     | \~1030 | \~929  | Low acceptance, but large moves, highest ESS; chain "jittery".|
 
 
-### 📉 Graphic Explanation
+#### 📉 Graphic Explanation
 
 1. **Scatter Plot**
 
@@ -647,7 +647,7 @@ results
 
 
 
-### ✅ **Intuition Summary**
+#### ✅ **Intuition Summary**
 
 * In high dimensions, **step size scaling** impacts MCMC performance significantly.
 * Too small → High acceptance but "crawling", low ESS.
@@ -655,7 +655,7 @@ results
 * Good range → Balance between acceptance rate and exploration.
 
 
-# Practical Tips
+## Practical Tips
 
 1. **Use Log Density**: Always work in log domain to avoid underflow.
 2. **Burn-in**: Be conservative, discard initial samples; but don't waste too many.
