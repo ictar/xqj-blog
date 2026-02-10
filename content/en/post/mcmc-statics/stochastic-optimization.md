@@ -217,7 +217,8 @@ SA's advantages:
 3. **Cooling / Annealing**: Slowly lower temperature $T$ (increase $\lambda$).
    - Action: Lower $T$ according to a schedule.
      - Theoretical: $T(t) \sim \frac{c}{\log(1+t)}$ (Guarantees global opt, but strictly slow).
-     - Practical: $T_{new} = T_{old} \times 0.99$.
+     - Practical: $T_{new} = T_{old} \times \alpha$.
+       - $\alpha$: Cooling Rate, usually between $0.8$ and $0.99$.
    - Phenomenon: As T drops, distribution "deforms". Flat areas get lower, deep pits get deeper (peaks get sharper).
 4. **Low Temperature Exploitation**: Loop till Low T.
    - Action: Continue "Sample -> Cool -> Sample" until $T$ is very low.
@@ -319,11 +320,11 @@ plt.show()
     Step   | Temp     | Current x  | Action
     ---------------------------------------------
     0      | 10.0000  | -2.5000    | Explore 🎲
-    200    | 1.3398   | 2.2058     | Explore 🎲
-    400    | 0.1795   | 0.2473     | Exploit 🎯
-    600    | 0.0241   | -0.0782    | Exploit 🎯
+    200    | 1.3398   | 1.6236     | Explore 🎲
+    400    | 0.1795   | 0.2889     | Exploit 🎯
+    600    | 0.0241   | 0.0178     | Exploit 🎯
     ---------------------------------------------
-    ✅ Final Estimate: x = -0.0115
+    ✅ Final Estimate: x = -0.0050
     ✅ True Min: x = 0.0000
 
     
@@ -456,9 +457,9 @@ if DIMENSION == 2:
 ```
 
     Start 2-D Optimization...
-    Start: [-0.04  4.85], Energy: 28.08
-    End. Final Loc: [1.0266 2.0164]
-    Final Energy: 5.312337 (Theoretical 0.0)
+    Start: [-2.9 -2.5], Energy: 36.46
+    End. Final Loc: [-0.0686 -0.9187]
+    Final Energy: 3.039640 (Theoretical 0.0)
 
     
 ![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_8_1.png)
@@ -536,3 +537,418 @@ $$
 $$\lim_{\lambda \to \infty} \langle x \rangle_\lambda \approx \frac{x^* \cdot \sqrt{\frac{2\pi}{\lambda k}}}{\sqrt{\frac{2\pi}{\lambda k}}}$$
 Roots, $\pi$, derivative $k$, and $\lambda$ all cancel out! Remaining:
 $$= x^*$$
+
+### More Examples
+> This example is from the classroom.
+
+This example is a classic optimization case study, demonstrating how to use the **Simulated Annealing (SA)** algorithm to find the global minimum of a multi-modal function (which has multiple local minima), and comparing it with a **deterministic algorithm (Newton's Method)** to showcase the advantage of stochastic algorithms in complex terrains.
+
+#### Defining the Target Function
+
+We first define a function composed of the sum of three reciprocal quadratic functions:
+$$ f(x) = \sum \frac{a_i}{b_i+(x+c_i)^2} $$
+
+- **Geometric Meaning**: This creates three main "pits" (local minima) on the graph.
+- **Challenge**: One of them is the deepest (global optimum), while the other two are traps. If we only look at the slope under our feet (Gradient Descent / Newton's Method), we can easily fall into a shallow pit and get stuck.
+
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ==========================================
+# 1. Define Target Function
+# ==========================================
+# A constructed multi-modal function with multiple pits
+def target_func(x):
+    # Parameters (corresponding to a, b, c in formula)
+    a = np.array([-40, -20, -40])
+    b = np.array([150, 100, 300])
+    c = np.array([-10, -40, 40])
+    
+    y = 0
+    for i in range(3):
+        y += a[i] / (b[i] + (x + c[i])**2)
+    return y
+
+# Plot range
+xmin, xmax = -100, 100
+x_vec = np.linspace(xmin, xmax, 1000)
+y_vec = target_func(x_vec)
+
+plt.figure(figsize=(10, 4))
+plt.plot(x_vec, y_vec, linewidth=2)
+plt.title('Target Function (Optimization Landscape)')
+plt.grid(True)
+plt.show()
+```
+
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_12_0.png)
+
+#### Temperature Law: The Soul of SA
+> This is simulation annealing's most critical setting.
+
+In Simulated Annealing, we map the target function value $E(x)$ (energy) to a probability $P(x)$. The mapping rule is the **Boltzmann Distribution**:
+$$P(x) = \frac{1}{Z} \cdot e^{-\frac{E(x)}{T}}$$
+- $E(x)$: Energy (the target function value to minimize).
+- $T$: Temperature.
+- $Z$: Normalization constant.
+
+Substituting into the Metropolis acceptance rate formula $\alpha = \min\left(1, \frac{P(\text{new})}{P(\text{old})}\right)$, the constant $Z$ cancels out, leaving:
+$$P(\text{accept}) = \exp\left(-\frac{\Delta E}{T}\right)$$
+- $\Delta E = E(\text{new}) - E(\text{old})$: How much worse the energy became.
+- $T$: Current temperature (tolerance).
+
+This formula tells us: **The higher the temperature $T$, the higher the tolerance, and the greater the probability $P$ of accepting a bad move.**
+
+We can reverse-engineer the temperature from this formula:
+$$T = -\frac{\Delta E}{\ln(P)}$$
+
+Why calculate $T_{in}$ and $T_{end}$?
+- **Initial Temperature $T_{in}$**: Set to allow an 80% probability ($P=0.8$) of accepting even the worst case (jumping from lowest to highest point). This ensures **"High Exploration"** so the particle can jump anywhere.
+  - $\Delta E$ value: `max(fx) - min(fx)`.
+- **Final Temperature $T_{end}$**: Set to allow only a 5% probability ($P=0.05$) of accepting tiny fluctuations ($\Delta E = 10^{-3}$). This ensures **"Low Exploitation"** (freezing), locking onto the solution.
+
+**Geometric Cooling: $T(k) = T_{in} \cdot e^{-\tau k}$**
+> Geometric Cooling is not a physical law but an engineering compromise to the theoretical "Logarithmic Cooling" (which is too slow).
+
+Directly borrowing from Newton's Law of Cooling: **Reduce temperature by a fixed percentage each step.**
+$$T_{k+1} = \alpha \cdot T_k$$
+- $\alpha$: Cooling Rate, usually $0.8$ to $0.99$.
+
+Expanding this gives the exponential decay form:
+$$T(k) = T_0 \cdot e^{-\tau k}$$
+Where $\tau$ is the decay constant.
+
+We can derive $\tau$ from boundary conditions:
+1. Start: $k=0, T=T_{in}$
+2. End: $k=i_{max}-1, T=T_{end}$
+
+Solving for $\tau$:
+$$\tau = -\frac{\ln(T_{end}/T_{in})}{i_{max} - 1}$$
+
+
+```python
+# ==========================================
+# 2. Define Temperature Schedule
+# ==========================================
+# We want:
+# - At Tin: 80% prob to accept max energy jump (High Exploration)
+# - At Tend: 5% prob to accept tiny jump (1e-3) (High Locking)
+
+y_max, y_min = np.max(y_vec), np.min(y_vec)
+delta_E_max = y_max - y_min
+
+# Reverse calculate T
+# P = exp(-dE / T)  =>  ln(P) = -dE / T  =>  T = -dE / ln(P)
+T_in = -delta_E_max / np.log(0.8)
+T_end = -1e-3 / np.log(0.05)
+
+n_iter = 10000
+
+# Geometric Cooling: T(k) = T_in * exp(-tau * k)
+# At k = n_iter-1, T = T_end
+tau = -np.log(T_end / T_in) / (n_iter - 1)
+
+iterations = np.arange(n_iter)
+T_schedule = T_in * np.exp(-tau * iterations)
+
+plt.figure(figsize=(6, 4))
+plt.plot(iterations, T_schedule)
+plt.title('Temperature Law (Geometric Decay)')
+plt.xlabel('Iteration')
+plt.ylabel('Temperature')
+plt.grid(True)
+plt.show()
+```
+
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_14_0.png)
+
+#### Simulated Annealing Main Loop (Metropolis Core)
+Inside the loop is standard Metropolis:
+1. Random Walk: `randn(1)*sd + sx(i-1)`.
+2. Energy Check:
+   - If better ($\Delta E < 0$), accept ($>1$).
+   - If worse ($\Delta E > 0$), calculate $e^{-\Delta E/T}$.
+   - Key: Since $T$ decreases, the same bad move is forgiven (accepted) early on, but rejected later.
+
+
+```python
+# ==========================================
+# 3. Simulated Annealing Main Loop
+# ==========================================
+print("Starting Simulated Annealing...")
+sx = np.zeros(n_iter)
+alpha_hist = np.zeros(n_iter)
+
+# Initial Point (Random)
+current_x = np.random.randn() * 10
+sx[0] = current_x
+proposal_std = 50 # Standard deviation for proposal
+
+for i in range(1, n_iter):
+    # 1. Propose: Random Walk
+    # Truncated to constraints
+    while True:
+        candidate = current_x + np.random.randn() * proposal_std
+        if xmin <= candidate <= xmax:
+            break
+            
+    # 2. Calculate Energy Diff
+    E_curr = target_func(current_x)
+    E_cand = target_func(candidate)
+    dE = E_cand - E_curr # Minimize
+    
+    # 3. Acceptance Ratio
+    T_curr = T_schedule[i]
+    
+    # alpha = exp(-dE / T)
+    alpha = min(1, np.exp(-dE / T_curr))
+    
+    alpha_hist[i] = alpha
+    
+    # 4. Accept/Reject
+    if np.random.rand() < alpha:
+        current_x = candidate
+    # else: keep current_x
+    
+    sx[i] = current_x
+
+# Result (Mean of last 20% samples)
+t_burn = int(0.8 * n_iter)
+x_sol_stochastic = np.mean(sx[t_burn:])
+y_sol_stochastic = target_func(x_sol_stochastic)
+
+print(f"Stochastic Solution (SA): x = {x_sol_stochastic:.4f}, y = {y_sol_stochastic:.4f}")
+# Plot on the image
+plt.figure(figsize=(10, 4))
+plt.plot(x_vec, y_vec, linewidth=2)
+plt.plot(x_sol_stochastic, y_sol_stochastic, 'ro')
+plt.title('Target Function With Solution')
+plt.grid(True)
+plt.show()
+```
+
+    Starting Simulated Annealing...
+    Stochastic Solution (SA): x = 10.0012, y = -0.3010
+    
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_16_1.png)
+
+#### Contrast: Deterministic Algorithm (Newton's Method)
+
+We also implemented a simple Newton's method for comparison.
+- **Principle**: Uses **second derivative** information to fit a parabola to find extremums. Converges extremely fast.
+- **Outcome**: We deliberately set the start point at $x=-10$.
+  - From the graph, $x=-10$ is near a local peak (maximum).
+  - Newton's method is "myopic"; it sees a nearby peak and rushes up, unaware of the deeper pit further away.
+  - **Conclusion**: Newton's method found a **local optimum**, while Simulated Annealing (due to early random jumps) successfully skipped this trap and found the **global optimum**.
+
+
+```python
+# ==========================================
+# 4. Deterministic Contrast (Newton's Method)
+# ==========================================
+# Newton: x_new = x - f'(x) / f''(x)
+# Deliberately start far from global opt, near a local opt
+x_newton = -10.0 
+newton_path = [x_newton]
+
+# Central Difference for Derivatives
+def get_derivatives(f, x, h=1e-5):
+    # First derivative f'
+    df = (f(x + h) - f(x - h)) / (2 * h)
+    # Second derivative f''
+    ddf = (f(x + h) - 2*f(x) + f(x - h)) / (h**2)
+    return df, ddf
+
+for _ in range(100):
+    df, ddf = get_derivatives(target_func, x_newton)
+    if abs(ddf) < 1e-6: break # Prevent div by zero
+    
+    step = df / ddf
+    x_newton = x_newton - step
+    newton_path.append(x_newton)
+    
+    if abs(step) < 1e-6: break # Converged
+
+y_sol_deterministic = target_func(x_newton)
+print(f"Deterministic Solution (Newton): x = {x_newton:.4f}, y = {y_sol_deterministic:.4f}")
+
+# Plot on the image
+plt.figure(figsize=(10, 4))
+plt.plot(x_vec, y_vec, linewidth=2)
+plt.plot(x_newton, y_sol_deterministic, 'ro')
+plt.title('Target Function With Solution)')
+plt.grid(True)
+plt.show()
+```
+
+    Deterministic Solution (Newton): x = -17.7557, y = -0.0996
+
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_18_1.png)
+
+#### Visual Comparison
+
+```python
+# ==========================================
+# 5. Final Visualization
+# ==========================================
+plt.figure(figsize=(12, 6))
+plt.plot(x_vec, y_vec, label='Target Function', color='blue', alpha=0.5)
+
+# Plot SA samples (color by time)
+plt.scatter(sx[::10], target_func(sx[::10]), c=np.arange(0, n_iter, 10), 
+            cmap='Wistia', alpha=0.5, s=10, label='SA Trajectory')
+
+# Mark Solutions
+plt.plot(x_sol_stochastic, y_sol_stochastic, 'r*', markersize=20, label='SA Solution (Global)')
+plt.plot(x_newton, y_sol_deterministic, 'kx', markersize=15, markeredgewidth=3, label='Newton Solution (Local)')
+
+plt.colorbar(label='Iteration Time')
+plt.legend()
+plt.title('Global Optimization: Simulated Annealing vs Newton Method')
+plt.xlim(xmin, xmax)
+plt.show()
+```
+
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_20_0.png)
+
+- **Yellow/Orange dots**: Footprints of SA. Lighter (early) dots are everywhere (exploring); darker (late) dots concentrate in the deepest pit.
+- **Red Star (SA)**: Landed accurately on the global minimum.
+- **Black Cross (Newton)**: Regrettably stuck on a nearby peak.
+
+#### Hybrid Optimization
+
+Using only one method has issues:
+- **Simulated Annealing only**: Very inefficient at the end. To reduce error from 0.01 to 0.000001, you need to cool down extremely slowly, requiring millions of iterations. Like embroidery with a sledgehammer.
+- **Newton only**: Unless you are lucky and start near the global optimum, it will likely fall into a local trap. Like finding a path with a microscope.
+
+**Solution: Combine them.**
+1. **Use SA** to get an Approximate Global Solution.
+   - Low Precision, High Robustness. It jumps out of traps and lands *near* the hole.
+2. **Use Newton** to get the Exact Solution.
+   - High Precision, Fragile. Since SA already put it in the right "basin of attraction", Newton will slide it into the hole at quadratic speed.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Plot Prep
+x_vec = np.linspace(-100, 100, 1000)
+y_vec = target_func(x_vec)
+
+# ==========================================
+# Phase 1: Simulated Annealing (Global Search)
+# ==========================================
+print("🚀 Phase 1: Simulated Annealing (Global Search)...")
+
+# 1. Auto Temp
+y_max, y_min = np.max(y_vec), np.min(y_vec)
+delta_E_max = y_max - y_min
+
+# Init: 80% accept max jump; End: 5% accept tiny jump
+T_in = -delta_E_max / np.log(0.8)
+T_end = -1e-3 / np.log(0.05)
+
+n_iter = 5000 
+tau = -np.log(T_end / T_in) / (n_iter - 1)
+
+# Init
+current_x = np.random.uniform(-90, 90) # Random Start
+sx = np.zeros(n_iter)
+proposal_std = 20 
+
+# SA Loop
+for i in range(n_iter):
+    T_curr = T_in * np.exp(-tau * i)
+    
+    while True:
+        candidate = current_x + np.random.randn() * proposal_std
+        if -100 <= candidate <= 100: break
+    
+    dE = target_func(candidate) - target_func(current_x)
+    
+    if dE < 0 or np.random.rand() < np.exp(-dE / T_curr):
+        current_x = candidate
+        
+    sx[i] = current_x
+
+# SA Result (Mean of last 10%)
+t_burn = int(0.9 * n_iter)
+x_sa_approx = np.mean(sx[t_burn:])
+y_sa_approx = target_func(x_sa_approx)
+
+print(f"✅ SA Done. Approx Opt: x ≈ {x_sa_approx:.4f}")
+
+
+# ==========================================
+# Phase 2: Newton Method (Fine Tuning)
+# ==========================================
+print("\n🎯 Phase 2: Hybrid Newton Method (Fine Tuning)...")
+
+# --- Key: Use SA result as Newton Start ---
+x_hybrid = x_sa_approx 
+hybrid_path = [x_hybrid]
+
+for _ in range(50): 
+    df, ddf = get_derivatives(target_func, x_hybrid)
+    
+    if abs(ddf) < 1e-9: break 
+    
+    step = df / ddf
+    x_hybrid = x_hybrid - step
+    hybrid_path.append(x_hybrid)
+    
+    if abs(step) < 1e-10: # High precision stop
+        print("   -> Newton Converged.")
+        break
+
+y_hybrid = target_func(x_hybrid)
+print(f"✅ Hybrid Final Solution: x = {x_hybrid:.8f} (High Precision)")
+
+
+# ==========================================
+# Contrast: Newton Direct (Bad Start)
+# ==========================================
+print("\n⚠️ Contrast: Direct Newton (No SA)...")
+x_bad_newton = -10.0 
+for _ in range(50):
+    df, ddf = get_derivatives(target_func, x_bad_newton)
+    if abs(ddf) < 1e-9: break
+    x_bad_newton = x_bad_newton - df / ddf
+
+print(f"❌ Failed. Trapped in Local Opt: x = {x_bad_newton:.4f}")
+
+
+# ==========================================
+# Visualization
+# ==========================================
+plt.figure(figsize=(12, 6))
+plt.plot(x_vec, y_vec, 'k-', alpha=0.3, label='Target Function')
+
+# 1. SA Path
+plt.scatter(sx[::10], target_func(sx[::10]), c='orange', s=10, alpha=0.3, label='Phase 1: SA Exploration')
+
+# 2. Hybrid Result
+plt.plot(x_hybrid, y_hybrid, 'g*', markersize=25, label='Phase 2: Hybrid Result (Global Opt)')
+
+# 3. Bad Newton
+plt.plot(x_bad_newton, target_func(x_bad_newton), 'rx', markersize=20, markeredgewidth=3, label='Newton Only (Local Trap)')
+
+plt.title(f"Hybrid Optimization Strategy\nSA (Approx: {x_sa_approx:.2f}) + Newton (Final: {x_hybrid:.5f})")
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+    🚀 Phase 1: Simulated Annealing (Global Search)...
+    ✅ SA Done. Approx Opt: x ≈ 10.2579
+    
+    🎯 Phase 2: Hybrid Newton Method (Fine Tuning)...
+       -> Newton Converged.
+    ✅ Hybrid Final Solution: x = 10.20155372 (High Precision)
+    
+    ⚠️ Contrast: Direct Newton (No SA)...
+    ❌ Failed. Trapped in Local Opt: x = -17.7557
+
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_23_1.png)
