@@ -268,32 +268,301 @@ plt.show()
 - **Trajectory:** Jumps between (0,0), (0,1), (1,0), (1,1) strictly along axes.
 - **Application:** Core of Image Denoising (Ising) and NLP (LDA).
 
-## Continuous: Bivariate Normal
+## Continuous Example: Bivariate Normal Implementation
 
-Target $(x, y)$: Standard Bivariate Normal.
-- $\mu_x = 0, \mu_y = 0, \sigma_x = 1, \sigma_y = 1$
-- Correlation $\rho$.
+Our target is to sample a 2D vector $(x, y)$ from a **Bivariate Normal Distribution**, shaped like a tilted hill:
+- **Mean**: $\mu_x = 15, \mu_y = -20$
+  - Center at $(15, -20)$.
+- **Standard Deviation**: $\sigma_x = 40, \sigma_y = 12$
+  - $x$ is wide spread, $y$ is narrow.
+- **Correlation**: $\rho = 0.5$
+  - Positive correlation, meaning as $x$ increases, $y$ tends to increase. The hill is tilted.
 
-Direct formula is messy. Gibbs is easy.
-Conditionals:
-$$P(x | y) = \mathcal{N}(\text{mean}=\rho y, \text{var}=1-\rho^2)$$
-$$P(y | x) = \mathcal{N}(\text{mean}=\rho x, \text{var}=1-\rho^2)$$
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import multivariate_normal
 
-Intuition:
-- Mean $\rho y$: If $y$ is positive and $\rho>0$, $x$ is likely positive. Center shifts.
-- Var $1-\rho^2$: If correlated ($\rho \to 1$), variance $\to 0$. $x$ is locked by $y$.
+# --- 1. Define Distribution Parameters ---
+mu_x, mu_y = 15, -20
+s_x, s_y = 40, 12
+r = 0.5  # Correlation coefficient
 
+# Covariance Matrix Sigma = [[sx^2, r*sx*sy], [r*sx*sy, sy^2]]
+cov_xy = r * s_x * s_y
+Sigma = np.array([[s_x**2, cov_xy],
+                  [cov_xy, s_y**2]])
+Mean = np.array([mu_x, mu_y])
+
+# --- 2. Create Grid for Plotting ---
+x, y = np.mgrid[-200:200:1, -200:200:1]
+pos = np.dstack((x, y))
+
+# Calculate Theoretical PDF
+rv = multivariate_normal(Mean, Sigma)
+Z = rv.pdf(pos)
+
+# --- 3. Visualize Target ---
+plt.figure(figsize=(6, 5))
+plt.contourf(x, y, Z, cmap='viridis')
+plt.colorbar(label='Probability Density')
+plt.title('Target 2D Normal Distribution (Limit)')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.axis('equal')  # Keep aspect ratio
+plt.show()
+```
+
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_13_0.png)
+
+### Comparing 4 Sampling Strategies
+
+To understand the characteristics of Gibbs Sampling, we will compare it with different Metropolis strategies.
+
+First, let's define a plotting function to visualize the trajectory and mixing.
+
+```python
+import matplotlib.pyplot as plt
+
+def plot_trajectory(samples, title, method_name):
+    """
+    Plots 3 figures:
+    1. 2D Density Map (Final Result)
+    2. Trajectory of first 50 steps (Details)
+    3. Trace Plot of X and Y (Mixing)
+    """
+    plt.figure(figsize=(15, 10))
+    
+    # Plot 1: Final Distribution
+    plt.subplot2grid((2, 2), (0, 0))
+    plt.hist2d(samples[:,0], samples[:,1], bins=50, cmap='viridis', density=True)
+    plt.title(f'{title}\n(Final Distribution)')
+    plt.axis('equal')
+    
+    # Plot 2: Trajectory (First 50 Steps)
+    plt.subplot2grid((2, 2), (0, 1))
+    # Background contours
+    x, y = np.mgrid[-100:150:1, -100:50:1]
+    pos = np.dstack((x, y))
+    plt.contour(x, y, rv.pdf(pos), levels=5, cmap='Greys', alpha=0.3)
+    
+    # Path
+    plt.plot(samples[:50, 0], samples[:50, 1], 'o-', markersize=4, linewidth=1, alpha=0.7, color='r')
+    plt.scatter(samples[0, 0], samples[0, 1], color='k', s=50, label='Start', zorder=5)
+    plt.title(f'{method_name} Path\n(First 50 Steps)')
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.legend()
+    plt.grid(True, linestyle='--', alpha=0.3)
+    
+    # Plot 3: Trace Plot (Mixing)
+    plt.subplot2grid((2, 2), (1, 0), colspan=2) 
+    plt.plot(samples[:, 0], label='X', alpha=0.6, linewidth=0.5)
+    plt.plot(samples[:, 1], label='Y', alpha=0.6, linewidth=0.5)
+    plt.title(f'{method_name} Trace\n(Mixing)')
+    plt.xlabel('Iteration')
+    plt.legend()
+    
+    plt.tight_layout()
+    plt.show()
+```
+
+#### Method 1: Standard Gibbs Sampler
+
+If we want to sample directly (e.g., Rejection Sampling), we face a complex formula: $$P(x, y) \propto \exp\left( -\frac{1}{2(1-\rho^2)} (x^2 - 2\rho xy + y^2) \right)$$
+
+With Gibbs, we use the conditional distributions, which are simple 1D Normals:
+- Given $y$, $x \sim \mathcal{N}(\mu_{x|y}, \sigma_{x|y}^2)$
+- Given $x$, $y \sim \mathcal{N}(\mu_{y|x}, \sigma_{y|x}^2)$
+
+**Intuition**:
+- **Mean shift**: If $x, y$ are positively correlated, knowing $y$ is large tells us $x$ is likely large.
+- **Variance reduction**: High correlation reduces the conditional variance (uncertainty).
+
+```python
+# ==========================================
+# Method 1: Standard Gibbs Sampling
+# ==========================================
+print("Running Method 1: Standard Gibbs...")
+n_iter = 100000
+samples_gibbs = np.zeros((n_iter, 2))
+curr = np.array([0.0, 0.0]) # Start
+
+# Conditional Standard Deviations (fixed for Normal)
+s_x_cond = s_x * np.sqrt(1 - r**2)
+s_y_cond = s_y * np.sqrt(1 - r**2)
+
+for i in range(n_iter):
+    # 1. Update X (Fix Y)
+    mu_x_cond = mu_x + r * (s_x / s_y) * (curr[1] - mu_y)
+    curr[0] = np.random.normal(mu_x_cond, s_x_cond)
+    
+    # Note: Gibbs technically updates one by one. To plot perfect 
+    # orthogonal steps, we should record intermediate states. 
+    # Here we record after both updates for simplicity.
+    
+    # 2. Update Y (Fix X)
+    mu_y_cond = mu_y + r * (s_y / s_x) * (curr[0] - mu_x)
+    curr[1] = np.random.normal(mu_y_cond, s_y_cond)
+    
+    samples_gibbs[i] = curr
+
+plot_trajectory(samples_gibbs, "Standard Gibbs", "Gibbs")
+```
+
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_1.png)
+
+- **Path Characteristic**: **Manhattan Walk**.
+  - Logically, it moves strictly along axes ("Move X, then Move Y").
+  - It navigates the tilted ellipse efficiently using conditional guidance.
+  - **Acceptance Rate: 100%.** No rejection.
+
+#### Method 2: Gibbs via Metropolis (Metropolis-within-Gibbs)
+
+What if we **don't know** the exact formula for $P(x|y)$? Or if it's too complex to sample directly?
+We can use **Metropolis** steps to simulate the conditional sampling.
+
+- **Principle**:
+  1. Update $x$: Fix $y$. Use Metropolis to propose a new $x$ and accept/reject it based on $P(x|y)$.
+  2. Update $y$: Fix $x$. Use Metropolis to propose a new $y$.
+- **Pros**: Generic. Works without analytical conditionals.
+- **Cons**: Slower due to rejections.
+
+```python
+# ==========================================
+# Method 2: Gibbs via Metropolis
+# ==========================================
+print("Running Method 2: Gibbs via Metropolis...")
+n_iter = 100000
+samples_gm = np.zeros((n_iter, 2))
+curr = np.array([0.0, 0.0])
+prop_width = 100 # Large proposal width
+
+for i in range(n_iter):
+    # --- Update X (Metropolis) ---
+    x_old, y_old = curr
+    x_cand = np.random.uniform(x_old - prop_width, x_old + prop_width)
+    
+    # Acceptance ratio: P(x_new, y) / P(x_old, y)
+    p_old = rv.pdf([x_old, y_old])
+    p_new = rv.pdf([x_cand, y_old])
+    alpha = min(1, p_new / p_old)
+    if np.random.rand() < alpha:
+        curr[0] = x_cand 
+
+    # --- Update Y (Metropolis) ---
+    x_fixed, y_old = curr 
+    y_cand = np.random.uniform(y_old - prop_width, y_old + prop_width)
+    
+    alpha = min(1, rv.pdf([x_fixed, y_cand]) / rv.pdf([x_fixed, y_old]))
+    if np.random.rand() < alpha:
+        curr[1] = y_cand
+        
+    samples_gm[i] = curr
+
+plot_trajectory(samples_gm, "Gibbs via Metropolis", "Gibbs-Metropolis")
+```
+
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_19_1.png)
+
+- **Path Characteristic**: **Stuttering Manhattan Walk**.
+  - Similar to Gibbs but with "pauses" (rejections) along the axes.
+
+#### Method 3: Random Walk Metropolis (2D)
+
+The "Standard" Metropolis. Update $(x, y)$ simultaneously.
+
+- **Principle**: Propose $(x', y')$ by adding random noise to $(x, y)$. Accept/Reject based on joint ratio.
+- **Cons**: In high dimensions or high correlation, guessing both $x$ and $y$ correctly at once is hard. Low acceptance.
+
+```python
+# ==========================================
+# Method 3: Random Walk Metropolis
+# ==========================================
+print("Running Method 3: Random Walk Metropolis...")
+n_iter = 100000
+samples_rw = np.zeros((n_iter, 2))
+curr = np.array([0.0, 0.0])
+sigma_prop = 10 
+
+for i in range(n_iter):
+    proposal = curr + np.random.normal(0, sigma_prop, size=2)
+    
+    p_curr = rv.pdf(curr)
+    p_prop = rv.pdf(proposal)
+
+    alpha = min(1, p_prop / p_curr)
+    if np.random.rand() < alpha:
+        curr = proposal
+    
+    samples_rw[i] = curr
+
+plot_trajectory(samples_rw, "Random Walk Metropolis", "RW-Metropolis")
+```
+
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_22_1.png)
+
+- **Path Characteristic**: **Drunkard's Walk**.
+  - Moves in arbitrary directions.
+  - Often gets stuck or moves slowly compared to Gibbs in structured limits.
+
+#### Method 4: Independent Metropolis Sampler
+
+Propose new state $(x', y')$ completely independently of current state.
+
+```python
+# ==========================================
+# Method 4: Independent Metropolis
+# ==========================================
+print("Running Method 4: Independent Metropolis...")
+n_iter = 100000
+samples_ind = np.zeros((n_iter, 2))
+curr = np.array([0.0, 0.0])
+search_range = 200 
+
+for i in range(n_iter):
+    proposal = np.random.uniform(-search_range, search_range, size=2)
+    
+    alpha = min(1, rv.pdf(proposal) / rv.pdf(curr))
+    if np.random.rand() < alpha:
+        curr = proposal
+    
+    samples_ind[i] = curr
+
+plot_trajectory(samples_ind, "Independent Metropolis", "Indep-Metropolis")
+```
+
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_25_1.png)
+
+- **Path Characteristic**: **Teleportation & Stagnation**.
+  - **Teleportation**: Can jump from one end to another instantly (Great Mixing).
+  - **Stagnation**: Most proposals land in low-probability "wilderness" and are rejected. Long pauses.
+
+#### Summary
+
+| Method | Update Strategy | Acceptance | Best For |
+| :--- | :--- | :--- | :--- |
+| **Standard Gibbs** | Alternating x, y (Formula) | 100% | Conditional formula known (Gaussian, Beta...) |
+| **Metropolis-Gibbs** | Alternating x, y (Guess) | Medium | Conditional formula unknown but want "divide & conquer" |
+| **Pure Metropolis** | Simultaneous x, y | Low | Simple problems, or when conditionals are hard to derive |
+
+# The Kryptonite: High Correlation
+
+* **Defect:** 100% acceptance $\neq$ Efficiency.
+* **Scenario:** High correlation ($\rho = 0.99$). Distribution is a thin canyon.
+* **Dilemma:** Gibbs moves orthogonally. In a diagonal canyon, it must take tiny baby steps (staircase). **Slow Mixing.**
+* **Solution:** Blocked Gibbs / Reparameterization.
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
 # --- 1. Params ---
-rho = 0.8             # Correlation
+rhos = {0: 'No Corr', 0.99: 'High Corr'}
 n_samples = 2000
-start_x, start_y = -4.0, -4.0 # Far corner start
+start_x, start_y = -4.0, -4.0
 
-# --- 2. Gibbs Sampler ---
+# --- 2. Gibbs Sampler (Reusable) ---
 def run_gibbs_sampler(n, rho, start_x, start_y):
     samples = np.zeros((n, 2))
     x, y = start_x, start_y
@@ -309,64 +578,6 @@ def run_gibbs_sampler(n, rho, start_x, start_y):
         samples[i] = [x, y]
         
     return samples
-
-# Run
-chain = run_gibbs_sampler(n_samples, rho, start_x, start_y)
-
-# --- 3. Viz ---
-plt.figure(figsize=(12, 5))
-
-# Plot 1: Trace (First 50)
-plt.subplot(1, 2, 1)
-plt.plot(chain[:50, 0], chain[:50, 1], 'o-', alpha=0.6, color='blue', markersize=4, label='Gibbs Path')
-plt.plot(start_x, start_y, 'ro', label='Start', markersize=8)
-plt.title(f"Gibbs Trajectory (First 50 Steps)\nCorrelation rho={rho}")
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.axis('equal')
-
-# Plot 2: Final Scatter
-plt.subplot(1, 2, 2)
-plt.scatter(chain[:, 0], chain[:, 1], s=5, alpha=0.3, color='green')
-plt.title(f"Final Samples (N={n_samples})\nTarget: Bivariate Normal")
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.axis('equal')
-plt.grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-    
-![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_13_0.png)
-    
-
-**Trajectory (Left Plot):**
-1. **Orthogonal Moves:** Steps are purely horizontal or vertical. Zig-zag.
-2. **Burn-in:** Starts at $(-4, -4)$ and quickly (5-10 steps) climbs to the center $(0,0)$.
-
-# The Kryptonite: High Correlation
-
-* **Defect:** 100% acceptance $\neq$ Efficiency.
-* **Scenario:** High correlation ($\rho = 0.99$). Distribution is a thin canyon.
-* **Dilemma:** Gibbs moves orthogonally. In a diagonal canyon, it must take tiny baby steps (staircase). **Slow Mixing.**
-* **Solution:** Blocked Gibbs / Reparameterization.
-
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-# --- 1. Params ---
-rhos = {0: 'No Corr', 0.99: 'High Corr'}
-n_samples = 2000
-start_x, start_y = -4.0, -4.0
-
-# --- 2. Gibbs Sampler (Reusable) ---
-# ... (same function)
 
 # Run
 index = 1
@@ -402,13 +613,9 @@ plt.tight_layout()
 plt.show()
 ```
 
-    
-![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_0.png)
-    
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_29_0.png)
 
-    
-![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_1.png)
-    
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_29_1.png)
 
 - **rho = 0:** Circle. Gibbs jumps freely. Fast mixing.
 - **rho = 0.99:** Thin line. Gibbs takes tiny steps along diagonal. Slow convergence.
