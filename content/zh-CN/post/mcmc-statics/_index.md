@@ -49,7 +49,10 @@ weight: 2
     - 从能量最小化到概率最大化：模拟退火的物理本质
     - 高温探索与低温锁定：Metropolis 采样的另一种视角
     - Pincus 定理：退火算法收敛到全局最优的数学证明
-11. [收敛性诊断](./convergence/)
+11. [马尔可夫随机场 (MRF) 与图像去噪](./markov_random_fields/)
+    - 从时间序列到空间网格：马尔可夫性的高维扩展
+    - Hammersley-Clifford 定理与吉布斯分布
+    - Ising 模型与图像去噪实战
 12. [Python 实战：MCMC 建模](./python/)
 
 ## 快速访问

@@ -45,9 +45,12 @@ Welcome to the **Monte Carlo–Markov Chains Statistical Methods** series, where
    - Newton's Method and Second-Order Approximation
    - Connection between Coordinate Descent and Gibbs Sampling
    - Pros and Cons of Steepest Descent
-10. [Stochastic Optimization Explained: Simulated Annealing & Pincus Theorem](./stochastic-optimization/)
+10. [Markov Random Fields (MRF) and Image Denoising](./markov_random_fields/)
+    - From Time Series to Spatial Lattices: High-Dimensional Extension of Markov Property
+    - Hammersley-Clifford Theorem and Gibbs Distribution
+    - Ising Model and Image Denoising in Practice
+11. [Stochastic Optimization Explained: Simulated Annealing & Pincus Theorem](./stochastic-optimization/)
     - From Energy Minimization to Probability Maximization: The Physics of Annealing
     - High-Temp Exploration & Low-Temp Exploitation: Another Perspective on Metropolis
     - Pincus Theorem: Mathematical Proof of Convergence to Global Optimum
-11. [Convergence Diagnostics](./convergence/)
 12. [Python Practical: MCMC Modeling](./python/)

@@ -302,10 +302,10 @@ plt.show()
 ```
 
     --- 离散 Gibbs 采样结果 ---
-    状态 [0 0]: 采样频率 0.1017
-    状态 [0 1]: 采样频率 0.4054
-    状态 [1 0]: 采样频率 0.2928
-    状态 [1 1]: 采样频率 0.2001
+    状态 [0 0]: 采样频率 0.0991
+    状态 [0 1]: 采样频率 0.4055
+    状态 [1 0]: 采样频率 0.2924
+    状态 [1 1]: 采样频率 0.2030
 
 
 
@@ -322,10 +322,103 @@ plt.show()
 
 ## 连续示例：二元正态分布 (Bivariate Normal Implementation)
 
-我们要采样的目标是一个二维向量 $(x, y)$，服从标准二元正态分布：
-- 均值：$\mu_x = 0, \mu_y = 0$
-- 方差：$\sigma_x = 1, \sigma_y = 1$
+我们要采样的目标是一个二维向量 $(x, y)$，服从二元正态分布，形状像一个倾斜的山丘：
+- 均值：$\mu_x = 15, \mu_y = -20$
+  - 也就是说，$x$ 中心在 15, $y$ 中心在 -20
+- 方差：$\sigma_x = 40, \sigma_y = 12$
+  - 也就是说：$x$ 很宽, $y$ 很窄。
 - 相关系数：$\rho$ (rho)。这是一个 $[-1, 1]$ 之间的数，决定了 $x$ 和 $y$ 的关系有多紧密。
+  - 这里设置为 0.5。这意味着 $x$ 变大时，$y$ 也有变大的趋势（正相关），所以山丘是斜的。
+
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import multivariate_normal
+
+# --- 1. 定义分布参数 ---
+mu_x, mu_y = 15, -20
+s_x, s_y = 40, 12
+r = 0.5  # 相关系数
+
+# 协方差矩阵 Sigma = [[sx^2, r*sx*sy], [r*sx*sy, sy^2]]
+cov_xy = r * s_x * s_y
+Sigma = np.array([[s_x**2, cov_xy],
+                  [cov_xy, s_y**2]])
+Mean = np.array([mu_x, mu_y])
+
+# --- 2. 创建网格用于画图 ---
+x, y = np.mgrid[-200:200:1, -200:200:1]
+pos = np.dstack((x, y))
+
+# 计算理论概率密度 PDF
+rv = multivariate_normal(Mean, Sigma)
+Z = rv.pdf(pos)
+
+# --- 3. 可视化 ---
+plt.figure(figsize=(6, 5))
+plt.contourf(x, y, Z, cmap='viridis')
+plt.colorbar(label='Probability Density')
+plt.title('Target 2D Normal Distribution (Limit)')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.axis('equal')  # 保持比例，否则椭圆会变形
+plt.show()
+```
+
+
+    
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_13_0.png)
+    
+
+
+
+```python
+import matplotlib.pyplot as plt
+def plot_trajectory(samples, title, method_name):
+    """
+    画三张图：
+    1. 2D 密度图 (结果)
+    2. 前 50 步的移动路径 (细节)
+    3. X 和 Y 的随时间变化 (混合情况)
+    """
+    plt.figure(figsize=(15, 10))
+    
+    # 图 1: 最终分布结果
+    plt.subplot2grid((2, 2), (0, 0))
+    plt.hist2d(samples[:,0], samples[:,1], bins=50, cmap='viridis', density=True)
+    plt.title(f'{title}\n(Final Distribution)')
+    plt.axis('equal')
+    
+    # 图 2: 移动路径 (只画前 50 步，看细节)
+    plt.subplot2grid((2, 2), (0, 1))
+    # 画背景等高线
+    x, y = np.mgrid[-100:150:1, -100:50:1]
+    pos = np.dstack((x, y))
+    plt.contour(x, y, rv.pdf(pos), levels=5, cmap='Greys', alpha=0.3)
+    
+    # 画路径
+    plt.plot(samples[:50, 0], samples[:50, 1], 'o-', markersize=4, linewidth=1, alpha=0.7, color='r')
+    plt.scatter(samples[0, 0], samples[0, 1], color='k', s=50, label='Start', zorder=5)
+    plt.title(f'{method_name} Path\n(First 50 Steps)')
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.legend()
+    plt.grid(True, linestyle='--', alpha=0.3)
+    
+    # 图 3: Trace Plot (混合情况)
+    plt.subplot2grid((2, 2), (1, 0), colspan=2) 
+    plt.plot(samples[:, 0], label='X', alpha=0.6, linewidth=0.5)
+    plt.plot(samples[:, 1], label='Y', alpha=0.6, linewidth=0.5)
+    plt.title(f'{method_name} Trace\n(Mixing)')
+    plt.xlabel('Iteration')
+    plt.legend()
+    
+    plt.tight_layout()
+    plt.show()
+```
+
+#### 方法 1: 标准吉布斯采样 (Standard Gibbs Sampler)
 
 如果我们想直接从这里采样（比如用 Rejection Sampling），我们需要处理这个公式：$$P(x, y) \propto \exp\left( -\frac{1}{2(1-\rho^2)} (x^2 - 2\rho xy + y^2) \right)$$
 
@@ -341,89 +434,234 @@ plt.show()
 - 均值 $\rho y$：如果你知道 $y$ 是正的，且 $x, y$ 正相关 ($\rho>0$)，那么 $x$ 大概率也是正的。所以 $x$ 的中心会向 $y$ 偏移。
 - 方差 $1-\rho^2$：如果相关性很强 ($\rho \to 1$)，方差趋近于 0。这意味着一旦 $y$ 确定了，$x$ 几乎也就确定了（没什么自由度）。
 
+所以，我们可以进行交替采样：
+- 原理：
+  1. 固定 $y$，从 $P(x|y)$ 中采一个 $x$。（对于多元高斯，条件分布依然是高斯分布，公式很明确）。
+  2. 固定 $x$，从 $P(y|x)$ 中采一个 $y$。
+  3. 重复。
+- 特点：接受率永远是 100%（因为我们直接从正确的条件分布里抽样，不需要拒绝）。效率极高。
+
 
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
+# ==========================================
+# 方法 1: 标准 Gibbs 采样 (Standard Gibbs)
+# ==========================================
+print("运行方法 1: Standard Gibbs...")
+n_iter = 100000
+samples_gibbs = np.zeros((n_iter, 2))
+curr = np.array([0.0, 0.0]) # 起点
 
-# --- 1. 参数设置 ---
-rho = 0.8             # 相关系数 (Correlation)
-n_samples = 2000      # 采样数量
-start_x, start_y = -4.0, -4.0 # 故意从一个很远的角落开始
+# 条件分布的参数公式 (高斯分布的性质)
+# P(x|y) ~ N(mu_x + r*(sigma_x/sigma_y)*(y - mu_y),  (1-r^2)*sigma_x^2)
+s_x_cond = s_x * np.sqrt(1 - r**2)
+s_y_cond = s_y * np.sqrt(1 - r**2)
 
-# --- 2. Gibbs Sampler ---
-def run_gibbs_sampler(n, rho, start_x, start_y):
-    samples = np.zeros((n, 2))
-    x, y = start_x, start_y
+for i in range(n_iter):
+    # 1. 更新 X (固定 Y)
+    mu_x_cond = mu_x + r * (s_x / s_y) * (curr[1] - mu_y)
+    curr[0] = np.random.normal(mu_x_cond, s_x_cond)
     
-    # 标准差 (Scale) 是方差的平方根
-    # conditional variance = 1 - rho^2
-    cond_std = np.sqrt(1 - rho**2)
+    # 注意：Gibbs 通常被视为“一步更新一个变量”，为了画出“直角”路径，
+    # 我们这里最好把中间状态也存下来 (X_new, Y_old)
+    # 但为了数据结构统一，我们通常存 (X_new, Y_new)。
+    # *注*：如果要画完美的直角，需要在绘图时插值。
     
-    for i in range(n):
-        # A. 固定 y，采样 x
-        # x ~ N(rho * y, 1 - rho^2)
-        x = np.random.normal(loc=rho * y, scale=cond_std)
-        
-        # B. 固定 x，采样 y (注意：这里用的是刚更新的 x)
-        # y ~ N(rho * x, 1 - rho^2)
-        y = np.random.normal(loc=rho * x, scale=cond_std)
-        
-        samples[i] = [x, y]
-        
-    return samples
+    # 2. 更新 Y (固定 X)
+    mu_y_cond = mu_y + r * (s_y / s_x) * (curr[0] - mu_x)
+    curr[1] = np.random.normal(mu_y_cond, s_y_cond)
+    
+    samples_gibbs[i] = curr
 
-# 运行采样
-chain = run_gibbs_sampler(n_samples, rho, start_x, start_y)
-
-# --- 3. 结果可视化 ---
-plt.figure(figsize=(12, 5))
-
-# 图 1: 轨迹细节 (前 50 步) - 看看它是怎么走的
-plt.subplot(1, 2, 1)
-plt.plot(chain[:50, 0], chain[:50, 1], 'o-', alpha=0.6, color='blue', markersize=4, label='Gibbs Path')
-# 画出起点
-plt.plot(start_x, start_y, 'ro', label='Start', markersize=8)
-plt.title(f"Gibbs Trajectory (First 50 Steps)\nCorrelation rho={rho}")
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.legend()
-plt.grid(True, alpha=0.3)
-# 强制横纵比例一致，这样才能看出正态分布的椭圆形状
-plt.axis('equal')
-
-# 图 2: 最终分布散点图
-plt.subplot(1, 2, 2)
-plt.scatter(chain[:, 0], chain[:, 1], s=5, alpha=0.3, color='green')
-plt.title(f"Final Samples (N={n_samples})\nTarget: Bivariate Normal")
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.axis('equal')
-plt.grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
+plot_trajectory(samples_gibbs, "Standard Gibbs", "Gibbs")
 ```
 
+    运行方法 1: Standard Gibbs...
+
+
 
     
-![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_13_0.png)
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_1.png)
     
 
 
-**仔细观察上面的左图 (轨迹图)。**
+- 路径特征 (Path Plot)：**曼哈顿漫步 (Manhattan Walk)**。
+  - 虽然在最终记录的点上你看到的是斜线，但在逻辑上它是严格的“先走X，再走Y”。如果你把每半步都画出来，它是严格的**直角折线**。
+  - 你会发现它能非常顺畅地沿着那个倾斜的椭圆方向移动，因为它利用了条件概率的引导。
 
-1. 曼哈顿式移动 (Orthogonal Moves)
-   - 虽然我们在代码里只存了 `[x, y]` 这个点，但实际上每次更新只变动一个坐标。
-   - 如果你把中间过程补全，它的真实路径其实是 “**直角折线**”：
-     - 先水平移动（更新 $x$）
-     - 再垂直移动（更新 $y$）
-     - 再水平移动...
-   - 这验证了 Gibbs Sampling “沿着坐标轴切片采样” 的本质。
-2. Burn-in 的过程
-   - 小人从 $(-4, -4)$ 出发。
-   - 你会看到它在前几步迅速地向中心 $(0, 0)$ 靠拢。
-   - 这个过程非常快，可能只需要 5-10 步就进入了“椭圆”的主体区域。
+- 混合情况 (Trace Plot)：波形非常活跃，自相关性低，能在 X 和 Y 轴上快速覆盖整个范围。
+
+#### 方法 2: 嵌入 Metropolis 的吉布斯采样 (Gibbs via Metropolis)
+
+这是吉布斯采样的 **通用版**。如果我们 **不知道** 条件分布 $P(x|y)$ 的公式怎么办？或者它太复杂没法直接用 numpy.random 抽样？我们可以 **用 Metropolis 算法来模拟** 这个抽样过程。
+- 原理：
+  1. 轮到更新 $x$ 时：固定 $y$，把它当作一维分布。用 Metropolis 规则（提议+接受/拒绝）来尝试更新 $x$。
+  2. 轮到更新 $y$ 时：同理。
+- 特点：比标准吉布斯慢，因为有拒绝率。但在不知道条件分布公式时非常有用。
+
+
+
+```python
+# ==========================================
+# 方法 2: Gibbs 嵌入 Metropolis (Gibbs-Metropolis)
+# ==========================================
+print("运行方法 2: Gibbs via Metropolis...")
+n_iter = 100000
+samples_gm = np.zeros((n_iter, 2))
+curr = np.array([0.0, 0.0])
+# 提议分布：均匀分布 (盲猜)
+# 范围设大一点覆盖主要区域
+prop_width = 100 # 提议范围
+
+for i in range(n_iter):
+    # --- 更新 X (Metropolis) ---
+    x_old, y_old = curr
+    # 提议一个新的 x (y 保持不变)
+    x_cand = np.random.uniform(x_old - prop_width, x_old + prop_width)
+    
+    # 计算接受率: P(x_new, y) / P(x_old, y)
+    # 注意：因为只变了 x，所以条件概率比等于联合概率比
+    p_old = rv.pdf([x_old, y_old])
+    p_new = rv.pdf([x_cand, y_old])
+    alpha = min(1, p_new / p_old)
+    if np.random.rand() < alpha:
+        curr[0] = x_cand # 更新 x
+    # else: x 保持不变 (隐式)
+
+    # --- 更新 Y (Metropolis) ---
+    x_fixed, y_old = curr # 使用刚才更新过的 x
+    y_cand = np.random.uniform(y_old - prop_width, y_old + prop_width)
+    
+    alpha = min(1, rv.pdf([x_fixed, y_cand]) / rv.pdf([x_fixed, y_old]))
+    if np.random.rand() < alpha:
+        curr[1] = y_cand
+        
+    samples_gm[i] = curr
+
+plot_trajectory(samples_gm, "Gibbs via Metropolis", "Gibbs-Metropolis")
+```
+
+    运行方法 2: Gibbs via Metropolis...
+
+
+
+    
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_19_1.png)
+    
+
+
+**路径特征：带停顿的直角折线。**
+- 因为引入了 Metropolis 的“拒绝”机制，你会发现在某些维度上，它尝试更新但被拒绝了（path 上体现为只在 X 轴动了，Y 没动，或者都没动）。
+- 它的效率比标准 Gibbs 低，因为会有“原地踏步”的情况。
+
+#### 方法 3：纯 Metropolis 采样 (2D Random Walk)
+
+这是 **最粗暴** 的方法。我不分 $x$ 和 $y$ 轮流更新，而是同时更新。
+- 原理：
+  1. 当前在 $(x, y)$。
+  2. 直接给 $(x, y)$ 加一个随机扰动（比如正态噪声），跳到 $(x', y')$。
+  3. 计算联合概率比 $P(x', y') / P(x, y)$ 来决定是否接受。
+
+- 特点：
+  - 优点：代码最简单，不需要懂条件概率。
+  - 缺点：在高维或相关性很强（$r$ 很大）的分布中，接受率会非常低。因为你想同时猜对 $x$ 和 $y$ 的好位置比较难。
+
+
+```python
+# ==========================================
+# 方法 3: 随机游走 Metropolis (Random Walk)
+# ==========================================
+print("运行方法 3: Random Walk Metropolis...")
+n_iter = 100000
+samples_rw = np.zeros((n_iter, 2))
+curr = np.array([0.0, 0.0])
+sigma_prop = 10 # 步长
+
+for i in range(n_iter):
+    # 同时提议 X 和 Y
+    proposal = curr + np.random.normal(0, sigma_prop, size=2)
+    
+    # 计算联合概率比
+    p_curr = rv.pdf(curr)
+    p_prop = rv.pdf(proposal)
+
+    alpha = min(1, p_prop / p_curr)
+    if np.random.rand() < alpha:
+        curr = proposal # 接受，整体移动
+    # else: 保持不动 (会看到轨迹图上有停留的点)
+    
+    samples_rw[i] = curr
+
+plot_trajectory(samples_rw, "Random Walk Metropolis", "RW-Metropolis")
+```
+
+    运行方法 3: Random Walk Metropolis...
+
+
+
+    
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_22_1.png)
+    
+
+
+- 路径特征：**醉汉漫步 (Drunkard's Walk)。**
+  - 它的连线是任意角度的（因为 X 和 Y 同时变）。
+  - 你会看到它像一只无头苍蝇，在一个局部区域扭来扭去，然后慢慢移向高概率区域。
+- Trace Plot：你会看到很明显的“平台期”（Flat lines），那是被拒绝时产生的连续重复值。
+
+#### 方法 4：独立 Metropolis 采样 (Independent Metropolis Sampler)
+它和前一个“随机游走 Metropolis”最大的区别在于：**它的下一步去哪里，和现在在哪里完全没关系。**
+
+
+
+```python
+# ==========================================
+# 方法 4: 独立 Metropolis (Independent / Uniform)
+# ==========================================
+print("运行方法 4: Independent Metropolis...")
+n_iter = 100000
+samples_ind = np.zeros((n_iter, 2))
+curr = np.array([0.0, 0.0])
+# 提议范围覆盖整个目标区域
+search_range = 200 
+
+for i in range(n_iter):
+    # 提议一个全新的点，和当前位置无关
+    proposal = np.random.uniform(-search_range, search_range, size=2)
+    
+    alpha = min(1, rv.pdf(proposal) / rv.pdf(curr))
+    if np.random.rand() < alpha:
+        curr = proposal
+    
+    samples_ind[i] = curr
+
+plot_trajectory(samples_ind, "Independent Metropolis", "Indep-Metropolis")
+```
+
+    运行方法 4: Independent Metropolis...
+
+
+
+    
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_25_1.png)
+    
+
+
+- 路径特征：瞬移与卡顿
+  - **瞬移 (Teleportation)**：与“随机游走”那种蠕动的虫子不同，独立 Metropolis 能够一步从地图的最左边跳到最右边。只要那一脚踩中了高概率区域，它就直接通过了。这意味着它的 **混合性 (Mixing)** 理论上非常好（不依赖上一步）。
+  - **卡顿 (Stagnation)**：这是它最大的弱点。你在 $[-200, 200]$ 的大正方形里扔飞镖，而高概率的目标区域（那个倾斜的椭圆）可能只占整个面积的 1% 不到。
+    - 绝大多数时候，你都会扔到荒郊野外（概率极低的地方）。
+    - 根据公式 $\alpha = P(\text{荒郊野外}) / P(\text{靶心}) \approx 0$，这些提议统统会被拒绝。
+    - 结果：算法会长时间停留在上一个有效点不动。你会看到轨迹图上有大量的重复点。
+- Trace Plot：呈现出“长时间的静止 + 突然的大跳跃”。这在低维简单问题尚可，在高维问题中会导致灾难性的低效率。
+
+#### 总结
+
+
+| 方法 | 更新策略 | 接受率 | 适用场景 |
+| :--- | :--- | :--- | :--- |
+| **标准 Gibbs** | 轮流更新 x, y (利用公式) | 100% (无拒绝) | 知道条件分布公式 (如高斯、贝塔等) |
+| **Metropolis-Gibbs** | 轮流更新 x, y (利用猜+验) | 中等 | 不知道条件分布公式，但想利用轮流更新的优势 |
+| **纯 Metropolis** | 同时更新 x, y | 较低 | 问题维度不高，或者懒得推导条件分布时 |
 
 
 # Gibbs 的软肋——强相关性 (The Kryptonite: High Correlation)
@@ -503,13 +741,13 @@ plt.show()
 
 
     
-![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_0.png)
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_29_0.png)
     
 
 
 
     
-![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_1.png)
+![png](/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_29_1.png)
     
 
 

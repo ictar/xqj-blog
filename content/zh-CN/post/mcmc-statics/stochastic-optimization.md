@@ -181,7 +181,23 @@ print("✅ 动画已保存为 'simulated_annealing.gif'")
 #plt.show()
 ```
 
-![](/img/contents/post/mcmc-statics/10_stochastic_optimization/simulated_annealing.gif)
+    <>:86: SyntaxWarning: invalid escape sequence '\l'
+    <>:86: SyntaxWarning: invalid escape sequence '\l'
+    /var/folders/mx/684cy0qs5zd3c_pdx4wy4pkc0000gn/T/ipykernel_94026/3433752484.py:86: SyntaxWarning: invalid escape sequence '\l'
+      text_info.set_text(f"$\lambda$ = {frame_lambda:.2f} (Inverse Temp)\n$T$ = {T:.2f} (Temperature)")
+
+
+    正在生成动画，请稍候...
+    ✅ 动画已保存为 'simulated_annealing.gif'
+
+
+
+    
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_2_2.png)
+    
+
+
+![](simulated_annealing.gif)
 
 这是一个经典的 **“双势阱”（Double Well）** 能量函数：
 - 它有一个全局最优解（深坑）。
@@ -220,7 +236,8 @@ print("✅ 动画已保存为 'simulated_annealing.gif'")
    - 操作：按照一个时间表逐渐降低 $T$。
      - 例如：$T(t) \sim \frac{c}{\log(1+t)}$
        - 这是一个非常著名的理论公式（Geman & Geman, 1984），保证能找到全局最优，但它降温极慢。
-     - 实际工程中，我们通常用更快的方法，比如 $T_{new} = T_{old} \times 0.99$。
+     - 实际工程中，我们通常用更快的方法，比如 $T_{new} = T_{old} \times \alpha$。
+       - $\alpha$：冷却系数 (Cooling Rate)，通常取 $0.8$ 到 $0.99$ 之间。
    - 现象：随着温度降低，分布图开始“变形”。原本平坦的地方变低，原本深坑的地方变得更深（概率峰值更尖）。
 4. 低温开发 (Exploit) ：持续采样 (Loop till Low T)
    - 操作：继续循环“采样 -> 降温 -> 采样”，直到温度 $T$ 非常低
@@ -327,11 +344,11 @@ plt.show()
     Step   | Temp     | Current x  | Action
     ---------------------------------------------
     0      | 10.0000  | -2.5000    | Explore 🎲
-    200    | 1.3398   | 2.2058     | Explore 🎲
-    400    | 0.1795   | 0.2473     | Exploit 🎯
-    600    | 0.0241   | -0.0782    | Exploit 🎯
+    200    | 1.3398   | 1.6236     | Explore 🎲
+    400    | 0.1795   | 0.2889     | Exploit 🎯
+    600    | 0.0241   | 0.0178     | Exploit 🎯
     ---------------------------------------------
-    ✅ 最终估算结果: x = -0.0115
+    ✅ 最终估算结果: x = -0.0050
     ✅ 真实最小值: x = 0.0000 (大概率重合)
 
 
@@ -472,9 +489,9 @@ if DIMENSION == 2:
 ```
 
     开始 2 维优化...
-    起点: [-0.04  4.85], Energy: 28.08
-    结束. 最终位置: [1.0266 2.0164]
-    最终能量: 5.312337 (理论最优是 0.0)
+    起点: [-2.9 -2.5], Energy: 36.46
+    结束. 最终位置: [-0.0686 -0.9187]
+    最终能量: 3.039640 (理论最优是 0.0)
 
 
 
@@ -568,3 +585,508 @@ $$
 $$\lim_{\lambda \to \infty} \langle x \rangle_\lambda \approx \frac{x^* \cdot \sqrt{\frac{2\pi}{\lambda k}}}{\sqrt{\frac{2\pi}{\lambda k}}}$$
 那堆复杂的根号、$\pi$、二阶导数 $k$、甚至 $\lambda$ 本身，全部在分子分母中抵消了！最后剩下的只有：
 $$= x^*$$
+
+### 更多的例子
+> 该示例来自课堂
+
+这个例子是一个非常经典的优化案例，演示了如何使用 模拟退火 (Simulated Annealing, SA) 算法来寻找一个多峰函数（有多个局部最低点）的全局最小值，并将其与 **确定性算法（牛顿法）** 进行对比，从而展示了随机算法在面对复杂地形时的优势。
+
+#### 定义目标函数
+
+我们先定义了一个函数，它是由三个倒数二次函数相加而成的：
+$$ \frac{a}{b+(x+c)^2} $$
+
+- 几何意义：这会在图像上形成三个主要的“凹坑”（局部最小值）。
+- 挑战：其中有一个是最深的（全局最优），另外两个是陷阱。如果我们只看脚下的坡度（梯度下降/牛顿法），很容易掉进浅坑里出不来。
+
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ==========================================
+# 1. 定义目标函数 (Target Function)
+# ==========================================
+# 这是一个构造出来的多峰函数，有多个坑
+def target_func(x):
+    # 参数 (对应 MATLAB 中的 a, b, c)
+    a = np.array([-40, -20, -40])
+    b = np.array([150, 100, 300])
+    c = np.array([-10, -40, 40])
+    
+    y = 0
+    for i in range(3):
+        y += a[i] / (b[i] + (x + c[i])**2)
+    return y
+
+# 绘图范围
+xmin, xmax = -100, 100
+x_vec = np.linspace(xmin, xmax, 1000)
+y_vec = target_func(x_vec)
+
+plt.figure(figsize=(10, 4))
+plt.plot(x_vec, y_vec, linewidth=2)
+plt.title('Target Function (Optimization Landscape)')
+plt.grid(True)
+plt.show()
+```
+
+
+    
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_12_0.png)
+    
+
+
+#### 温度法则 (Temperature Law)：SA 的灵魂
+> 这是模拟退火最关键的设置。
+
+在模拟退火中，我们将目标函数值 $E(x)$（能量）映射为概率 $P(x)$。映射规则是 玻尔兹曼分布：
+$$P(x) = \frac{1}{Z} \cdot e^{-\frac{E(x)}{T}}$$
+- $E(x)$：能量（也就是我们要最小化的目标函数值）。
+- $T$：温度。
+- $Z$：归一化常数（Partition Function，就是那个积分 $\int e^{-E/T} dx$）。重点是它是个常数。
+
+现在，我们把玻尔兹曼分布代入 Metropolis 算法的接受率公式 $\alpha = \min\left(1, \frac{P(\text{new})}{P(\text{old})}\right)$ 里：
+$$\frac{P(\text{new})}{P(\text{old})} = \frac{\frac{1}{Z} \cdot e^{-\frac{E(\text{new})}{T}}}{\frac{1}{Z} \cdot e^{-\frac{E(\text{old})}{T}}}$$
+
+第一步：消去 $Z$常数 $Z$ 在分子分母中直接抵消了！（这也是为什么 MCMC 这么厉害，我们根本不需要算出那个难算的 $Z$）。
+$$= \frac{e^{-\frac{E(\text{new})}{T}}}{e^{-\frac{E(\text{old})}{T}}}$$
+
+第二步：合并指数根据指数运算规则 $\frac{e^A}{e^B} = e^{A-B}$：
+$$= e^{-\frac{E(\text{new})}{T} - \left(-\frac{E(\text{old})}{T}\right)}$$
+$$= e^{-\frac{E(\text{new}) - E(\text{old})}{T}}$$
+
+第三步：定义 $\Delta E$令 $\Delta E = E(\text{new}) - E(\text{old})$（能量差），公式就变成了：
+$$= e^{-\frac{\Delta E}{T}}$$
+
+因此，接受概率公式（Metropolis Criterion）变成了：
+$$P(\text{accept}) = \exp\left(-\frac{\Delta E}{T}\right)$$
+- $\Delta E$：能量变差了多少（比如往山上爬了多高）。
+- $T$：当前的温度（容忍度）。
+- $P$：我们接受这个“坏移动”的概率。
+
+这个公式告诉我们：**温度 $T$ 越高，容忍度越高，接受坏移动的概率 $P$ 就越大。**
+
+我们可以通过这个公式来反推温度：
+1. 原公式：$$P = e^{-\frac{\Delta E}{T}}$$
+2. 两边取自然对数 ($\ln$)：$$\ln(P) = -\frac{\Delta E}{T}$$(注意：因为 $P < 1$，所以 $\ln(P)$ 是负数，负负得正，公式没问题)
+3. 移项求 $T$：$$T = -\frac{\Delta E}{\ln(P)}$$
+
+那么，为什么要计算 $T_{in}$ 和 $T_{end}$呢？
+  - 不像梯度下降直接设一个学习率，SA 的温度通过物理意义来设定。
+  - **初始温度** $T_{in}$：我们将其设定为“即使是最坏的情况（从最低点跳到最高点），也要有 80% 的概率（$P=0.8$）接受”。这保证了在算法刚开始时，粒子几乎可以在地图上任意瞬移，绝对不会被困在任何局部最优里。这就是 **“高温探索 (High Exploration)”**。
+    - $\Delta E$ 取值：`max(fx) - min(fx)`。这代表了整个地图上最大可能的落差。也就是“从最低谷跳到最高峰”这种最极端的情况。
+  - **结束温度** $T_{end}$：我们将其设定为“对于很小的能量波动 ($\Delta E=10^{-3}$)，只有 5% 的概率（$P=0.05$）接受”。这保证了算法在结束时已经 **“冻结”**。它不再乱跳，而是进行最后的精细微调，锁死在当前找到的（全局）最优解附近。这就是 **“低温开发 (Low Exploitation)”**。
+    - $\Delta E$ 取值：1e-3 (0.001)
+      - 这代表了一个极小的扰动。
+
+**几何冷却：$$T(k) = T_{in} \cdot e^{-\tau k}$$**
+> 几何冷却法则（Geometric Cooling）并不是物理定律推导出来的“真理”，而是工程师们为了在有限时间内跑出结果，对“上帝法则”（对数冷却，Geman-Geman Theorem）做出的一个最优秀的妥协。
+
+由于 “上帝法则”太慢，我们就想办法加快一点。我们不再要求“百分之百找到全局最优”，只要“大概率找到”或者“找到足够好的解”就行。
+
+于是，Kirkpatrick 等人在 1983 年提出模拟退火时，直接借用了物理学中牛顿冷却定律的近似思想： **每次让温度降低一个固定的百分比。** 这就像一杯热水放在空气中，每过一分钟，温差就减小一点点。
+
+这个思想的离散形式就是：
+$$T_{k+1} = \alpha \cdot T_k$$
+- $\alpha$：冷却系数 (Cooling Rate)，通常取 $0.8$ 到 $0.99$ 之间。
+  - 如果是 0.99，意味着每次迭代温度只降 1%。
+  - 这保证了温度下降得不快也不慢。
+
+如果我们把 $T_{k+1} = \alpha T_k$ 展开：
+- $T_1 = \alpha T_0$
+- $T_2 = \alpha T_1 = \alpha^2 T_0$
+- ...
+- $T_k = \alpha^k T_0$
+
+利用数学变换 $\alpha = e^{\ln(\alpha)}$，设 $\tau = -\ln(\alpha)$（因为 $\alpha < 1$，所以 $\ln(\alpha)$ 是负数，$\tau$ 是正数）：
+$$T(k) = T_0 \cdot e^{-\tau k}$$
+
+BINGO！
+
+在这个几何冷却法则中，，$\tau$  是一个衰减常数 (Decay Constant)，或者更直观地说，它代表了 **“降温的速率”**，控制着那条降温曲线的弯曲程度。
+- 如果 $\tau$ 很大：
+  - $e^{-\tau}$ 会很小。
+  - 温度会像跳水一样断崖式下跌。前期降温极快，很快就没热度了。
+  - 这通常发生在 $T_{in}$ 很高而 $T_{end}$ 很低，或者迭代次数 $i_{max}$ 很短的时候。
+- 如果 $\tau$ 很小：
+  - $e^{-\tau}$ 接近 1。
+  - 温度下降得很平缓，像一条温柔的滑梯。
+  - 这给了算法更多的时间在高温区探索。
+
+我们可以推导下这个 $\tau$。我们有两个硬性约束条件（边界条件）：
+1. 起点：当 $k=0$（第1次迭代）时，温度必须是 $T_{in}$。
+2. 终点：当 $k = i_{max}-1$（最后一次迭代）时，温度必须是 $T_{end}$。
+
+我们把终点条件代入这个指数衰减（几何冷却）公式中：
+$$T_{end} = T_{in} \cdot e^{-\tau (i_{max} - 1)}$$
+1. 把 $T_{in}$ 除过去：$$\frac{T_{end}}{T_{in}} = e^{-\tau (i_{max} - 1)}$$
+2. 两边取自然对数 ($\ln$)：$$\ln\left(\frac{T_{end}}{T_{in}}\right) = -\tau (i_{max} - 1)$$
+3. 把 $-\tau$ 以外的项移到左边：$$\tau = -\frac{\ln(T_{end}/T_{in})}{i_{max} - 1}$$
+
+于是，我们就得到了 $\tau$ 的计算公式。
+
+
+```python
+# ==========================================
+# 2. 定义冷却计划 (Temperature Schedule)
+# ==========================================
+# 我们希望：
+# - 初始温度 Tin 时：即使是最大的能量差，也有 80% 的概率被接受 (高探索)
+# - 结束温度 Tend 时：即使是很小的能量差(1e-3)，也只有 5% 的概率被接受 (高锁定)
+
+y_max, y_min = np.max(y_vec), np.min(y_vec)
+delta_E_max = y_max - y_min
+
+# 根据公式反推温度
+# P = exp(-dE / T)  =>  ln(P) = -dE / T  =>  T = -dE / ln(P)
+T_in = -delta_E_max / np.log(0.8)
+T_end = -1e-3 / np.log(0.05)
+
+n_iter = 10000
+
+# 几何冷却法则: T(k) = T_in * exp(-tau * k)
+# 在 k = n_iter-1 时 T = T_end
+tau = -np.log(T_end / T_in) / (n_iter - 1)
+
+iterations = np.arange(n_iter)
+T_schedule = T_in * np.exp(-tau * iterations)
+
+plt.figure(figsize=(6, 4))
+plt.plot(iterations, T_schedule)
+plt.title('Temperature Law (Geometric Decay)')
+plt.xlabel('Iteration')
+plt.ylabel('Temperature')
+plt.grid(True)
+plt.show()
+```
+
+
+    
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_14_0.png)
+    
+
+
+#### 模拟退火主循环 (Metropolis 核心)
+循环内部是标准的 Metropolis 算法：
+1. 随机游走：`randn(1)*sd + sx(i-1)`。基于上一步的位置，像醉汉一样随机迈一步。
+2. 能量差判定：
+   - 如果新位置更低（更好），$\Delta E < 0$，接受率 $>1$，直接去。
+   - 如果新位置更高（更坏），$\Delta E > 0$，计算 $e^{-\Delta E/T}$。
+   - 关键点：因为 $T$ 在不断变小，同样的坏结果，在前期（$T$ 大）容易被原谅（接受），在后期（$T$ 小）会被严厉拒绝。
+
+
+```python
+# ==========================================
+# 3. 模拟退火主循环 (Simulated Annealing)
+# ==========================================
+print("开始模拟退火...")
+sx = np.zeros(n_iter)
+alpha_hist = np.zeros(n_iter)
+
+# 初始点 (随机)
+current_x = np.random.randn() * 10
+sx[0] = current_x
+proposal_std = 50 # 提议分布的标准差 (对应 MATLAB 中的 sd=100)
+
+for i in range(1, n_iter):
+    # 1. 提议 (Proposal): 随机游走
+    # 并在边界内截断 (Truncated Normal)
+    while True:
+        candidate = current_x + np.random.randn() * proposal_std
+        if xmin <= candidate <= xmax:
+            break
+            
+    # 2. 计算能量差
+    E_curr = target_func(current_x)
+    E_cand = target_func(candidate)
+    dE = E_cand - E_curr # 我们想最小化，所以能量越低越好
+    
+    # 3. 计算接受率 (Metropolis Criterion)
+    # 当前温度
+    T_curr = T_schedule[i]
+    
+    # 概率公式 alpha = exp(-dE / T)
+    # 如果 dE < 0 (变好了)，指数为正，exp > 1，min 取 1 (必接受)
+    # 如果 dE > 0 (变差了)，指数为负，概率 < 1
+    alpha = min(1, np.exp(-dE / T_curr))
+    
+    alpha_hist[i] = alpha
+    
+    # 4. 接受/拒绝
+    if np.random.rand() < alpha:
+        current_x = candidate
+    # else: current_x 保持不变
+    
+    sx[i] = current_x
+
+# 随机解结果 (取后20%的均值)
+t_burn = int(0.8 * n_iter)
+x_sol_stochastic = np.mean(sx[t_burn:])
+y_sol_stochastic = target_func(x_sol_stochastic)
+
+print(f"随机解 (SA): x = {x_sol_stochastic:.4f}, y = {y_sol_stochastic:.4f}")
+# Plot on the image
+plt.figure(figsize=(10, 4))
+plt.plot(x_vec, y_vec, linewidth=2)
+plt.plot(x_sol_stochastic, y_sol_stochastic, 'ro')
+plt.title('Target Function With Solution')
+plt.grid(True)
+plt.show()
+```
+
+    开始模拟退火...
+    随机解 (SA): x = 10.0012, y = -0.3010
+
+
+
+    
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_16_1.png)
+    
+
+
+#### 对比：确定性算法 (Newton's Method)
+
+我们还实现了一个简单的牛顿法用以对比。
+- 原理：利用 **二阶导数** 信息，拟合抛物线找极值。收敛速度极快。
+- 结局：我们在在代码中故意把起点设在 $x=-10$。
+  - 从图中可以看到，$x=-10$ 附近有一个局部最优峰（还不是最小值，而是最大值）。
+  - 牛顿法是个“近视眼”，它一眼看到身边有个峰，就兴冲冲地冲上去了，完全不知道远处还有个更深的坑。
+  - 结论：牛顿法找到了 **局部最优**，而模拟退火（因为前期的乱跳）成功跳过了这个坑，找到了 **全局最优**。
+
+
+```python
+# ==========================================
+# 4. 确定性解法对比 (Newton's Method)
+# ==========================================
+# 牛顿法: x_new = x - f'(x) / f''(x)
+# 我们故意给它一个离全局最优有点距离，但在某个局部最优附近的起点
+x_newton = -10.0 
+newton_path = [x_newton]
+
+# 计算导数 (用于牛顿法) - 使用中心差分法近似
+def get_derivatives(f, x, h=1e-5):
+    # 一阶导数 f'
+    df = (f(x + h) - f(x - h)) / (2 * h)
+    # 二阶导数 f''
+    ddf = (f(x + h) - 2*f(x) + f(x - h)) / (h**2)
+    return df, ddf
+
+for _ in range(100):
+    df, ddf = get_derivatives(target_func, x_newton)
+    if abs(ddf) < 1e-6: break # 防止除零
+    
+    step = df / ddf
+    x_newton = x_newton - step
+    newton_path.append(x_newton)
+    
+    if abs(step) < 1e-6: break # 收敛
+
+y_sol_deterministic = target_func(x_newton)
+print(f"确定性解 (Newton): x = {x_newton:.4f}, y = {y_sol_deterministic:.4f}")
+
+# Plot on the image
+plt.figure(figsize=(10, 4))
+plt.plot(x_vec, y_vec, linewidth=2)
+plt.plot(x_newton, y_sol_deterministic, 'ro')
+plt.title('Target Function With Solution)')
+plt.grid(True)
+plt.show()
+
+```
+
+    确定性解 (Newton): x = -17.7557, y = -0.0996
+
+
+
+    
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_18_1.png)
+    
+
+
+#### 可视化对比
+我们最后画出优化结果
+
+
+```python
+# ==========================================
+# 5. 最终结果可视化
+# ==========================================
+plt.figure(figsize=(12, 6))
+plt.plot(x_vec, y_vec, label='Target Function', color='blue', alpha=0.5)
+
+# 画出 SA 的采样点 (用颜色深浅表示时间)
+plt.scatter(sx[::10], target_func(sx[::10]), c=np.arange(0, n_iter, 10), 
+            cmap='Wistia', alpha=0.5, s=10, label='SA Trajectory')
+
+# 标记最终解
+plt.plot(x_sol_stochastic, y_sol_stochastic, 'r*', markersize=20, label='SA Solution (Global)')
+plt.plot(x_newton, y_sol_deterministic, 'kx', markersize=15, markeredgewidth=3, label='Newton Solution (Local)')
+
+plt.colorbar(label='Iteration Time')
+plt.legend()
+plt.title('Global Optimization: Simulated Annealing vs Newton Method')
+plt.xlim(xmin, xmax)
+plt.show()
+```
+
+
+    
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_20_0.png)
+    
+
+
+- 黄色/橙色的小点：是 SA 算法的足迹。你会发现颜色浅（早期）的点遍布全图，说明它在到处探索；颜色深（后期）的点都集中在最深的那个坑里。
+- 红星 (SA)：准确落在了全局最低点。
+- 黑叉 (Newton)：遗憾地卡在了旁边的峰上。
+
+#### 混合优化 (Hybrid Optimization)
+
+确定性优化和随机优化如果只用其中一个，都会出问题：
+- 只用模拟退火：你会发现它在最后阶段效率极低。为了让它从 0.01 的误差降到 0.000001，你需要把温度降得非常慢，可能要多跑几百万次迭代。这就像用大铁锤去绣花，太费劲。
+- 只用确定性优化（例如，牛顿法）：除非你运气极好，起点就在全局最优旁边，否则它大概率会掉进某个不知名的局部浅坑里出不来。这就像拿着显微镜找路，走不远。
+
+因此，在实践中，我们可以把它们组合使用：
+1. 使用模拟退火 (Simulated Annealing)获得近似最优解
+   - 精度低 (Inaccurate)：因为它是随机跳跃的，最后它只能停在洞口附近，很难直接进洞。它可能在离最优解 0.1 的地方晃荡，就是不进去。
+   - 抗干扰 (Robust)：它能跳出局部最优陷阱。
+2. 使用确定性优化（例如，牛顿法）获得精确最优解
+   - 精度极高 (High Precision)：利用二阶导数信息，它能以极快的速度（二次收敛）把误差从 0.1 杀到 $10^{-16}$。
+   - 脆弱 (Fragile)：如果在错误的地点（局部最优）使用它，它会迅速冲进错误的坑里。但因为第一杆已经把它送到了正确的位置，所以现在它必定能滑进正确的洞。
+
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 绘图准备
+x_vec = np.linspace(-100, 100, 1000)
+y_vec = target_func(x_vec)
+
+# ==========================================
+# Phase 1: 模拟退火 (粗调 / Global Search)
+# ==========================================
+print("🚀 Phase 1: Simulated Annealing (Global Search)...")
+
+# 1. 自动计算温度 (根据你的公式)
+y_max, y_min = np.max(y_vec), np.min(y_vec)
+delta_E_max = y_max - y_min
+
+# 初始: 80% 概率接受最大跳跃; 结束: 5% 概率接受微小跳跃(1e-3)
+T_in = -delta_E_max / np.log(0.8)
+T_end = -1e-3 / np.log(0.05)
+
+n_iter = 5000 # 迭代次数
+# 几何冷却参数 tau
+tau = -np.log(T_end / T_in) / (n_iter - 1)
+
+# 初始化
+current_x = np.random.uniform(-90, 90) # 随机起点
+sx = np.zeros(n_iter)
+proposal_std = 20 # 探索步长
+
+# SA 主循环
+for i in range(n_iter):
+    # 计算当前温度
+    T_curr = T_in * np.exp(-tau * i)
+    
+    # 提议新点 (限制在范围内)
+    while True:
+        candidate = current_x + np.random.randn() * proposal_std
+        if -100 <= candidate <= 100: break
+    
+    # 能量差
+    dE = target_func(candidate) - target_func(current_x)
+    
+    # Metropolis 准则
+    if dE < 0 or np.random.rand() < np.exp(-dE / T_curr):
+        current_x = candidate
+        
+    sx[i] = current_x
+
+# SA 结果: 取最后 10% 样本的平均值 (平稳分布的期望)
+t_burn = int(0.9 * n_iter)
+x_sa_approx = np.mean(sx[t_burn:])
+y_sa_approx = target_func(x_sa_approx)
+
+print(f"✅ SA 完成。粗略最优解: x ≈ {x_sa_approx:.4f}")
+
+
+# ==========================================
+# Phase 2: 牛顿法 (精调 / Local Refinement)
+# ==========================================
+print("\n🎯 Phase 2: Hybrid Newton Method (Fine Tuning)...")
+
+# --- 关键点: 将 SA 的结果作为 Newton 的起点 ---
+x_hybrid = x_sa_approx 
+hybrid_path = [x_hybrid]
+
+for _ in range(50): # 牛顿法收敛极快，50次足够
+    df, ddf = get_derivatives(target_func, x_hybrid)
+    
+    if abs(ddf) < 1e-9: break # 防止除零
+    
+    # 牛顿更新: x = x - f'/f''
+    step = df / ddf
+    x_hybrid = x_hybrid - step
+    hybrid_path.append(x_hybrid)
+    
+    if abs(step) < 1e-10: # 极高精度停止准则
+        print("   -> 牛顿法已收敛 (Converged).")
+        break
+
+y_hybrid = target_func(x_hybrid)
+print(f"✅ 混合策略最终解: x = {x_hybrid:.8f} (精度极高)")
+
+
+# ==========================================
+# 对比实验: 如果直接用牛顿法 (Bad Start)
+# ==========================================
+print("\n⚠️ 对比: 直接使用牛顿法 (无 SA 辅助)...")
+# 故意选一个离局部最优很近，但离全局最优很远的起点 (比如 -10)
+x_bad_newton = -10.0 
+for _ in range(50):
+    df, ddf = get_derivatives(target_func, x_bad_newton)
+    if abs(ddf) < 1e-9: break
+    x_bad_newton = x_bad_newton - df / ddf
+
+print(f"❌ 失败。陷入局部最优: x = {x_bad_newton:.4f}")
+
+
+# ==========================================
+# 可视化结果
+# ==========================================
+plt.figure(figsize=(12, 6))
+plt.plot(x_vec, y_vec, 'k-', alpha=0.3, label='Target Function')
+
+# 1. 画出 SA 的探索轨迹 (散点)
+plt.scatter(sx[::10], target_func(sx[::10]), c='orange', s=10, alpha=0.3, label='Phase 1: SA Exploration')
+
+# 2. 画出 混合策略的结果 (绿星)
+plt.plot(x_hybrid, y_hybrid, 'g*', markersize=25, label='Phase 2: Hybrid Result (Global Opt)')
+
+# 3. 画出 失败的牛顿法结果 (红叉)
+plt.plot(x_bad_newton, target_func(x_bad_newton), 'rx', markersize=20, markeredgewidth=3, label='Newton Only (Local Trap)')
+
+plt.title(f"Hybrid Optimization Strategy\nSA (Approx: {x_sa_approx:.2f}) + Newton (Final: {x_hybrid:.5f})")
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+    🚀 Phase 1: Simulated Annealing (Global Search)...
+    ✅ SA 完成。粗略最优解: x ≈ 10.2579
+    
+    🎯 Phase 2: Hybrid Newton Method (Fine Tuning)...
+       -> 牛顿法已收敛 (Converged).
+    ✅ 混合策略最终解: x = 10.20155372 (精度极高)
+    
+    ⚠️ 对比: 直接使用牛顿法 (无 SA 辅助)...
+    ❌ 失败。陷入局部最优: x = -17.7557
+
+
+
+    
+![png](/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_23_1.png)
+    
+
