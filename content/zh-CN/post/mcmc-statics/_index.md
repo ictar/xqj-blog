@@ -53,6 +53,10 @@ weight: 2
     - 从时间序列到空间网格：马尔可夫性的高维扩展
     - Hammersley-Clifford 定理与吉布斯分布
     - Ising 模型与图像去噪实战
-12. [Python 实战：MCMC 建模](./python/)
+12. [贝叶斯图像分割实战](./bayesian_approach/)
+    - 似然与先验的博弈：同质性建模
+    - MAP 估计与模拟退火
+    - 混合优化策略：SA + ICM
+13. [Python 实战：MCMC 建模](./python/)
 
 ## 快速访问

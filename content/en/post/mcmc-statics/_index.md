@@ -53,4 +53,8 @@ Welcome to the **Monte Carlo–Markov Chains Statistical Methods** series, where
     - From Energy Minimization to Probability Maximization: The Physics of Annealing
     - High-Temp Exploration & Low-Temp Exploitation: Another Perspective on Metropolis
     - Pincus Theorem: Mathematical Proof of Convergence to Global Optimum
-12. [Python Practical: MCMC Modeling](./python/)
+12. [Bayesian Image Segmentation in Practice](./bayesian_approach/)
+    - The Game Between Likelihood and Prior: Modeling Homogeneity
+    - MAP Estimation and Simulated Annealing
+    - Hybrid Optimization Strategy: SA + ICM
+13. [Python Practical: MCMC Modeling](./python/)
