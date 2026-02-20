@@ -1,7 +1,7 @@
 ---
 title: "Bayesian Image Segmentation in Practice"
 slug: "bayesian_approach"
-date: 2026-02-23
+date: 2026-02-20
 summary: "This article introduces the combination of Bayesian methods and Markov Random Fields (MRF) through an image segmentation example. By introducing 'Homogeneity Prior' and 'Gibbs Sampling', it demonstrates how to use MRF to solve image denoising and segmentation problems, and compares the results of traditional Maximum Likelihood, MRF Simulated Annealing, and the Simple Relaxation (ICM) method commonly used in industry."
 tags: ["Bayesian Methods", "MRF", "Image Segmentation", "Gibbs Sampling", "Simulated Annealing", "ICM", "Python Implementation"]
 keywords: ["Bayesian Approach", "MRF", "Image Segmentation", "Gibbs Sampling", "Simulated Annealing", "ICM", "Simple Relaxation"]

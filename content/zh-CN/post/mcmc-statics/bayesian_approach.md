@@ -1,7 +1,7 @@
 ---
 title: "贝叶斯图像分割实战"
 slug: "bayesian_approach"
-date: 2026-02-23
+date: 2026-02-20
 summary: "本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。"
 tags: ["贝叶斯方法", "MRF", "图像分割", "吉布斯采样", "模拟退火", "ICM", "Python实现"]
 keywords: ["贝叶斯方法", "Bayesian Approach", "MRF", "Image Segmentation", "Gibbs Sampling", "Simulated Annealing", "ICM", "Simple Relaxation"]
