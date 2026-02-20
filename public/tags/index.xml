@@ -8,8 +8,92 @@
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bayesian Methods</title>
+      <link>http://localhost:1313/tags/bayesian-methods/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/bayesian-methods/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Gibbs Sampling</title>
+      <link>http://localhost:1313/tags/gibbs-sampling/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/gibbs-sampling/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ICM</title>
+      <link>http://localhost:1313/tags/icm/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/icm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Image Segmentation</title>
+      <link>http://localhost:1313/tags/image-segmentation/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/image-segmentation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MRF</title>
+      <link>http://localhost:1313/tags/mrf/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/mrf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python Implementation</title>
+      <link>http://localhost:1313/tags/python-implementation/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/python-implementation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Simulated Annealing</title>
+      <link>http://localhost:1313/tags/simulated-annealing/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/simulated-annealing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Gibbs Distribution</title>
+      <link>http://localhost:1313/tags/gibbs-distribution/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/gibbs-distribution/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hammersley-Clifford Theorem</title>
+      <link>http://localhost:1313/tags/hammersley-clifford-theorem/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/hammersley-clifford-theorem/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Image Denoising</title>
+      <link>http://localhost:1313/tags/image-denoising/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/image-denoising/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ising Model</title>
+      <link>http://localhost:1313/tags/ising-model/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/ising-model/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Markov Random Fields</title>
+      <link>http://localhost:1313/tags/markov-random-fields/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/tags/markov-random-fields/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Machine Learning</title>
       <link>http://localhost:1313/tags/machine-learning/</link>
@@ -29,20 +113,6 @@
       <link>http://localhost:1313/tags/pincus-theorem/</link>
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/tags/pincus-theorem/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Python Implementation</title>
-      <link>http://localhost:1313/tags/python-implementation/</link>
-      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/python-implementation/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Simulated Annealing</title>
-      <link>http://localhost:1313/tags/simulated-annealing/</link>
-      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/simulated-annealing/</guid>
       <description></description>
     </item>
     <item>
@@ -92,13 +162,6 @@
       <link>http://localhost:1313/tags/dimensionality-reduction/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
       <guid>http://localhost:1313/tags/dimensionality-reduction/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Gibbs Sampling</title>
-      <link>http://localhost:1313/tags/gibbs-sampling/</link>
-      <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/gibbs-sampling/</guid>
       <description></description>
     </item>
     <item>

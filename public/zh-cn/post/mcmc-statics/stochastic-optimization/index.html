@@ -61,7 +61,7 @@
   "headline": "随机优化算法详解：模拟退火与 Pincus 定理",
   "description" : "当优化问题陷于局部最优的迷宫时，确定性算法往往束手无策。本文将带你进入随机优化的世界，探索如何将寻找最小能量的问题转化为寻找最大概率的问题。我们将深入剖析模拟退火算法（Simulated Annealing）的物理直觉与数学原理，通过动态可视化展示其“高温探索、低温锁定”的优雅机制，并详细推导 Pincus 定理，从数学上证明为何退火算法能找到全局最优解。",
   "inLanguage" : "zh-cn",
-  "wordCount":  1799 ,
+  "wordCount":  3247 ,
   "datePublished" : "2026-02-02T00:00:00\u002b00:00",
   "dateModified" : "2026-02-02T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
@@ -316,7 +316,7 @@
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1799&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3247&nbsp;个字
   
   
   &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/stochastic-optimization/" lang="en">EN</a>
@@ -502,7 +502,17 @@ $$\lambda = \frac{1}{T} \ge 0$$<p>故而，$A$就变成了$A = \frac{1}{\int e^{
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 如果在 Jupyter Notebook 中，可以直接解开下面这行注释来显示</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#plt.show()</span>
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/simulated_annealing.gif" alt=""></p>
+</span></span></code></pre></div><pre><code>&lt;&gt;:86: SyntaxWarning: invalid escape sequence '\l'
+&lt;&gt;:86: SyntaxWarning: invalid escape sequence '\l'
+/var/folders/mx/684cy0qs5zd3c_pdx4wy4pkc0000gn/T/ipykernel_94026/3433752484.py:86: SyntaxWarning: invalid escape sequence '\l'
+  text_info.set_text(f&quot;$\lambda$ = {frame_lambda:.2f} (Inverse Temp)\n$T$ = {T:.2f} (Temperature)&quot;)
+
+
+正在生成动画，请稍候...
+✅ 动画已保存为 'simulated_annealing.gif'
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_2_2.png" alt="png"></p>
+<p><img src="simulated_annealing.gif" alt=""></p>
 <p>这是一个经典的 <strong>“双势阱”（Double Well）</strong> 能量函数：</p>
 <ul>
 <li>它有一个全局最优解（深坑）。</li>
@@ -560,7 +570,11 @@ $$\lambda = \frac{1}{T} \ge 0$$<p>故而，$A$就变成了$A = \frac{1}{\int e^{
 <li>这是一个非常著名的理论公式（Geman &amp; Geman, 1984），保证能找到全局最优，但它降温极慢。</li>
 </ul>
 </li>
-<li>实际工程中，我们通常用更快的方法，比如 $T_{new} = T_{old} \times 0.99$。</li>
+<li>实际工程中，我们通常用更快的方法，比如 $T_{new} = T_{old} \times \alpha$。
+<ul>
+<li>$\alpha$：冷却系数 (Cooling Rate)，通常取 $0.8$ 到 $0.99$ 之间。</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>现象：随着温度降低，分布图开始“变形”。原本平坦的地方变低，原本深坑的地方变得更深（概率峰值更尖）。</li>
@@ -676,11 +690,11 @@ $$\lambda = \frac{1}{T} \ge 0$$<p>故而，$A$就变成了$A = \frac{1}{\int e^{
 </span></span></code></pre></div><pre><code>Step   | Temp     | Current x  | Action
 ---------------------------------------------
 0      | 10.0000  | -2.5000    | Explore 🎲
-200    | 1.3398   | 2.2058     | Explore 🎲
-400    | 0.1795   | 0.2473     | Exploit 🎯
-600    | 0.0241   | -0.0782    | Exploit 🎯
+200    | 1.3398   | 1.6236     | Explore 🎲
+400    | 0.1795   | 0.2889     | Exploit 🎯
+600    | 0.0241   | 0.0178     | Exploit 🎯
 ---------------------------------------------
-✅ 最终估算结果: x = -0.0115
+✅ 最终估算结果: x = -0.0050
 ✅ 真实最小值: x = 0.0000 (大概率重合)
 </code></pre>
 <p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_5_1.png" alt="png"></p>
@@ -810,9 +824,9 @@ $$f(\mathbf{x}) = 10n + \sum_{i=1}^n (x_i^2 - 10 \cos(2\pi x_i))$$<p>
 </span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>tight_layout()
 </span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
 </span></span></code></pre></div><pre><code>开始 2 维优化...
-起点: [-0.04  4.85], Energy: 28.08
-结束. 最终位置: [1.0266 2.0164]
-最终能量: 5.312337 (理论最优是 0.0)
+起点: [-2.9 -2.5], Energy: 36.46
+结束. 最终位置: [-0.0686 -0.9187]
+最终能量: 3.039640 (理论最优是 0.0)
 </code></pre>
 <p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_8_1.png" alt="png"></p>
 <ol>
@@ -899,7 +913,484 @@ $$<p><strong>第四步：见证奇迹的约分</strong></p>
 $$\lim_{\lambda \to \infty} \langle x \rangle_\lambda \approx \frac{x^* \cdot \sqrt{\frac{2\pi}{\lambda k}}}{\sqrt{\frac{2\pi}{\lambda k}}}$$<p>
 那堆复杂的根号、$\pi$、二阶导数 $k$、甚至 $\lambda$ 本身，全部在分子分母中抵消了！最后剩下的只有：
 </p>
-$$= x^*$$
+$$= x^*$$<h3 id="更多的例子">更多的例子</h3>
+<blockquote>
+<p>该示例来自课堂</p></blockquote>
+<p>这个例子是一个非常经典的优化案例，演示了如何使用 模拟退火 (Simulated Annealing, SA) 算法来寻找一个多峰函数（有多个局部最低点）的全局最小值，并将其与 <strong>确定性算法（牛顿法）</strong> 进行对比，从而展示了随机算法在面对复杂地形时的优势。</p>
+<h4 id="定义目标函数">定义目标函数</h4>
+<p>我们先定义了一个函数，它是由三个倒数二次函数相加而成的：
+</p>
+$$ \frac{a}{b+(x+c)^2} $$<ul>
+<li>几何意义：这会在图像上形成三个主要的“凹坑”（局部最小值）。</li>
+<li>挑战：其中有一个是最深的（全局最优），另外两个是陷阱。如果我们只看脚下的坡度（梯度下降/牛顿法），很容易掉进浅坑里出不来。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 定义目标函数 (Target Function)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这是一个构造出来的多峰函数，有多个坑</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">target_func</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 参数 (对应 MATLAB 中的 a, b, c)</span>
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#f92672">-</span><span style="color:#ae81ff">40</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">40</span>])
+</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">150</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">300</span>])
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">40</span>])
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">+=</span> a[i] <span style="color:#f92672">/</span> (b[i] <span style="color:#f92672">+</span> (x <span style="color:#f92672">+</span> c[i])<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘图范围</span>
+</span></span><span style="display:flex;"><span>xmin, xmax <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>x_vec <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(xmin, xmax, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>y_vec <span style="color:#f92672">=</span> target_func(x_vec)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Target Function (Optimization Landscape)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_12_0.png" alt="png"></p>
+<h4 id="温度法则-temperature-lawsa-的灵魂">温度法则 (Temperature Law)：SA 的灵魂</h4>
+<blockquote>
+<p>这是模拟退火最关键的设置。</p></blockquote>
+<p>在模拟退火中，我们将目标函数值 $E(x)$（能量）映射为概率 $P(x)$。映射规则是 玻尔兹曼分布：
+</p>
+$$P(x) = \frac{1}{Z} \cdot e^{-\frac{E(x)}{T}}$$<ul>
+<li>$E(x)$：能量（也就是我们要最小化的目标函数值）。</li>
+<li>$T$：温度。</li>
+<li>$Z$：归一化常数（Partition Function，就是那个积分 $\int e^{-E/T} dx$）。重点是它是个常数。</li>
+</ul>
+<p>现在，我们把玻尔兹曼分布代入 Metropolis 算法的接受率公式 $\alpha = \min\left(1, \frac{P(\text{new})}{P(\text{old})}\right)$ 里：
+</p>
+$$\frac{P(\text{new})}{P(\text{old})} = \frac{\frac{1}{Z} \cdot e^{-\frac{E(\text{new})}{T}}}{\frac{1}{Z} \cdot e^{-\frac{E(\text{old})}{T}}}$$<p>第一步：消去 $Z$常数 $Z$ 在分子分母中直接抵消了！（这也是为什么 MCMC 这么厉害，我们根本不需要算出那个难算的 $Z$）。
+</p>
+$$= \frac{e^{-\frac{E(\text{new})}{T}}}{e^{-\frac{E(\text{old})}{T}}}$$<p>第二步：合并指数根据指数运算规则 $\frac{e^A}{e^B} = e^{A-B}$：
+</p>
+$$= e^{-\frac{E(\text{new})}{T} - \left(-\frac{E(\text{old})}{T}\right)}$$<p>
+</p>
+$$= e^{-\frac{E(\text{new}) - E(\text{old})}{T}}$$<p>第三步：定义 $\Delta E$令 $\Delta E = E(\text{new}) - E(\text{old})$（能量差），公式就变成了：
+</p>
+$$= e^{-\frac{\Delta E}{T}}$$<p>因此，接受概率公式（Metropolis Criterion）变成了：
+</p>
+$$P(\text{accept}) = \exp\left(-\frac{\Delta E}{T}\right)$$<ul>
+<li>$\Delta E$：能量变差了多少（比如往山上爬了多高）。</li>
+<li>$T$：当前的温度（容忍度）。</li>
+<li>$P$：我们接受这个“坏移动”的概率。</li>
+</ul>
+<p>这个公式告诉我们：<strong>温度 $T$ 越高，容忍度越高，接受坏移动的概率 $P$ 就越大。</strong></p>
+<p>我们可以通过这个公式来反推温度：</p>
+<ol>
+<li>原公式：$$P = e^{-\frac{\Delta E}{T}}$$</li>
+<li>两边取自然对数 ($\ln$)：$$\ln(P) = -\frac{\Delta E}{T}$$(注意：因为 $P < 1$，所以 $\ln(P)$ 是负数，负负得正，公式没问题)</li>
+<li>移项求 $T$：$$T = -\frac{\Delta E}{\ln(P)}$$</li>
+</ol>
+<p>那么，为什么要计算 $T_{in}$ 和 $T_{end}$呢？</p>
+<ul>
+<li>不像梯度下降直接设一个学习率，SA 的温度通过物理意义来设定。</li>
+<li><strong>初始温度</strong> $T_{in}$：我们将其设定为“即使是最坏的情况（从最低点跳到最高点），也要有 80% 的概率（$P=0.8$）接受”。这保证了在算法刚开始时，粒子几乎可以在地图上任意瞬移，绝对不会被困在任何局部最优里。这就是 <strong>“高温探索 (High Exploration)”</strong>。
+<ul>
+<li>$\Delta E$ 取值：<code>max(fx) - min(fx)</code>。这代表了整个地图上最大可能的落差。也就是“从最低谷跳到最高峰”这种最极端的情况。</li>
+</ul>
+</li>
+<li><strong>结束温度</strong> $T_{end}$：我们将其设定为“对于很小的能量波动 ($\Delta E=10^{-3}$)，只有 5% 的概率（$P=0.05$）接受”。这保证了算法在结束时已经 <strong>“冻结”</strong>。它不再乱跳，而是进行最后的精细微调，锁死在当前找到的（全局）最优解附近。这就是 <strong>“低温开发 (Low Exploitation)”</strong>。
+<ul>
+<li>$\Delta E$ 取值：1e-3 (0.001)
+<ul>
+<li>这代表了一个极小的扰动。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>几何冷却：$$T(k) = T_{in} \cdot e^{-\tau k}$$</strong></p>
+<blockquote>
+<p>几何冷却法则（Geometric Cooling）并不是物理定律推导出来的“真理”，而是工程师们为了在有限时间内跑出结果，对“上帝法则”（对数冷却，Geman-Geman Theorem）做出的一个最优秀的妥协。</p></blockquote>
+<p>由于 “上帝法则”太慢，我们就想办法加快一点。我们不再要求“百分之百找到全局最优”，只要“大概率找到”或者“找到足够好的解”就行。</p>
+<p>于是，Kirkpatrick 等人在 1983 年提出模拟退火时，直接借用了物理学中牛顿冷却定律的近似思想： <strong>每次让温度降低一个固定的百分比。</strong> 这就像一杯热水放在空气中，每过一分钟，温差就减小一点点。</p>
+<p>这个思想的离散形式就是：
+</p>
+$$T_{k+1} = \alpha \cdot T_k$$<ul>
+<li>$\alpha$：冷却系数 (Cooling Rate)，通常取 $0.8$ 到 $0.99$ 之间。
+<ul>
+<li>如果是 0.99，意味着每次迭代温度只降 1%。</li>
+<li>这保证了温度下降得不快也不慢。</li>
+</ul>
+</li>
+</ul>
+<p>如果我们把 $T_{k+1} = \alpha T_k$ 展开：</p>
+<ul>
+<li>$T_1 = \alpha T_0$</li>
+<li>$T_2 = \alpha T_1 = \alpha^2 T_0$</li>
+<li>&hellip;</li>
+<li>$T_k = \alpha^k T_0$</li>
+</ul>
+<p>利用数学变换 $\alpha = e^{\ln(\alpha)}$，设 $\tau = -\ln(\alpha)$（因为 $\alpha < 1$，所以 $\ln(\alpha)$ 是负数，$\tau$ 是正数）：
+</p>
+$$T(k) = T_0 \cdot e^{-\tau k}$$<p>BINGO！</p>
+<p>在这个几何冷却法则中，，$\tau$  是一个衰减常数 (Decay Constant)，或者更直观地说，它代表了 <strong>“降温的速率”</strong>，控制着那条降温曲线的弯曲程度。</p>
+<ul>
+<li>如果 $\tau$ 很大：
+<ul>
+<li>$e^{-\tau}$ 会很小。</li>
+<li>温度会像跳水一样断崖式下跌。前期降温极快，很快就没热度了。</li>
+<li>这通常发生在 $T_{in}$ 很高而 $T_{end}$ 很低，或者迭代次数 $i_{max}$ 很短的时候。</li>
+</ul>
+</li>
+<li>如果 $\tau$ 很小：
+<ul>
+<li>$e^{-\tau}$ 接近 1。</li>
+<li>温度下降得很平缓，像一条温柔的滑梯。</li>
+<li>这给了算法更多的时间在高温区探索。</li>
+</ul>
+</li>
+</ul>
+<p>我们可以推导下这个 $\tau$。我们有两个硬性约束条件（边界条件）：</p>
+<ol>
+<li>起点：当 $k=0$（第1次迭代）时，温度必须是 $T_{in}$。</li>
+<li>终点：当 $k = i_{max}-1$（最后一次迭代）时，温度必须是 $T_{end}$。</li>
+</ol>
+<p>我们把终点条件代入这个指数衰减（几何冷却）公式中：
+</p>
+$$T_{end} = T_{in} \cdot e^{-\tau (i_{max} - 1)}$$<ol>
+<li>把 $T_{in}$ 除过去：$$\frac{T_{end}}{T_{in}} = e^{-\tau (i_{max} - 1)}$$</li>
+<li>两边取自然对数 ($\ln$)：$$\ln\left(\frac{T_{end}}{T_{in}}\right) = -\tau (i_{max} - 1)$$</li>
+<li>把 $-\tau$ 以外的项移到左边：$$\tau = -\frac{\ln(T_{end}/T_{in})}{i_{max} - 1}$$</li>
+</ol>
+<p>于是，我们就得到了 $\tau$ 的计算公式。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 定义冷却计划 (Temperature Schedule)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 我们希望：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - 初始温度 Tin 时：即使是最大的能量差，也有 80% 的概率被接受 (高探索)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - 结束温度 Tend 时：即使是很小的能量差(1e-3)，也只有 5% 的概率被接受 (高锁定)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>y_max, y_min <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>max(y_vec), np<span style="color:#f92672">.</span>min(y_vec)
+</span></span><span style="display:flex;"><span>delta_E_max <span style="color:#f92672">=</span> y_max <span style="color:#f92672">-</span> y_min
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 根据公式反推温度</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># P = exp(-dE / T)  =&gt;  ln(P) = -dE / T  =&gt;  T = -dE / ln(P)</span>
+</span></span><span style="display:flex;"><span>T_in <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>delta_E_max <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.8</span>)
+</span></span><span style="display:flex;"><span>T_end <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1e-3</span> <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.05</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 几何冷却法则: T(k) = T_in * exp(-tau * k)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在 k = n_iter-1 时 T = T_end</span>
+</span></span><span style="display:flex;"><span>tau <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>log(T_end <span style="color:#f92672">/</span> T_in) <span style="color:#f92672">/</span> (n_iter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>iterations <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(n_iter)
+</span></span><span style="display:flex;"><span>T_schedule <span style="color:#f92672">=</span> T_in <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>tau <span style="color:#f92672">*</span> iterations)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(iterations, T_schedule)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Temperature Law (Geometric Decay)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;Iteration&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;Temperature&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_14_0.png" alt="png"></p>
+<h4 id="模拟退火主循环-metropolis-核心">模拟退火主循环 (Metropolis 核心)</h4>
+<p>循环内部是标准的 Metropolis 算法：</p>
+<ol>
+<li>随机游走：<code>randn(1)*sd + sx(i-1)</code>。基于上一步的位置，像醉汉一样随机迈一步。</li>
+<li>能量差判定：
+<ul>
+<li>如果新位置更低（更好），$\Delta E < 0$，接受率 $>1$，直接去。</li>
+<li>如果新位置更高（更坏），$\Delta E > 0$，计算 $e^{-\Delta E/T}$。</li>
+<li>关键点：因为 $T$ 在不断变小，同样的坏结果，在前期（$T$ 大）容易被原谅（接受），在后期（$T$ 小）会被严厉拒绝。</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 模拟退火主循环 (Simulated Annealing)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;开始模拟退火...&#34;</span>)
+</span></span><span style="display:flex;"><span>sx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(n_iter)
+</span></span><span style="display:flex;"><span>alpha_hist <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(n_iter)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 初始点 (随机)</span>
+</span></span><span style="display:flex;"><span>current_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randn() <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>sx[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> current_x
+</span></span><span style="display:flex;"><span>proposal_std <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span> <span style="color:#75715e"># 提议分布的标准差 (对应 MATLAB 中的 sd=100)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n_iter):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. 提议 (Proposal): 随机游走</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 并在边界内截断 (Truncated Normal)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>        candidate <span style="color:#f92672">=</span> current_x <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randn() <span style="color:#f92672">*</span> proposal_std
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> xmin <span style="color:#f92672">&lt;=</span> candidate <span style="color:#f92672">&lt;=</span> xmax:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. 计算能量差</span>
+</span></span><span style="display:flex;"><span>    E_curr <span style="color:#f92672">=</span> target_func(current_x)
+</span></span><span style="display:flex;"><span>    E_cand <span style="color:#f92672">=</span> target_func(candidate)
+</span></span><span style="display:flex;"><span>    dE <span style="color:#f92672">=</span> E_cand <span style="color:#f92672">-</span> E_curr <span style="color:#75715e"># 我们想最小化，所以能量越低越好</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 3. 计算接受率 (Metropolis Criterion)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 当前温度</span>
+</span></span><span style="display:flex;"><span>    T_curr <span style="color:#f92672">=</span> T_schedule[i]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 概率公式 alpha = exp(-dE / T)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 如果 dE &lt; 0 (变好了)，指数为正，exp &gt; 1，min 取 1 (必接受)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 如果 dE &gt; 0 (变差了)，指数为负，概率 &lt; 1</span>
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>dE <span style="color:#f92672">/</span> T_curr))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    alpha_hist[i] <span style="color:#f92672">=</span> alpha
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 4. 接受/拒绝</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>        current_x <span style="color:#f92672">=</span> candidate
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># else: current_x 保持不变</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    sx[i] <span style="color:#f92672">=</span> current_x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 随机解结果 (取后20%的均值)</span>
+</span></span><span style="display:flex;"><span>t_burn <span style="color:#f92672">=</span> int(<span style="color:#ae81ff">0.8</span> <span style="color:#f92672">*</span> n_iter)
+</span></span><span style="display:flex;"><span>x_sol_stochastic <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(sx[t_burn:])
+</span></span><span style="display:flex;"><span>y_sol_stochastic <span style="color:#f92672">=</span> target_func(x_sol_stochastic)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;随机解 (SA): x = </span><span style="color:#e6db74">{</span>x_sol_stochastic<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, y = </span><span style="color:#e6db74">{</span>y_sol_stochastic<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot on the image</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_sol_stochastic, y_sol_stochastic, <span style="color:#e6db74">&#39;ro&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Target Function With Solution&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>开始模拟退火...
+随机解 (SA): x = 10.0012, y = -0.3010
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_16_1.png" alt="png"></p>
+<h4 id="对比确定性算法-newtons-method">对比：确定性算法 (Newton&rsquo;s Method)</h4>
+<p>我们还实现了一个简单的牛顿法用以对比。</p>
+<ul>
+<li>原理：利用 <strong>二阶导数</strong> 信息，拟合抛物线找极值。收敛速度极快。</li>
+<li>结局：我们在在代码中故意把起点设在 $x=-10$。
+<ul>
+<li>从图中可以看到，$x=-10$ 附近有一个局部最优峰（还不是最小值，而是最大值）。</li>
+<li>牛顿法是个“近视眼”，它一眼看到身边有个峰，就兴冲冲地冲上去了，完全不知道远处还有个更深的坑。</li>
+<li>结论：牛顿法找到了 <strong>局部最优</strong>，而模拟退火（因为前期的乱跳）成功跳过了这个坑，找到了 <strong>全局最优</strong>。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. 确定性解法对比 (Newton&#39;s Method)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 牛顿法: x_new = x - f&#39;(x) / f&#39;&#39;(x)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 我们故意给它一个离全局最优有点距离，但在某个局部最优附近的起点</span>
+</span></span><span style="display:flex;"><span>x_newton <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">10.0</span> 
+</span></span><span style="display:flex;"><span>newton_path <span style="color:#f92672">=</span> [x_newton]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算导数 (用于牛顿法) - 使用中心差分法近似</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_derivatives</span>(f, x, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-5</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 一阶导数 f&#39;</span>
+</span></span><span style="display:flex;"><span>    df <span style="color:#f92672">=</span> (f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x <span style="color:#f92672">-</span> h)) <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> h)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 二阶导数 f&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    ddf <span style="color:#f92672">=</span> (f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>f(x) <span style="color:#f92672">+</span> f(x <span style="color:#f92672">-</span> h)) <span style="color:#f92672">/</span> (h<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> df, ddf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    df, ddf <span style="color:#f92672">=</span> get_derivatives(target_func, x_newton)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(ddf) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-6</span>: <span style="color:#66d9ef">break</span> <span style="color:#75715e"># 防止除零</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    step <span style="color:#f92672">=</span> df <span style="color:#f92672">/</span> ddf
+</span></span><span style="display:flex;"><span>    x_newton <span style="color:#f92672">=</span> x_newton <span style="color:#f92672">-</span> step
+</span></span><span style="display:flex;"><span>    newton_path<span style="color:#f92672">.</span>append(x_newton)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(step) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-6</span>: <span style="color:#66d9ef">break</span> <span style="color:#75715e"># 收敛</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>y_sol_deterministic <span style="color:#f92672">=</span> target_func(x_newton)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;确定性解 (Newton): x = </span><span style="color:#e6db74">{</span>x_newton<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, y = </span><span style="color:#e6db74">{</span>y_sol_deterministic<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot on the image</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_newton, y_sol_deterministic, <span style="color:#e6db74">&#39;ro&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Target Function With Solution)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>确定性解 (Newton): x = -17.7557, y = -0.0996
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_18_1.png" alt="png"></p>
+<h4 id="可视化对比">可视化对比</h4>
+<p>我们最后画出优化结果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. 最终结果可视化</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Target Function&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 画出 SA 的采样点 (用颜色深浅表示时间)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(sx[::<span style="color:#ae81ff">10</span>], target_func(sx[::<span style="color:#ae81ff">10</span>]), c<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>, n_iter, <span style="color:#ae81ff">10</span>), 
+</span></span><span style="display:flex;"><span>            cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Wistia&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;SA Trajectory&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 标记最终解</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_sol_stochastic, y_sol_stochastic, <span style="color:#e6db74">&#39;r*&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;SA Solution (Global)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_newton, y_sol_deterministic, <span style="color:#e6db74">&#39;kx&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, markeredgewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Newton Solution (Local)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>colorbar(label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Iteration Time&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Global Optimization: Simulated Annealing vs Newton Method&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlim(xmin, xmax)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_20_0.png" alt="png"></p>
+<ul>
+<li>黄色/橙色的小点：是 SA 算法的足迹。你会发现颜色浅（早期）的点遍布全图，说明它在到处探索；颜色深（后期）的点都集中在最深的那个坑里。</li>
+<li>红星 (SA)：准确落在了全局最低点。</li>
+<li>黑叉 (Newton)：遗憾地卡在了旁边的峰上。</li>
+</ul>
+<h4 id="混合优化-hybrid-optimization">混合优化 (Hybrid Optimization)</h4>
+<p>确定性优化和随机优化如果只用其中一个，都会出问题：</p>
+<ul>
+<li>只用模拟退火：你会发现它在最后阶段效率极低。为了让它从 0.01 的误差降到 0.000001，你需要把温度降得非常慢，可能要多跑几百万次迭代。这就像用大铁锤去绣花，太费劲。</li>
+<li>只用确定性优化（例如，牛顿法）：除非你运气极好，起点就在全局最优旁边，否则它大概率会掉进某个不知名的局部浅坑里出不来。这就像拿着显微镜找路，走不远。</li>
+</ul>
+<p>因此，在实践中，我们可以把它们组合使用：</p>
+<ol>
+<li>使用模拟退火 (Simulated Annealing)获得近似最优解
+<ul>
+<li>精度低 (Inaccurate)：因为它是随机跳跃的，最后它只能停在洞口附近，很难直接进洞。它可能在离最优解 0.1 的地方晃荡，就是不进去。</li>
+<li>抗干扰 (Robust)：它能跳出局部最优陷阱。</li>
+</ul>
+</li>
+<li>使用确定性优化（例如，牛顿法）获得精确最优解
+<ul>
+<li>精度极高 (High Precision)：利用二阶导数信息，它能以极快的速度（二次收敛）把误差从 0.1 杀到 $10^{-16}$。</li>
+<li>脆弱 (Fragile)：如果在错误的地点（局部最优）使用它，它会迅速冲进错误的坑里。但因为第一杆已经把它送到了正确的位置，所以现在它必定能滑进正确的洞。</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 绘图准备</span>
+</span></span><span style="display:flex;"><span>x_vec <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>y_vec <span style="color:#f92672">=</span> target_func(x_vec)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Phase 1: 模拟退火 (粗调 / Global Search)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;🚀 Phase 1: Simulated Annealing (Global Search)...&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 自动计算温度 (根据你的公式)</span>
+</span></span><span style="display:flex;"><span>y_max, y_min <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>max(y_vec), np<span style="color:#f92672">.</span>min(y_vec)
+</span></span><span style="display:flex;"><span>delta_E_max <span style="color:#f92672">=</span> y_max <span style="color:#f92672">-</span> y_min
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 初始: 80% 概率接受最大跳跃; 结束: 5% 概率接受微小跳跃(1e-3)</span>
+</span></span><span style="display:flex;"><span>T_in <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>delta_E_max <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.8</span>)
+</span></span><span style="display:flex;"><span>T_end <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1e-3</span> <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.05</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span> <span style="color:#75715e"># 迭代次数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 几何冷却参数 tau</span>
+</span></span><span style="display:flex;"><span>tau <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>log(T_end <span style="color:#f92672">/</span> T_in) <span style="color:#f92672">/</span> (n_iter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 初始化</span>
+</span></span><span style="display:flex;"><span>current_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">90</span>) <span style="color:#75715e"># 随机起点</span>
+</span></span><span style="display:flex;"><span>sx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(n_iter)
+</span></span><span style="display:flex;"><span>proposal_std <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span> <span style="color:#75715e"># 探索步长</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># SA 主循环</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 计算当前温度</span>
+</span></span><span style="display:flex;"><span>    T_curr <span style="color:#f92672">=</span> T_in <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>tau <span style="color:#f92672">*</span> i)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 提议新点 (限制在范围内)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>        candidate <span style="color:#f92672">=</span> current_x <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randn() <span style="color:#f92672">*</span> proposal_std
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">100</span> <span style="color:#f92672">&lt;=</span> candidate <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">100</span>: <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 能量差</span>
+</span></span><span style="display:flex;"><span>    dE <span style="color:#f92672">=</span> target_func(candidate) <span style="color:#f92672">-</span> target_func(current_x)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Metropolis 准则</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> dE <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>dE <span style="color:#f92672">/</span> T_curr):
+</span></span><span style="display:flex;"><span>        current_x <span style="color:#f92672">=</span> candidate
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    sx[i] <span style="color:#f92672">=</span> current_x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># SA 结果: 取最后 10% 样本的平均值 (平稳分布的期望)</span>
+</span></span><span style="display:flex;"><span>t_burn <span style="color:#f92672">=</span> int(<span style="color:#ae81ff">0.9</span> <span style="color:#f92672">*</span> n_iter)
+</span></span><span style="display:flex;"><span>x_sa_approx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(sx[t_burn:])
+</span></span><span style="display:flex;"><span>y_sa_approx <span style="color:#f92672">=</span> target_func(x_sa_approx)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ SA 完成。粗略最优解: x ≈ </span><span style="color:#e6db74">{</span>x_sa_approx<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Phase 2: 牛顿法 (精调 / Local Refinement)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">🎯 Phase 2: Hybrid Newton Method (Fine Tuning)...&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 关键点: 将 SA 的结果作为 Newton 的起点 ---</span>
+</span></span><span style="display:flex;"><span>x_hybrid <span style="color:#f92672">=</span> x_sa_approx 
+</span></span><span style="display:flex;"><span>hybrid_path <span style="color:#f92672">=</span> [x_hybrid]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">50</span>): <span style="color:#75715e"># 牛顿法收敛极快，50次足够</span>
+</span></span><span style="display:flex;"><span>    df, ddf <span style="color:#f92672">=</span> get_derivatives(target_func, x_hybrid)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(ddf) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-9</span>: <span style="color:#66d9ef">break</span> <span style="color:#75715e"># 防止除零</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 牛顿更新: x = x - f&#39;/f&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    step <span style="color:#f92672">=</span> df <span style="color:#f92672">/</span> ddf
+</span></span><span style="display:flex;"><span>    x_hybrid <span style="color:#f92672">=</span> x_hybrid <span style="color:#f92672">-</span> step
+</span></span><span style="display:flex;"><span>    hybrid_path<span style="color:#f92672">.</span>append(x_hybrid)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(step) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-10</span>: <span style="color:#75715e"># 极高精度停止准则</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;   -&gt; 牛顿法已收敛 (Converged).&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>y_hybrid <span style="color:#f92672">=</span> target_func(x_hybrid)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ 混合策略最终解: x = </span><span style="color:#e6db74">{</span>x_hybrid<span style="color:#e6db74">:</span><span style="color:#e6db74">.8f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (精度极高)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 对比实验: 如果直接用牛顿法 (Bad Start)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">⚠️ 对比: 直接使用牛顿法 (无 SA 辅助)...&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 故意选一个离局部最优很近，但离全局最优很远的起点 (比如 -10)</span>
+</span></span><span style="display:flex;"><span>x_bad_newton <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">10.0</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">50</span>):
+</span></span><span style="display:flex;"><span>    df, ddf <span style="color:#f92672">=</span> get_derivatives(target_func, x_bad_newton)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(ddf) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-9</span>: <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>    x_bad_newton <span style="color:#f92672">=</span> x_bad_newton <span style="color:#f92672">-</span> df <span style="color:#f92672">/</span> ddf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;❌ 失败。陷入局部最优: x = </span><span style="color:#e6db74">{</span>x_bad_newton<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 可视化结果</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, <span style="color:#e6db74">&#39;k-&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Target Function&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 画出 SA 的探索轨迹 (散点)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(sx[::<span style="color:#ae81ff">10</span>], target_func(sx[::<span style="color:#ae81ff">10</span>]), c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Phase 1: SA Exploration&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 画出 混合策略的结果 (绿星)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_hybrid, y_hybrid, <span style="color:#e6db74">&#39;g*&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Phase 2: Hybrid Result (Global Opt)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 画出 失败的牛顿法结果 (红叉)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_bad_newton, target_func(x_bad_newton), <span style="color:#e6db74">&#39;rx&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, markeredgewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Newton Only (Local Trap)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Hybrid Optimization Strategy</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">SA (Approx: </span><span style="color:#e6db74">{</span>x_sa_approx<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">) + Newton (Final: </span><span style="color:#e6db74">{</span>x_hybrid<span style="color:#e6db74">:</span><span style="color:#e6db74">.5f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>🚀 Phase 1: Simulated Annealing (Global Search)...
+✅ SA 完成。粗略最优解: x ≈ 10.2579
+
+🎯 Phase 2: Hybrid Newton Method (Fine Tuning)...
+   -&gt; 牛顿法已收敛 (Converged).
+✅ 混合策略最终解: x = 10.20155372 (精度极高)
+
+⚠️ 对比: 直接使用牛顿法 (无 SA 辅助)...
+❌ 失败。陷入局部最优: x = -17.7557
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_23_1.png" alt="png"></p>
+
 
         
           <div class="blog-tags">
@@ -1101,13 +1592,15 @@ $$= x^*$$
                   <ul>
                 
                 
+                    <li><a href="/zh-cn/post/mcmc-statics/bayesian_approach/">贝叶斯图像分割实战</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/markov_random_fields/">马尔可夫随机场（Markov Random Fields，MRF）</a></li>
+                
                     <li><a href="/zh-cn/post/mcmc-statics/deterministic-optimization/">确定性优化算法详解：梯度下降的数学本质与代码实战</a></li>
                 
                     <li><a href="/zh-cn/post/mcmc-statics/gibbs-sampling/">Gibbs 采样详解：分而治之的降维智慧</a></li>
                 
                     <li><a href="/zh-cn/post/mcmc-statics/metropolis-hastings/">Metropolis-Hastings 算法：打破对称性的束缚</a></li>
-                
-                    <li><a href="/zh-cn/post/mcmc-statics/metropolis/">Metropolis 算法详解：从原理到 Python 实现</a></li>
                 
               </ul>
 
@@ -1122,6 +1615,10 @@ $$= x^*$$
               <a href="http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/" data-toggle="tooltip" data-placement="top" title="确定性优化算法详解：梯度下降的数学本质与代码实战">&larr; 前一篇</a>
             </li>
           
+          
+            <li class="next">
+              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/" data-toggle="tooltip" data-placement="top" title="马尔可夫随机场（Markov Random Fields，MRF）">后一篇 &rarr;</a>
+            </li>
           
         </ul>
       
@@ -1151,6 +1648,7 @@ $$= x^*$$
           <ul>
             <li><a href="#算法流程">算法流程</a></li>
             <li><a href="#证明退火算法的正确性pincus-theorem">证明退火算法的正确性：Pincus Theorem</a></li>
+            <li><a href="#更多的例子">更多的例子</a></li>
           </ul>
         </li>
       </ul>

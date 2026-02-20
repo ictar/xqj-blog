@@ -61,7 +61,7 @@
   "headline": "Stochastic Optimization Explained: Simulated Annealing \u0026 Pincus Theorem",
   "description" : "When optimization problems are trapped in the maze of local optima, deterministic algorithms are often helpless. This article takes you into the world of stochastic optimization, exploring how to transform the problem of finding minimum energy into finding maximum probability. We will delve into the physical intuition and mathematical principles of the Simulated Annealing algorithm, demonstrate its elegant mechanism of \u0026lsquo;high-temperature exploration, low-temperature locking\u0026rsquo; through dynamic visualization, and derive the Pincus Theorem in detail, mathematically proving why the annealing algorithm can find the global optimal solution.",
   "inLanguage" : "en",
-  "wordCount":  2792 ,
+  "wordCount":  4589 ,
   "datePublished" : "2026-02-02T00:00:00\u002b00:00",
   "dateModified" : "2026-02-02T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
@@ -314,7 +314,7 @@
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2792&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;4589&nbsp;words
   
   
   &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/" lang="zh-cn">CH</a>
@@ -551,7 +551,11 @@ $$\lambda = \frac{1}{T} \ge 0$$<p>Thus, $A$ becomes $A = \frac{1}{\int e^{-\lamb
 <li>Action: Lower $T$ according to a schedule.
 <ul>
 <li>Theoretical: $T(t) \sim \frac{c}{\log(1+t)}$ (Guarantees global opt, but strictly slow).</li>
-<li>Practical: $T_{new} = T_{old} \times 0.99$.</li>
+<li>Practical: $T_{new} = T_{old} \times \alpha$.
+<ul>
+<li>$\alpha$: Cooling Rate, usually between $0.8$ and $0.99$.</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Phenomenon: As T drops, distribution &ldquo;deforms&rdquo;. Flat areas get lower, deep pits get deeper (peaks get sharper).</li>
@@ -662,11 +666,11 @@ $$\lambda = \frac{1}{T} \ge 0$$<p>Thus, $A$ becomes $A = \frac{1}{\int e^{-\lamb
 </span></span></code></pre></div><pre><code>Step   | Temp     | Current x  | Action
 ---------------------------------------------
 0      | 10.0000  | -2.5000    | Explore 🎲
-200    | 1.3398   | 2.2058     | Explore 🎲
-400    | 0.1795   | 0.2473     | Exploit 🎯
-600    | 0.0241   | -0.0782    | Exploit 🎯
+200    | 1.3398   | 1.6236     | Explore 🎲
+400    | 0.1795   | 0.2889     | Exploit 🎯
+600    | 0.0241   | 0.0178     | Exploit 🎯
 ---------------------------------------------
-✅ Final Estimate: x = -0.0115
+✅ Final Estimate: x = -0.0050
 ✅ True Min: x = 0.0000
 </code></pre>
 <p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_5_1.png" alt="png"></p>
@@ -791,9 +795,9 @@ Global min at origin $\mathbf{x} = [0, \dots, 0]$, value 0.</p>
 </span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>tight_layout()
 </span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
 </span></span></code></pre></div><pre><code>Start 2-D Optimization...
-Start: [-0.04  4.85], Energy: 28.08
-End. Final Loc: [1.0266 2.0164]
-Final Energy: 5.312337 (Theoretical 0.0)
+Start: [-2.9 -2.5], Energy: 36.46
+End. Final Loc: [-0.0686 -0.9187]
+Final Energy: 3.039640 (Theoretical 0.0)
 </code></pre>
 <p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_8_1.png" alt="png"></p>
 <ol>
@@ -859,7 +863,411 @@ $$<p><strong>Step 4: Cancellation</strong></p>
 $$\lim_{\lambda \to \infty} \langle x \rangle_\lambda \approx \frac{x^* \cdot \sqrt{\frac{2\pi}{\lambda k}}}{\sqrt{\frac{2\pi}{\lambda k}}}$$<p>
 Roots, $\pi$, derivative $k$, and $\lambda$ all cancel out! Remaining:
 </p>
-$$= x^*$$
+$$= x^*$$<h3 id="more-examples">More Examples</h3>
+<blockquote>
+<p>This example is from the classroom.</p></blockquote>
+<p>This example is a classic optimization case study, demonstrating how to use the <strong>Simulated Annealing (SA)</strong> algorithm to find the global minimum of a multi-modal function (which has multiple local minima), and comparing it with a <strong>deterministic algorithm (Newton&rsquo;s Method)</strong> to showcase the advantage of stochastic algorithms in complex terrains.</p>
+<h4 id="defining-the-target-function">Defining the Target Function</h4>
+<p>We first define a function composed of the sum of three reciprocal quadratic functions:
+</p>
+$$ f(x) = \sum \frac{a_i}{b_i+(x+c_i)^2} $$<ul>
+<li><strong>Geometric Meaning</strong>: This creates three main &ldquo;pits&rdquo; (local minima) on the graph.</li>
+<li><strong>Challenge</strong>: One of them is the deepest (global optimum), while the other two are traps. If we only look at the slope under our feet (Gradient Descent / Newton&rsquo;s Method), we can easily fall into a shallow pit and get stuck.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define Target Function</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># A constructed multi-modal function with multiple pits</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">target_func</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Parameters (corresponding to a, b, c in formula)</span>
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#f92672">-</span><span style="color:#ae81ff">40</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">40</span>])
+</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">150</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">300</span>])
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">40</span>])
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">+=</span> a[i] <span style="color:#f92672">/</span> (b[i] <span style="color:#f92672">+</span> (x <span style="color:#f92672">+</span> c[i])<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot range</span>
+</span></span><span style="display:flex;"><span>xmin, xmax <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>x_vec <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(xmin, xmax, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>y_vec <span style="color:#f92672">=</span> target_func(x_vec)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Target Function (Optimization Landscape)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_12_0.png" alt="png"></p>
+<h4 id="temperature-law-the-soul-of-sa">Temperature Law: The Soul of SA</h4>
+<blockquote>
+<p>This is simulation annealing&rsquo;s most critical setting.</p></blockquote>
+<p>In Simulated Annealing, we map the target function value $E(x)$ (energy) to a probability $P(x)$. The mapping rule is the <strong>Boltzmann Distribution</strong>:
+</p>
+$$P(x) = \frac{1}{Z} \cdot e^{-\frac{E(x)}{T}}$$<ul>
+<li>$E(x)$: Energy (the target function value to minimize).</li>
+<li>$T$: Temperature.</li>
+<li>$Z$: Normalization constant.</li>
+</ul>
+<p>Substituting into the Metropolis acceptance rate formula $\alpha = \min\left(1, \frac{P(\text{new})}{P(\text{old})}\right)$, the constant $Z$ cancels out, leaving:
+</p>
+$$P(\text{accept}) = \exp\left(-\frac{\Delta E}{T}\right)$$<ul>
+<li>$\Delta E = E(\text{new}) - E(\text{old})$: How much worse the energy became.</li>
+<li>$T$: Current temperature (tolerance).</li>
+</ul>
+<p>This formula tells us: <strong>The higher the temperature $T$, the higher the tolerance, and the greater the probability $P$ of accepting a bad move.</strong></p>
+<p>We can reverse-engineer the temperature from this formula:
+</p>
+$$T = -\frac{\Delta E}{\ln(P)}$$<p>Why calculate $T_{in}$ and $T_{end}$?</p>
+<ul>
+<li><strong>Initial Temperature $T_{in}$</strong>: Set to allow an 80% probability ($P=0.8$) of accepting even the worst case (jumping from lowest to highest point). This ensures <strong>&ldquo;High Exploration&rdquo;</strong> so the particle can jump anywhere.
+<ul>
+<li>$\Delta E$ value: <code>max(fx) - min(fx)</code>.</li>
+</ul>
+</li>
+<li><strong>Final Temperature $T_{end}$</strong>: Set to allow only a 5% probability ($P=0.05$) of accepting tiny fluctuations ($\Delta E = 10^{-3}$). This ensures <strong>&ldquo;Low Exploitation&rdquo;</strong> (freezing), locking onto the solution.</li>
+</ul>
+<p><strong>Geometric Cooling: $T(k) = T_{in} \cdot e^{-\tau k}$</strong></p>
+<blockquote>
+<p>Geometric Cooling is not a physical law but an engineering compromise to the theoretical &ldquo;Logarithmic Cooling&rdquo; (which is too slow).</p></blockquote>
+<p>Directly borrowing from Newton&rsquo;s Law of Cooling: <strong>Reduce temperature by a fixed percentage each step.</strong>
+</p>
+$$T_{k+1} = \alpha \cdot T_k$$<ul>
+<li>$\alpha$: Cooling Rate, usually $0.8$ to $0.99$.</li>
+</ul>
+<p>Expanding this gives the exponential decay form:
+</p>
+$$T(k) = T_0 \cdot e^{-\tau k}$$<p>
+Where $\tau$ is the decay constant.</p>
+<p>We can derive $\tau$ from boundary conditions:</p>
+<ol>
+<li>Start: $k=0, T=T_{in}$</li>
+<li>End: $k=i_{max}-1, T=T_{end}$</li>
+</ol>
+<p>Solving for $\tau$:
+</p>
+$$\tau = -\frac{\ln(T_{end}/T_{in})}{i_{max} - 1}$$<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Define Temperature Schedule</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># We want:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - At Tin: 80% prob to accept max energy jump (High Exploration)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># - At Tend: 5% prob to accept tiny jump (1e-3) (High Locking)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>y_max, y_min <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>max(y_vec), np<span style="color:#f92672">.</span>min(y_vec)
+</span></span><span style="display:flex;"><span>delta_E_max <span style="color:#f92672">=</span> y_max <span style="color:#f92672">-</span> y_min
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Reverse calculate T</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># P = exp(-dE / T)  =&gt;  ln(P) = -dE / T  =&gt;  T = -dE / ln(P)</span>
+</span></span><span style="display:flex;"><span>T_in <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>delta_E_max <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.8</span>)
+</span></span><span style="display:flex;"><span>T_end <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1e-3</span> <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.05</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Geometric Cooling: T(k) = T_in * exp(-tau * k)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># At k = n_iter-1, T = T_end</span>
+</span></span><span style="display:flex;"><span>tau <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>log(T_end <span style="color:#f92672">/</span> T_in) <span style="color:#f92672">/</span> (n_iter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>iterations <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(n_iter)
+</span></span><span style="display:flex;"><span>T_schedule <span style="color:#f92672">=</span> T_in <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>tau <span style="color:#f92672">*</span> iterations)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(iterations, T_schedule)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Temperature Law (Geometric Decay)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;Iteration&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;Temperature&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_14_0.png" alt="png"></p>
+<h4 id="simulated-annealing-main-loop-metropolis-core">Simulated Annealing Main Loop (Metropolis Core)</h4>
+<p>Inside the loop is standard Metropolis:</p>
+<ol>
+<li>Random Walk: <code>randn(1)*sd + sx(i-1)</code>.</li>
+<li>Energy Check:
+<ul>
+<li>If better ($\Delta E < 0$), accept ($>1$).</li>
+<li>If worse ($\Delta E > 0$), calculate $e^{-\Delta E/T}$.</li>
+<li>Key: Since $T$ decreases, the same bad move is forgiven (accepted) early on, but rejected later.</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Simulated Annealing Main Loop</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Starting Simulated Annealing...&#34;</span>)
+</span></span><span style="display:flex;"><span>sx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(n_iter)
+</span></span><span style="display:flex;"><span>alpha_hist <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(n_iter)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Initial Point (Random)</span>
+</span></span><span style="display:flex;"><span>current_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randn() <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>sx[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> current_x
+</span></span><span style="display:flex;"><span>proposal_std <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span> <span style="color:#75715e"># Standard deviation for proposal</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n_iter):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. Propose: Random Walk</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Truncated to constraints</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>        candidate <span style="color:#f92672">=</span> current_x <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randn() <span style="color:#f92672">*</span> proposal_std
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> xmin <span style="color:#f92672">&lt;=</span> candidate <span style="color:#f92672">&lt;=</span> xmax:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. Calculate Energy Diff</span>
+</span></span><span style="display:flex;"><span>    E_curr <span style="color:#f92672">=</span> target_func(current_x)
+</span></span><span style="display:flex;"><span>    E_cand <span style="color:#f92672">=</span> target_func(candidate)
+</span></span><span style="display:flex;"><span>    dE <span style="color:#f92672">=</span> E_cand <span style="color:#f92672">-</span> E_curr <span style="color:#75715e"># Minimize</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 3. Acceptance Ratio</span>
+</span></span><span style="display:flex;"><span>    T_curr <span style="color:#f92672">=</span> T_schedule[i]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># alpha = exp(-dE / T)</span>
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>dE <span style="color:#f92672">/</span> T_curr))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    alpha_hist[i] <span style="color:#f92672">=</span> alpha
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 4. Accept/Reject</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>        current_x <span style="color:#f92672">=</span> candidate
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># else: keep current_x</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    sx[i] <span style="color:#f92672">=</span> current_x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Result (Mean of last 20% samples)</span>
+</span></span><span style="display:flex;"><span>t_burn <span style="color:#f92672">=</span> int(<span style="color:#ae81ff">0.8</span> <span style="color:#f92672">*</span> n_iter)
+</span></span><span style="display:flex;"><span>x_sol_stochastic <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(sx[t_burn:])
+</span></span><span style="display:flex;"><span>y_sol_stochastic <span style="color:#f92672">=</span> target_func(x_sol_stochastic)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Stochastic Solution (SA): x = </span><span style="color:#e6db74">{</span>x_sol_stochastic<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, y = </span><span style="color:#e6db74">{</span>y_sol_stochastic<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot on the image</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_sol_stochastic, y_sol_stochastic, <span style="color:#e6db74">&#39;ro&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Target Function With Solution&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Starting Simulated Annealing...
+Stochastic Solution (SA): x = 10.0012, y = -0.3010
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_16_1.png" alt="png"></p>
+<h4 id="contrast-deterministic-algorithm-newtons-method">Contrast: Deterministic Algorithm (Newton&rsquo;s Method)</h4>
+<p>We also implemented a simple Newton&rsquo;s method for comparison.</p>
+<ul>
+<li><strong>Principle</strong>: Uses <strong>second derivative</strong> information to fit a parabola to find extremums. Converges extremely fast.</li>
+<li><strong>Outcome</strong>: We deliberately set the start point at $x=-10$.
+<ul>
+<li>From the graph, $x=-10$ is near a local peak (maximum).</li>
+<li>Newton&rsquo;s method is &ldquo;myopic&rdquo;; it sees a nearby peak and rushes up, unaware of the deeper pit further away.</li>
+<li><strong>Conclusion</strong>: Newton&rsquo;s method found a <strong>local optimum</strong>, while Simulated Annealing (due to early random jumps) successfully skipped this trap and found the <strong>global optimum</strong>.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Deterministic Contrast (Newton&#39;s Method)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Newton: x_new = x - f&#39;(x) / f&#39;&#39;(x)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Deliberately start far from global opt, near a local opt</span>
+</span></span><span style="display:flex;"><span>x_newton <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">10.0</span> 
+</span></span><span style="display:flex;"><span>newton_path <span style="color:#f92672">=</span> [x_newton]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Central Difference for Derivatives</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_derivatives</span>(f, x, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-5</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># First derivative f&#39;</span>
+</span></span><span style="display:flex;"><span>    df <span style="color:#f92672">=</span> (f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x <span style="color:#f92672">-</span> h)) <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> h)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Second derivative f&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    ddf <span style="color:#f92672">=</span> (f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>f(x) <span style="color:#f92672">+</span> f(x <span style="color:#f92672">-</span> h)) <span style="color:#f92672">/</span> (h<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> df, ddf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    df, ddf <span style="color:#f92672">=</span> get_derivatives(target_func, x_newton)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(ddf) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-6</span>: <span style="color:#66d9ef">break</span> <span style="color:#75715e"># Prevent div by zero</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    step <span style="color:#f92672">=</span> df <span style="color:#f92672">/</span> ddf
+</span></span><span style="display:flex;"><span>    x_newton <span style="color:#f92672">=</span> x_newton <span style="color:#f92672">-</span> step
+</span></span><span style="display:flex;"><span>    newton_path<span style="color:#f92672">.</span>append(x_newton)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(step) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-6</span>: <span style="color:#66d9ef">break</span> <span style="color:#75715e"># Converged</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>y_sol_deterministic <span style="color:#f92672">=</span> target_func(x_newton)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Deterministic Solution (Newton): x = </span><span style="color:#e6db74">{</span>x_newton<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, y = </span><span style="color:#e6db74">{</span>y_sol_deterministic<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot on the image</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_newton, y_sol_deterministic, <span style="color:#e6db74">&#39;ro&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Target Function With Solution)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Deterministic Solution (Newton): x = -17.7557, y = -0.0996
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_18_1.png" alt="png"></p>
+<h4 id="visual-comparison">Visual Comparison</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Final Visualization</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Target Function&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot SA samples (color by time)</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(sx[::<span style="color:#ae81ff">10</span>], target_func(sx[::<span style="color:#ae81ff">10</span>]), c<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>, n_iter, <span style="color:#ae81ff">10</span>), 
+</span></span><span style="display:flex;"><span>            cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Wistia&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;SA Trajectory&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Mark Solutions</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_sol_stochastic, y_sol_stochastic, <span style="color:#e6db74">&#39;r*&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;SA Solution (Global)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_newton, y_sol_deterministic, <span style="color:#e6db74">&#39;kx&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, markeredgewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Newton Solution (Local)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>colorbar(label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Iteration Time&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Global Optimization: Simulated Annealing vs Newton Method&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlim(xmin, xmax)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_20_0.png" alt="png"></p>
+<ul>
+<li><strong>Yellow/Orange dots</strong>: Footprints of SA. Lighter (early) dots are everywhere (exploring); darker (late) dots concentrate in the deepest pit.</li>
+<li><strong>Red Star (SA)</strong>: Landed accurately on the global minimum.</li>
+<li><strong>Black Cross (Newton)</strong>: Regrettably stuck on a nearby peak.</li>
+</ul>
+<h4 id="hybrid-optimization">Hybrid Optimization</h4>
+<p>Using only one method has issues:</p>
+<ul>
+<li><strong>Simulated Annealing only</strong>: Very inefficient at the end. To reduce error from 0.01 to 0.000001, you need to cool down extremely slowly, requiring millions of iterations. Like embroidery with a sledgehammer.</li>
+<li><strong>Newton only</strong>: Unless you are lucky and start near the global optimum, it will likely fall into a local trap. Like finding a path with a microscope.</li>
+</ul>
+<p><strong>Solution: Combine them.</strong></p>
+<ol>
+<li><strong>Use SA</strong> to get an Approximate Global Solution.
+<ul>
+<li>Low Precision, High Robustness. It jumps out of traps and lands <em>near</em> the hole.</li>
+</ul>
+</li>
+<li><strong>Use Newton</strong> to get the Exact Solution.
+<ul>
+<li>High Precision, Fragile. Since SA already put it in the right &ldquo;basin of attraction&rdquo;, Newton will slide it into the hole at quadratic speed.</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot Prep</span>
+</span></span><span style="display:flex;"><span>x_vec <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>y_vec <span style="color:#f92672">=</span> target_func(x_vec)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Phase 1: Simulated Annealing (Global Search)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;🚀 Phase 1: Simulated Annealing (Global Search)...&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Auto Temp</span>
+</span></span><span style="display:flex;"><span>y_max, y_min <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>max(y_vec), np<span style="color:#f92672">.</span>min(y_vec)
+</span></span><span style="display:flex;"><span>delta_E_max <span style="color:#f92672">=</span> y_max <span style="color:#f92672">-</span> y_min
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Init: 80% accept max jump; End: 5% accept tiny jump</span>
+</span></span><span style="display:flex;"><span>T_in <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>delta_E_max <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.8</span>)
+</span></span><span style="display:flex;"><span>T_end <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1e-3</span> <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">0.05</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span> 
+</span></span><span style="display:flex;"><span>tau <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>log(T_end <span style="color:#f92672">/</span> T_in) <span style="color:#f92672">/</span> (n_iter <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Init</span>
+</span></span><span style="display:flex;"><span>current_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span><span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">90</span>) <span style="color:#75715e"># Random Start</span>
+</span></span><span style="display:flex;"><span>sx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(n_iter)
+</span></span><span style="display:flex;"><span>proposal_std <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># SA Loop</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>    T_curr <span style="color:#f92672">=</span> T_in <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>tau <span style="color:#f92672">*</span> i)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>        candidate <span style="color:#f92672">=</span> current_x <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randn() <span style="color:#f92672">*</span> proposal_std
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">100</span> <span style="color:#f92672">&lt;=</span> candidate <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">100</span>: <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    dE <span style="color:#f92672">=</span> target_func(candidate) <span style="color:#f92672">-</span> target_func(current_x)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> dE <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>dE <span style="color:#f92672">/</span> T_curr):
+</span></span><span style="display:flex;"><span>        current_x <span style="color:#f92672">=</span> candidate
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    sx[i] <span style="color:#f92672">=</span> current_x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># SA Result (Mean of last 10%)</span>
+</span></span><span style="display:flex;"><span>t_burn <span style="color:#f92672">=</span> int(<span style="color:#ae81ff">0.9</span> <span style="color:#f92672">*</span> n_iter)
+</span></span><span style="display:flex;"><span>x_sa_approx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mean(sx[t_burn:])
+</span></span><span style="display:flex;"><span>y_sa_approx <span style="color:#f92672">=</span> target_func(x_sa_approx)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ SA Done. Approx Opt: x ≈ </span><span style="color:#e6db74">{</span>x_sa_approx<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Phase 2: Newton Method (Fine Tuning)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">🎯 Phase 2: Hybrid Newton Method (Fine Tuning)...&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- Key: Use SA result as Newton Start ---</span>
+</span></span><span style="display:flex;"><span>x_hybrid <span style="color:#f92672">=</span> x_sa_approx 
+</span></span><span style="display:flex;"><span>hybrid_path <span style="color:#f92672">=</span> [x_hybrid]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">50</span>): 
+</span></span><span style="display:flex;"><span>    df, ddf <span style="color:#f92672">=</span> get_derivatives(target_func, x_hybrid)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(ddf) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-9</span>: <span style="color:#66d9ef">break</span> 
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    step <span style="color:#f92672">=</span> df <span style="color:#f92672">/</span> ddf
+</span></span><span style="display:flex;"><span>    x_hybrid <span style="color:#f92672">=</span> x_hybrid <span style="color:#f92672">-</span> step
+</span></span><span style="display:flex;"><span>    hybrid_path<span style="color:#f92672">.</span>append(x_hybrid)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(step) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-10</span>: <span style="color:#75715e"># High precision stop</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;   -&gt; Newton Converged.&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>y_hybrid <span style="color:#f92672">=</span> target_func(x_hybrid)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ Hybrid Final Solution: x = </span><span style="color:#e6db74">{</span>x_hybrid<span style="color:#e6db74">:</span><span style="color:#e6db74">.8f</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (High Precision)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Contrast: Newton Direct (Bad Start)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">⚠️ Contrast: Direct Newton (No SA)...&#34;</span>)
+</span></span><span style="display:flex;"><span>x_bad_newton <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">10.0</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">50</span>):
+</span></span><span style="display:flex;"><span>    df, ddf <span style="color:#f92672">=</span> get_derivatives(target_func, x_bad_newton)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(ddf) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1e-9</span>: <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>    x_bad_newton <span style="color:#f92672">=</span> x_bad_newton <span style="color:#f92672">-</span> df <span style="color:#f92672">/</span> ddf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;❌ Failed. Trapped in Local Opt: x = </span><span style="color:#e6db74">{</span>x_bad_newton<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Visualization</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_vec, y_vec, <span style="color:#e6db74">&#39;k-&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Target Function&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. SA Path</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(sx[::<span style="color:#ae81ff">10</span>], target_func(sx[::<span style="color:#ae81ff">10</span>]), c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Phase 1: SA Exploration&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Hybrid Result</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_hybrid, y_hybrid, <span style="color:#e6db74">&#39;g*&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Phase 2: Hybrid Result (Global Opt)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Bad Newton</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_bad_newton, target_func(x_bad_newton), <span style="color:#e6db74">&#39;rx&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, markeredgewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Newton Only (Local Trap)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Hybrid Optimization Strategy</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">SA (Approx: </span><span style="color:#e6db74">{</span>x_sa_approx<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">) + Newton (Final: </span><span style="color:#e6db74">{</span>x_hybrid<span style="color:#e6db74">:</span><span style="color:#e6db74">.5f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>🚀 Phase 1: Simulated Annealing (Global Search)...
+✅ SA Done. Approx Opt: x ≈ 10.2579
+
+🎯 Phase 2: Hybrid Newton Method (Fine Tuning)...
+   -&gt; Newton Converged.
+✅ Hybrid Final Solution: x = 10.20155372 (High Precision)
+
+⚠️ Contrast: Direct Newton (No SA)...
+❌ Failed. Trapped in Local Opt: x = -17.7557
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/10_stochastic_optimization/10_mcmc_stochastic_optimization_23_1.png" alt="png"></p>
+
 
         
           <div class="blog-tags">
@@ -1061,6 +1469,10 @@ $$= x^*$$
                   <ul>
                 
                 
+                    <li><a href="/post/mcmc-statics/bayesian_approach/">Bayesian Image Segmentation in Practice</a></li>
+                
+                    <li><a href="/post/mcmc-statics/markov_random_fields/">Markov Random Fields (MRF)</a></li>
+                
                     <li><a href="/post/mcmc-statics/deterministic-optimization/">Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent</a></li>
                 
                     <li><a href="/post/mcmc-statics/metropolis/">Metropolis Algorithm Explained: Implementation &amp; Intuition</a></li>
@@ -1078,6 +1490,10 @@ $$= x^*$$
               <a href="http://localhost:1313/post/mcmc-statics/deterministic-optimization/" data-toggle="tooltip" data-placement="top" title="Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent">&larr; Previous Post</a>
             </li>
           
+          
+            <li class="next">
+              <a href="http://localhost:1313/post/mcmc-statics/markov_random_fields/" data-toggle="tooltip" data-placement="top" title="Markov Random Fields (MRF)">Next Post &rarr;</a>
+            </li>
           
         </ul>
       
@@ -1107,6 +1523,7 @@ $$= x^*$$
           <ul>
             <li><a href="#algorithm-flow">Algorithm Flow</a></li>
             <li><a href="#proof-of-correctness-pincus-theorem">Proof of Correctness: Pincus Theorem</a></li>
+            <li><a href="#more-examples">More Examples</a></li>
           </ul>
         </li>
       </ul>

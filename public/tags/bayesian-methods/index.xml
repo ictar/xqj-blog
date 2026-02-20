@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bayesian Methods on Qiongjie&#39;s Notes</title>
+    <link>http://localhost:1313/tags/bayesian-methods/</link>
+    <description>Recent content in Bayesian Methods on Qiongjie&#39;s Notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/bayesian-methods/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bayesian Image Segmentation in Practice</title>
+      <link>http://localhost:1313/post/mcmc-statics/bayesian_approach/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/bayesian_approach/</guid>
+      <description>This article introduces the combination of Bayesian methods and Markov Random Fields (MRF) through an image segmentation example. By introducing &amp;lsquo;Homogeneity Prior&amp;rsquo; and &amp;lsquo;Gibbs Sampling&amp;rsquo;, it demonstrates how to use MRF to solve image denoising and segmentation problems, and compares the results of traditional Maximum Likelihood, MRF Simulated Annealing, and the Simple Relaxation (ICM) method commonly used in industry.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MRF on Qiongjie&#39;s Notes</title>
+    <link>http://localhost:1313/tags/mrf/</link>
+    <description>Recent content in MRF on Qiongjie&#39;s Notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
+    <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
+    <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/mrf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bayesian Image Segmentation in Practice</title>
+      <link>http://localhost:1313/post/mcmc-statics/bayesian_approach/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/bayesian_approach/</guid>
+      <description>This article introduces the combination of Bayesian methods and Markov Random Fields (MRF) through an image segmentation example. By introducing &amp;lsquo;Homogeneity Prior&amp;rsquo; and &amp;lsquo;Gibbs Sampling&amp;rsquo;, it demonstrates how to use MRF to solve image denoising and segmentation problems, and compares the results of traditional Maximum Likelihood, MRF Simulated Annealing, and the Simple Relaxation (ICM) method commonly used in industry.</description>
+    </item>
+    <item>
+      <title>Markov Random Fields (MRF)</title>
+      <link>http://localhost:1313/post/mcmc-statics/markov_random_fields/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/post/mcmc-statics/markov_random_fields/</guid>
+      <description>This article introduces the core concepts of Markov Random Fields (MRF), extending from Markov Chains in time series to MRFs on spatial lattices. It defines local dependencies through &amp;rsquo;neighborhoods&amp;rsquo; and &amp;lsquo;cliques,&amp;rsquo; and details how the Hammersley-Clifford theorem connects MRFs with Gibbs distributions. Finally, it demonstrates a Python implementation of image denoising using MRF combined with Simulated Annealing and Gibbs Sampling.</description>
+    </item>
+  </channel>
+</rss>

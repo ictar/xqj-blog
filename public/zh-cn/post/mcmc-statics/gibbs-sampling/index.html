@@ -61,7 +61,7 @@
   "headline": "Gibbs 采样详解：分而治之的降维智慧",
   "description" : "当高维空间让人无从下手时，Gibbs 采样采用了“各个击破”的策略。通过利用满条件分布，它将复杂的 N 维联合分布采样拆解为 N 个简单的 1 维采样。本文解析其直观直觉、数学证明（Brook\u0026rsquo;s Lemma）及代码实战。",
   "inLanguage" : "zh-cn",
-  "wordCount":  1783 ,
+  "wordCount":  2426 ,
   "datePublished" : "2026-01-30T00:00:00\u002b00:00",
   "dateModified" : "2026-01-30T00:00:00\u002b00:00",
   "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
@@ -316,7 +316,7 @@
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1783&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2426&nbsp;个字
   
   
   &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/gibbs-sampling/" lang="en">EN</a>
@@ -379,7 +379,11 @@
     <li><a href="#代码实战">代码实战</a>
       <ul>
         <li><a href="#离散示例二元离散系统-bivariate-discrete-system">离散示例：二元离散系统 (Bivariate Discrete System)</a></li>
-        <li><a href="#连续示例二元正态分布-bivariate-normal-implementation">连续示例：二元正态分布 (Bivariate Normal Implementation)</a></li>
+        <li><a href="#连续示例二元正态分布-bivariate-normal-implementation">连续示例：二元正态分布 (Bivariate Normal Implementation)</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#gibbs-的软肋强相关性-the-kryptonite-high-correlation">Gibbs 的软肋——强相关性 (The Kryptonite: High Correlation)</a></li>
@@ -711,10 +715,10 @@ $$\alpha = \frac{\pi(\text{new})}{\pi(\text{old})} \times \frac{Q(\text{old} | \
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
 </span></span></code></pre></div><pre><code>--- 离散 Gibbs 采样结果 ---
-状态 [0 0]: 采样频率 0.1017
-状态 [0 1]: 采样频率 0.4054
-状态 [1 0]: 采样频率 0.2928
-状态 [1 1]: 采样频率 0.2001
+状态 [0 0]: 采样频率 0.0991
+状态 [0 1]: 采样频率 0.4055
+状态 [1 0]: 采样频率 0.2924
+状态 [1 1]: 采样频率 0.2030
 </code></pre>
 <p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_10_1.png" alt="png"></p>
 <p>即便在如此简单的只有 4 个状态的离散空间里，Gibbs 依然表现得非常优雅：</p>
@@ -724,12 +728,100 @@ $$\alpha = \frac{\pi(\text{new})}{\pi(\text{old})} \times \frac{Q(\text{old} | \
 <li>应用场景：这种离散 Gibbs 采样是 图像去噪 (Image Denoising)（如 Ising 模型）和 隐含狄利克雷分布 (LDA) 等自然语言处理模型的核心技术。在那些场景下，我们有成千上万个离散变量（像素或单词）， Gibbs 每次只翻转一个像素或更新一个单词的分类。</li>
 </ul>
 <h2 id="连续示例二元正态分布-bivariate-normal-implementation">连续示例：二元正态分布 (Bivariate Normal Implementation)</h2>
-<p>我们要采样的目标是一个二维向量 $(x, y)$，服从标准二元正态分布：</p>
+<p>我们要采样的目标是一个二维向量 $(x, y)$，服从二元正态分布，形状像一个倾斜的山丘：</p>
 <ul>
-<li>均值：$\mu_x = 0, \mu_y = 0$</li>
-<li>方差：$\sigma_x = 1, \sigma_y = 1$</li>
-<li>相关系数：$\rho$ (rho)。这是一个 $[-1, 1]$ 之间的数，决定了 $x$ 和 $y$ 的关系有多紧密。</li>
+<li>均值：$\mu_x = 15, \mu_y = -20$
+<ul>
+<li>也就是说，$x$ 中心在 15, $y$ 中心在 -20</li>
 </ul>
+</li>
+<li>方差：$\sigma_x = 40, \sigma_y = 12$
+<ul>
+<li>也就是说：$x$ 很宽, $y$ 很窄。</li>
+</ul>
+</li>
+<li>相关系数：$\rho$ (rho)。这是一个 $[-1, 1]$ 之间的数，决定了 $x$ 和 $y$ 的关系有多紧密。
+<ul>
+<li>这里设置为 0.5。这意味着 $x$ 变大时，$y$ 也有变大的趋势（正相关），所以山丘是斜的。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> multivariate_normal
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. 定义分布参数 ---</span>
+</span></span><span style="display:flex;"><span>mu_x, mu_y <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>s_x, s_y <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>  <span style="color:#75715e"># 相关系数</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 协方差矩阵 Sigma = [[sx^2, r*sx*sy], [r*sx*sy, sy^2]]</span>
+</span></span><span style="display:flex;"><span>cov_xy <span style="color:#f92672">=</span> r <span style="color:#f92672">*</span> s_x <span style="color:#f92672">*</span> s_y
+</span></span><span style="display:flex;"><span>Sigma <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[s_x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>, cov_xy],
+</span></span><span style="display:flex;"><span>                  [cov_xy, s_y<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>]])
+</span></span><span style="display:flex;"><span>Mean <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([mu_x, mu_y])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. 创建网格用于画图 ---</span>
+</span></span><span style="display:flex;"><span>x, y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mgrid[<span style="color:#f92672">-</span><span style="color:#ae81ff">200</span>:<span style="color:#ae81ff">200</span>:<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">200</span>:<span style="color:#ae81ff">200</span>:<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>pos <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dstack((x, y))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算理论概率密度 PDF</span>
+</span></span><span style="display:flex;"><span>rv <span style="color:#f92672">=</span> multivariate_normal(Mean, Sigma)
+</span></span><span style="display:flex;"><span>Z <span style="color:#f92672">=</span> rv<span style="color:#f92672">.</span>pdf(pos)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 3. 可视化 ---</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>contourf(x, y, Z, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>colorbar(label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Probability Density&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#39;Target 2D Normal Distribution (Limit)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;X&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;Y&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)  <span style="color:#75715e"># 保持比例，否则椭圆会变形</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_13_0.png" alt="png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_trajectory</span>(samples, title, method_name):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    画三张图：
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    1. 2D 密度图 (结果)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    2. 前 50 步的移动路径 (细节)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    3. X 和 Y 的随时间变化 (混合情况)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">10</span>))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 图 1: 最终分布结果</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot2grid((<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>hist2d(samples[:,<span style="color:#ae81ff">0</span>], samples[:,<span style="color:#ae81ff">1</span>], bins<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, density<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>title<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Final Distribution)&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 图 2: 移动路径 (只画前 50 步，看细节)</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot2grid((<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 画背景等高线</span>
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>mgrid[<span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>:<span style="color:#ae81ff">150</span>:<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>:<span style="color:#ae81ff">50</span>:<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    pos <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dstack((x, y))
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>contour(x, y, rv<span style="color:#f92672">.</span>pdf(pos), levels<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Greys&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 画路径</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(samples[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">0</span>], samples[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.7</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;r&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>scatter(samples[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>], samples[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;k&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>, zorder<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>method_name<span style="color:#e6db74">}</span><span style="color:#e6db74"> Path</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(First 50 Steps)&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;X&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;Y&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 图 3: Trace Plot (混合情况)</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>subplot2grid((<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>), colspan<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>) 
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(samples[:, <span style="color:#ae81ff">0</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;X&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>plot(samples[:, <span style="color:#ae81ff">1</span>], label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Y&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>method_name<span style="color:#e6db74">}</span><span style="color:#e6db74"> Trace</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Mixing)&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;Iteration&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><h4 id="方法-1-标准吉布斯采样-standard-gibbs-sampler">方法 1: 标准吉布斯采样 (Standard Gibbs Sampler)</h4>
 <p>如果我们想直接从这里采样（比如用 Rejection Sampling），我们需要处理这个公式：</p>
 $$P(x, y) \propto \exp\left( -\frac{1}{2(1-\rho^2)} (x^2 - 2\rho xy + y^2) \right)$$<p>这看起来就很麻烦，对吧？</p>
 <p>现在我们使用 Gibbs Sampler。</p>
@@ -740,90 +832,246 @@ $$P(y | x) = \mathcal{N}(\text{均值}=\rho x, \text{方差}=1-\rho^2)$$<p>直�
 <li>均值 $\rho y$：如果你知道 $y$ 是正的，且 $x, y$ 正相关 ($\rho>0$)，那么 $x$ 大概率也是正的。所以 $x$ 的中心会向 $y$ 偏移。</li>
 <li>方差 $1-\rho^2$：如果相关性很强 ($\rho \to 1$)，方差趋近于 0。这意味着一旦 $y$ 确定了，$x$ 几乎也就确定了（没什么自由度）。</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 1. 参数设置 ---</span>
-</span></span><span style="display:flex;"><span>rho <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span>             <span style="color:#75715e"># 相关系数 (Correlation)</span>
-</span></span><span style="display:flex;"><span>n_samples <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>      <span style="color:#75715e"># 采样数量</span>
-</span></span><span style="display:flex;"><span>start_x, start_y <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">4.0</span> <span style="color:#75715e"># 故意从一个很远的角落开始</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 2. Gibbs Sampler ---</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_gibbs_sampler</span>(n, rho, start_x, start_y):
-</span></span><span style="display:flex;"><span>    samples <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n, <span style="color:#ae81ff">2</span>))
-</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> start_x, start_y
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 标准差 (Scale) 是方差的平方根</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># conditional variance = 1 - rho^2</span>
-</span></span><span style="display:flex;"><span>    cond_std <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sqrt(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> rho<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># A. 固定 y，采样 x</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># x ~ N(rho * y, 1 - rho^2)</span>
-</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(loc<span style="color:#f92672">=</span>rho <span style="color:#f92672">*</span> y, scale<span style="color:#f92672">=</span>cond_std)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># B. 固定 x，采样 y (注意：这里用的是刚更新的 x)</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># y ~ N(rho * x, 1 - rho^2)</span>
-</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(loc<span style="color:#f92672">=</span>rho <span style="color:#f92672">*</span> x, scale<span style="color:#f92672">=</span>cond_std)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        samples[i] <span style="color:#f92672">=</span> [x, y]
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> samples
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 运行采样</span>
-</span></span><span style="display:flex;"><span>chain <span style="color:#f92672">=</span> run_gibbs_sampler(n_samples, rho, start_x, start_y)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># --- 3. 结果可视化 ---</span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">5</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 图 1: 轨迹细节 (前 50 步) - 看看它是怎么走的</span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(chain[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">0</span>], chain[:<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#39;o-&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.6</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Gibbs Path&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 画出起点</span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(start_x, start_y, <span style="color:#e6db74">&#39;ro&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Start&#39;</span>, markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Gibbs Trajectory (First 50 Steps)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Correlation rho=</span><span style="color:#e6db74">{</span>rho<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;X&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Y&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 强制横纵比例一致，这样才能看出正态分布的椭圆形状</span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 图 2: 最终分布散点图</span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(chain[:, <span style="color:#ae81ff">0</span>], chain[:, <span style="color:#ae81ff">1</span>], s<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Final Samples (N=</span><span style="color:#e6db74">{</span>n_samples<span style="color:#e6db74">}</span><span style="color:#e6db74">)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Target: Bivariate Normal&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;X&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Y&#34;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;equal&#39;</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_13_0.png" alt="png"></p>
-<p><strong>仔细观察上面的左图 (轨迹图)。</strong></p>
+<p>所以，我们可以进行交替采样：</p>
+<ul>
+<li>原理：
 <ol>
-<li>曼哈顿式移动 (Orthogonal Moves)
-<ul>
-<li>虽然我们在代码里只存了 <code>[x, y]</code> 这个点，但实际上每次更新只变动一个坐标。</li>
-<li>如果你把中间过程补全，它的真实路径其实是 “<strong>直角折线</strong>”：
-<ul>
-<li>先水平移动（更新 $x$）</li>
-<li>再垂直移动（更新 $y$）</li>
-<li>再水平移动&hellip;</li>
-</ul>
-</li>
-<li>这验证了 Gibbs Sampling “沿着坐标轴切片采样” 的本质。</li>
-</ul>
-</li>
-<li>Burn-in 的过程
-<ul>
-<li>小人从 $(-4, -4)$ 出发。</li>
-<li>你会看到它在前几步迅速地向中心 $(0, 0)$ 靠拢。</li>
-<li>这个过程非常快，可能只需要 5-10 步就进入了“椭圆”的主体区域。</li>
-</ul>
-</li>
+<li>固定 $y$，从 $P(x|y)$ 中采一个 $x$。（对于多元高斯，条件分布依然是高斯分布，公式很明确）。</li>
+<li>固定 $x$，从 $P(y|x)$ 中采一个 $y$。</li>
+<li>重复。</li>
 </ol>
+</li>
+<li>特点：接受率永远是 100%（因为我们直接从正确的条件分布里抽样，不需要拒绝）。效率极高。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 方法 1: 标准 Gibbs 采样 (Standard Gibbs)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;运行方法 1: Standard Gibbs...&#34;</span>)
+</span></span><span style="display:flex;"><span>n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+</span></span><span style="display:flex;"><span>samples_gibbs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_iter, <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>curr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>]) <span style="color:#75715e"># 起点</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 条件分布的参数公式 (高斯分布的性质)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># P(x|y) ~ N(mu_x + r*(sigma_x/sigma_y)*(y - mu_y),  (1-r^2)*sigma_x^2)</span>
+</span></span><span style="display:flex;"><span>s_x_cond <span style="color:#f92672">=</span> s_x <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sqrt(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> r<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>s_y_cond <span style="color:#f92672">=</span> s_y <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sqrt(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> r<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. 更新 X (固定 Y)</span>
+</span></span><span style="display:flex;"><span>    mu_x_cond <span style="color:#f92672">=</span> mu_x <span style="color:#f92672">+</span> r <span style="color:#f92672">*</span> (s_x <span style="color:#f92672">/</span> s_y) <span style="color:#f92672">*</span> (curr[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> mu_y)
+</span></span><span style="display:flex;"><span>    curr[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(mu_x_cond, s_x_cond)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 注意：Gibbs 通常被视为“一步更新一个变量”，为了画出“直角”路径，</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 我们这里最好把中间状态也存下来 (X_new, Y_old)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 但为了数据结构统一，我们通常存 (X_new, Y_new)。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># *注*：如果要画完美的直角，需要在绘图时插值。</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. 更新 Y (固定 X)</span>
+</span></span><span style="display:flex;"><span>    mu_y_cond <span style="color:#f92672">=</span> mu_y <span style="color:#f92672">+</span> r <span style="color:#f92672">*</span> (s_y <span style="color:#f92672">/</span> s_x) <span style="color:#f92672">*</span> (curr[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> mu_x)
+</span></span><span style="display:flex;"><span>    curr[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(mu_y_cond, s_y_cond)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    samples_gibbs[i] <span style="color:#f92672">=</span> curr
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plot_trajectory(samples_gibbs, <span style="color:#e6db74">&#34;Standard Gibbs&#34;</span>, <span style="color:#e6db74">&#34;Gibbs&#34;</span>)
+</span></span></code></pre></div><pre><code>运行方法 1: Standard Gibbs...
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_1.png" alt="png"></p>
+<ul>
+<li>
+<p>路径特征 (Path Plot)：<strong>曼哈顿漫步 (Manhattan Walk)</strong>。</p>
+<ul>
+<li>虽然在最终记录的点上你看到的是斜线，但在逻辑上它是严格的“先走X，再走Y”。如果你把每半步都画出来，它是严格的<strong>直角折线</strong>。</li>
+<li>你会发现它能非常顺畅地沿着那个倾斜的椭圆方向移动，因为它利用了条件概率的引导。</li>
+</ul>
+</li>
+<li>
+<p>混合情况 (Trace Plot)：波形非常活跃，自相关性低，能在 X 和 Y 轴上快速覆盖整个范围。</p>
+</li>
+</ul>
+<h4 id="方法-2-嵌入-metropolis-的吉布斯采样-gibbs-via-metropolis">方法 2: 嵌入 Metropolis 的吉布斯采样 (Gibbs via Metropolis)</h4>
+<p>这是吉布斯采样的 <strong>通用版</strong>。如果我们 <strong>不知道</strong> 条件分布 $P(x|y)$ 的公式怎么办？或者它太复杂没法直接用 numpy.random 抽样？我们可以 <strong>用 Metropolis 算法来模拟</strong> 这个抽样过程。</p>
+<ul>
+<li>原理：
+<ol>
+<li>轮到更新 $x$ 时：固定 $y$，把它当作一维分布。用 Metropolis 规则（提议+接受/拒绝）来尝试更新 $x$。</li>
+<li>轮到更新 $y$ 时：同理。</li>
+</ol>
+</li>
+<li>特点：比标准吉布斯慢，因为有拒绝率。但在不知道条件分布公式时非常有用。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 方法 2: Gibbs 嵌入 Metropolis (Gibbs-Metropolis)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;运行方法 2: Gibbs via Metropolis...&#34;</span>)
+</span></span><span style="display:flex;"><span>n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+</span></span><span style="display:flex;"><span>samples_gm <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_iter, <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>curr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>])
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 提议分布：均匀分布 (盲猜)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 范围设大一点覆盖主要区域</span>
+</span></span><span style="display:flex;"><span>prop_width <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span> <span style="color:#75715e"># 提议范围</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># --- 更新 X (Metropolis) ---</span>
+</span></span><span style="display:flex;"><span>    x_old, y_old <span style="color:#f92672">=</span> curr
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 提议一个新的 x (y 保持不变)</span>
+</span></span><span style="display:flex;"><span>    x_cand <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(x_old <span style="color:#f92672">-</span> prop_width, x_old <span style="color:#f92672">+</span> prop_width)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 计算接受率: P(x_new, y) / P(x_old, y)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 注意：因为只变了 x，所以条件概率比等于联合概率比</span>
+</span></span><span style="display:flex;"><span>    p_old <span style="color:#f92672">=</span> rv<span style="color:#f92672">.</span>pdf([x_old, y_old])
+</span></span><span style="display:flex;"><span>    p_new <span style="color:#f92672">=</span> rv<span style="color:#f92672">.</span>pdf([x_cand, y_old])
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, p_new <span style="color:#f92672">/</span> p_old)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>        curr[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> x_cand <span style="color:#75715e"># 更新 x</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># else: x 保持不变 (隐式)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># --- 更新 Y (Metropolis) ---</span>
+</span></span><span style="display:flex;"><span>    x_fixed, y_old <span style="color:#f92672">=</span> curr <span style="color:#75715e"># 使用刚才更新过的 x</span>
+</span></span><span style="display:flex;"><span>    y_cand <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(y_old <span style="color:#f92672">-</span> prop_width, y_old <span style="color:#f92672">+</span> prop_width)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, rv<span style="color:#f92672">.</span>pdf([x_fixed, y_cand]) <span style="color:#f92672">/</span> rv<span style="color:#f92672">.</span>pdf([x_fixed, y_old]))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>        curr[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> y_cand
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    samples_gm[i] <span style="color:#f92672">=</span> curr
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plot_trajectory(samples_gm, <span style="color:#e6db74">&#34;Gibbs via Metropolis&#34;</span>, <span style="color:#e6db74">&#34;Gibbs-Metropolis&#34;</span>)
+</span></span></code></pre></div><pre><code>运行方法 2: Gibbs via Metropolis...
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_19_1.png" alt="png"></p>
+<p><strong>路径特征：带停顿的直角折线。</strong></p>
+<ul>
+<li>因为引入了 Metropolis 的“拒绝”机制，你会发现在某些维度上，它尝试更新但被拒绝了（path 上体现为只在 X 轴动了，Y 没动，或者都没动）。</li>
+<li>它的效率比标准 Gibbs 低，因为会有“原地踏步”的情况。</li>
+</ul>
+<h4 id="方法-3纯-metropolis-采样-2d-random-walk">方法 3：纯 Metropolis 采样 (2D Random Walk)</h4>
+<p>这是 <strong>最粗暴</strong> 的方法。我不分 $x$ 和 $y$ 轮流更新，而是同时更新。</p>
+<ul>
+<li>
+<p>原理：</p>
+<ol>
+<li>当前在 $(x, y)$。</li>
+<li>直接给 $(x, y)$ 加一个随机扰动（比如正态噪声），跳到 $(x', y')$。</li>
+<li>计算联合概率比 $P(x', y') / P(x, y)$ 来决定是否接受。</li>
+</ol>
+</li>
+<li>
+<p>特点：</p>
+<ul>
+<li>优点：代码最简单，不需要懂条件概率。</li>
+<li>缺点：在高维或相关性很强（$r$ 很大）的分布中，接受率会非常低。因为你想同时猜对 $x$ 和 $y$ 的好位置比较难。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 方法 3: 随机游走 Metropolis (Random Walk)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;运行方法 3: Random Walk Metropolis...&#34;</span>)
+</span></span><span style="display:flex;"><span>n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+</span></span><span style="display:flex;"><span>samples_rw <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_iter, <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>curr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>])
+</span></span><span style="display:flex;"><span>sigma_prop <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#75715e"># 步长</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 同时提议 X 和 Y</span>
+</span></span><span style="display:flex;"><span>    proposal <span style="color:#f92672">=</span> curr <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">0</span>, sigma_prop, size<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 计算联合概率比</span>
+</span></span><span style="display:flex;"><span>    p_curr <span style="color:#f92672">=</span> rv<span style="color:#f92672">.</span>pdf(curr)
+</span></span><span style="display:flex;"><span>    p_prop <span style="color:#f92672">=</span> rv<span style="color:#f92672">.</span>pdf(proposal)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, p_prop <span style="color:#f92672">/</span> p_curr)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>        curr <span style="color:#f92672">=</span> proposal <span style="color:#75715e"># 接受，整体移动</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># else: 保持不动 (会看到轨迹图上有停留的点)</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    samples_rw[i] <span style="color:#f92672">=</span> curr
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plot_trajectory(samples_rw, <span style="color:#e6db74">&#34;Random Walk Metropolis&#34;</span>, <span style="color:#e6db74">&#34;RW-Metropolis&#34;</span>)
+</span></span></code></pre></div><pre><code>运行方法 3: Random Walk Metropolis...
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_22_1.png" alt="png"></p>
+<ul>
+<li>路径特征：<strong>醉汉漫步 (Drunkard&rsquo;s Walk)。</strong>
+<ul>
+<li>它的连线是任意角度的（因为 X 和 Y 同时变）。</li>
+<li>你会看到它像一只无头苍蝇，在一个局部区域扭来扭去，然后慢慢移向高概率区域。</li>
+</ul>
+</li>
+<li>Trace Plot：你会看到很明显的“平台期”（Flat lines），那是被拒绝时产生的连续重复值。</li>
+</ul>
+<h4 id="方法-4独立-metropolis-采样-independent-metropolis-sampler">方法 4：独立 Metropolis 采样 (Independent Metropolis Sampler)</h4>
+<p>它和前一个“随机游走 Metropolis”最大的区别在于：<strong>它的下一步去哪里，和现在在哪里完全没关系。</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 方法 4: 独立 Metropolis (Independent / Uniform)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;运行方法 4: Independent Metropolis...&#34;</span>)
+</span></span><span style="display:flex;"><span>n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+</span></span><span style="display:flex;"><span>samples_ind <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_iter, <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>curr <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>])
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 提议范围覆盖整个目标区域</span>
+</span></span><span style="display:flex;"><span>search_range <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n_iter):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 提议一个全新的点，和当前位置无关</span>
+</span></span><span style="display:flex;"><span>    proposal <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span>search_range, search_range, size<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, rv<span style="color:#f92672">.</span>pdf(proposal) <span style="color:#f92672">/</span> rv<span style="color:#f92672">.</span>pdf(curr))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> alpha:
+</span></span><span style="display:flex;"><span>        curr <span style="color:#f92672">=</span> proposal
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    samples_ind[i] <span style="color:#f92672">=</span> curr
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plot_trajectory(samples_ind, <span style="color:#e6db74">&#34;Independent Metropolis&#34;</span>, <span style="color:#e6db74">&#34;Indep-Metropolis&#34;</span>)
+</span></span></code></pre></div><pre><code>运行方法 4: Independent Metropolis...
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_25_1.png" alt="png"></p>
+<ul>
+<li>路径特征：瞬移与卡顿
+<ul>
+<li><strong>瞬移 (Teleportation)</strong>：与“随机游走”那种蠕动的虫子不同，独立 Metropolis 能够一步从地图的最左边跳到最右边。只要那一脚踩中了高概率区域，它就直接通过了。这意味着它的 <strong>混合性 (Mixing)</strong> 理论上非常好（不依赖上一步）。</li>
+<li><strong>卡顿 (Stagnation)</strong>：这是它最大的弱点。你在 $[-200, 200]$ 的大正方形里扔飞镖，而高概率的目标区域（那个倾斜的椭圆）可能只占整个面积的 1% 不到。
+<ul>
+<li>绝大多数时候，你都会扔到荒郊野外（概率极低的地方）。</li>
+<li>根据公式 $\alpha = P(\text{荒郊野外}) / P(\text{靶心}) \approx 0$，这些提议统统会被拒绝。</li>
+<li>结果：算法会长时间停留在上一个有效点不动。你会看到轨迹图上有大量的重复点。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Trace Plot：呈现出“长时间的静止 + 突然的大跳跃”。这在低维简单问题尚可，在高维问题中会导致灾难性的低效率。</li>
+</ul>
+<h4 id="总结">总结</h4>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">方法</th>
+          <th style="text-align: left">更新策略</th>
+          <th style="text-align: left">接受率</th>
+          <th style="text-align: left">适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>标准 Gibbs</strong></td>
+          <td style="text-align: left">轮流更新 x, y (利用公式)</td>
+          <td style="text-align: left">100% (无拒绝)</td>
+          <td style="text-align: left">知道条件分布公式 (如高斯、贝塔等)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Metropolis-Gibbs</strong></td>
+          <td style="text-align: left">轮流更新 x, y (利用猜+验)</td>
+          <td style="text-align: left">中等</td>
+          <td style="text-align: left">不知道条件分布公式，但想利用轮流更新的优势</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>纯 Metropolis</strong></td>
+          <td style="text-align: left">同时更新 x, y</td>
+          <td style="text-align: left">较低</td>
+          <td style="text-align: left">问题维度不高，或者懒得推导条件分布时</td>
+      </tr>
+  </tbody>
+</table>
 <h1 id="gibbs-的软肋强相关性-the-kryptonite-high-correlation">Gibbs 的软肋——强相关性 (The Kryptonite: High Correlation)</h1>
 <ul>
 <li><strong>主要缺陷：</strong> 虽然接受率是 100%，但这不代表它总是高效的。</li>
@@ -895,8 +1143,8 @@ $$P(y | x) = \mathcal{N}(\text{均值}=\rho x, \text{方差}=1-\rho^2)$$<p>直�
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_0.png" alt="png"></p>
-<p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_16_1.png" alt="png"></p>
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_29_0.png" alt="png"></p>
+<p><img src="/img/contents/post/mcmc-statics/8_gibbs_sampling/8_mcmc_gibbs_29_1.png" alt="png"></p>
 <p>在上面的实验中，我们修改了相关值 <code>rho</code>。</p>
 <ul>
 <li>设定 rho = 0 (无相关)：
@@ -1116,13 +1364,15 @@ $$P(y | x) = \mathcal{N}(\text{均值}=\rho x, \text{方差}=1-\rho^2)$$<p>直�
                   <ul>
                 
                 
+                    <li><a href="/zh-cn/post/mcmc-statics/bayesian_approach/">贝叶斯图像分割实战</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/markov_random_fields/">马尔可夫随机场（Markov Random Fields，MRF）</a></li>
+                
                     <li><a href="/zh-cn/post/mcmc-statics/stochastic-optimization/">随机优化算法详解：模拟退火与 Pincus 定理</a></li>
                 
                     <li><a href="/zh-cn/post/mcmc-statics/deterministic-optimization/">确定性优化算法详解：梯度下降的数学本质与代码实战</a></li>
                 
                     <li><a href="/zh-cn/post/mcmc-statics/metropolis-hastings/">Metropolis-Hastings 算法：打破对称性的束缚</a></li>
-                
-                    <li><a href="/zh-cn/post/mcmc-statics/metropolis/">Metropolis 算法详解：从原理到 Python 实现</a></li>
                 
               </ul>
 
@@ -1192,7 +1442,11 @@ $$P(y | x) = \mathcal{N}(\text{均值}=\rho x, \text{方差}=1-\rho^2)$$<p>直�
     <li><a href="#代码实战">代码实战</a>
       <ul>
         <li><a href="#离散示例二元离散系统-bivariate-discrete-system">离散示例：二元离散系统 (Bivariate Discrete System)</a></li>
-        <li><a href="#连续示例二元正态分布-bivariate-normal-implementation">连续示例：二元正态分布 (Bivariate Normal Implementation)</a></li>
+        <li><a href="#连续示例二元正态分布-bivariate-normal-implementation">连续示例：二元正态分布 (Bivariate Normal Implementation)</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#gibbs-的软肋强相关性-the-kryptonite-high-correlation">Gibbs 的软肋——强相关性 (The Kryptonite: High Correlation)</a></li>

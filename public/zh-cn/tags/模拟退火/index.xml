@@ -8,8 +8,22 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>贝叶斯图像分割实战</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/</guid>
+      <description>本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。</description>
+    </item>
+    <item>
+      <title>马尔可夫随机场（Markov Random Fields，MRF）</title>
+      <link>http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/</guid>
+      <description>本文介绍了马尔可夫随机场（MRF）的核心概念，从时间序列的马尔可夫链扩展到空间网格的 MRF，通过引入“邻域”和“团”来定义局部依赖，并详细解释了 Hammersley-Clifford 定理如何联结 MRF 与吉布斯分布。最后，结合模拟退火和 Gibbs 采样，演示了如何利用 MRF 进行图像去噪的 Python 实战。</description>
+    </item>
     <item>
       <title>随机优化算法详解：模拟退火与 Pincus 定理</title>
       <link>http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/</link>

@@ -1,0 +1,1254 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>贝叶斯图像分割实战 - </title>
+
+  <meta name="description" content="本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/" />
+
+
+<meta name="keywords" content="贝叶斯方法, MRF, 图像分割, 吉布斯采样, 模拟退火, ICM, Python实现" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼呀",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/bayesian_approach\/",
+          "name": "贝叶斯图像分割实战"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "贝叶斯图像分割实战",
+  "description" : "本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。",
+  "inLanguage" : "zh-cn",
+  "wordCount":  1934 ,
+  "datePublished" : "2026-02-20T00:00:00\u002b00:00",
+  "dateModified" : "2026-02-20T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "贝叶斯方法, MRF, 图像分割, 吉布斯采样, 模拟退火, ICM, Python实现" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/bayesian_approach\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="贝叶斯图像分割实战" />
+<meta property="og:description" content="本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼呀" />
+
+  <meta name="twitter:title" content="贝叶斯图像分割实战" />
+  <meta name="twitter:description" content="本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/zh-cn/">琼呀</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/post">文章</a>
+              <div class="navlinks-children">
+                
+                  <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
+                
+                  <a href="/zh-cn/post/ai-fundamentals">AI 基础系列</a>
+                
+                  <a href="/zh-cn/post/geoai">GeoAI 系列</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/projects">项目</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="笔记" href="/zh-cn/notes">笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="标签" href="/zh-cn/tags">标签</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="关于我" href="/zh-cn/page/about/">关于我</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/post/mcmc-statics/bayesian_approach/">EN</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼呀" href="http://localhost:1313/zh-cn/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="琼呀" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>贝叶斯图像分割实战</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 February 20, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1934&nbsp;个字
+  
+  
+  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/bayesian_approach/" lang="en">EN</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <blockquote>
+<p>这里以图像分割为例</p></blockquote>
+<h2 id="贝叶斯图像分割的基石似然与先验的博弈">贝叶斯图像分割的基石——似然与先验的博弈</h2>
+<p>在计算机视觉中，<strong>图像分割 (Image Segmentation)</strong> 的目标是给图片中的每一个像素打上标签（例如：属于前景还是背景） 。这里，我们将观测到的图像记为 $Y$ ($y_{ij} \in \mathbb{R}$)，将要找的标签（Mask）记为 $L$ ($l_{ij} \in \{1, 2\}$)。</p>
+<p>如果用贝叶斯的视角来看待这个问题，我们要寻找的是 <strong>后验概率 (Posterior)</strong>，即在已知观测图像 $Y$ 的情况下，真实标签为 $L$ 的概率。</p>
+<p>根据贝叶斯定理，后验概率 (Posterior) 可以写成：</p>
+$$p(x|y) = \frac{L(y|x)p(x)}{const}$$<p>换成我们这里的变量就是：</p>
+$$p(L|Y) \propto P(Y|L) \cdot P(L)$$<p>这个公式把一个极其困难的问题，拆成了两个可以分别解决的部分：</p>
+<ol>
+<li><strong>似然 (Likelihood) $P(Y|L)$</strong>：如果真实的标签真的是 $L$，那么生成眼前这幅含噪图像 $Y$ 的概率有多大 ？</li>
+<li><strong>先验 (Prior) $P(L)$</strong>：在我们还没看到图像之前，凭常识认为标签 $L$ 应该长什么样？</li>
+</ol>
+<p>我们的终极目标是找到一个 $L$ ，使得似然和先验的乘积最大化，这就是所谓的 <strong>MAP (Maximum A Posteriori, 最大后验估计)</strong> 。</p>
+<h3 id="python-示例构建我们的测试场">Python 示例：构建我们的“测试场”</h3>
+<p>在探讨如何求解之前，我们必须先用代码把这个“观测数据 ”和“真实标签 ”给造出来。</p>
+<p>假设训练样本满足高斯分布：$y_{ij} | l_{ij}=1 \sim N[\mu_1, \sigma_1^2]$ 和 $y_{ij} | l_{ij}=2 \sim N[\mu_2, \sigma_2^2]$</p>
+<p>下面这段代码将生成我们的 Ground Truth (真实标签) 以及带有高斯噪声的观测图像。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 模拟真实世界 (Ground Truth)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 假设一张 50x50 的图像</span>
+</span></span><span style="display:flex;"><span>rows, cols <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>true_L <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones((rows, cols)) <span style="color:#75715e"># 背景标签为 1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 画一个内部的正方形作为前景 (标签为 2)</span>
+</span></span><span style="display:flex;"><span>true_L[<span style="color:#ae81ff">15</span>:<span style="color:#ae81ff">35</span>, <span style="color:#ae81ff">15</span>:<span style="color:#ae81ff">35</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 模拟观测过程 (Likelihood Generation)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 我们从训练样本中得知了不同标签的颜色分布参数 (均值 mu 和方差 sigma)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 背景 (标签1) 偏暗，前景 (标签2) 偏亮</span>
+</span></span><span style="display:flex;"><span>mu_1, sigma_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>  
+</span></span><span style="display:flex;"><span>mu_2, sigma_2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">1.0</span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 根据真实标签，加入高斯噪声生成观测图像 Y</span>
+</span></span><span style="display:flex;"><span>Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(true_L, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 给标签为 1 的像素赋予 N(mu_1, sigma_1) 的颜色值</span>
+</span></span><span style="display:flex;"><span>Y[true_L <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(mu_1, sigma_1, np<span style="color:#f92672">.</span>sum(true_L <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 给标签为 2 的像素赋予 N(mu_2, sigma_2) 的颜色值</span>
+</span></span><span style="display:flex;"><span>Y[true_L <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(mu_2, sigma_2, np<span style="color:#f92672">.</span>sum(true_L <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 可视化我们生成的数据</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>imshow(true_L, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Ground Truth Mask (L)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Label 1(Black), Label 2(White)&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>imshow(Y, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Noisy Observation (Y)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">What the computer sees&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/12_bayesian_approach/12_mcmc_bayesian_approach_2_0.png" alt="png"></p>
+<p>你会看到左边是完美的黑白正方形（上帝视角 $L$），而右边是布满噪点的彩色图像（凡人视角 $Y$）。
+现在的任务是：<strong>计算机只拥有右图 $Y$ 和高斯参数，它该如何逆向推导出左图 $L$ 呢？</strong></p>
+<h2 id="传统分类法假设绝对独立带来的灾难">传统分类法——假设“绝对独立”带来的灾难</h2>
+<p>在真正引入贝叶斯 MRF 之前，我们有必要先看看“前人”是怎么做的，以及他们为什么失败了。这能让我们更深刻地体会到 MRF 的伟大。</p>
+<p><strong>传统方法 (Traditional Method)</strong> 进行了一个在图像处理中非常致命的假设：<strong>绝对独立 (Assume they&rsquo;re independent)</strong>。</p>
+<p>它假设每一个像素的标签 $l_i$ 都是自己管自己的，和它旁边的像素毫无关系：</p>
+$$P(\underline{L}) = \prod_i P(l_i)$$<h3 id="各人自扫门前雪的分类逻辑">“各人自扫门前雪”的分类逻辑</h3>
+<p>因为假设了像素之间绝对独立，先验概率 $P(L)$ 就变成了一个常数或者完全不起作用。计算机在分类时，<strong>只会盯着当前这一个像素的颜色看 (The classification only considers itself)</strong>。</p>
+<p>它的逻辑非常简单粗暴：</p>
+<ol>
+<li>看看当前像素的值 $y_{ij}$。</li>
+<li>算一下它属于标签 1（背景）的高斯概率 $P(y_{ij}|l_{ij}=1)$。</li>
+<li>算一下它属于标签 2（前景）的高斯概率 $P(y_{ij}|l_{ij}=2)$。</li>
+<li><strong>谁的概率大，就把它归为哪一类。</strong>（这就是纯粹的极大似然估计 MLE）</li>
+</ol>
+<h3 id="python-示例实现传统分类并见证灾难">Python 示例：实现传统分类并见证“灾难”</h3>
+<p>我们承接上一节生成的观测数据 <code>Y</code>，用几行代码来实现这个传统方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 承接上一节的变量: Y, mu_1, sigma_1, mu_2, sigma_2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 我们要找的传统方法分类结果 L_traditional</span>
+</span></span><span style="display:flex;"><span>L_traditional <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones_like(Y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 计算每个像素属于标签 1 (背景) 的似然概率</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 依据正态分布公式 N(mu_1, sigma_1^2)</span>
+</span></span><span style="display:flex;"><span>likelihood_1 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> ((Y <span style="color:#f92672">-</span> mu_1) <span style="color:#f92672">/</span> sigma_1)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">/</span> sigma_1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 计算每个像素属于标签 2 (前景) 的似然概率</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 依据正态分布公式 N(mu_2, sigma_2^2)</span>
+</span></span><span style="display:flex;"><span>likelihood_2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> ((Y <span style="color:#f92672">-</span> mu_2) <span style="color:#f92672">/</span> sigma_2)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">/</span> sigma_2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 简单粗暴的比较：如果属于前景的概率更大，就把标签设为 2</span>
+</span></span><span style="display:flex;"><span>L_traditional[likelihood_2 <span style="color:#f92672">&gt;</span> likelihood_1] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 可视化传统方法的灾难结果</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>imshow(true_L, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Ground Truth&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>imshow(Y, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Noisy Observation (Y)&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>imshow(L_traditional, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Traditional Method</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">(Noisy &amp; Isolated pixels)&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/12_bayesian_approach/12_mcmc_bayesian_approach_5_0.png" alt="png"></p>
+<p>注意上面的第三张图（Traditional Method）：它虽然勉强凑出了一个正方形的轮廓，但正方形里面全是黑色的“麻子”，外面的背景里也全是白色的“雪花” 。</p>
+<p><strong>为什么会这样呢？</strong></p>
+<p>因为高斯噪声会让某些背景像素的值突然变得很高，传统方法“只见树木不见森林”，一看数值高，立马把它错认为前景。它完全没有 <strong>“物理世界是连续的，一个白点周围如果全是黑点，那它大概率是个噪点”</strong> 这种常识。</p>
+<h2 id="贝叶斯-mrf-方法引入空间常识-modeling-the-homogeneity">贝叶斯 MRF 方法——引入“空间常识” (Modeling the Homogeneity)</h2>
+<p>上面的运行结果告诉我们，做图像分割绝对不能“只看自己”。真实的物理世界是连续的：一个像素如果是前景，那它周围的像素大概率也是前景。</p>
+<p>因此，我们 <strong>“不再假设绝对独立 (Not Assume independency anymore)”</strong>！我们要用贝叶斯方法结合 MRF，把“空间常识”教给计算机。</p>
+<h3 id="似然函数依然各司其职">似然函数：依然各司其职</h3>
+<p>在贝叶斯公式 $P(L|Y) \propto P(Y|L) P(L)$ 中，对于前半部分的似然函数 $P(Y|L)$，我们仍然保持独立假设：生成图像颜色的过程，是各个像素在高斯分布下独立生成的。</p>
+$$L(\underline{Y}|\underline{L}) = \prod_i P(y_i|l_i)$$<h3 id="先验概率的进化同质性建模-modeling-the-homogeneity">先验概率的进化：同质性建模 (Modeling the Homogeneity)</h3>
+<p>魔法发生在后半部分的先验概率 $P(L)$ 上。既然像素标签不再独立，我们要如何用数学描述“它们靠得很近”？</p>
+<p>一个绝佳的方案：把它定义为一个 <strong>Gibbs 分布</strong>！</p>
+$$p(\underline{l}) = A e^{-E(\underline{l})}$$<p>这里的核心是<strong>吉布斯能量 (Gibbs Energy)</strong> $E(L)$。我们要设计一个惩罚机制：</p>
+<ul>
+<li>如果我和我的邻居标签一样（同质），能量就很低，系统很开心。</li>
+<li>如果我和我的邻居标签不一样（差异），系统就会施加一个 <strong>“差异惩罚 (penalty for diff)”</strong>。</li>
+</ul>
+<p>利用邻居定义的“团 (Clique)”，我们可以写出这个惩罚公式：
+</p>
+$$U_c(l_c) = \alpha |l_i - l_j|$$<p>这里的 $\alpha$ 是一个极其关键的超参数，它代表了 <strong>“你有多希望图像保持平滑 (how strong you want the homogeneity)”</strong>。$\alpha$ 越大，计算机就越不敢随便把一个像素标记为和周围不同的异类。</p>
+<h3 id="后验概率的最终形态">后验概率的最终形态</h3>
+<p>现在，把似然和先验乘起来，我们就得到了下面这个终极公式：</p>
+$$Pr(\underline{L}|\underline{Y}) \propto \prod_i \frac{1}{\sqrt{2\pi\sigma(l_i)^2}} e^{-\frac{1}{2\sigma(l_i)^2}(y_i - \mu(l_i))^2} \cdot e^{-\sum_c \alpha|l_i - l_j|}$$<p>这个公式看着很长，但如果你对它<strong>取负对数 (-log)</strong>，它就会变成一个非常优雅的“能量最小化”问题。</p>
+<p>对于任意一个像素 $i$，它取某个标签 $l_i$ 的总能量等于：</p>
+<p><strong>总能量 = 数据项 (似然) + 平滑项 (先验)</strong></p>
+<h3 id="python-示例用代码写出总能量探测器">Python 示例：用代码写出“总能量”探测器</h3>
+<p>为了给下一节的优化做准备，我们要先把这个“算能量”的函数写出来。这可是 MRF 的灵魂探测器。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 承接之前的变量: </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Y (观测图像)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># mu_1, sigma_1 (标签 1 背景的高斯参数)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># mu_2, sigma_2 (标签 2 前景的高斯参数)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_pixel_energy</span>(padded_L, Y, r, c, label_candidate, alpha):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    计算点 (r, c) 假设取值为 label_candidate 时的总吉布斯能量
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    padded_L: 当前打好 padding 的标签图 (为了方便找邻居)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. 数据项 (Data Term, 源自似然函数)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 取负对数后： (y - mu)^2 / (2*sigma^2) + log(sigma)</span>
+</span></span><span style="display:flex;"><span>    y_val <span style="color:#f92672">=</span> Y[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> label_candidate <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        energy_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> ((y_val <span style="color:#f92672">-</span> mu_1) <span style="color:#f92672">/</span> sigma_1)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>log(sigma_1)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        energy_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> ((y_val <span style="color:#f92672">-</span> mu_2) <span style="color:#f92672">/</span> sigma_2)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>log(sigma_2)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. 平滑项 (Smoothness Term, 源自先验 MRF)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 对应公式: alpha * sum(|l_i - l_j|)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 找出上下左右四个邻居</span>
+</span></span><span style="display:flex;"><span>    neighbors <span style="color:#f92672">=</span> [padded_L[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c], padded_L[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, c], 
+</span></span><span style="display:flex;"><span>                 padded_L[r, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], padded_L[r, c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]]
+</span></span><span style="display:flex;"><span>                 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 计算当前候选标签与邻居标签的差异惩罚</span>
+</span></span><span style="display:flex;"><span>    energy_smooth <span style="color:#f92672">=</span> alpha <span style="color:#f92672">*</span> sum([abs(label_candidate <span style="color:#f92672">-</span> n) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> neighbors])
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 3. 返回总能量 (能量越低，说明这个候选标签越靠谱)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> energy_data <span style="color:#f92672">+</span> energy_smooth
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 我们来随便测试一个点</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 假设用传统方法得到的 L_traditional 给它加上 padding</span>
+</span></span><span style="display:flex;"><span>padded_L_test <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pad(L_traditional, <span style="color:#ae81ff">1</span>, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;edge&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 测试坐标 (25, 25) 属于标签 1 和标签 2 的能量 (假设 alpha=1.2)</span>
+</span></span><span style="display:flex;"><span>e1 <span style="color:#f92672">=</span> get_pixel_energy(padded_L_test, Y, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">25</span>, label_candidate<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.2</span>)
+</span></span><span style="display:flex;"><span>e2 <span style="color:#f92672">=</span> get_pixel_energy(padded_L_test, Y, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">25</span>, label_candidate<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;坐标(25, 25) 变为背景(1)的能量: </span><span style="color:#e6db74">{</span>e1<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;坐标(25, 25) 变为前景(2)的能量: </span><span style="color:#e6db74">{</span>e2<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;结论：系统会更倾向于能量较低的那个标签！&#34;</span>)
+</span></span></code></pre></div><pre><code>坐标(25, 25) 变为背景(1)的能量: 7.23
+坐标(25, 25) 变为前景(2)的能量: 1.25
+结论：系统会更倾向于能量较低的那个标签！
+</code></pre>
+<h2 id="寻找-map-的终极武器模拟退火与-gibbs-采样">寻找 MAP 的终极武器——模拟退火与 Gibbs 采样</h2>
+<p>在上一节，我们成功写出了“总能量”的计算公式。系统总能量越低，代表后验概率越大，这个图像分割的结果就越完美。</p>
+<p>但是，面对一张  的图像，哪怕每个像素只有两个标签（1 或 2），总共也有 $2^{2500}$ 种可能的组合！我们不可能穷举所有的标签组合去寻找能量最低的那一个。</p>
+<p>那么，要如何在这个天文数字级别的解空间里找到最优解呢？</p>
+<p><strong>模拟退火 (Simulated Annealing, SA)</strong> 配合 <strong>Gibbs 采样器 (Gibbs Sampler)</strong>。</p>
+<h3 id="内层引擎gibbs-采样器-gibbs-sampler">内层引擎：Gibbs 采样器 (Gibbs Sampler)</h3>
+<p>如果我们想同时更新所有像素，系统会直接崩溃。Gibbs 采样的核心智慧是：<strong>每次只盯着一个像素看，假装其他所有像素都是固定不动的</strong>。</p>
+<p>而且得益于 MRF 的马尔可夫性，在更新当前像素时，我们 <strong>“只看邻居” (only neighbors)</strong>。</p>
+<ol>
+<li>算一下当前像素变成标签 1 的能量 $E_1$。</li>
+<li>算一下当前像素变成标签 2 的能量 $E_2$。</li>
+<li>利用吉布斯公式把能量转化为概率，然后掷骰子决定它最终变成谁。</li>
+</ol>
+<h3 id="外层指挥官模拟退火-simulated-annealing">外层指挥官：模拟退火 (Simulated Annealing)</h3>
+<p>为了防止 Gibbs 采样陷入局部死胡同（比如被一块顽固的噪点卡住），我们需要引入“温度 $T$”。
+<strong>“SA 需要通过 Gibbs 采样来进行采样 (the S.A. requires a sampling done by a Gibbs Sample)”</strong>。</p>
+<ul>
+<li><strong>高温期</strong>：系统非常活跃，即使某个标签会让能量变高（变差），也有一定概率被接受。这让算法有能力跳出“麻子”陷阱。</li>
+<li><strong>降温期</strong>：随着迭代进行，系统逐渐“冷却”，越来越趋向于只接受能让能量降低（变好）的标签。最终冻结在完美的 MAP（最大后验估计）状态。</li>
+</ul>
+<h3 id="python-示例见证奇迹的时刻">Python 示例：见证奇迹的时刻！</h3>
+<p>现在，我们要把前面所有的代码积木拼装在一起。我们要初始化一个起点 $L_0$ (Init $L_0$)，然后启动这台强大的贝叶斯 MRF 引擎！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 承接之前的变量: </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># true_L (完美标签), Y (含噪图像), L_traditional (传统方法结果)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># get_pixel_energy() 函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mrf_bayesian_segmentation</span>(Y, initial_L, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.2</span>, iter_max<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, T_init<span style="color:#f92672">=</span><span style="color:#ae81ff">3.0</span>, T_end<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    使用 模拟退火 + Gibbs 采样 寻找图像分割的最大后验估计 (MAP)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    rows, cols <span style="color:#f92672">=</span> Y<span style="color:#f92672">.</span>shape
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. 初始化起点 (Init L0) </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 为了加快收敛，我们直接拿传统方法的结果作为起点，而不是瞎猜</span>
+</span></span><span style="display:flex;"><span>    L <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>copy(initial_L) 
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 计算几何降温系数</span>
+</span></span><span style="display:flex;"><span>    tau <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>log(T_end <span style="color:#f92672">/</span> T_init) <span style="color:#f92672">/</span> (iter_max <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;🚀 开始启动贝叶斯 MRF 优化引擎...&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 外层循环：模拟退火 (SA)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> it <span style="color:#f92672">in</span> range(iter_max):
+</span></span><span style="display:flex;"><span>        T <span style="color:#f92672">=</span> T_init <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>tau <span style="color:#f92672">*</span> it) <span style="color:#75715e"># 当前温度</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 给图像加一圈 Padding，方便处理边界像素的邻居</span>
+</span></span><span style="display:flex;"><span>        padded_L <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pad(L, <span style="color:#ae81ff">1</span>, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;edge&#39;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 内层循环：Gibbs Sampler 扫描全图</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, rows <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, cols <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># 计算取标签 1 和标签 2 时的局部总能量</span>
+</span></span><span style="display:flex;"><span>                E_1 <span style="color:#f92672">=</span> get_pixel_energy(padded_L, Y, r, c, label_candidate<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, alpha<span style="color:#f92672">=</span>alpha)
+</span></span><span style="display:flex;"><span>                E_2 <span style="color:#f92672">=</span> get_pixel_energy(padded_L, Y, r, c, label_candidate<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, alpha<span style="color:#f92672">=</span>alpha)
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># 利用吉布斯公式，将能量差转化为概率</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># P(L=1) = exp(-E_1/T) / (exp(-E_1/T) + exp(-E_2/T))</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># 为防止指数溢出，化简为 Logistic 形式:</span>
+</span></span><span style="display:flex;"><span>                prob_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>exp((E_1 <span style="color:#f92672">-</span> E_2) <span style="color:#f92672">/</span> T))
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># 掷骰子！(根据概率进行采样)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> prob_1:
+</span></span><span style="display:flex;"><span>                    padded_L[r, c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                    padded_L[r, c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>                    
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 剥去 padding，更新整张图的标签</span>
+</span></span><span style="display:flex;"><span>        L <span style="color:#f92672">=</span> padded_L[<span style="color:#ae81ff">1</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;迭代 </span><span style="color:#e6db74">{</span>it<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>iter_max<span style="color:#e6db74">}</span><span style="color:#e6db74"> 完成 | 当前温度 T = </span><span style="color:#e6db74">{</span>T<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> L
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 运行 MRF 分割算法 (惩罚系数 alpha 设为 1.2)</span>
+</span></span><span style="display:flex;"><span>L_mrf <span style="color:#f92672">=</span> mrf_bayesian_segmentation(Y, initial_L<span style="color:#f92672">=</span>L_traditional, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 终极可视化大比拼</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>imshow(true_L, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;1. Ground Truth (God&#39;s perspective)&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>imshow(Y, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;2. Noisy Y (From a mortal&#39;s perspective)&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>imshow(L_traditional, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;3. Traditional (I don&#39;t care my neighbors)&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">.</span>imshow(L_mrf, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;4. Bayesian MRF (Modeling the Homogeneity)&#34;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>🚀 开始启动贝叶斯 MRF 优化引擎...
+迭代 1/15 完成 | 当前温度 T = 3.00
+迭代 2/15 完成 | 当前温度 T = 2.35
+迭代 3/15 完成 | 当前温度 T = 1.85
+迭代 4/15 完成 | 当前温度 T = 1.45
+迭代 5/15 完成 | 当前温度 T = 1.14
+迭代 6/15 完成 | 当前温度 T = 0.89
+迭代 7/15 完成 | 当前温度 T = 0.70
+迭代 8/15 完成 | 当前温度 T = 0.55
+迭代 9/15 完成 | 当前温度 T = 0.43
+迭代 10/15 完成 | 当前温度 T = 0.34
+迭代 11/15 完成 | 当前温度 T = 0.26
+迭代 12/15 完成 | 当前温度 T = 0.21
+迭代 13/15 完成 | 当前温度 T = 0.16
+迭代 14/15 完成 | 当前温度 T = 0.13
+迭代 15/15 完成 | 当前温度 T = 0.10
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/12_bayesian_approach/12_mcmc_bayesian_approach_10_1.png" alt="png"></p>
+<p>仔细看看上面的图：</p>
+<ul>
+<li><strong>图 3（传统方法）</strong>：因为它假设像素绝对独立，所以被高斯噪声彻底欺骗了，画面里全是误分类的“雪花点”。</li>
+<li><strong>图 4（贝叶斯 MRF）</strong>：奇迹发生了！在惩罚系数  施加的“同质性先验”和模拟退火算法的步步逼近下，系统硬生生把那些孤立的噪点一个个“洗掉”了。它不仅完美恢复了正方形的清晰边界，甚至找回了那份干净、平滑的视觉美感。</li>
+</ul>
+<p>这，就是贝叶斯统计与马尔可夫随机场（MRF）交织出的巅峰之作！</p>
+<h2 id="终极实战从黑猫图像分割看透贝叶斯-mrf">终极实战——从“黑猫”图像分割看透贝叶斯 MRF</h2>
+<p>在前几节中，我们推导了高深的公式，并用极简的代码演示了原理。现在，是时候打真正的硬仗了。</p>
+<p>这个实战的目标是从一张充满噪点的图片中，把一只“黑猫”（前景，标签设为 1）从背景（标签设为 2）中抠出来。</p>
+<p>在真实的图像中，背景和前景的颜色并不是非黑即白的，它们服从<strong>高斯分布</strong>。我们根据训练样本（训练数据）来计算每个类别的均值和标准差</p>
+<ul>
+<li>黑猫的颜色均值较暗 $\mu_1 = 19$，方差 $\sigma_1 = 23$；</li>
+<li>而背景较亮 $\mu_2 = 209$，方差 $\sigma_2 = 29$。</li>
+</ul>
+<p>我们尝试图像分割的三种方法：</p>
+<h3 id="方法一朴素的极大似然估计-maximum-likelihood">方法一：朴素的极大似然估计 (Maximum Likelihood)</h3>
+<p>这是最简单的做法。它完全忽略了像素间的空间关系。对于每一个像素，它只计算：如果这个像素属于黑猫，高斯概率是多少？属于背景，高斯概率又是多少？谁大选谁。</p>
+<ul>
+<li><strong>预期结果</strong>：图像中会充满星星点点的“雪花”噪点。</li>
+</ul>
+<h3 id="方法二mrf--模拟退火--gibbs-采样-stochastic">方法二：MRF + 模拟退火 + Gibbs 采样 (Stochastic)</h3>
+<p>它把像素的局部马尔可夫性（MRF）考虑了进去。根据代码中的公式，像素 $x_i$ 的条件概率 $p_T(x_i | x_{-i}, y)$ 被转换为一个极其优雅的能量函数：
+</p>
+$$E(x_i) = \log(\sigma_{x_i}) + \frac{(y_i - \mu_{x_i})^2}{2\sigma_{x_i}^2} + \alpha \sum_{j \in \text{neighbors}} |x_i - x_j|$$<ul>
+<li><strong>第一项和第二项</strong>：是<strong>数据项 (Likelihood)</strong>，惩罚不符合高斯分布的颜色。</li>
+<li><strong>第三项</strong>：是<strong>平滑项 (Prior)</strong>，通过惩罚系数 $\alpha$ (代码中设为惊人的 30)，强烈要求当前像素必须和周围邻居保持一致。</li>
+</ul>
+<p>然后，利用模拟退火从高温降到低温，配合 Gibbs 采样掷骰子，最终求得完美解。</p>
+<h3 id="方法三简单松弛法-simple-relaxation--icm">方法三：简单松弛法 (Simple Relaxation / ICM)</h3>
+<p>模拟退火虽然好，但由于要掷骰子（随机采样），速度比较慢。</p>
+<p>因此，工业界常用的妥协方案之一是：<strong>简单松弛法 (Simple Relaxation)</strong>（在学术界通常被称为 ICM, Iterated Conditional Modes）。
+它的计算公式和方法二完全一样，但它<strong>不掷骰子</strong>！在更新每个像素时，它直接贪婪地选择那个让能量最低（概率最大）的标签。迭代几次后，一旦图像不再变化，立刻停止。</p>
+<h3 id="python-实战三大方法代码大比拼">Python 实战：三大方法代码大比拼</h3>
+<p>下面代码中，先自动生成一只带有高斯噪声的“合成黑猫”，然后分别用这三种方法对它进行分割。</p>
+<p><strong>⚠️ 代码核心看点：</strong></p>
+<p>注意看 <code>MRF_Gibbs_SA</code> 函数中的<strong>对数-指数求和技巧 (Log-Sum-Exp Trick)</strong>。当能量值很高时，直接算 $e^{-\text{Energy}}$ 会导致计算机数值下溢（变成 0）。我们减去了最大值 <code>lnA = -max(...)</code> 来进行数值正则化。这是非常宝贵的工程经验！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 0. 数据准备：生成“合成黑猫”带噪图像</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>rows, cols <span style="color:#f92672">=</span> <span style="color:#ae81ff">80</span>, <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>true_L <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones((rows, cols), dtype<span style="color:#f92672">=</span>int) <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#75715e"># 背景标签设为 2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 画一只“抽象的黑猫”在中间 (标签设为 1)</span>
+</span></span><span style="display:flex;"><span>true_L[<span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">30</span>:<span style="color:#ae81ff">50</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> 
+</span></span><span style="display:flex;"><span>true_L[<span style="color:#ae81ff">15</span>:<span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>:<span style="color:#ae81ff">35</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># 左耳</span>
+</span></span><span style="display:flex;"><span>true_L[<span style="color:#ae81ff">15</span>:<span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">45</span>:<span style="color:#ae81ff">50</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># 右耳</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 真实的高斯分布参数 (参照 MATLAB 设定)</span>
+</span></span><span style="display:flex;"><span>mu_x <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>: <span style="color:#ae81ff">100.0</span>, <span style="color:#ae81ff">2</span>: <span style="color:#ae81ff">180.0</span>}      <span style="color:#75715e"># 1:黑猫(暗), 2:背景(亮)</span>
+</span></span><span style="display:flex;"><span>sigma_x <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>: <span style="color:#ae81ff">30.0</span>, <span style="color:#ae81ff">2</span>: <span style="color:#ae81ff">30.0</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加上高斯噪声生成观测图像 Y</span>
+</span></span><span style="display:flex;"><span>Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(true_L, dtype<span style="color:#f92672">=</span>float)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(rows):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(cols):
+</span></span><span style="display:flex;"><span>        label <span style="color:#f92672">=</span> true_L[r, c]
+</span></span><span style="display:flex;"><span>        Y[r, c] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(mu_x[label], sigma_x[label])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 限制像素值在 0~255</span>
+</span></span><span style="display:flex;"><span>Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>clip(Y, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 境界一：朴素极大似然估计 (No MRF)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">maximum_likelihood</span>(Y):
+</span></span><span style="display:flex;"><span>    L_ml <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(Y, dtype<span style="color:#f92672">=</span>int)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 对于每个点，算算属于 1 和 2 的似然能量 (只看数据项)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(rows):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(cols):
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 能量 = log(sigma) + (y - mu)^2 / (2*sigma^2)</span>
+</span></span><span style="display:flex;"><span>            E1 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>log(sigma_x[<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">+</span> (Y[r, c] <span style="color:#f92672">-</span> mu_x[<span style="color:#ae81ff">1</span>])<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> sigma_x[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>            E2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>log(sigma_x[<span style="color:#ae81ff">2</span>]) <span style="color:#f92672">+</span> (Y[r, c] <span style="color:#f92672">-</span> mu_x[<span style="color:#ae81ff">2</span>])<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> sigma_x[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>            L_ml[r, c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> E1 <span style="color:#f92672">&lt;</span> E2 <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">2</span> <span style="color:#75715e"># 谁能量低(概率大)选谁</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> L_ml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 境界二：MRF + 模拟退火 + Gibbs 采样</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mrf_simulated_annealing</span>(Y, initial_L, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, iter_max<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, Tin<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>, Tend<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>):
+</span></span><span style="display:flex;"><span>    L <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>copy(initial_L)
+</span></span><span style="display:flex;"><span>    tau <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>log(Tend <span style="color:#f92672">/</span> Tin) <span style="color:#f92672">/</span> (iter_max <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> it <span style="color:#f92672">in</span> range(iter_max):
+</span></span><span style="display:flex;"><span>        T <span style="color:#f92672">=</span> Tin <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>tau <span style="color:#f92672">*</span> it)
+</span></span><span style="display:flex;"><span>        padded_L <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pad(L, <span style="color:#ae81ff">1</span>, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;edge&#39;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, rows <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, cols <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>                neighbors <span style="color:#f92672">=</span> [padded_L[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c], padded_L[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, c], padded_L[r, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], padded_L[r, c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]]
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                pt_xi <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]:
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># 总能量 = 数据项 + 平滑项 (alpha * 差异)</span>
+</span></span><span style="display:flex;"><span>                    E_data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>log(sigma_x[k]) <span style="color:#f92672">+</span> (Y[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> mu_x[k])<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> sigma_x[k]<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>                    E_smooth <span style="color:#f92672">=</span> alpha <span style="color:#f92672">*</span> sum([abs(k <span style="color:#f92672">-</span> n) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> neighbors])
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># Gibbs 概率指数部分</span>
+</span></span><span style="display:flex;"><span>                    pt_xi[k] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> T) <span style="color:#f92672">*</span> (E_data <span style="color:#f92672">+</span> E_smooth)
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># [工程技巧] 数值正则化：防止指数溢出</span>
+</span></span><span style="display:flex;"><span>                max_pt <span style="color:#f92672">=</span> max(pt_xi[<span style="color:#ae81ff">1</span>], pt_xi[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>                p1 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(pt_xi[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> max_pt)
+</span></span><span style="display:flex;"><span>                p2 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(pt_xi[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> max_pt)
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># 归一化转为概率并掷骰子</span>
+</span></span><span style="display:flex;"><span>                prob_1 <span style="color:#f92672">=</span> p1 <span style="color:#f92672">/</span> (p1 <span style="color:#f92672">+</span> p2)
+</span></span><span style="display:flex;"><span>                padded_L[r, c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> prob_1 <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>        L <span style="color:#f92672">=</span> padded_L[<span style="color:#ae81ff">1</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> L
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 境界三：简单松弛法 (Simple Relaxation)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simple_relaxation</span>(Y, initial_L, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, iter_max<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>):
+</span></span><span style="display:flex;"><span>    L <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>copy(initial_L)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> it <span style="color:#f92672">in</span> range(iter_max):
+</span></span><span style="display:flex;"><span>        L_prec <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>copy(L)
+</span></span><span style="display:flex;"><span>        padded_L <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pad(L, <span style="color:#ae81ff">1</span>, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;edge&#39;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, rows <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, cols <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>                neighbors <span style="color:#f92672">=</span> [padded_L[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c], padded_L[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, c], padded_L[r, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], padded_L[r, c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]]
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                E <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]:
+</span></span><span style="display:flex;"><span>                    E_data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>log(sigma_x[k]) <span style="color:#f92672">+</span> (Y[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> mu_x[k])<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> sigma_x[k]<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>                    E_smooth <span style="color:#f92672">=</span> alpha <span style="color:#f92672">*</span> sum([abs(k <span style="color:#f92672">-</span> n) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> neighbors])
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># 松弛法不需要除以温度 T</span>
+</span></span><span style="display:flex;"><span>                    E[k] <span style="color:#f92672">=</span> E_data <span style="color:#f92672">+</span> E_smooth
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># [核心差异] 不掷骰子，直接贪心选择能量最低的标签</span>
+</span></span><span style="display:flex;"><span>                padded_L[r, c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> E[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;</span> E[<span style="color:#ae81ff">2</span>] <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>        L <span style="color:#f92672">=</span> padded_L[<span style="color:#ae81ff">1</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 提前停止机制：如果图像不再发生变化，说明收敛了</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>sum(np<span style="color:#f92672">.</span>abs(L_prec <span style="color:#f92672">-</span> L)) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;简单松弛法在第 </span><span style="color:#e6db74">{</span>it<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> 次迭代时提前收敛！&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> L
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 运行对比实验</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;1. 正在计算极大似然估计...&#34;</span>)
+</span></span><span style="display:flex;"><span>L_ml <span style="color:#f92672">=</span> maximum_likelihood(Y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;2. 正在运行 MRF 模拟退火...&#34;</span>)
+</span></span><span style="display:flex;"><span>L_sa <span style="color:#f92672">=</span> mrf_simulated_annealing(Y, initial_L<span style="color:#f92672">=</span>L_ml, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;3. 正在运行 MRF 简单松弛法...&#34;</span>)
+</span></span><span style="display:flex;"><span>L_sr <span style="color:#f92672">=</span> simple_relaxation(Y, initial_L<span style="color:#f92672">=</span>L_ml, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 可视化结果</span>
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>titles <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;1. Ground Truth&#34;</span>, <span style="color:#e6db74">&#34;2. Noisy Y&#34;</span>, <span style="color:#e6db74">&#34;3. Maximum Likelihood&#34;</span>, <span style="color:#e6db74">&#34;4. MRF + SA (Stochastic)&#34;</span>, <span style="color:#e6db74">&#34;5. MRF + SR (Deterministic)&#34;</span>]
+</span></span><span style="display:flex;"><span>images <span style="color:#f92672">=</span> [true_L, Y, L_ml, L_sa, L_sr]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> ax, img, title <span style="color:#f92672">in</span> zip(axes, images, titles):
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>imshow(img, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span> <span style="color:#66d9ef">if</span> title <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;2. Noisy Y&#34;</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;viridis&#39;</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_title(title)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>1. 正在计算极大似然估计...
+2. 正在运行 MRF 模拟退火...
+3. 正在运行 MRF 简单松弛法...
+简单松弛法在第 3 次迭代时提前收敛！
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/12_bayesian_approach/12_mcmc_bayesian_approach_13_1.png" alt="png"></p>
+<p>看看上面 5 张对比图</p>
+<ul>
+<li><strong>图 3 (极大似然)</strong>：像一张劣质的黑白报纸，全是白色的噪点。这就是抛弃空间先验的代价。</li>
+<li><strong>图 4 (模拟退火 SA)</strong>：完美还原了黑猫的形状。因为它经过了高温的洗礼，成功跳出了局部最优的陷阱。</li>
+<li><strong>图 5 (简单松弛 SR)</strong>：速度极快，也能还原轮廓。但由于它太贪心（不接受变差的结果），图像边缘往往不如 SA 那样平滑，偶尔会卡在死胡同里出不来。</li>
+</ul>
+<h3 id="终极彩蛋工业界的黄金搭档随机粗调与确定性精调">终极彩蛋：工业界的黄金搭档——“随机粗调”与“确定性精调”</h3>
+<p>在跑完上面的代码后，你可能会有一个疑问：既然模拟退火 (SA) 那么厉害，为什么我们还需要 ICM（简单松弛法）？</p>
+<p>这就触及到了算法工程界的一个核心痛点：<strong>Stochastic（随机算法）通常只能得到“近似最优解”，而无法做到“绝对最优”。</strong></p>
+<p><strong>为什么 SA 只能“近似”？</strong></p>
+<ul>
+<li>模拟退火在理论上确实能找到全局最优，但前提是“时间无限长，降温无限慢”。</li>
+<li>在实际写代码时，为了让程序在几秒钟内跑完，我们的降温步数（<code>iter_max</code>）通常是有限的，降温系数也是妥协过的。这就导致在迭代的最后，温度 $T$ 并没有真正降到绝对的 0。</li>
+<li>只要 $T > 0$，Gibbs 采样就永远存在“掷骰子”的随机性。它可能会在全局最优解的附近反复横跳（Jittering），给你一个 $99\%$ 接近完美的解，但就是没法彻底锁死在那个绝对的最底端。</li>
+</ul>
+<p><strong>为什么 ICM 是“危险的快刀”？</strong></p>
+<ul>
+<li>ICM（简单松弛法）是<strong>确定性的 (Deterministic)</strong>。它不掷骰子，极其贪婪：只要能让能量下降，它就毫不犹豫地走过去；一旦无路可走，它就立刻停下。</li>
+<li>它的优点是<strong>收敛极快，且能达到绝对的局部最优</strong>；缺点是<strong>视野极窄</strong>，如果初始点选得不好，它会瞬间掉进错误的“局部死胡同”里出不来。</li>
+</ul>
+<p><strong>终极奥义：混合双打 (Stochastic + Deterministic)</strong></p>
+<p>既然它们各有优缺点，为什么不把它们结合起来呢？这就诞生了 MRF 优化的终极范式：<strong>先用 SA 粗调，再用 ICM 精调</strong>。</p>
+<p>这就好比打高尔夫球：</p>
+<ol>
+<li><strong>第一杆（模拟退火 SA）</strong>：大力出奇迹。利用它的随机性和跳跃能力，跨越各种局部陷阱，把球打到离洞口非常近的果岭上（找到<strong>近似最优解</strong>）。</li>
+<li><strong>第二杆（简单松弛 ICM）</strong>：精准推杆。把 SA 得到的近似解作为起点，利用它贪婪、确定性的特点，一杆进洞，消除最后那一丁点随机噪点，稳稳落入能量最低点（锁定<strong>绝对最优解</strong>）。</li>
+</ol>
+<h4 id="python-实战完成这套混合连招">Python 实战：完成这套“混合连招”</h4>
+<p>在代码实现上，这套连招极其简单，只需要把 SA 的输出结果，当作 ICM 的输入起点即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 终极连招：Hybrid Optimization (SA -&gt; ICM)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;🚀 Step 1: 启动模拟退火 (SA) 进行全局粗调...&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 稍微跑一跑 SA，不需要跑太多次，把大面积的噪点洗掉，找到大致的坑底</span>
+</span></span><span style="display:flex;"><span>L_approx_opt <span style="color:#f92672">=</span> mrf_simulated_annealing(Y, initial_L<span style="color:#f92672">=</span>L_ml, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">5.0</span>, iter_max<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;🎯 Step 2: 启动简单松弛法 (ICM) 进行局部精调...&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 把 SA 的结果 (L_approx_opt) 直接喂给 ICM 作为初始起点 (initial_L)</span>
+</span></span><span style="display:flex;"><span>L_absolute_opt <span style="color:#f92672">=</span> simple_relaxation(Y, initial_L<span style="color:#f92672">=</span>L_approx_opt, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">5.0</span>, iter_max<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;✅ 优化完成！我们得到了绝对的最优分割 MAP。&#34;</span>)
+</span></span></code></pre></div><pre><code>🚀 Step 1: 启动模拟退火 (SA) 进行全局粗调...
+🎯 Step 2: 启动简单松弛法 (ICM) 进行局部精调...
+简单松弛法在第 1 次迭代时提前收敛！
+✅ 优化完成！我们得到了绝对的最优分割 MAP。
+</code></pre>
+<p><strong>原理解析：</strong>
+因为 SA 已经帮 ICM 排除了所有的“错误陷阱”，并把它送到了全局最优解的门口。此时启动 ICM，它那贪婪且确定性的下坡能力，会像重力一样，将图像中最后残余的几颗因 SA 随机性导致的“躁动像素”彻底压平，瞬间达成 $100\%$ 的收敛。</p>
+<p>这，才是解决复杂非凸优化问题时，真正的<strong>大师级手法</strong>！</p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%96%B9%E6%B3%95/">贝叶斯方法</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/mrf/">MRF</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/">图像分割</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E5%90%89%E5%B8%83%E6%96%AF%E9%87%87%E6%A0%B7/">吉布斯采样</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/icm/">ICM</a>&nbsp;
+            
+              <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+    <li>
+      <a
+        href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fbayesian_approach%2f&amp;text=%e8%b4%9d%e5%8f%b6%e6%96%af%e5%9b%be%e5%83%8f%e5%88%86%e5%89%b2%e5%ae%9e%e6%88%98&amp;via="
+        target="_blank"
+        title="Share on Twitter"
+        class="share-btn twitter"
+      >
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fbayesian_approach%2f"
+        target="_blank"
+        title="Share on Facebook"
+        class="share-btn facebook"
+      >
+        <i class="fab fa-facebook"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fbayesian_approach%2f&amp;appkey=&amp;title=%e8%b4%9d%e5%8f%b6%e6%96%af%e5%9b%be%e5%83%8f%e5%88%86%e5%89%b2%e5%ae%9e%e6%88%98&amp;pic="
+        target="_blank"
+        title="Share on Weibo"
+        class="share-btn weibo"
+      >
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="openWechatModal('http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/bayesian_approach\/')"
+        title="Share on WeChat"
+        class="share-btn wechat"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fzh-cn%2fpost%2fmcmc-statics%2fbayesian_approach%2f&amp;title=%e8%b4%9d%e5%8f%b6%e6%96%af%e5%9b%be%e5%83%8f%e5%88%86%e5%89%b2%e5%ae%9e%e6%88%98"
+        target="_blank"
+        title="Share on LinkedIn"
+        class="share-btn linkedin"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="copyToClipboard('http:\/\/localhost:1313\/zh-cn\/post\/mcmc-statics\/bayesian_approach\/', '贝叶斯图像分割实战')"
+        title="Copy Link"
+        class="share-btn copy-link"
+      >
+        <i class="fas fa-link"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div id="wechat-modal" class="wechat-modal">
+  <div class="wechat-modal-content">
+    <span class="wechat-close" onclick="closeWechatModal()">&times;</span>
+    <h4>
+      Scan to Share <br />
+      微信扫一扫分享
+    </h4>
+    <div id="qrcode" class="qrcode-container"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(url, title) {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        
+        var existingToast = document.getElementById("share-toast");
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        var toast = document.createElement("div");
+        toast.id = "share-toast";
+        toast.innerText = "Link copied to clipboard!";
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = "rgba(0,0,0,0.8)";
+        toast.style.color = "#fff";
+        toast.style.padding = "10px 20px";
+        toast.style.borderRadius = "5px";
+        toast.style.zIndex = "10000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease-in-out";
+
+        document.body.appendChild(toast);
+
+        
+        void toast.offsetWidth;
+
+        toast.style.opacity = "1";
+
+        setTimeout(function () {
+          toast.style.opacity = "0";
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 500);
+        }, 3000);
+      },
+      function (err) {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
+  function openWechatModal(url) {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "flex";
+    var qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    var img = document.createElement("img");
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      encodeURIComponent(url);
+    img.style.width = "200px";
+    img.style.height = "200px";
+    qrcodeContainer.appendChild(img);
+  }
+
+  function closeWechatModal() {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "none";
+  }
+
+  
+  window.onclick = function (event) {
+    var modal = document.getElementById("wechat-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">也可以看看</h4>
+                  <ul>
+                
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/markov_random_fields/">马尔可夫随机场（Markov Random Fields，MRF）</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/stochastic-optimization/">随机优化算法详解：模拟退火与 Pincus 定理</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/deterministic-optimization/">确定性优化算法详解：梯度下降的数学本质与代码实战</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/gibbs-sampling/">Gibbs 采样详解：分而治之的降维智慧</a></li>
+                
+                    <li><a href="/zh-cn/post/mcmc-statics/metropolis-hastings/">Metropolis-Hastings 算法：打破对称性的束缚</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/" data-toggle="tooltip" data-placement="top" title="马尔可夫随机场（Markov Random Fields，MRF）">&larr; 前一篇</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#贝叶斯图像分割的基石似然与先验的博弈">贝叶斯图像分割的基石——似然与先验的博弈</a>
+          <ul>
+            <li><a href="#python-示例构建我们的测试场">Python 示例：构建我们的“测试场”</a></li>
+          </ul>
+        </li>
+        <li><a href="#传统分类法假设绝对独立带来的灾难">传统分类法——假设“绝对独立”带来的灾难</a>
+          <ul>
+            <li><a href="#各人自扫门前雪的分类逻辑">“各人自扫门前雪”的分类逻辑</a></li>
+            <li><a href="#python-示例实现传统分类并见证灾难">Python 示例：实现传统分类并见证“灾难”</a></li>
+          </ul>
+        </li>
+        <li><a href="#贝叶斯-mrf-方法引入空间常识-modeling-the-homogeneity">贝叶斯 MRF 方法——引入“空间常识” (Modeling the Homogeneity)</a>
+          <ul>
+            <li><a href="#似然函数依然各司其职">似然函数：依然各司其职</a></li>
+            <li><a href="#先验概率的进化同质性建模-modeling-the-homogeneity">先验概率的进化：同质性建模 (Modeling the Homogeneity)</a></li>
+            <li><a href="#后验概率的最终形态">后验概率的最终形态</a></li>
+            <li><a href="#python-示例用代码写出总能量探测器">Python 示例：用代码写出“总能量”探测器</a></li>
+          </ul>
+        </li>
+        <li><a href="#寻找-map-的终极武器模拟退火与-gibbs-采样">寻找 MAP 的终极武器——模拟退火与 Gibbs 采样</a>
+          <ul>
+            <li><a href="#内层引擎gibbs-采样器-gibbs-sampler">内层引擎：Gibbs 采样器 (Gibbs Sampler)</a></li>
+            <li><a href="#外层指挥官模拟退火-simulated-annealing">外层指挥官：模拟退火 (Simulated Annealing)</a></li>
+            <li><a href="#python-示例见证奇迹的时刻">Python 示例：见证奇迹的时刻！</a></li>
+          </ul>
+        </li>
+        <li><a href="#终极实战从黑猫图像分割看透贝叶斯-mrf">终极实战——从“黑猫”图像分割看透贝叶斯 MRF</a>
+          <ul>
+            <li><a href="#方法一朴素的极大似然估计-maximum-likelihood">方法一：朴素的极大似然估计 (Maximum Likelihood)</a></li>
+            <li><a href="#方法二mrf--模拟退火--gibbs-采样-stochastic">方法二：MRF + 模拟退火 + Gibbs 采样 (Stochastic)</a></li>
+            <li><a href="#方法三简单松弛法-simple-relaxation--icm">方法三：简单松弛法 (Simple Relaxation / ICM)</a></li>
+            <li><a href="#python-实战三大方法代码大比拼">Python 实战：三大方法代码大比拼</a></li>
+            <li><a href="#终极彩蛋工业界的黄金搭档随机粗调与确定性精调">终极彩蛋：工业界的黄金搭档——“随机粗调”与“确定性精调”</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/zh-cn/">琼呀</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="http://localhost:1313/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+

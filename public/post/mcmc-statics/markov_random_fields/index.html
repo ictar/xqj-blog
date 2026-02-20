@@ -1,0 +1,1223 @@
+
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>Markov Random Fields (MRF) - </title>
+
+  <meta name="description" content="This article introduces the core concepts of Markov Random Fields (MRF), extending from Markov Chains in time series to MRFs on spatial lattices. It defines local dependencies through &rsquo;neighborhoods&rsquo; and &lsquo;cliques,&rsquo; and details how the Hammersley-Clifford theorem connects MRFs with Gibbs distributions. Finally, it demonstrates a Python implementation of image denoising using MRF combined with Simulated Annealing and Gibbs Sampling.">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="http://localhost:1313/post/mcmc-statics/markov_random_fields/" />
+
+
+<meta name="keywords" content="Markov Random Fields, MRF, Gibbs Distribution, Ising Model, Image Denoising, Simulated Annealing, Hammersley-Clifford Theorem, Python Implementation" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Qiongjie\u0027s Notes",
+    
+    "url": "http:\/\/localhost:1313\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/localhost:1313\/post\/mcmc-statics\/markov_random_fields\/",
+          "name": "Markov random fields ( mrf)"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "Markov Random Fields (MRF)",
+  "description" : "This article introduces the core concepts of Markov Random Fields (MRF), extending from Markov Chains in time series to MRFs on spatial lattices. It defines local dependencies through \u0026rsquo;neighborhoods\u0026rsquo; and \u0026lsquo;cliques,\u0026rsquo; and details how the Hammersley-Clifford theorem connects MRFs with Gibbs distributions. Finally, it demonstrates a Python implementation of image denoising using MRF combined with Simulated Annealing and Gibbs Sampling.",
+  "inLanguage" : "en",
+  "wordCount":  4349 ,
+  "datePublished" : "2026-02-19T00:00:00\u002b00:00",
+  "dateModified" : "2026-02-19T00:00:00\u002b00:00",
+  "image" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+  "keywords" : [ "Markov Random Fields, MRF, Gibbs Distribution, Ising Model, Image Denoising, Simulated Annealing, Hammersley-Clifford Theorem, Python Implementation" ],
+  "mainEntityOfPage" : "http:\/\/localhost:1313\/post\/mcmc-statics\/markov_random_fields\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/localhost:1313\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/localhost:1313\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="Markov Random Fields (MRF)" />
+<meta property="og:description" content="This article introduces the core concepts of Markov Random Fields (MRF), extending from Markov Chains in time series to MRFs on spatial lattices. It defines local dependencies through &rsquo;neighborhoods&rsquo; and &lsquo;cliques,&rsquo; and details how the Hammersley-Clifford theorem connects MRFs with Gibbs distributions. Finally, it demonstrates a Python implementation of image denoising using MRF combined with Simulated Annealing and Gibbs Sampling.">
+<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
+<meta property="og:url" content="http://localhost:1313/post/mcmc-statics/markov_random_fields/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qiongjie&#39;s Notes" />
+
+  <meta name="twitter:title" content="Markov Random Fields (MRF)" />
+  <meta name="twitter:description" content="This article introduces the core concepts of Markov Random Fields (MRF), extending from Markov Chains in time series to MRFs on spatial lattices. It defines local dependencies through …">
+  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="http://localhost:1313/index.xml" type="application/rss+xml" title="Qiongjie&#39;s Notes"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
+<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/post">BLOG</a>
+              <div class="navlinks-children">
+                
+                  <a href="/post/python-geodata">Remote Sensing with Python</a>
+                
+                  <a href="/post/mcmc-statics">Monte Carlo–Markov Chains Statistical Methods</a>
+                
+                  <a href="/post/ai-fundamentals">AI Fundamentals</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/projects">PROJECT</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="NOTE" href="/notes">NOTE</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="TAG" href="/tags">TAG</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT ME" href="/page/about/">ABOUT ME</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/">CH</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Qiongjie&#39;s Notes" href="http://localhost:1313/">
+            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="Qiongjie&#39;s Notes" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Markov Random Fields (MRF)</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on February 19, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;4349&nbsp;words
+  
+  
+  &nbsp;&bull;&nbsp;Other languages: <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/" lang="zh-cn">CH</a>
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row" style="display: flex; flex-wrap: wrap;">
+    
+    
+    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <blockquote>
+<p>MCs are in time, while MRFs are in space</p></blockquote>
+<h2 id="from-time-to-spacecrossing-the-dimensions-of-markov-assumption">From Time to Space—Crossing the Dimensions of Markov Assumption</h2>
+<p>Before officially introducing <strong>Markov Random Fields (MRF)</strong>, let&rsquo;s review <strong>Markov Chains</strong>.</p>
+<h3 id="the-limitation-of-markov-chains-the-unidirectionality-of-time">The Limitation of Markov Chains: The Unidirectionality of Time</h3>
+<p>Imagine you are recording the weather every day. In the assumption of a Markov Chain, today&rsquo;s weather $x_n$ only depends on yesterday&rsquo;s weather $x_{n-1}$, and has nothing to do with the day before yesterday or earlier. Expressed in probability formula:
+</p>
+$$P(x_n | x_0, x_1, \dots, x_{n-1}) = P(x_n | x_{n-1})$$<p>This model is very useful for processing one-dimensional, discrete <strong>Time Series</strong>. However, the real world is not just about time. What if we are facing a two-dimensional photo, or a three-dimensional space? At this time, the &ldquo;chain&rdquo; with only sequential relationships is not enough. After all, for cases spanning more than one dimension, how do we define sequential relationships?</p>
+<h3 id="introducing-lattice-and-random-field">Introducing Lattice and Random Field</h3>
+<p>To solve two-dimensional or high-dimensional spatial problems, we need to extend the one-dimensional &ldquo;line&rdquo; into a two-dimensional &ldquo;net&rdquo;—this is the <strong>Lattice</strong>.</p>
+<p>Suppose we have a black and white image composed of pixels. The position of each pixel can be represented by coordinates $m = (i, j)$.
+At each point on this grid, we place a <strong>Random Variable (RV)</strong>, for example, $X_{i,j}$ represents whether this pixel is black or white.</p>
+<p>When these $N \times M$ random variables are combined, they constitute a <strong>Random Field</strong>. We are not just concerned with a single point; we are concerned with the <strong>Joint Distribution</strong> of all variables in the entire field:</p>
+$$P(X) = P(X_1, X_2, \dots, X_{NM})$$<p>This leads to the core difficulty of MRF: in a grid with thousands of pixels, calculating the joint probability of all points is astronomically difficult. We must find a way to simplify it, and this is where &ldquo;Markov property&rdquo; comes into play in this space.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_random_field</span>(rows, cols):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Create a simple 2D Random Field (Lattice)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Here we assume each lattice point (random variable) has only two states: 1 (yellow) or -1 (purple)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Randomly initialize an N x M grid, values between {-1, 1}</span>
+</span></span><span style="display:flex;"><span>    lattice <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice([<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>], size<span style="color:#f92672">=</span>(rows, cols))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> lattice
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_lattice</span>(lattice, title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2D Random Field (Lattice)&#34;</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Visualize the lattice
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Use matshow to draw the grid</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>matshow(lattice, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, fignum<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Draw grid lines to clearly see the concept of &#34;lattice points&#34;</span>
+</span></span><span style="display:flex;"><span>    rows, cols <span style="color:#f92672">=</span> lattice<span style="color:#f92672">.</span>shape
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(rows):
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>axhline(i <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;white&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(cols):
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>axvline(j <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;white&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(title, pad<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xticks([]) <span style="color:#75715e"># Hide axis numbers</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>yticks([])
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Initialize a 10x10 random field</span>
+</span></span><span style="display:flex;"><span>N, M <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>my_field <span style="color:#f92672">=</span> create_random_field(N, M)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Visualize</span>
+</span></span><span style="display:flex;"><span>plot_lattice(my_field, title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Initial Random Field (No Rules Applied)&#34;</span>)
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/11_markov_random_fields/11_mcmc_markov_random_fields_2_0.png" alt="png"></p>
+<p>In the figure above, you will see a bunch of chaotic color blocks. This is because in the current random field, each point is completely independent and has no pattern. But in the real world (such as in natural images), adjacent pixels often have similar colors.</p>
+<p>This raises a question: How can we use mathematical language to add the rule that &ldquo;adjacent points affect each other&rdquo; into this field?</p>
+<h2 id="building-social-networksneighbors-markov-property-and-cliques">Building Social Networks—Neighbors, Markov Property, and Cliques</h2>
+<p>To transfer the elegant &ldquo;local dependency&rdquo; property of Markov Chains to this spatial field, we need to introduce the concept of &ldquo;distance&rdquo; or &ldquo;neighborhood&rdquo;.</p>
+<h3 id="1-who-are-my-neighbors">1. Who are my Neighbors?</h3>
+<p>In MRF, we use $\Delta_m$ to represent the &ldquo;Neighborhood&rdquo; of point $m$.</p>
+<p>How to define neighbors? In image processing or spatial models, the most common are two types:</p>
+<ul>
+<li><strong>4-Neighborhood (Cross)</strong>: Only look at the four points: up, down, left, and right.</li>
+<li><strong>8-Neighborhood (Grid)</strong>: Includes diagonal points, a total of eight.</li>
+</ul>
+<p>Which neighborhood shape and size to choose depends entirely on the specific problem you want to solve. However, no matter how you choose, mathematically you must strictly abide by two <strong>Iron Rules</strong>:</p>
+<ol>
+<li><strong>Not including itself</strong>: A point cannot be its own neighbor ($m \notin \Delta_m$).</li>
+<li><strong>Absolute symmetry</strong>: If A is a neighbor of B, then B must also be a neighbor of A ($A \in \Delta_B \iff B \in \Delta_A$).</li>
+</ol>
+<h3 id="2-spatial-markov-property-in-mrf">2. Spatial Markov Property in MRF</h3>
+<p>With neighbors, we can finally write the core mathematical definition of MRF.</p>
+<p>Let $X_{-m}$ represent all other points on the grid except point $m$. Then, the spatial Markov property can be expressed as:</p>
+$$P(X_m | X_{-m}) = P(X_m | X_{\Delta m})$$<p><strong>Translating this formula into plain language:</strong></p>
+<blockquote>
+<p>&ldquo;If you want to predict the state of point $m$, you don&rsquo;t need to look at the entire universe (the whole picture), you only need to look at its few neighbors ($\Delta_m$).&rdquo;</p></blockquote>
+<p>This great equation instantly reduces a global complex calculation into a local simple calculation!</p>
+<h3 id="3-social-cliques-the-clique">3. Social Cliques: The Clique</h3>
+<p>Since adjacent points affect each other, we need a basic mathematical structure to quantify this influence. Here, it is the &ldquo;<strong>Clique</strong>&rdquo;.</p>
+<ul>
+<li><strong>What is a Clique?</strong> A clique is a subset on the grid. In this subset, any two nodes are either the same point or neighbors of each other. In short, it must be &ldquo;connected&rdquo; according to the neighborhood rules you defined.</li>
+<li><strong>Order of the Clique:</strong> The number of nodes contained in the clique is its order.
+<ul>
+<li><strong>Order 1 Clique</strong>: A lonely single point.</li>
+<li><strong>Order 2 Clique</strong>: A line connecting two adjacent points.</li>
+<li><em>(Note: If you use 8-neighborhood, there will also be order 3 cliques formed by three points in a triangle, etc.)</em></li>
+</ul>
+</li>
+</ul>
+<p>We will assign a <strong>Clique Potential ($U_c$)</strong> to each &ldquo;clique&rdquo;. For example, the potential of an order 2 clique $U(X) = X_a X_b$ can be used to evaluate whether the colors of two adjacent pixels are consistent.</p>
+<h4 id="physical-intuition-what-is-potential">Physical Intuition: What is &ldquo;Potential&rdquo;?</h4>
+<p>In physics, <strong>the lower the Potential (Energy), the more stable the system</strong>.</p>
+<ul>
+<li>Imagine a stone on a hillside: it has high potential energy at the top (unstable, wants to roll down); it has the lowest potential energy at the bottom of the valley (most stable, doesn&rsquo;t want to move).</li>
+<li>In probability theory: <strong>The more stable the system, the greater the probability of this happening</strong>.</li>
+</ul>
+<p>So, in MRF, we design &ldquo;potential&rdquo; for only one purpose: <strong>to score different states</strong>.</p>
+<ul>
+<li>Low Potential = This is a good state (conforms to common sense, high probability).</li>
+<li>High Potential = This is a bad state (abnormal, low probability).</li>
+</ul>
+<h4 id="on-the-lattice-potential-is-penaltyreward-rule">On the Lattice: Potential is &ldquo;Penalty/Reward Rule&rdquo;</h4>
+<p>The potential function $U_c$ is the scoring rule we tailor for this small group.</p>
+<p>Let&rsquo;s take the classic black and white image denoising as an example. Suppose the pixel values are only two types: $+1$ (white) and $-1$ (black).</p>
+<ul>
+<li>Rule A: Order 1 Clique Potential
+<ul>
+<li>An order 1 clique is a lonely point. Its potential $U(X_a)$ usually represents <strong>&ldquo;what this point itself looks like&rdquo;</strong>.</li>
+<li>Suppose we have a noisy observation image $Y$. If the currently estimated pixel $X_a$ is different from the actually observed pixel $Y_a$, we penalize it (potential becomes higher).</li>
+</ul>
+</li>
+<li>Rule B: Order 2 Clique Potential
+<ul>
+<li>An order 2 clique is two adjacent points $X_a$ and $X_b$.</li>
+<li>In a real picture, two adjacent pixels are likely to be the same color (either both black or both white). How do we express &ldquo;encourage same color, penalize different color&rdquo; in mathematical formulas?
+<ul>
+<li>To make the &ldquo;good state&rdquo; have low potential, we rewrite it slightly, adding a negative sign defined as: $$U(X_a, X_b) = - X_a X_b$$
+<ul>
+<li>If $X_a$ and $X_b$ are the same color (both $+1$ or both $-1$): $$X_a \cdot X_b = 1$$$$U = -1$$ (Potential is lowered! The system is rewarded and becomes more stable)</li>
+<li>If $X_a$ and $X_b$ are different colors (one is $+1$, one is $-1$): $$X_a \cdot X_b = -1$$$$U = +1$$ (Potential is raised! The system is penalized and becomes unstable)</li>
+<li>So, the potential function $U_c$ is actually a &ldquo;detector&rdquo;. It patrols everywhere on the grid, and every time it sees a pair of adjacent pixels, it calculates with $X_a X_b$. If it finds that their colors are different, it adds a little to the total energy; if the colors are the same, it subtracts a little.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Therefore, in MRF, the potential $U_c$ is the mathematical formula you artificially set to describe the &ldquo;tacit understanding&rdquo; between local nodes.</p>
+<ul>
+<li>The more two points &ldquo;violate common sense&rdquo; (e.g., should be the same color but are different), the greater the potential.</li>
+<li>The more two points &ldquo;conform to common sense&rdquo;, the smaller the potential.</li>
+</ul>
+<h3 id="python-visual-example">Python Visual Example</h3>
+<h4 id="finding-neighbors-and-building-cliques">Finding Neighbors and Building Cliques</h4>
+<p>To implement Markov property in code, we need to write a function specifically to find the &ldquo;neighbors&rdquo; of a pixel.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_neighbors</span>(lattice, row, col, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;4-way&#39;</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Get the neighbor coordinates of a specified position (row, col) in the grid
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    rows, cols <span style="color:#f92672">=</span> lattice<span style="color:#f92672">.</span>shape
+</span></span><span style="display:flex;"><span>    neighbors <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 4-Neighborhood (Up, Down, Left, Right)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> mode <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;4-way&#39;</span>:
+</span></span><span style="display:flex;"><span>        directions <span style="color:#f92672">=</span> [(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)] 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 8-Neighborhood</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> mode <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;8-way&#39;</span>:
+</span></span><span style="display:flex;"><span>        directions <span style="color:#f92672">=</span> [(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>), 
+</span></span><span style="display:flex;"><span>                      (<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> dr, dc <span style="color:#f92672">in</span> directions:
+</span></span><span style="display:flex;"><span>        r, c <span style="color:#f92672">=</span> row <span style="color:#f92672">+</span> dr, col <span style="color:#f92672">+</span> dc
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Boundary check: ensure neighbors do not go outside the image</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> r <span style="color:#f92672">&lt;</span> rows <span style="color:#f92672">and</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> c <span style="color:#f92672">&lt;</span> cols:
+</span></span><span style="display:flex;"><span>            neighbors<span style="color:#f92672">.</span>append((r, c))
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> neighbors
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_neighbors_and_cliques</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Visualize Neighborhood and Order 2 Cliques&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    lattice <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Select center point m</span>
+</span></span><span style="display:flex;"><span>    center_r, center_c <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    lattice[center_r, center_c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#75715e"># Set to 2 (Yellow represents center point)</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get 4-Neighborhood neighbors</span>
+</span></span><span style="display:flex;"><span>    neighbors <span style="color:#f92672">=</span> get_neighbors(lattice, center_r, center_c, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;4-way&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Mark neighbors as 1 (Green)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> r, c <span style="color:#f92672">in</span> neighbors:
+</span></span><span style="display:flex;"><span>        lattice[r, c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> 
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>matshow(lattice, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;viridis&#39;</span>, fignum<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Draw grid lines</span>
+</span></span><span style="display:flex;"><span>    rows, cols <span style="color:#f92672">=</span> lattice<span style="color:#f92672">.</span>shape
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(rows): plt<span style="color:#f92672">.</span>axhline(i <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;white&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(cols): plt<span style="color:#f92672">.</span>axvline(j <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;white&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Draw connection lines for Order 2 Cliques (Connecting center point and its neighbors)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> r, c <span style="color:#f92672">in</span> neighbors:
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>plot([center_c, c], [center_r, r], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;--&#39;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Center Point (Yellow), 4-Neighbors (Green)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Red lines represent 2nd-Order Cliques&#34;</span>, pad<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xticks([])
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>yticks([])
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run visualization</span>
+</span></span><span style="display:flex;"><span>plot_neighbors_and_cliques()
+</span></span></code></pre></div><p><img src="/img/contents/post/mcmc-statics/11_markov_random_fields/11_mcmc_markov_random_fields_5_0.png" alt="png"></p>
+<p>In the figure above, you will see red dashed lines connecting the center point and its neighbors. Each <strong>red line</strong> and the two points at its ends constitute an <strong>Order 2 Clique</strong>!</p>
+<p>Now, the blueprint is drawn. But in nature, water flows downwards, and systems always tend to be stable. How do we combine these local &ldquo;cliques&rdquo; to calculate the energy of the entire random field?</p>
+<h4 id="calculating-potential">Calculating Potential</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Suppose this is two adjacent pixels</span>
+</span></span><span style="display:flex;"><span>x_a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>  <span style="color:#75715e"># Pixel A is white</span>
+</span></span><span style="display:flex;"><span>x_b <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#75715e"># Pixel B is black</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Define our designed Order 2 Clique Potential function U(x_a, x_b) = - x_a * x_b</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">clique_potential_order2</span>(pixel1, pixel2):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span> (pixel1 <span style="color:#f92672">*</span> pixel2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Calculate their potential</span>
+</span></span><span style="display:flex;"><span>energy <span style="color:#f92672">=</span> clique_potential_order2(x_a, x_b)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Pixel A: </span><span style="color:#e6db74">{</span>x_a<span style="color:#e6db74">}</span><span style="color:#e6db74">, Pixel B: </span><span style="color:#e6db74">{</span>x_b<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;The potential of this pair of adjacent pixels is: </span><span style="color:#e6db74">{</span>energy<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>) 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Result will be +1, because they are different colors, the system is unhappy (potential rises).</span>
+</span></span></code></pre></div><pre><code>Pixel A: 1, Pixel B: -1
+The potential of this pair of adjacent pixels is: 1
+</code></pre>
+<h2 id="from-energy-to-probabilitygibbs-distribution-and-equivalence-theorem">From Energy to Probability—Gibbs Distribution and Equivalence Theorem</h2>
+<p>Now, we know how to use &ldquo;Clique Potential&rdquo; $U_c(x)$ to score the &ldquo;tacit understanding&rdquo; of adjacent pixels. Now, let&rsquo;s zoom out from local to global.</p>
+<h3 id="1-the-global-ruler-gibbs-energy">1. The Global Ruler: Gibbs Energy</h3>
+<p>If we add up the potentials of all possible &ldquo;cliques&rdquo; on the grid (such as all single points, all adjacent pixel pairs), we get the total energy of the entire system (the entire image), called <strong>Gibbs Energy</strong>:</p>
+$$E(\underline{X}) = \sum_{c} U_c(\underline{X})$$<ul>
+<li><strong>Physical Intuition</strong>: If the whole picture is very smooth and natural, everyone is very &ldquo;tacit&rdquo;, the total energy $E$ will be very low; if the picture is full of noise, like a snowy screen, the total energy $E$ will be extremely high.</li>
+</ul>
+<h3 id="2-from-energy-to-probability-gibbs-distribution">2. From Energy to Probability: Gibbs Distribution</h3>
+<p>We have energy, but what we ultimately need in statistics is <strong>Probability</strong>. How to turn energy into probability? Statistical physics gives us a perfect formula—<strong>Gibbs Distribution</strong>:
+</p>
+$$P(x) = A e^{-\lambda E(x)}$$<ul>
+<li>$E(x)$ is the Gibbs energy we just calculated.</li>
+<li>$A$ is a normalization constant to ensure that the sum of probabilities of all possible states equals 1. Its calculation formula is $A = \frac{1}{\int e^{-\lambda E(x)} dx}$.</li>
+<li><strong>The Magic of the Negative Sign</strong>: Note the negative sign on the exponent. The lower the energy $E(x)$, the larger $-E(x)$, and the higher the calculated probability $P(x)$! This perfectly fits the natural law of &ldquo;water flows downwards, the more stable the system (low energy), the more likely it is to appear&rdquo;.</li>
+</ul>
+<h3 id="3-the-crown-jewel-of-mrf-hammersley-clifford-theorem">3. The Crown Jewel of MRF: Hammersley-Clifford Theorem</h3>
+<p>At this point, you might ask: What does this have to do with the &ldquo;Markov Random Field (MRF)&rdquo; we talked about in the first section?</p>
+<p>This leads to one of the greatest theorems in probabilistic graphical models:</p>
+<p><strong>If the probability distribution of a random field is a Gibbs distribution, then it must be a Markov Random Field (MRF), and vice versa</strong>.</p>
+<p>Abbreviated as:</p>
+$$MRF \iff Gibbs$$<p><strong>Why is this theorem so awesome?</strong></p>
+<p>Because defining a macroscopic joint probability distribution containing tens of thousands of nodes is an impossible task. But this theorem tells us: <strong>You don&rsquo;t need to calculate that astronomical joint probability! You only need to define the potential rules $U_c(x)$ for each small group (clique) microscopically, and then add them up, and you naturally get a perfect field that satisfies the Markov property!</strong></p>
+<h3 id="4-the-moment-of-miracle-the-proof">4. The Moment of Miracle: The Proof</h3>
+<p>We want to prove: In a grid that obeys the Gibbs distribution, the state of a point $m$ is only related to its neighbors (i.e., satisfying Markov property $P(X_m | X_{-m}) = P(X_m | X_{\Delta m})$).</p>
+<p><strong>Step 1: Write Conditional Probability</strong></p>
+<p>According to the basic conditional probability formula $P(A|B) = \frac{P(AB)}{P(B)}$, we can write the conditional probability of point $m$:
+</p>
+$$P(X_m | X_{-m}) = \frac{P(X_m, X_{-m})}{P(X_{-m})} = \frac{P(X)}{\sum_{X_m} P(X)}$$<p><strong>Step 2: Substitute Gibbs Distribution</strong></p>
+<p>Substitute $P(X) = A e^{-\lambda E(X)}$ into the above formula, the constant $A$ is canceled out directly in the numerator and denominator:
+</p>
+$$= \frac{e^{-\lambda E(\underline{x})}}{\sum_{X_m} e^{-\lambda E(\underline{x})}}$$<p><strong>Step 3: Split Energy</strong></p>
+<p>We know the total energy $E(X) = \sum_c U_c(X)$.
+For the thousands of cliques on the grid, we can forcibly divide them into two categories:</p>
+<ol>
+<li><strong>Cliques containing point $m$</strong>: $\sum_{m \in c} U_c(X)$</li>
+<li><strong>Cliques NOT containing point $m$</strong>: $\sum_{m \notin c} U_c(X)$</li>
+</ol>
+<p>Substitute these two parts back into the exponent, using $e^{a+b} = e^a \cdot e^b$:
+</p>
+$$= \frac{e^{-\lambda \sum_{m \in c} U_c(x)} \cdot e^{-\lambda \sum_{m \notin c} U_c(x)}}{\sum_{X_m} \left[ e^{-\lambda \sum_{m \in c} U_c(x)} \cdot e^{-\lambda \sum_{m \notin c} U_c(x)} \right]}$$<p><strong>Step 4: Perfect Cancellation</strong></p>
+<p>Note that the denominator is summing over $X_m$. For those cliques that do not contain point $m$ ($\sum_{m \notin c} U_c(x)$), their values have absolutely nothing to do with what $X_m$ takes!</p>
+<p>So when summing over $X_m$, this term is equivalent to a constant and can be extracted directly outside the summation sign.</p>
+<p>After extracting, it cancels out perfectly with the exact same term in the numerator! Finally, only the cliques containing point $m$ are left:
+</p>
+$$= \frac{e^{-\lambda \sum_{m \in c} U_c(x)}}{\sum_{X_m} e^{-\lambda \sum_{m \in c} U_c(x)}}$$<p><strong>Conclusion:</strong></p>
+<p>Look at the formula left at the end, all calculations only depend on &ldquo;cliques containing point $m$&rdquo;. And according to the definition of &ldquo;clique&rdquo;, in a clique containing point $m$, besides $m$ itself, there are only neighbors of $m$, $\Delta_m$!
+This perfectly proves:
+</p>
+$$P(X_m | X_{-m}) = P(X_m | X_{\Delta m})$$<h3 id="python-visual-example-energy-to-probability">Python Visual Example: Energy to Probability</h3>
+<p>We can write a simple function to intuitively feel how energy $E$ turns into probability $P$ through the Gibbs formula.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gibbs_probability</span>(energies, lambda_param<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Convert a set of energy values to Gibbs probability distribution
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    P(x) </span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">propto e^{-</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">lambda E(x)}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Calculate unnormalized weights e^{-\lambda E(x)}</span>
+</span></span><span style="display:flex;"><span>    weights <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>lambda_param <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>array(energies))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Normalize (divide by sum A), so that probabilities sum to 1</span>
+</span></span><span style="display:flex;"><span>    probabilities <span style="color:#f92672">=</span> weights <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>sum(weights)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> probabilities
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Suppose we have three states and calculated their total energies</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># State A: Very low energy (Very stable)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># State B: Medium energy</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># State C: Very high energy (Very abnormal)</span>
+</span></span><span style="display:flex;"><span>energy_states <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1.5</span>, <span style="color:#ae81ff">5.0</span>, <span style="color:#ae81ff">12.0</span>]
+</span></span><span style="display:flex;"><span>state_names <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;State A (Low E)&#39;</span>, <span style="color:#e6db74">&#39;State B (Med E)&#39;</span>, <span style="color:#e6db74">&#39;State C (High E)&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Calculate probabilities</span>
+</span></span><span style="display:flex;"><span>probs <span style="color:#f92672">=</span> gibbs_probability(energy_states, lambda_param<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Print results</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> name, e, p <span style="color:#f92672">in</span> zip(state_names, energy_states, probs):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">: Energy = </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">:</span><span style="color:#e6db74">5.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">  --&gt;  Probability = </span><span style="color:#e6db74">{</span>p<span style="color:#f92672">*</span><span style="color:#ae81ff">100</span><span style="color:#e6db74">:</span><span style="color:#e6db74">6.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">%&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Visualize</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>bar(state_names, probs, color<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;green&#39;</span>, <span style="color:#e6db74">&#39;orange&#39;</span>, <span style="color:#e6db74">&#39;red&#39;</span>])
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Gibbs Distribution: Lower Energy = Higher Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Probability&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>State A (Low E): Energy =   1.5  --&gt;  Probability =  97.07%
+State B (Med E): Energy =   5.0  --&gt;  Probability =   2.93%
+State C (High E): Energy =  12.0  --&gt;  Probability =   0.00%
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/11_markov_random_fields/11_mcmc_markov_random_fields_9_1.png" alt="png"></p>
+<p>Through the code above, you will find that state A with low energy occupies almost all the probability (97%), while state C with high energy has almost 0 probability of appearing.</p>
+<p>Now, we have the theoretical weapon (equivalence of MRF and Gibbs) and know how to calculate probability. So, facing a rotten picture full of noise, how do we let the computer automatically find the perfect state with &ldquo;lowest energy and maximum probability&rdquo;?</p>
+<h2 id="finding-the-optimal-solutionsimulated-annealing-and-gibbs-sampling-in-action">Finding the Optimal Solution—Simulated Annealing and Gibbs Sampling in Action</h2>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TD;
+    A[&#34;Start: Input Noisy Image Y&#34;] --&gt; B[&#34;Modeling &amp; Init&lt;br&gt;Set X=Y, T_init, T_end&#34;]
+    
+    subgraph S1 [&#34;Outer Loop: Simulated Annealing&#34;]
+        B --&gt; C{&#34;Current Temp T &gt; T_end ?&#34;}
+        C -- Yes --&gt; D[&#34;Calculate Current Temp T&#34;]
+        
+        subgraph S2 [&#34;Inner Loop: Gibbs Sampler&#34;]
+            D --&gt; E[&#34;Select next pixel m&#34;]
+            E --&gt; F[&#34;Calc local energy E_pos if m is +1&#34;]
+            F --&gt; G[&#34;Calc local energy E_neg if m is -1&#34;]
+            G --&gt; H[&#34;Calc Gibbs Prob&lt;br&gt;P(+1) = 1 / (1 + exp(ΔE/T))&#34;]
+            H --&gt; I{&#34;Generate random u &lt; P(+1) ?&#34;}
+            I -- &#34;Yes (Accept +1)&#34; --&gt; J[&#34;Set m to +1&#34;]
+            I -- &#34;No (Accept -1)&#34; --&gt; K[&#34;Set m to -1&#34;]
+            J --&gt; L{&#34;Iterated all pixels?&#34;}
+            K --&gt; L
+            L -- No --&gt; E
+        end
+        
+        L -- Yes --&gt; M[&#34;Finish one full scan, Cool down&#34;]
+        M --&gt; C
+    end
+    
+    C -- &#34;No (Temp is very low)&#34; --&gt; N[&#34;Convergence: Freeze current state&#34;]
+    N --&gt; O[&#34;End: Output Denoised Image X&#34;]
+    
+    %% Style settings
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style O fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray:5
+</code></pre><p>We now know the core logic of Gibbs distribution: <strong>To keep the system in the perfect state with maximum probability, the total energy of the system must be minimized.</strong></p>
+<p>In practical applications of MRF (such as image denoising, image segmentation), our <strong>Overall Workflow</strong> is very clear:</p>
+<ol>
+<li><strong>Modeling (Model a MRF)</strong>: Turn the problem into an MRF grid and define potential rules.</li>
+<li><strong>Optimization</strong>: Find the state with the highest conditional probability (lowest energy).</li>
+<li><strong>Solving</strong>: Use Simulated Annealing algorithm, combined with cooling low and Gibbs sampling technology to achieve multi-dimensional state updates.</li>
+</ol>
+<p>There are two key &ldquo;superheroes&rdquo; in this solution plan:</p>
+<h3 id="1-local-pathfinder-gibbs-sampler">1. Local Pathfinder: Gibbs Sampler</h3>
+<p>In an N-dimensional space with tens of thousands of variables, updating all variables at the same time will &ldquo;explode&rdquo;. The cleverness of Gibbs sampling is: <strong>Only stare at one point at a time, and treat all other points as wooden people (fixed immobile)</strong>.</p>
+<ul>
+<li><strong>How to update this point?</strong> This is the brightest moment of MRF! According to the Markov property we proved in the previous section, we <strong>don&rsquo;t need to pay attention to the whole picture at all</strong>, we only need to use the Markov property (exploiting the Markov property) and look at the few neighbors around this point.</li>
+<li><strong>Calculate Probability</strong>: Calculate the local energy composed of it and its neighbors when this point turns black; and what the local energy is when it turns white. Then use the Gibbs formula to convert energy into probability, and roll a die (sample) to decide its new color.</li>
+</ul>
+<h3 id="2-global-commander-simulated-annealing">2. Global Commander: Simulated Annealing</h3>
+<p>If only Gibbs sampling is used, the algorithm can easily get stuck in a local dead end that is &ldquo;not bad but not the best&rdquo;. To find the global absolute optimal solution, we need to introduce the concept of <strong>Temperature</strong>.</p>
+<p>The entire annealing process is divided into the following steps:</p>
+<ol>
+<li><strong>High Temperature Exploration (Initial: Fix a high Temp $T_0$)</strong>: Set a very high temperature $T_0$ at the beginning. At this time, the Gibbs distribution is very flat, and the algorithm is like a headless fly, which can easily accept &ldquo;worse&rdquo; results. This helps it jump out of local pits.</li>
+<li><strong>Gradual Cooling (Decrease T)</strong>: Let the temperature drop slowly ($T_0 > T_1 > T_2 > \dots > T_n$). As the temperature drops, the system becomes more and more picky, only tending to accept changes that &ldquo;lower the energy&rdquo;.</li>
+<li><strong>Temperature Law</strong>: In pure theory, Geman &amp; Geman proved that if the temperature is lowered extremely slowly according to the logarithmic law of $T(t) \sim \log(1/t + 1)$, the global optimal solution will definitely be found. But in engineering code, for speed, we usually use geometric cooling (multiply by 0.99 each time).</li>
+<li><strong>Get Result</strong>: At the lowest temperature $T_n$, the system will be &ldquo;frozen&rdquo; in the optimal solution with the lowest energy. We take the average (mean) of the final sampling results, which is the final answer we are looking for.</li>
+</ol>
+<h3 id="python-in-action-image-denoising-with-mrf">Python in Action: Image Denoising with MRF</h3>
+<p>Let&rsquo;s write a code of less than 100 lines to feel this process. We will artificially create an image full of noise, and then use <strong>MRF + Gibbs Sampling + Simulated Annealing</strong> to let the computer &ldquo;wash it clean&rdquo; by itself!</p>
+<p>This model has a famous name in academia: <strong>Ising Model</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_noise</span>(image, noise_ratio<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Add noise to a clean binary image&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    noisy_img <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>copy(image)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Randomly generate noise mask</span>
+</span></span><span style="display:flex;"><span>    mask <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(<span style="color:#f92672">*</span>image<span style="color:#f92672">.</span>shape) <span style="color:#f92672">&lt;</span> noise_ratio
+</span></span><span style="display:flex;"><span>    noisy_img[mask] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>noisy_img[mask] <span style="color:#75715e"># Flip color (1 to -1, -1 to 1)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> noisy_img
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_local_energy</span>(padded_X, Y, r, c, weight_data, weight_smooth):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Calculate local Gibbs energy (corresponding to Order 1 and Order 2 cliques)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    padded_X: Image of current state (added padding for easier boundary handling)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Y: Observed noisy image
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    r, c: Coordinates of current pixel in padded_X
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># State of current pixel x_m</span>
+</span></span><span style="display:flex;"><span>    x_m <span style="color:#f92672">=</span> padded_X[r, c]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. Order 1 Clique Potential (Data Term): Penalize if different from observed image Y</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Note: Y has no padding, so coordinates are [r-1, c-1]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># If x_m and Y are the same, x_m * Y = 1, add negative sign to become -1 (low energy, system rewarded)</span>
+</span></span><span style="display:flex;"><span>    energy_data <span style="color:#f92672">=</span> <span style="color:#f92672">-</span> weight_data <span style="color:#f92672">*</span> (x_m <span style="color:#f92672">*</span> Y[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. Order 2 Clique Potential (Smoothness Term): Penalize if different from four neighbors</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get values of four neighbors: up, down, left, right</span>
+</span></span><span style="display:flex;"><span>    neighbors_sum <span style="color:#f92672">=</span> (padded_X[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c] <span style="color:#f92672">+</span> padded_X[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, c] <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>                     padded_X[r, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> padded_X[r, c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># If x_m is same color as most neighbors, product &gt; 0, add negative sign to become negative (low energy, system rewarded)</span>
+</span></span><span style="display:flex;"><span>    energy_smooth <span style="color:#f92672">=</span> <span style="color:#f92672">-</span> weight_smooth <span style="color:#f92672">*</span> (x_m <span style="color:#f92672">*</span> neighbors_sum)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> energy_data <span style="color:#f92672">+</span> energy_smooth
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mrf_denoising</span>(Y, iter_max<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, T_init<span style="color:#f92672">=</span><span style="color:#ae81ff">5.0</span>, T_end<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;MRF Image Denoising (Using Gibbs Sampling and Simulated Annealing)&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    rows, cols <span style="color:#f92672">=</span> Y<span style="color:#f92672">.</span>shape
+</span></span><span style="display:flex;"><span>    X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>copy(Y) <span style="color:#75715e"># Initial state starts from noisy image</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Tau coefficient for geometric cooling</span>
+</span></span><span style="display:flex;"><span>    tau <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>log(T_end <span style="color:#f92672">/</span> T_init) <span style="color:#f92672">/</span> (iter_max <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(iter_max):
+</span></span><span style="display:flex;"><span>        T_curr <span style="color:#f92672">=</span> T_init <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>tau <span style="color:#f92672">*</span> i) <span style="color:#75715e"># Calculate current temperature</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Add a ring of 0 (padding) to the image for boundary handling</span>
+</span></span><span style="display:flex;"><span>        padded_X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pad(X, <span style="color:#ae81ff">1</span>, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;constant&#39;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Gibbs Sampling: Update pixel by pixel (Using Markov property, only look at neighbors)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, rows <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, cols <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Assume current pixel becomes 1, calc energy</span>
+</span></span><span style="display:flex;"><span>                padded_X[r, c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                E_pos <span style="color:#f92672">=</span> get_local_energy(padded_X, Y, r, c, weight_data<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, weight_smooth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>)
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Assume current pixel becomes -1, calc energy</span>
+</span></span><span style="display:flex;"><span>                padded_X[r, c] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                E_neg <span style="color:#f92672">=</span> get_local_energy(padded_X, Y, r, c, weight_data<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, weight_smooth<span style="color:#f92672">=</span><span style="color:#ae81ff">1.5</span>)
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Gibbs formula for probability: P(x=1) = exp(-E_pos/T) / (exp(-E_pos/T) + exp(-E_neg/T))</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># To prevent overflow, simplified to logistic form: 1 / (1 + exp((E_pos - E_neg) / T))</span>
+</span></span><span style="display:flex;"><span>                delta_E <span style="color:#f92672">=</span> E_pos <span style="color:#f92672">-</span> E_neg 
+</span></span><span style="display:flex;"><span>                prob_pos <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>exp(delta_E <span style="color:#f92672">/</span> T_curr))
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Roll the die to sample! Generate a random number 0~1</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&lt;</span> prob_pos:
+</span></span><span style="display:flex;"><span>                    padded_X[r, c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                    padded_X[r, c] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                    
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Strip padding, update the whole image, prepare for next iteration</span>
+</span></span><span style="display:flex;"><span>        X <span style="color:#f92672">=</span> padded_X[<span style="color:#ae81ff">1</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] 
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Iteration </span><span style="color:#e6db74">{</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#e6db74">:</span><span style="color:#e6db74">2d</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>iter_max<span style="color:#e6db74">}</span><span style="color:#e6db74">, Temp = </span><span style="color:#e6db74">{</span>T_curr<span style="color:#e6db74">:</span><span style="color:#e6db74">.2f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> X
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ----------------- Run and Visualize -----------------</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Start generating test image...&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Create a 40x40 black and white cross test image</span>
+</span></span><span style="display:flex;"><span>img_clean <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>ones((<span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">40</span>))
+</span></span><span style="display:flex;"><span>img_clean[<span style="color:#ae81ff">10</span>:<span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">15</span>:<span style="color:#ae81ff">25</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>img_clean[<span style="color:#ae81ff">15</span>:<span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">10</span>:<span style="color:#ae81ff">30</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Add noise (25% of pixels are flipped)</span>
+</span></span><span style="display:flex;"><span>img_noisy <span style="color:#f92672">=</span> add_noise(img_clean, noise_ratio<span style="color:#f92672">=</span><span style="color:#ae81ff">0.25</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Use MRF for denoising</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Start MRF Simulated Annealing denoising...&#34;</span>)
+</span></span><span style="display:flex;"><span>img_denoised <span style="color:#f92672">=</span> mrf_denoising(img_noisy, iter_max<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, T_init<span style="color:#f92672">=</span><span style="color:#ae81ff">3.0</span>, T_end<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Plot comparison</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Denoising complete, generating comparison plot...&#34;</span>)
+</span></span><span style="display:flex;"><span>fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>imshow(img_clean, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Original (Ground Truth)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>imshow(img_noisy, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;Noisy Observation (Input)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>imshow(img_denoised, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
+</span></span><span style="display:flex;"><span>axes[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;MRF Denoised Output&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> ax <span style="color:#f92672">in</span> axes: 
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>tight_layout()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><pre><code>Start generating test image...
+Start MRF Simulated Annealing denoising...
+Iteration  1/15, Temp = 3.00
+Iteration  2/15, Temp = 2.35
+Iteration  3/15, Temp = 1.85
+Iteration  4/15, Temp = 1.45
+Iteration  5/15, Temp = 1.14
+Iteration  6/15, Temp = 0.89
+Iteration  7/15, Temp = 0.70
+Iteration  8/15, Temp = 0.55
+Iteration  9/15, Temp = 0.43
+Iteration 10/15, Temp = 0.34
+Iteration 11/15, Temp = 0.26
+Iteration 12/15, Temp = 0.21
+Iteration 13/15, Temp = 0.16
+Iteration 14/15, Temp = 0.13
+Iteration 15/15, Temp = 0.10
+Denoising complete, generating comparison plot...
+</code></pre>
+<p><img src="/img/contents/post/mcmc-statics/11_markov_random_fields/11_mcmc_markov_random_fields_12_1.png" alt="png"></p>
+<p>You will see three pictures. The input to the computer is a picture full of noise, like a snowy screen (middle picture).
+But under the guidance of <strong>MRF Potential Rules (encouraging adjacent pixels to be the same color)</strong> and the overall control of <strong>Simulated Annealing</strong>, after 15 full-picture Gibbs sampling scans, the noise in the image disappeared miraculously like magic, almost perfectly restoring the original cross pattern (right picture)!</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This concludes this &ldquo;Markov Random Field Introductory Guide&rdquo;.</p>
+<p>From the <strong>Lattice</strong> that breaks the constraints of the time dimension, to the <strong>Clique</strong> that defines local connections; from the <strong>Gibbs Distribution</strong> that dominates everything, to the <strong>Gibbs Sampling &amp; Simulated Annealing</strong> that peels off the cocoon.</p>
+<p>I hope you can truly feel the suffocating mathematical beauty of probabilistic graphical models through this journey interwoven with mathematics and code!</p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://localhost:1313/tags/markov-random-fields/">Markov Random Fields</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/mrf/">MRF</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/gibbs-distribution/">Gibbs Distribution</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/ising-model/">Ising Model</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/image-denoising/">Image Denoising</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/simulated-annealing/">Simulated Annealing</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/hammersley-clifford-theorem/">Hammersley-Clifford Theorem</a>&nbsp;
+            
+              <a href="http://localhost:1313/tags/python-implementation/">Python Implementation</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+    <li>
+      <a
+        href="//twitter.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fmarkov_random_fields%2f&amp;text=Markov%20Random%20Fields%20%28MRF%29&amp;via="
+        target="_blank"
+        title="Share on Twitter"
+        class="share-btn twitter"
+      >
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fmarkov_random_fields%2f"
+        target="_blank"
+        title="Share on Facebook"
+        class="share-btn facebook"
+      >
+        <i class="fab fa-facebook"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fmarkov_random_fields%2f&amp;appkey=&amp;title=Markov%20Random%20Fields%20%28MRF%29&amp;pic="
+        target="_blank"
+        title="Share on Weibo"
+        class="share-btn weibo"
+      >
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="openWechatModal('http:\/\/localhost:1313\/post\/mcmc-statics\/markov_random_fields\/')"
+        title="Share on WeChat"
+        class="share-btn wechat"
+      >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="//www.linkedin.com/shareArticle?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fmcmc-statics%2fmarkov_random_fields%2f&amp;title=Markov%20Random%20Fields%20%28MRF%29"
+        target="_blank"
+        title="Share on LinkedIn"
+        class="share-btn linkedin"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+
+    
+    <li>
+      <a
+        href="javascript:void(0);"
+        onclick="copyToClipboard('http:\/\/localhost:1313\/post\/mcmc-statics\/markov_random_fields\/', 'Markov Random Fields (MRF)')"
+        title="Copy Link"
+        class="share-btn copy-link"
+      >
+        <i class="fas fa-link"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div id="wechat-modal" class="wechat-modal">
+  <div class="wechat-modal-content">
+    <span class="wechat-close" onclick="closeWechatModal()">&times;</span>
+    <h4>
+      Scan to Share <br />
+      微信扫一扫分享
+    </h4>
+    <div id="qrcode" class="qrcode-container"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(url, title) {
+    navigator.clipboard.writeText(url).then(
+      function () {
+        
+        var existingToast = document.getElementById("share-toast");
+        if (existingToast) {
+          existingToast.remove();
+        }
+
+        var toast = document.createElement("div");
+        toast.id = "share-toast";
+        toast.innerText = "Link copied to clipboard!";
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = "rgba(0,0,0,0.8)";
+        toast.style.color = "#fff";
+        toast.style.padding = "10px 20px";
+        toast.style.borderRadius = "5px";
+        toast.style.zIndex = "10000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease-in-out";
+
+        document.body.appendChild(toast);
+
+        
+        void toast.offsetWidth;
+
+        toast.style.opacity = "1";
+
+        setTimeout(function () {
+          toast.style.opacity = "0";
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 500);
+        }, 3000);
+      },
+      function (err) {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
+  function openWechatModal(url) {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "flex";
+    var qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    var img = document.createElement("img");
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+      encodeURIComponent(url);
+    img.style.width = "200px";
+    img.style.height = "200px";
+    qrcodeContainer.appendChild(img);
+  }
+
+  function closeWechatModal() {
+    var modal = document.getElementById("wechat-modal");
+    modal.style.display = "none";
+  }
+
+  
+  window.onclick = function (event) {
+    var modal = document.getElementById("wechat-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+
+              </div>
+            </section>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/mcmc-statics/bayesian_approach/">Bayesian Image Segmentation in Practice</a></li>
+                
+                    <li><a href="/post/mcmc-statics/stochastic-optimization/">Stochastic Optimization Explained: Simulated Annealing &amp; Pincus Theorem</a></li>
+                
+                    <li><a href="/post/mcmc-statics/deterministic-optimization/">Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent</a></li>
+                
+                    <li><a href="/post/mcmc-statics/metropolis/">Metropolis Algorithm Explained: Implementation &amp; Intuition</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://localhost:1313/post/mcmc-statics/stochastic-optimization/" data-toggle="tooltip" data-placement="top" title="Stochastic Optimization Explained: Simulated Annealing &amp; Pincus Theorem">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://localhost:1313/post/mcmc-statics/bayesian_approach/" data-toggle="tooltip" data-placement="top" title="Bayesian Image Segmentation in Practice">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+    
+    
+    <div class="col-lg-3 visible-lg-block">
+      
+      
+      <div class="sidebar-toc">
+        <h2 class="sidebar-toc-title">目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#from-time-to-spacecrossing-the-dimensions-of-markov-assumption">From Time to Space—Crossing the Dimensions of Markov Assumption</a>
+          <ul>
+            <li><a href="#the-limitation-of-markov-chains-the-unidirectionality-of-time">The Limitation of Markov Chains: The Unidirectionality of Time</a></li>
+            <li><a href="#introducing-lattice-and-random-field">Introducing Lattice and Random Field</a></li>
+          </ul>
+        </li>
+        <li><a href="#building-social-networksneighbors-markov-property-and-cliques">Building Social Networks—Neighbors, Markov Property, and Cliques</a>
+          <ul>
+            <li><a href="#1-who-are-my-neighbors">1. Who are my Neighbors?</a></li>
+            <li><a href="#2-spatial-markov-property-in-mrf">2. Spatial Markov Property in MRF</a></li>
+            <li><a href="#3-social-cliques-the-clique">3. Social Cliques: The Clique</a></li>
+            <li><a href="#python-visual-example">Python Visual Example</a></li>
+          </ul>
+        </li>
+        <li><a href="#from-energy-to-probabilitygibbs-distribution-and-equivalence-theorem">From Energy to Probability—Gibbs Distribution and Equivalence Theorem</a>
+          <ul>
+            <li><a href="#1-the-global-ruler-gibbs-energy">1. The Global Ruler: Gibbs Energy</a></li>
+            <li><a href="#2-from-energy-to-probability-gibbs-distribution">2. From Energy to Probability: Gibbs Distribution</a></li>
+            <li><a href="#3-the-crown-jewel-of-mrf-hammersley-clifford-theorem">3. The Crown Jewel of MRF: Hammersley-Clifford Theorem</a></li>
+            <li><a href="#4-the-moment-of-miracle-the-proof">4. The Moment of Miracle: The Proof</a></li>
+            <li><a href="#python-visual-example-energy-to-probability">Python Visual Example: Energy to Probability</a></li>
+          </ul>
+        </li>
+        <li><a href="#finding-the-optimal-solutionsimulated-annealing-and-gibbs-sampling-in-action">Finding the Optimal Solution—Simulated Annealing and Gibbs Sampling in Action</a>
+          <ul>
+            <li><a href="#1-local-pathfinder-gibbs-sampler">1. Local Pathfinder: Gibbs Sampler</a></li>
+            <li><a href="#2-global-commander-simulated-annealing">2. Global Commander: Simulated Annealing</a></li>
+            <li><a href="#python-in-action-image-denoising-with-mrf">Python in Action: Image Denoising with MRF</a></li>
+          </ul>
+        </li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://localhost:1313/">Qiongjie&#39;s Notes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.147.4</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="http://localhost:1313/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+

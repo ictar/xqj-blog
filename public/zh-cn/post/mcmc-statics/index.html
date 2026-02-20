@@ -348,7 +348,20 @@
 <li>Pincus 定理：退火算法收敛到全局最优的数学证明</li>
 </ul>
 </li>
-<li><a href="./convergence/">收敛性诊断</a></li>
+<li><a href="/zh-cn/post/mcmc-statics/markov_random_fields/">马尔可夫随机场 (MRF) 与图像去噪</a>
+<ul>
+<li>从时间序列到空间网格：马尔可夫性的高维扩展</li>
+<li>Hammersley-Clifford 定理与吉布斯分布</li>
+<li>Ising 模型与图像去噪实战</li>
+</ul>
+</li>
+<li><a href="/zh-cn/post/mcmc-statics/bayesian_approach/">贝叶斯图像分割实战</a>
+<ul>
+<li>似然与先验的博弈：同质性建模</li>
+<li>MAP 估计与模拟退火</li>
+<li>混合优化策略：SA + ICM</li>
+</ul>
+</li>
 <li><a href="./python/">Python 实战：MCMC 建模</a></li>
 </ol>
 <h2 id="快速访问">快速访问</h2>
@@ -356,6 +369,129 @@
           </div>
         
         <div class="posts-list">
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/">
+        <h2 class="post-title">贝叶斯图像分割实战</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 February 20, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1934&nbsp;个字
+  
+  
+  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/bayesian_approach/" lang="en">EN</a>
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。
+        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/" class="post-read-more">[阅读全文]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%96%B9%E6%B3%95/">贝叶斯方法</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/mrf/">MRF</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/">图像分割</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E5%90%89%E5%B8%83%E6%96%AF%E9%87%87%E6%A0%B7/">吉布斯采样</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/icm/">ICM</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+         
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/">
+        <h2 class="post-title">马尔可夫随机场（Markov Random Fields，MRF）</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 February 19, 2026
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1794&nbsp;个字
+  
+  
+  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/markov_random_fields/" lang="en">EN</a>
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        本文介绍了马尔可夫随机场（MRF）的核心概念，从时间序列的马尔可夫链扩展到空间网格的 MRF，通过引入“邻域”和“团”来定义局部依赖，并详细解释了 Hammersley-Clifford 定理如何联结 MRF 与吉布斯分布。最后，结合模拟退火和 Gibbs 采样，演示了如何利用 MRF 进行图像去噪的 Python 实战。
+        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/" class="post-read-more">[阅读全文]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%9A%8F%E6%9C%BA%E5%9C%BA/">马尔可夫随机场</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/mrf/">MRF</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E5%90%89%E5%B8%83%E6%96%AF%E5%88%86%E5%B8%83/">吉布斯分布</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/ising%E6%A8%A1%E5%9E%8B/">Ising模型</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA/">图像去噪</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/hammersley-clifford%E5%AE%9A%E7%90%86/">Hammersley-Clifford定理</a>&nbsp;
+        
+       
+       <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+         
+    </div>
+    
+
+</article>
           
             <article class="post-preview">
     <a href="http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/">
@@ -373,7 +509,7 @@
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1799&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3247&nbsp;个字
   
   
   &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/stochastic-optimization/" lang="en">EN</a>
@@ -487,7 +623,7 @@
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1783&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2426&nbsp;个字
   
   
   &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/gibbs-sampling/" lang="en">EN</a>
@@ -795,115 +931,16 @@
 
 </article>
           
-            <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/probability/">
-        <h2 class="post-title">什么是概率？</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 15, 2025
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2225&nbsp;个字
-  
-  
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/probability/" lang="en">EN</a>
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/probability/" class="post-read-more">[阅读全文]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E7%BB%9F%E8%AE%A1%E5%9F%BA%E7%A1%80/">统计基础</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
-         
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/">
-        <h2 class="post-title">随机变量和采样</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 2, 2025
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1552&nbsp;个字
-  
-  
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/random-variables/" lang="en">EN</a>
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        了解随机变量、概率密度函数、期望等概念、常见采样方法以及简单分布（均匀、正态、指数）的采样方式
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/" class="post-read-more">[阅读全文]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/">随机变量</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E8%AF%95%E9%AA%8C/">随机试验</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
-        
-       
-       <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
-         
-    </div>
-    
-
-</article>
-          
         </div>
+        
+          <ul class="pager main-pager">
+            
+            
+              <li class="next">
+                <a href="http://localhost:1313/zh-cn/post/mcmc-statics/page/2/">下一页 &rarr;</a>
+              </li>
+            
+          </ul>
         
       </div>
     </div>
