@@ -103,5 +103,12 @@
   "years": "2025-10",
   "coords": [46.2833, 8.2667],
   "type": "travel"
-}
+  },
+  {
+    "title": "Stresa / Isola Bella",
+    "desc": "In April 2026, I went on a spring outing with colleagues to Stresa and Isola Bella in Italy. The blooming flowers were absolutely beautiful.",
+    "years": "2026-04",
+    "coords": [45.8953, 8.5284],
+    "type": "travel"
+  }
 ]
