@@ -2,33 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MCMC on Qiongjie&#39;s Notes</title>
-    <link>http://localhost:1313/tags/mcmc/</link>
+    <link>https://www.xuqiongjie.com/tags/mcmc/</link>
     <description>Recent content in MCMC on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/mcmc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.xuqiongjie.com/tags/mcmc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gibbs Sampling Explained: The Wisdom of Divide and Conquer</title>
-      <link>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/gibbs-sampling/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/gibbs-sampling/</guid>
       <description>When high-dimensional spaces are overwhelming, Gibbs sampling adopts a &amp;lsquo;divide and conquer&amp;rsquo; strategy. By utilizing full conditional distributions, it breaks down complex N-dimensional joint sampling into N simple 1-dimensional sampling steps. This article explains its intuition, mathematical proof (Brook&amp;rsquo;s Lemma), and Python implementation.</description>
     </item>
     <item>
       <title>The Metropolis-Hastings Algorithm: Breaking the Symmetry</title>
-      <link>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/metropolis-hastings/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/metropolis-hastings/</guid>
       <description>The original Metropolis is limited by symmetric proposals, often &amp;lsquo;hitting walls&amp;rsquo; at boundaries or getting lost in high dimensions. The MH algorithm introduces the &amp;lsquo;Hastings Correction&amp;rsquo;, allowing asymmetric proposals (like Langevin dynamics) while maintaining detailed balance, significantly improving efficiency.</description>
     </item>
     <item>
       <title>Metropolis Algorithm Explained: Implementation &amp; Intuition</title>
-      <link>http://localhost:1313/post/mcmc-statics/metropolis/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/metropolis/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/metropolis/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/metropolis/</guid>
       <description>The Metropolis algorithm is the cornerstone of MCMC. We delve into its strategy for handling unnormalized densities, from the random walk mechanism to sampling 2D correlated Gaussians, complete with Python implementation and visual diagnostics.</description>
     </item>
   </channel>

@@ -423,21 +423,24 @@ ul.share li a.copy-link:hover {
   }
 }
 
-/* --- Fix for 'docs' type heading alignment --- */
+/* --- Fix for 'docs' and 'cheatsheets' type heading alignment --- */
 /* The theme defaults center alignment for page-heading, post-heading etc, 
-   but not for custom types like 'docs'. We strictly enforce center alignment here. */
+   but not for custom types like 'docs' and 'cheatsheets'. We strictly enforce center alignment here. */
 
-.intro-header .docs-heading {
+.intro-header .docs-heading,
+.intro-header .cheatsheets-heading {
   text-align: center;
 }
 
-.intro-header .docs-heading h1 {
+.intro-header .docs-heading h1,
+.intro-header  h1 {
   margin-top: 0;
-  font-size: 50px;
+  font-size: 32px;
 }
 
-.intro-header .docs-heading .docs-subheading {
-  font-size: 27px;
+.intro-header .docs-heading .docs-subheading,
+.intro-header .cheatsheets-heading .cheatsheets-subheading {
+  font-size: 20px;
   line-height: 1.1;
   display: block;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -446,7 +449,372 @@ ul.share li a.copy-link:hover {
 }
 
 @media only screen and (min-width: 768px) {
-  .intro-header .docs-heading h1 {
-    font-size: 80px;
+  .intro-header .docs-heading h1,
+  .intro-header .cheatsheets-heading h1 {
+    font-size: 44px;
+  }
+}
+
+/* --- Cheatsheet Module Styles (Parchment & Sepia Theme) --- */
+
+.cheatsheet-container {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  font-family: "Inter", "Source Sans Pro", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Search Bar */
+.cheatsheet-search-wrapper {
+  position: relative;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.cheatsheet-search-wrapper .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8a7b63;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.cheatsheet-search-input {
+  width: 100%;
+  padding: 14px 20px 14px 45px;
+  border-radius: 30px;
+  border: 1px solid #e6dfcc;
+  background: #fdfaf2;
+  color: #2c2518;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(44, 37, 24, 0.02);
+}
+
+.cheatsheet-search-input:focus {
+  border-color: #bda170;
+  box-shadow: 0 4px 12px rgba(189, 161, 112, 0.15);
+}
+
+/* Shortcut Indicator inside search input */
+.search-shortcut {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #f6f0e2;
+  border: 1px solid #e6dfcc;
+  color: #8a7b63;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: inherit;
+  pointer-events: none;
+}
+
+/* Category Filter Pills */
+.cheatsheet-categories {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 30px;
+  padding: 5px;
+  background: #f6f0e2;
+  border: 1px solid #e6dfcc;
+  border-radius: 30px;
+  max-width: 100%;
+  box-shadow: inset 0 2px 4px rgba(44, 37, 24, 0.04);
+}
+
+.category-btn {
+  background: transparent;
+  color: #8a7b63;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 18px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.category-btn:hover {
+  background: rgba(44, 37, 24, 0.05);
+  color: #2c2518;
+}
+
+.category-btn.active {
+  background: #bda170;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(189, 161, 112, 0.25);
+}
+
+.category-btn-en {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+/* Card Grid */
+.cheatsheet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+/* Card Styling */
+.cheatsheet-card {
+  background: #fdfaf2;
+  border: 1px solid #e6dfcc;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(44, 37, 24, 0.02);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.cheatsheet-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #bda170;
+}
+
+.cheatsheet-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(44, 37, 24, 0.06);
+  border-color: #bda170;
+}
+
+.cheatsheet-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.cheatsheet-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c2518;
+  line-height: 1.4;
+}
+
+.cheatsheet-card-title .title-en {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8a7b63;
+  margin-top: 2px;
+}
+
+.category-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #bda170;
+  background: #f3ede0;
+  border-radius: 12px;
+  padding: 4px 10px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cheatsheet-card-body {
+  font-size: 14px;
+  color: #443c2f;
+  line-height: 1.6;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cheatsheet-card-body p {
+  margin-bottom: 12px;
+}
+
+.cheatsheet-card-body ul {
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+.cheatsheet-card-body li {
+  margin-bottom: 6px;
+}
+
+/* Code Folding button */
+.cheatsheet-code-toggle {
+  background: #f6f0e2;
+  border: 1px dashed #e6dfcc;
+  color: #8a7b63;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.cheatsheet-code-toggle:hover {
+  background: #eae3d2;
+  color: #2c2518;
+  border-color: #c4ba9e;
+}
+
+/* Code Collapse Container */
+.cheatsheet-card-code-collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.3s;
+  margin-top: 0;
+  position: relative;
+  border-radius: 8px;
+}
+
+.cheatsheet-card-code-collapse.expanded {
+  max-height: 350px;
+  margin-top: 12px;
+  overflow-y: auto;
+}
+
+/* Code block adjustments inside card */
+.cheatsheet-card-code-collapse .highlight,
+.cheatsheet-card-code-collapse pre {
+  margin: 0 !important;
+  border-radius: 8px;
+}
+
+/* Copy Code Button */
+.cheatsheet-code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #fdfaf2;
+  border: 1px solid #e6dfcc;
+  color: #8a7b63;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0;
+  z-index: 10;
+}
+
+.cheatsheet-card-code-collapse:hover .cheatsheet-code-copy {
+  opacity: 1;
+}
+
+.cheatsheet-code-copy:hover {
+  background: #f6f0e2;
+  color: #2c2518;
+  border-color: #c4ba9e;
+  transform: scale(1.05);
+}
+
+/* Dark Mode Adaptation (Warm Espresso Sepia Theme) */
+@media (prefers-color-scheme: dark) {
+  .cheatsheet-search-input {
+    background: #241f19;
+    border-color: #3a3227;
+    color: #f5eedc;
+  }
+  .cheatsheet-search-input:focus {
+    border-color: #d0b48c;
+    box-shadow: 0 4px 10px rgba(208, 180, 140, 0.15);
+  }
+  .search-shortcut {
+    background: #2d2720;
+    border-color: #3a3227;
+    color: #a69580;
+  }
+  .cheatsheet-categories {
+    background: #1c1813;
+    border-color: #322b21;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+  .category-btn {
+    background: transparent;
+    color: #a69580;
+    border: none;
+  }
+  .category-btn:hover {
+    background: rgba(245, 238, 220, 0.05);
+    color: #f5eedc;
+  }
+  .category-btn.active {
+    background: #d0b48c;
+    border-color: transparent;
+    color: #241f19;
+    box-shadow: 0 4px 10px rgba(208, 180, 140, 0.25);
+  }
+  .cheatsheet-card {
+    background: #241f19;
+    border-color: #3a3227;
+    box-shadow: none;
+  }
+  .cheatsheet-card::before {
+    background: #d0b48c;
+  }
+  .cheatsheet-card:hover {
+    border-color: #d0b48c;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  }
+  .cheatsheet-card-title {
+    color: #f5eedc;
+  }
+  .cheatsheet-card-title .title-en {
+    color: #a69580;
+  }
+  .category-badge {
+    color: #d0b48c;
+    background: rgba(208, 180, 140, 0.1);
+  }
+  .cheatsheet-card-body {
+    color: #e6dfd5;
+  }
+  .cheatsheet-code-toggle {
+    background: #2d2720;
+    border-color: #3a3227;
+    color: #a69580;
+  }
+  .cheatsheet-code-toggle:hover {
+    background: #383027;
+    color: #f5eedc;
+    border-color: #4a3f32;
+  }
+  .cheatsheet-code-copy {
+    background: #241f19;
+    border-color: #3a3227;
+    color: #a69580;
+  }
+  .cheatsheet-code-copy:hover {
+    background: #2d2720;
+    color: #f5eedc;
+    border-color: #4a3f32;
   }
 }

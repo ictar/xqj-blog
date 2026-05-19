@@ -2,509 +2,509 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Qiongjie&#39;s Notes</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://www.xuqiongjie.com/tags/</link>
     <description>Recent content in Tags on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.xuqiongjie.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bayesian Methods</title>
-      <link>http://localhost:1313/tags/bayesian-methods/</link>
+      <link>https://www.xuqiongjie.com/tags/bayesian-methods/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/bayesian-methods/</guid>
+      <guid>https://www.xuqiongjie.com/tags/bayesian-methods/</guid>
       <description></description>
     </item>
     <item>
       <title>Gibbs Sampling</title>
-      <link>http://localhost:1313/tags/gibbs-sampling/</link>
+      <link>https://www.xuqiongjie.com/tags/gibbs-sampling/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/gibbs-sampling/</guid>
+      <guid>https://www.xuqiongjie.com/tags/gibbs-sampling/</guid>
       <description></description>
     </item>
     <item>
       <title>ICM</title>
-      <link>http://localhost:1313/tags/icm/</link>
+      <link>https://www.xuqiongjie.com/tags/icm/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/icm/</guid>
+      <guid>https://www.xuqiongjie.com/tags/icm/</guid>
       <description></description>
     </item>
     <item>
       <title>Image Segmentation</title>
-      <link>http://localhost:1313/tags/image-segmentation/</link>
+      <link>https://www.xuqiongjie.com/tags/image-segmentation/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/image-segmentation/</guid>
+      <guid>https://www.xuqiongjie.com/tags/image-segmentation/</guid>
       <description></description>
     </item>
     <item>
       <title>MRF</title>
-      <link>http://localhost:1313/tags/mrf/</link>
+      <link>https://www.xuqiongjie.com/tags/mrf/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/mrf/</guid>
+      <guid>https://www.xuqiongjie.com/tags/mrf/</guid>
       <description></description>
     </item>
     <item>
       <title>Python Implementation</title>
-      <link>http://localhost:1313/tags/python-implementation/</link>
+      <link>https://www.xuqiongjie.com/tags/python-implementation/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/python-implementation/</guid>
+      <guid>https://www.xuqiongjie.com/tags/python-implementation/</guid>
       <description></description>
     </item>
     <item>
       <title>Simulated Annealing</title>
-      <link>http://localhost:1313/tags/simulated-annealing/</link>
+      <link>https://www.xuqiongjie.com/tags/simulated-annealing/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/simulated-annealing/</guid>
+      <guid>https://www.xuqiongjie.com/tags/simulated-annealing/</guid>
       <description></description>
     </item>
     <item>
       <title>Gibbs Distribution</title>
-      <link>http://localhost:1313/tags/gibbs-distribution/</link>
+      <link>https://www.xuqiongjie.com/tags/gibbs-distribution/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/gibbs-distribution/</guid>
+      <guid>https://www.xuqiongjie.com/tags/gibbs-distribution/</guid>
       <description></description>
     </item>
     <item>
       <title>Hammersley-Clifford Theorem</title>
-      <link>http://localhost:1313/tags/hammersley-clifford-theorem/</link>
+      <link>https://www.xuqiongjie.com/tags/hammersley-clifford-theorem/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/hammersley-clifford-theorem/</guid>
+      <guid>https://www.xuqiongjie.com/tags/hammersley-clifford-theorem/</guid>
       <description></description>
     </item>
     <item>
       <title>Image Denoising</title>
-      <link>http://localhost:1313/tags/image-denoising/</link>
+      <link>https://www.xuqiongjie.com/tags/image-denoising/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/image-denoising/</guid>
+      <guid>https://www.xuqiongjie.com/tags/image-denoising/</guid>
       <description></description>
     </item>
     <item>
       <title>Ising Model</title>
-      <link>http://localhost:1313/tags/ising-model/</link>
+      <link>https://www.xuqiongjie.com/tags/ising-model/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/ising-model/</guid>
+      <guid>https://www.xuqiongjie.com/tags/ising-model/</guid>
       <description></description>
     </item>
     <item>
       <title>Markov Random Fields</title>
-      <link>http://localhost:1313/tags/markov-random-fields/</link>
+      <link>https://www.xuqiongjie.com/tags/markov-random-fields/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/markov-random-fields/</guid>
+      <guid>https://www.xuqiongjie.com/tags/markov-random-fields/</guid>
       <description></description>
     </item>
     <item>
       <title>Machine Learning</title>
-      <link>http://localhost:1313/tags/machine-learning/</link>
+      <link>https://www.xuqiongjie.com/tags/machine-learning/</link>
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/machine-learning/</guid>
+      <guid>https://www.xuqiongjie.com/tags/machine-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Optimization Algorithms</title>
-      <link>http://localhost:1313/tags/optimization-algorithms/</link>
+      <link>https://www.xuqiongjie.com/tags/optimization-algorithms/</link>
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/optimization-algorithms/</guid>
+      <guid>https://www.xuqiongjie.com/tags/optimization-algorithms/</guid>
       <description></description>
     </item>
     <item>
       <title>Pincus Theorem</title>
-      <link>http://localhost:1313/tags/pincus-theorem/</link>
+      <link>https://www.xuqiongjie.com/tags/pincus-theorem/</link>
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/pincus-theorem/</guid>
+      <guid>https://www.xuqiongjie.com/tags/pincus-theorem/</guid>
       <description></description>
     </item>
     <item>
       <title>Stochastic Optimization</title>
-      <link>http://localhost:1313/tags/stochastic-optimization/</link>
+      <link>https://www.xuqiongjie.com/tags/stochastic-optimization/</link>
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/stochastic-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/tags/stochastic-optimization/</guid>
       <description></description>
     </item>
     <item>
       <title>Convex Optimization</title>
-      <link>http://localhost:1313/tags/convex-optimization/</link>
+      <link>https://www.xuqiongjie.com/tags/convex-optimization/</link>
       <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/convex-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/tags/convex-optimization/</guid>
       <description></description>
     </item>
     <item>
       <title>Deep Learning</title>
-      <link>http://localhost:1313/tags/deep-learning/</link>
+      <link>https://www.xuqiongjie.com/tags/deep-learning/</link>
       <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/deep-learning/</guid>
+      <guid>https://www.xuqiongjie.com/tags/deep-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Gradient Descent</title>
-      <link>http://localhost:1313/tags/gradient-descent/</link>
+      <link>https://www.xuqiongjie.com/tags/gradient-descent/</link>
       <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/gradient-descent/</guid>
+      <guid>https://www.xuqiongjie.com/tags/gradient-descent/</guid>
       <description></description>
     </item>
     <item>
       <title>Bayesian Inference</title>
-      <link>http://localhost:1313/tags/bayesian-inference/</link>
+      <link>https://www.xuqiongjie.com/tags/bayesian-inference/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/bayesian-inference/</guid>
+      <guid>https://www.xuqiongjie.com/tags/bayesian-inference/</guid>
       <description></description>
     </item>
     <item>
       <title>Conditional Distribution</title>
-      <link>http://localhost:1313/tags/conditional-distribution/</link>
+      <link>https://www.xuqiongjie.com/tags/conditional-distribution/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/conditional-distribution/</guid>
+      <guid>https://www.xuqiongjie.com/tags/conditional-distribution/</guid>
       <description></description>
     </item>
     <item>
       <title>Dimensionality Reduction</title>
-      <link>http://localhost:1313/tags/dimensionality-reduction/</link>
+      <link>https://www.xuqiongjie.com/tags/dimensionality-reduction/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/dimensionality-reduction/</guid>
+      <guid>https://www.xuqiongjie.com/tags/dimensionality-reduction/</guid>
       <description></description>
     </item>
     <item>
       <title>MCMC</title>
-      <link>http://localhost:1313/tags/mcmc/</link>
+      <link>https://www.xuqiongjie.com/tags/mcmc/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/mcmc/</guid>
+      <guid>https://www.xuqiongjie.com/tags/mcmc/</guid>
       <description></description>
     </item>
     <item>
       <title>Python</title>
-      <link>http://localhost:1313/tags/python/</link>
+      <link>https://www.xuqiongjie.com/tags/python/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/python/</guid>
+      <guid>https://www.xuqiongjie.com/tags/python/</guid>
       <description></description>
     </item>
     <item>
       <title>Bayesian Statistics</title>
-      <link>http://localhost:1313/tags/bayesian-statistics/</link>
+      <link>https://www.xuqiongjie.com/tags/bayesian-statistics/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/bayesian-statistics/</guid>
+      <guid>https://www.xuqiongjie.com/tags/bayesian-statistics/</guid>
       <description></description>
     </item>
     <item>
       <title>Detailed Balance</title>
-      <link>http://localhost:1313/tags/detailed-balance/</link>
+      <link>https://www.xuqiongjie.com/tags/detailed-balance/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/detailed-balance/</guid>
+      <guid>https://www.xuqiongjie.com/tags/detailed-balance/</guid>
       <description></description>
     </item>
     <item>
       <title>Hastings Correction</title>
-      <link>http://localhost:1313/tags/hastings-correction/</link>
+      <link>https://www.xuqiongjie.com/tags/hastings-correction/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/hastings-correction/</guid>
+      <guid>https://www.xuqiongjie.com/tags/hastings-correction/</guid>
       <description></description>
     </item>
     <item>
       <title>MH Algorithm</title>
-      <link>http://localhost:1313/tags/mh-algorithm/</link>
+      <link>https://www.xuqiongjie.com/tags/mh-algorithm/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/mh-algorithm/</guid>
+      <guid>https://www.xuqiongjie.com/tags/mh-algorithm/</guid>
       <description></description>
     </item>
     <item>
       <title>Metropolis Algorithm</title>
-      <link>http://localhost:1313/tags/metropolis-algorithm/</link>
+      <link>https://www.xuqiongjie.com/tags/metropolis-algorithm/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/metropolis-algorithm/</guid>
+      <guid>https://www.xuqiongjie.com/tags/metropolis-algorithm/</guid>
       <description></description>
     </item>
     <item>
       <title>Monte Carlo Simulation</title>
-      <link>http://localhost:1313/tags/monte-carlo-simulation/</link>
+      <link>https://www.xuqiongjie.com/tags/monte-carlo-simulation/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/monte-carlo-simulation/</guid>
+      <guid>https://www.xuqiongjie.com/tags/monte-carlo-simulation/</guid>
       <description></description>
     </item>
     <item>
       <title>Random Walk</title>
-      <link>http://localhost:1313/tags/random-walk/</link>
+      <link>https://www.xuqiongjie.com/tags/random-walk/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/random-walk/</guid>
+      <guid>https://www.xuqiongjie.com/tags/random-walk/</guid>
       <description></description>
     </item>
     <item>
       <title>Markov Chain</title>
-      <link>http://localhost:1313/tags/markov-chain/</link>
+      <link>https://www.xuqiongjie.com/tags/markov-chain/</link>
       <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/markov-chain/</guid>
+      <guid>https://www.xuqiongjie.com/tags/markov-chain/</guid>
       <description></description>
     </item>
     <item>
       <title>Mathematics</title>
-      <link>http://localhost:1313/tags/mathematics/</link>
+      <link>https://www.xuqiongjie.com/tags/mathematics/</link>
       <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/mathematics/</guid>
+      <guid>https://www.xuqiongjie.com/tags/mathematics/</guid>
       <description></description>
     </item>
     <item>
       <title>Joint Embedding</title>
-      <link>http://localhost:1313/tags/joint-embedding/</link>
+      <link>https://www.xuqiongjie.com/tags/joint-embedding/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/joint-embedding/</guid>
+      <guid>https://www.xuqiongjie.com/tags/joint-embedding/</guid>
       <description></description>
     </item>
     <item>
       <title>Masked Image Modeling</title>
-      <link>http://localhost:1313/tags/masked-image-modeling/</link>
+      <link>https://www.xuqiongjie.com/tags/masked-image-modeling/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/masked-image-modeling/</guid>
+      <guid>https://www.xuqiongjie.com/tags/masked-image-modeling/</guid>
       <description></description>
     </item>
     <item>
       <title>Representation Learning</title>
-      <link>http://localhost:1313/tags/representation-learning/</link>
+      <link>https://www.xuqiongjie.com/tags/representation-learning/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/representation-learning/</guid>
+      <guid>https://www.xuqiongjie.com/tags/representation-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>SSL</title>
-      <link>http://localhost:1313/tags/ssl/</link>
+      <link>https://www.xuqiongjie.com/tags/ssl/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/ssl/</guid>
+      <guid>https://www.xuqiongjie.com/tags/ssl/</guid>
       <description></description>
     </item>
     <item>
       <title>Vision</title>
-      <link>http://localhost:1313/tags/vision/</link>
+      <link>https://www.xuqiongjie.com/tags/vision/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/vision/</guid>
+      <guid>https://www.xuqiongjie.com/tags/vision/</guid>
       <description></description>
     </item>
     <item>
       <title>Clustering Methods</title>
-      <link>http://localhost:1313/tags/clustering-methods/</link>
+      <link>https://www.xuqiongjie.com/tags/clustering-methods/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/clustering-methods/</guid>
+      <guid>https://www.xuqiongjie.com/tags/clustering-methods/</guid>
       <description></description>
     </item>
     <item>
       <title>Distillation Methods</title>
-      <link>http://localhost:1313/tags/distillation-methods/</link>
+      <link>https://www.xuqiongjie.com/tags/distillation-methods/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/distillation-methods/</guid>
+      <guid>https://www.xuqiongjie.com/tags/distillation-methods/</guid>
       <description></description>
     </item>
     <item>
       <title>Contrastive Methods</title>
-      <link>http://localhost:1313/tags/contrastive-methods/</link>
+      <link>https://www.xuqiongjie.com/tags/contrastive-methods/</link>
       <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/contrastive-methods/</guid>
+      <guid>https://www.xuqiongjie.com/tags/contrastive-methods/</guid>
       <description></description>
     </item>
     <item>
       <title>AI</title>
-      <link>http://localhost:1313/tags/ai/</link>
+      <link>https://www.xuqiongjie.com/tags/ai/</link>
       <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/ai/</guid>
+      <guid>https://www.xuqiongjie.com/tags/ai/</guid>
       <description></description>
     </item>
     <item>
       <title>EO</title>
-      <link>http://localhost:1313/tags/eo/</link>
+      <link>https://www.xuqiongjie.com/tags/eo/</link>
       <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/eo/</guid>
+      <guid>https://www.xuqiongjie.com/tags/eo/</guid>
       <description></description>
     </item>
     <item>
       <title>GeoFM</title>
-      <link>http://localhost:1313/tags/geofm/</link>
+      <link>https://www.xuqiongjie.com/tags/geofm/</link>
       <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/geofm/</guid>
+      <guid>https://www.xuqiongjie.com/tags/geofm/</guid>
       <description></description>
     </item>
     <item>
       <title>Large Model</title>
-      <link>http://localhost:1313/tags/large-model/</link>
+      <link>https://www.xuqiongjie.com/tags/large-model/</link>
       <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/large-model/</guid>
+      <guid>https://www.xuqiongjie.com/tags/large-model/</guid>
       <description></description>
     </item>
     <item>
       <title>Remote Sensing</title>
-      <link>http://localhost:1313/tags/remote-sensing/</link>
+      <link>https://www.xuqiongjie.com/tags/remote-sensing/</link>
       <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/remote-sensing/</guid>
+      <guid>https://www.xuqiongjie.com/tags/remote-sensing/</guid>
       <description></description>
     </item>
     <item>
       <title>Terramind</title>
-      <link>http://localhost:1313/tags/terramind/</link>
+      <link>https://www.xuqiongjie.com/tags/terramind/</link>
       <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/terramind/</guid>
+      <guid>https://www.xuqiongjie.com/tags/terramind/</guid>
       <description></description>
     </item>
     <item>
       <title>Monte Carlo</title>
-      <link>http://localhost:1313/tags/monte-carlo/</link>
+      <link>https://www.xuqiongjie.com/tags/monte-carlo/</link>
       <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/monte-carlo/</guid>
+      <guid>https://www.xuqiongjie.com/tags/monte-carlo/</guid>
       <description></description>
     </item>
     <item>
       <title>Sampling</title>
-      <link>http://localhost:1313/tags/sampling/</link>
+      <link>https://www.xuqiongjie.com/tags/sampling/</link>
       <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/sampling/</guid>
+      <guid>https://www.xuqiongjie.com/tags/sampling/</guid>
       <description></description>
     </item>
     <item>
       <title>Probability</title>
-      <link>http://localhost:1313/tags/probability/</link>
+      <link>https://www.xuqiongjie.com/tags/probability/</link>
       <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/probability/</guid>
+      <guid>https://www.xuqiongjie.com/tags/probability/</guid>
       <description></description>
     </item>
     <item>
       <title>Statistics Foundation</title>
-      <link>http://localhost:1313/tags/statistics-foundation/</link>
+      <link>https://www.xuqiongjie.com/tags/statistics-foundation/</link>
       <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/statistics-foundation/</guid>
+      <guid>https://www.xuqiongjie.com/tags/statistics-foundation/</guid>
       <description></description>
     </item>
     <item>
       <title>Course Notes</title>
-      <link>http://localhost:1313/tags/course-notes/</link>
+      <link>https://www.xuqiongjie.com/tags/course-notes/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/course-notes/</guid>
+      <guid>https://www.xuqiongjie.com/tags/course-notes/</guid>
       <description></description>
     </item>
     <item>
       <title>Math</title>
-      <link>http://localhost:1313/tags/math/</link>
+      <link>https://www.xuqiongjie.com/tags/math/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/math/</guid>
+      <guid>https://www.xuqiongjie.com/tags/math/</guid>
       <description></description>
     </item>
     <item>
       <title>Random Experiments</title>
-      <link>http://localhost:1313/tags/random-experiments/</link>
+      <link>https://www.xuqiongjie.com/tags/random-experiments/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/random-experiments/</guid>
+      <guid>https://www.xuqiongjie.com/tags/random-experiments/</guid>
       <description></description>
     </item>
     <item>
       <title>Random Variables</title>
-      <link>http://localhost:1313/tags/random-variables/</link>
+      <link>https://www.xuqiongjie.com/tags/random-variables/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/random-variables/</guid>
+      <guid>https://www.xuqiongjie.com/tags/random-variables/</guid>
       <description></description>
     </item>
     <item>
       <title>Addition Principle</title>
-      <link>http://localhost:1313/tags/addition-principle/</link>
+      <link>https://www.xuqiongjie.com/tags/addition-principle/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/addition-principle/</guid>
+      <guid>https://www.xuqiongjie.com/tags/addition-principle/</guid>
       <description></description>
     </item>
     <item>
       <title>Mathematical Statistics</title>
-      <link>http://localhost:1313/tags/mathematical-statistics/</link>
+      <link>https://www.xuqiongjie.com/tags/mathematical-statistics/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/mathematical-statistics/</guid>
+      <guid>https://www.xuqiongjie.com/tags/mathematical-statistics/</guid>
       <description></description>
     </item>
     <item>
       <title>Multiplication Principle</title>
-      <link>http://localhost:1313/tags/multiplication-principle/</link>
+      <link>https://www.xuqiongjie.com/tags/multiplication-principle/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/multiplication-principle/</guid>
+      <guid>https://www.xuqiongjie.com/tags/multiplication-principle/</guid>
       <description></description>
     </item>
     <item>
       <title>Permutations and Combinations</title>
-      <link>http://localhost:1313/tags/permutations-and-combinations/</link>
+      <link>https://www.xuqiongjie.com/tags/permutations-and-combinations/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/permutations-and-combinations/</guid>
+      <guid>https://www.xuqiongjie.com/tags/permutations-and-combinations/</guid>
       <description></description>
     </item>
     <item>
       <title>Probability Theory</title>
-      <link>http://localhost:1313/tags/probability-theory/</link>
+      <link>https://www.xuqiongjie.com/tags/probability-theory/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/probability-theory/</guid>
+      <guid>https://www.xuqiongjie.com/tags/probability-theory/</guid>
       <description></description>
     </item>
     <item>
       <title>Random Events</title>
-      <link>http://localhost:1313/tags/random-events/</link>
+      <link>https://www.xuqiongjie.com/tags/random-events/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/random-events/</guid>
+      <guid>https://www.xuqiongjie.com/tags/random-events/</guid>
       <description></description>
     </item>
     <item>
       <title>Chat2Geo</title>
-      <link>http://localhost:1313/tags/chat2geo/</link>
+      <link>https://www.xuqiongjie.com/tags/chat2geo/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/chat2geo/</guid>
+      <guid>https://www.xuqiongjie.com/tags/chat2geo/</guid>
       <description></description>
     </item>
     <item>
       <title>Geo</title>
-      <link>http://localhost:1313/tags/geo/</link>
+      <link>https://www.xuqiongjie.com/tags/geo/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/geo/</guid>
+      <guid>https://www.xuqiongjie.com/tags/geo/</guid>
       <description></description>
     </item>
     <item>
       <title>LLM</title>
-      <link>http://localhost:1313/tags/llm/</link>
+      <link>https://www.xuqiongjie.com/tags/llm/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/llm/</guid>
+      <guid>https://www.xuqiongjie.com/tags/llm/</guid>
       <description></description>
     </item>
     <item>
       <title>Notellm</title>
-      <link>http://localhost:1313/tags/notellm/</link>
+      <link>https://www.xuqiongjie.com/tags/notellm/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/notellm/</guid>
+      <guid>https://www.xuqiongjie.com/tags/notellm/</guid>
       <description></description>
     </item>
     <item>
       <title>Notes</title>
-      <link>http://localhost:1313/tags/notes/</link>
+      <link>https://www.xuqiongjie.com/tags/notes/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/notes/</guid>
+      <guid>https://www.xuqiongjie.com/tags/notes/</guid>
       <description></description>
     </item>
     <item>
       <title>Podcast</title>
-      <link>http://localhost:1313/tags/podcast/</link>
+      <link>https://www.xuqiongjie.com/tags/podcast/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/podcast/</guid>
+      <guid>https://www.xuqiongjie.com/tags/podcast/</guid>
       <description></description>
     </item>
     <item>
       <title>Podcast Notes</title>
-      <link>http://localhost:1313/tags/podcast-notes/</link>
+      <link>https://www.xuqiongjie.com/tags/podcast-notes/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/podcast-notes/</guid>
+      <guid>https://www.xuqiongjie.com/tags/podcast-notes/</guid>
       <description></description>
     </item>
     <item>
       <title>Raster</title>
-      <link>http://localhost:1313/tags/raster/</link>
+      <link>https://www.xuqiongjie.com/tags/raster/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/raster/</guid>
+      <guid>https://www.xuqiongjie.com/tags/raster/</guid>
       <description></description>
     </item>
     <item>
       <title>Satellite-Image-Deep-Learning</title>
-      <link>http://localhost:1313/tags/satellite-image-deep-learning/</link>
+      <link>https://www.xuqiongjie.com/tags/satellite-image-deep-learning/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/satellite-image-deep-learning/</guid>
+      <guid>https://www.xuqiongjie.com/tags/satellite-image-deep-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Vector</title>
-      <link>http://localhost:1313/tags/vector/</link>
+      <link>https://www.xuqiongjie.com/tags/vector/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/tags/vector/</guid>
+      <guid>https://www.xuqiongjie.com/tags/vector/</guid>
       <description></description>
     </item>
   </channel>

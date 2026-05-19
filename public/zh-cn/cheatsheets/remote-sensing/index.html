@@ -1,0 +1,875 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>遥感与地理信息名词速查表 - </title>
+
+  <meta name="description" content="遥感物理机制、多光谱与高光谱波段、常用遥感指数及空间数据处理的快速查询手册。支持实时搜索与过滤。">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="https://www.xuqiongjie.com/zh-cn/cheatsheets/remote-sensing/" />
+
+
+<meta name="keywords" content="GIS, Remote Sensing, GeoAI, TerraFlow, Python, Deep Learning, Spatial Intelligence" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼呀",
+    
+    "url": "https:\/\/www.xuqiongjie.com\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/www.xuqiongjie.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/www.xuqiongjie.com\/zh-cn\/cheatsheets\/remote-sensing\/",
+          "name": "遥感与地理信息名词速查表"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "遥感与地理信息名词速查表",
+  "description" : "遥感物理机制、多光谱与高光谱波段、常用遥感指数及空间数据处理的快速查询手册。支持实时搜索与过滤。",
+  "inLanguage" : "zh-cn",
+  "wordCount":  630 ,
+  "datePublished" : "2026-05-19T00:00:00\u002b00:00",
+  "dateModified" : "2026-05-19T00:00:00\u002b00:00",
+  "image" : "https:\/\/www.xuqiongjie.com\/img\/avatar-icon.png",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/www.xuqiongjie.com\/zh-cn\/cheatsheets\/remote-sensing\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/www.xuqiongjie.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.xuqiongjie.com\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="遥感与地理信息名词速查表" />
+<meta property="og:description" content="遥感物理机制、多光谱与高光谱波段、常用遥感指数及空间数据处理的快速查询手册。支持实时搜索与过滤。">
+<meta property="og:image" content="https://www.xuqiongjie.com/img/avatar-icon.png" />
+<meta property="og:url" content="https://www.xuqiongjie.com/zh-cn/cheatsheets/remote-sensing/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼呀" />
+
+  <meta name="twitter:title" content="遥感与地理信息名词速查表" />
+  <meta name="twitter:description" content="遥感物理机制、多光谱与高光谱波段、常用遥感指数及空间数据处理的快速查询手册。支持实时搜索与过滤。">
+  <meta name="twitter:image" content="https://www.xuqiongjie.com/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='https://www.xuqiongjie.com/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="https://www.xuqiongjie.com/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://www.xuqiongjie.com/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.xuqiongjie.com/css/syntax.css" /><link rel="stylesheet" href="https://www.xuqiongjie.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="https://www.xuqiongjie.com/css/custom.css"><link rel="stylesheet" href="https://www.xuqiongjie.com/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="https://www.xuqiongjie.com/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="https://www.xuqiongjie.com/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://www.xuqiongjie.com/img/apple-touch-icon.png" />
+<link rel="manifest" href="https://www.xuqiongjie.com/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.xuqiongjie.com/zh-cn/">琼呀</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/post">文章</a>
+              <div class="navlinks-children">
+                
+                  <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
+                
+                  <a href="/zh-cn/post/ai-fundamentals">AI 基础系列</a>
+                
+                  <a href="/zh-cn/post/geoai">GeoAI 系列</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/projects">项目</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="笔记" href="/zh-cn/notes">笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="标签" href="/zh-cn/tags">标签</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="速查表" href="/zh-cn/cheatsheets">速查表</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="关于我" href="/zh-cn/page/about/">关于我</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼呀" href="https://www.xuqiongjie.com/zh-cn/">
+            <img class="avatar-img" src="https://www.xuqiongjie.com/img/avatar-icon.png" alt="琼呀" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="cheatsheets-heading">
+              
+                <h1>遥感与地理信息名词速查表</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container cheatsheet-container" role="main">
+  <div class="row">
+    <div class="col-lg-12">
+
+      
+      <div id="raw-cheatsheet-content" style="display: none;">
+        <h2 id="物理基础与波段--physical-foundations--bands">物理基础与波段 | Physical Foundations &amp; Bands</h2>
+<h3 id="电磁波谱--electromagnetic-spectrum">电磁波谱 | Electromagnetic Spectrum</h3>
+<ul>
+<li><strong>定义</strong>: 按波长或频率顺序排列的电磁波序列。遥感传感器主要利用可见光、近红外、短波红外、热红外和微波波段进行观测。</li>
+<li><strong>大白话</strong>: “光的色彩大谱表”。人类肉眼只能看到彩虹这极窄的一段可见光，而遥感相机的眼睛却能看清肉眼看不到的红外线、微波等，从而透视地表隐藏的秘密。</li>
+<li><strong>怎么实现</strong>: 利用不同材质的探测器敏感到不同波长范围的光子能量，将其转换为电信号，并记录为不同波段的数字量化值（DN值）。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 遥感影像波段通常读取为多通道矩阵 (Channels, Height, Width)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 模拟一个 4 波段的遥感影像矩阵 (蓝, 绿, 红, 近红外)</span>
+</span></span><span style="display:flex;"><span>simulated_image <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">65535</span>, size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">512</span>), dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>uint16)
+</span></span><span style="display:flex;"><span>blue, green, red, nir <span style="color:#f92672">=</span> simulated_image[<span style="color:#ae81ff">0</span>], simulated_image[<span style="color:#ae81ff">1</span>], simulated_image[<span style="color:#ae81ff">2</span>], simulated_image[<span style="color:#ae81ff">3</span>]
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="光谱签名--spectral-signature">光谱签名 | Spectral Signature</h3>
+<ul>
+<li><strong>定义</strong>: 某种特定地物在电磁波谱中不同波段的反射率随波长变化的特征曲线。它是遥感识别和分类地物的主要物理基础。</li>
+<li><strong>大白话</strong>: “地物的光谱身份证”。比如绿色健康植物在红光区吸收强、近红外区反射极强，这构成了独特的“红边”特征，能让我们在卫星上瞬间认出植被。</li>
+<li><strong>怎么实现</strong>: 传感器测量每个像素地表在各窄通道的反射能量，消除大气影响后，绘制反射率关于波长的二维连续曲线。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 模拟典型植被的光谱反射曲线</span>
+</span></span><span style="display:flex;"><span>wavelengths <span style="color:#f92672">=</span> [<span style="color:#ae81ff">450</span>, <span style="color:#ae81ff">550</span>, <span style="color:#ae81ff">650</span>, <span style="color:#ae81ff">850</span>, <span style="color:#ae81ff">1600</span>, <span style="color:#ae81ff">2200</span>] <span style="color:#75715e"># 单位 nm</span>
+</span></span><span style="display:flex;"><span>vegetation_reflectance <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.15</span>, <span style="color:#ae81ff">0.08</span>, <span style="color:#ae81ff">0.50</span>, <span style="color:#ae81ff">0.30</span>, <span style="color:#ae81ff">0.10</span>] <span style="color:#75715e"># 反射率百分比</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(wavelengths, vegetation_reflectance, <span style="color:#e6db74">&#39;-o&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Vegetation Signature&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;Wavelength (nm)&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;Reflectance&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="四大分辨率--resolutions">四大分辨率 | Resolutions</h3>
+<ul>
+<li><strong>定义</strong>: 遥感影像性能的四个核心度量维度：
+<ul>
+<li><strong>空间分辨率</strong>: 像素对应的地面实际尺寸大小；</li>
+<li><strong>光谱分辨率</strong>: 传感器通道数量的多寡及波段宽窄程度；</li>
+<li><strong>辐射分辨率</strong>: 记录信号的明暗细分级别（比特深度）；</li>
+<li><strong>时间分辨率</strong>: 对同一地区进行重访观测的时间周期。</li>
+</ul>
+</li>
+<li><strong>大白话</strong>:
+<ul>
+<li><strong>空间</strong>: 照片能放大看多清（是看清整栋大楼，还是看清楼顶的猫）；</li>
+<li><strong>光谱</strong>: 传感器对“色彩”分得有多细（是黑白，普通彩色，还是上百个通道的高光谱）；</li>
+<li><strong>辐射</strong>: 画面明暗过渡多细腻（是只有黑白 2 档，还是 65536 阶灰色级别）；</li>
+<li><strong>时间</strong>: 卫星多久重访拍一次照片。</li>
+</ul>
+</li>
+<li><strong>怎么实现</strong>: 通过镜头的焦距和轨道高度设计空间分辨率；通过分光元件分光决定光谱范围；通过 AD 转换器的位数决定辐射灰度（如 8bit/12bit/16bit）；通过卫星轨道周期和星座部署控制重访周期。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 不同的比特深度对应不同的辐射分辨率</span>
+</span></span><span style="display:flex;"><span>bit_depth <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>max_val <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> bit_depth <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># 4095 个明暗级别</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>bit_depth<span style="color:#e6db74">}</span><span style="color:#e6db74">-bit 图像可记录的最高亮度灰度级为: </span><span style="color:#e6db74">{</span>max_val<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="高程模型--dem--dtm--dsm">高程模型 | DEM / DTM / DSM</h3>
+<ul>
+<li><strong>定义</strong>: 表示地表高程特征的不同数字化模型：
+<ul>
+<li><strong>DEM (数字高程模型)</strong>: 广义的地面高程统计模型；</li>
+<li><strong>DTM (数字地形模型)</strong>: 剥离了植被和建筑物等人工设施后，光秃秃的裸露地表起伏模型；</li>
+<li><strong>DSM (数字表面模型)</strong>: 包含了地表建筑物、植被等所有自然和人工附着物顶端的最表层高程模型。</li>
+</ul>
+</li>
+<li><strong>大白话</strong>:
+<ul>
+<li><strong>DSM (表面高程)</strong>: 卫星从上往下看，碰到的第一层“物理高度”，包括屋顶和树梢；</li>
+<li><strong>DTM (地形高程)</strong>: 把房子和森林用铲子推平，只剩下泥土和山石地表本身的起伏高度；</li>
+<li><strong>nDSM (归一化高程)</strong>: 两者相减 ($DSM - DTM$)，正好得出纯粹的“房子有多高、树木有多高”。</li>
+</ul>
+</li>
+<li><strong>怎么实现</strong>: 利用激光雷达 (LiDAR) 发射激光脉冲，依靠首回波提取 DSM，末回波或地面滤波算法剔除树木房屋生成 DTM。亦可利用光学立体像元对进行视差匹配重构三维点云。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算归一化数字表面模型 (nDSM) 以获得地面物体的净高度</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_ndsm</span>(dsm, dtm):
+</span></span><span style="display:flex;"><span>    ndsm <span style="color:#f92672">=</span> dsm <span style="color:#f92672">-</span> dtm
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 滤除由于噪声等因素引起的负值净高</span>
+</span></span><span style="display:flex;"><span>    ndsm[ndsm <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ndsm
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="合成孔径雷达--sar">合成孔径雷达 | SAR</h3>
+<ul>
+<li><strong>定义</strong>: 一种主动式微波传感器成像雷达。利用雷达天线与地表的相对运动，结合相干信号处理，合成一个超大等效天线（孔径），从而获取高分辨率微波图像。</li>
+<li><strong>大白话</strong>: “全天候穿透式透视相机”。它自己往地面发射微波并接收回波，不需要太阳光，也不怕云雾阻挡。刮风下雨、白天黑夜都能看清地面的粗糙程度、含水量以及三维形变。</li>
+<li><strong>怎么实现</strong>: 卫星在轨道上边飞边发射微波，并连续记录接收回波的振幅与相位。在计算机中对一整条飞行轨迹上收到的回波进行积分累加，等效于拥有一个长达几公里的物理天线进行极精细的成像。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 将 SAR 的复数回波 (Complex Data) 转化为强度值并转换为对数分贝 (dB)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">complex_to_db</span>(complex_data):
+</span></span><span style="display:flex;"><span>    intensity <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>abs(complex_data) <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 防止零值导致 log 溢出</span>
+</span></span><span style="display:flex;"><span>    intensity[intensity <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-6</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>log10(intensity)
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="常用遥感指数--remote-sensing-indices">常用遥感指数 | Remote Sensing Indices</h2>
+<h3 id="归一化植被指数--ndvi">归一化植被指数 | NDVI</h3>
+<ul>
+<li><strong>定义</strong>: 衡量植被覆盖状况、叶面积指数和生长活力的最常用指数，计算公式为：$$\text{NDVI} = \frac{\text{NIR} - \text{Red}}{\text{NIR} + \text{Red}}$$</li>
+<li><strong>大白话</strong>: “草木体检器”。因为活植被对近红外（NIR）反射极强，对红光（Red）吸收极强，计算两者的差比就能算出 -1 到 1 的指数值，越接近 1 说明草木越绿、越茂密。</li>
+<li><strong>怎么实现</strong>: 用影像的近红外波段与红光波段进行栅格计算：两波段相减得到的差，除以两波段相加的和。</li>
+<li><strong>公式</strong>: $$\text{NDVI} = \frac{\text{NIR} - \text{Red}}{\text{NIR} + \text{Red}}$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_ndvi</span>(nir, red):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 避免分母为零</span>
+</span></span><span style="display:flex;"><span>    denom <span style="color:#f92672">=</span> nir <span style="color:#f92672">+</span> red
+</span></span><span style="display:flex;"><span>    denom[denom <span style="color:#f92672">==</span> <span style="color:#ae81ff">0.0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-5</span>
+</span></span><span style="display:flex;"><span>    ndvi <span style="color:#f92672">=</span> (nir <span style="color:#f92672">-</span> red) <span style="color:#f92672">/</span> denom
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>clip(ndvi, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="归一化水体指数--ndwi">归一化水体指数 | NDWI</h3>
+<ul>
+<li><strong>定义</strong>: 提取冰雪、湖泊、河流等地表开放水体的关键指数，经典的麦克费特斯（McFeeters）公式为：$$\text{NDWI} = \frac{\text{Green} - \text{NIR}}{\text{Green} + \text{NIR}}$$</li>
+<li><strong>大白话</strong>: “水体剥离定位仪”。水对绿光有一定反射，但对近红外（NIR）几乎完全吸收。两者的差比运算可以压制植被和土壤，把亮闪闪的水库和河流抠出来。</li>
+<li><strong>怎么实现</strong>: 用绿光波段和近红外波段进行归一化差值计算，通常 NDWI 大于 0 的区域被识别为水体。</li>
+<li><strong>公式</strong>: $$\text{NDWI} = \frac{\text{Green} - \text{NIR}}{\text{Green} + \text{NIR}}$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_ndwi</span>(green, nir):
+</span></span><span style="display:flex;"><span>    denom <span style="color:#f92672">=</span> green <span style="color:#f92672">+</span> nir
+</span></span><span style="display:flex;"><span>    denom[denom <span style="color:#f92672">==</span> <span style="color:#ae81ff">0.0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (green <span style="color:#f92672">-</span> nir) <span style="color:#f92672">/</span> denom
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="数据处理与校正--data-processing--corrections">数据处理与校正 | Data Processing &amp; Corrections</h2>
+<h3 id="正射校正--orthorectification">正射校正 | Orthorectification</h3>
+<ul>
+<li><strong>定义</strong>: 消除因传感器倾斜投影及地表起伏引起的倾斜和投影形变，将遥感影像改造成具有绝对正射投影几何特性的校正过程。</li>
+<li><strong>大白话</strong>: “把斜拍照拉直”。因为卫星可能侧着身子拍照，或者山顶近、山谷远，导致照片倾斜形变。正射校正就是结合地面海拔高程（DEM），强行把斜的照片“摊平”，变成绝对垂直俯视且能精确测量面积和距离的标准地图。</li>
+<li><strong>怎么实现</strong>: 结合影像自带的相机姿态方程（RPC 参数）和数字高程模型（DEM），反算出新正射网格上的每个坐标在源图像中的像素索引，并用双线性插值进行像素值填充。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 概念流程伪代码</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">orthorectify_pixel</span>(src_img, rpc_coefficients, dem_height, target_lat, target_lon):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. 结合经纬度和高程算得源图像对应的像素位置 (u, v)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># u, v = rpc_forward(rpc_coefficients, target_lat, target_lon, dem_height)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. 从源图上双线性重采样该像素值</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># val = bilinear_sample(src_img, u, v)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># return val</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pass</span>
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="大气校正--atmospheric-correction">大气校正 | Atmospheric Correction</h3>
+<ul>
+<li><strong>定义</strong>: 消除太阳辐射在进入大气、到达地面、反射再穿过大气到达传感器这整个过程中，因大气中的气体、水汽、气溶胶等散射和吸收造成的干扰，反演地表真实反射率。</li>
+<li><strong>大白话</strong>: “去掉天空的灰霾滤镜”。太阳光穿透空气时会产生散射（比如晴天散射蓝光，雾霾天散射灰光）。大气校正就是把这层“半透明面纱”擦干净，露出地面物体的真实物理本色。</li>
+<li><strong>怎么实现</strong>: 建立大气的物理和化学参数模型（利用 6S 或 MODTRAN 辐射传输方程），计算出大气程辐射与透过率，从而将辐亮度转化为地表反射率（Surface Reflectance）。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 简化的大气校正公式：SR = (Radiance - PathRadiance) / Transmittance</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">atmospheric_correction</span>(radiance, path_radiance, transmittance):
+</span></span><span style="display:flex;"><span>    sr <span style="color:#f92672">=</span> (radiance <span style="color:#f92672">-</span> path_radiance) <span style="color:#f92672">/</span> transmittance
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>clip(sr, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="空间插值--spatial-interpolation">空间插值 | Spatial Interpolation</h3>
+<ul>
+<li><strong>定义</strong>: 利用已知离散样点的观测值来预测周围其他未观测位置数值的数学网格化过程，常见方法包括反距离权重法（IDW）、克里金法（Kriging）。</li>
+<li><strong>大白话</strong>: “地图脑补术”。假如你在城市里设立了 10 个气象站测气温，怎么画出全市的无缝气温地图？插值就是根据邻近地点的实测温度，按照“越近影响越大”的物理法则，把全市所有空白网格的温度给算出来。</li>
+<li><strong>怎么实现</strong>:
+<ul>
+<li><strong>IDW (反距离权重)</strong>: 未知点的值是周围已知样点的加权平均值，权重与距离的二次方（或多次方）成反比。</li>
+<li><strong>Kriging (克里金)</strong>: 不仅考虑距离，还利用半变异函数分析样点间的空间方位和相关性，进行最优无偏空间估计。</li>
+</ul>
+</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simple_idw</span>(known_coords, known_values, target_coord, power<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># known_coords shape: (N, 2), known_values shape: (N,)</span>
+</span></span><span style="display:flex;"><span>    distances <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(known_coords <span style="color:#f92672">-</span> target_coord, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 避免距离为 0 导致除以零</span>
+</span></span><span style="display:flex;"><span>    distances[distances <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-5</span>
+</span></span><span style="display:flex;"><span>    weights <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> (distances <span style="color:#f92672">**</span> power)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>sum(weights <span style="color:#f92672">*</span> known_values) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>sum(weights)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="混合像元分解--mixed-pixel-linear-unmixing">混合像元分解 | Mixed Pixel Linear Unmixing</h3>
+<ul>
+<li><strong>定义</strong>: 解决遥感像元因分辨率有限而包含多种地物的问题。通过解混算法计算像素中每种纯净地物（端元，Endmember）所占的面积比例（丰度，Abundance）。</li>
+<li><strong>大白话</strong>: “像素调色盘拆解”。如果卫星拍下的一个像素点对应地面 30米×30米，里面不可能只有一种东西。它混合了 60% 小麦、30% 水泥路和 10% 泥土。分解算法就是把这个混合出来的“调色盘颜色”还原出各成分的原始比例。</li>
+<li><strong>怎么实现</strong>: 假定像素光谱为各端元光谱反射率的线性组合：$y = M s + e$。在丰度大于等于 0 且和为 1 的物理约束下，使用最小二乘优化算法解算出丰度比例向量 $s$。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.optimize <span style="color:#f92672">import</span> minimize
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">linear_unmixing</span>(pixel_spectrum, endmembers):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># pixel_spectrum: (B,) 目标像素波段反射率, endmembers: (B, N) 各端元反射率 (N 个端元, B 个波段)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 目标函数：最小化重构误差的平方和</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">objective</span>(abundance):
+</span></span><span style="display:flex;"><span>        reconstructed <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(endmembers, abundance)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>sum((pixel_spectrum <span style="color:#f92672">-</span> reconstructed) <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 限制条件：丰度必须在 0 到 1 之间</span>
+</span></span><span style="display:flex;"><span>    bounds <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(endmembers<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>])]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 限制条件：丰度和必须为 1</span>
+</span></span><span style="display:flex;"><span>    constraints <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;type&#39;</span>: <span style="color:#e6db74">&#39;eq&#39;</span>, <span style="color:#e6db74">&#39;fun&#39;</span>: <span style="color:#66d9ef">lambda</span> a: np<span style="color:#f92672">.</span>sum(a) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.0</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    init_abundance <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones(endmembers<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">/</span> endmembers<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> minimize(objective, init_abundance, bounds<span style="color:#f92672">=</span>bounds, constraints<span style="color:#f92672">=</span>constraints)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">.</span>x <span style="color:#75715e"># 返回每个端元的丰度百分比</span>
+</span></span></code></pre></div></li>
+</ul>
+
+      </div>
+
+      
+      <div id="cheatsheet-app">
+        
+        <div class="cheatsheet-search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="cheatsheet-search-input" class="cheatsheet-search-input" placeholder="输入术语、简称、定义搜索... (按 / 键聚焦)" />
+          <span class="search-shortcut">/</span>
+        </div>
+
+        
+        <div class="cheatsheet-categories" id="categories-container">
+          <button class="category-btn active" data-category="all">全部 <span class="category-btn-en">All</span></button>
+        </div>
+
+        
+        <div class="cheatsheet-grid" id="cards-grid">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const rawContainer = document.getElementById('raw-cheatsheet-content');
+  const cardsGrid = document.getElementById('cards-grid');
+  const categoriesContainer = document.getElementById('categories-container');
+  const searchInput = document.getElementById('cheatsheet-search-input');
+
+  if (!rawContainer || !cardsGrid || !categoriesContainer || !searchInput) return;
+
+  const sections = [];
+  let currentCategoryZh = '未分类';
+  let currentCategoryEn = '';
+  let currentCard = null;
+
+  
+  Array.from(rawContainer.children).forEach(child => {
+    if (child.tagName === 'H2') {
+      const text = child.textContent.trim();
+      const parts = text.split('|');
+      currentCategoryZh = parts[0].trim();
+      currentCategoryEn = parts[1] ? parts[1].trim() : '';
+      
+      
+      if (!sections.some(s => s.zh === currentCategoryZh)) {
+        sections.push({ zh: currentCategoryZh, en: currentCategoryEn, cards: [] });
+      }
+    } else if (child.tagName === 'H3') {
+      const text = child.textContent.trim();
+      const parts = text.split('|');
+      const termZh = parts[0].trim();
+      const termEn = parts[1] ? parts[1].trim() : '';
+
+      currentCard = {
+        termZh: termZh,
+        termEn: termEn,
+        categoryZh: currentCategoryZh,
+        elements: []
+      };
+
+      let currentSecObj = sections.find(s => s.zh === currentCategoryZh);
+      if (!currentSecObj) {
+        currentSecObj = { zh: currentCategoryZh, en: currentCategoryEn, cards: [] };
+        sections.push(currentSecObj);
+      }
+      currentSecObj.cards.push(currentCard);
+    } else {
+      if (currentCard) {
+        currentCard.elements.push(child.cloneNode(true));
+      }
+    }
+  });
+
+  
+  sections.forEach(sec => {
+    const btn = document.createElement('button');
+    btn.className = 'category-btn';
+    btn.setAttribute('data-category', sec.zh);
+    btn.innerHTML = `${sec.zh} ${sec.en ? '<span class="category-btn-en">' + sec.en + '</span>' : ''}`;
+    categoriesContainer.appendChild(btn);
+  });
+
+  
+  const cardElements = [];
+  
+  sections.forEach(sec => {
+    sec.cards.forEach(card => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'cheatsheet-card';
+      cardEl.setAttribute('data-category', card.categoryZh);
+      
+      
+      const contentText = card.elements.map(el => el.textContent).join(' ');
+      const searchKey = `${card.termZh} ${card.termEn} ${card.categoryZh} ${contentText}`.toLowerCase();
+      cardEl.setAttribute('data-search', searchKey);
+
+      
+      const headerEl = document.createElement('div');
+      headerEl.className = 'cheatsheet-card-header';
+      
+      const titleEl = document.createElement('h4');
+      titleEl.className = 'cheatsheet-card-title';
+      titleEl.innerHTML = `${card.termZh} ${card.termEn ? '<span class="title-en">' + card.termEn + '</span>' : ''}`;
+      
+      const badgeEl = document.createElement('span');
+      badgeEl.className = 'category-badge';
+      badgeEl.textContent = card.categoryZh;
+      
+      headerEl.appendChild(titleEl);
+      headerEl.appendChild(badgeEl);
+      cardEl.appendChild(headerEl);
+
+      
+      const bodyEl = document.createElement('div');
+      bodyEl.className = 'cheatsheet-card-body';
+
+      let hasCode = false;
+      const codeCollapseEl = document.createElement('div');
+      codeCollapseEl.className = 'cheatsheet-card-code-collapse';
+
+      
+      card.elements.forEach(el => {
+        
+        const codeBlock = el.classList.contains('highlight') || el.tagName === 'PRE'
+          ? el
+          : el.querySelector('.highlight, pre');
+
+        if (codeBlock) {
+          hasCode = true;
+          
+          
+          const finalCodeBlock = codeBlock.cloneNode(true);
+          if (codeBlock !== el) {
+            codeBlock.parentNode.removeChild(codeBlock);
+            bodyEl.appendChild(el); 
+          }
+
+          
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'cheatsheet-code-copy';
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.title = '复制代码';
+          
+          copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const codeEl = finalCodeBlock.querySelector('code');
+            const textToCopy = codeEl ? codeEl.textContent : finalCodeBlock.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+              copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: #2ec4b6;"></i>';
+              setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+              }, 2000);
+            });
+          });
+
+          finalCodeBlock.style.position = 'relative';
+          finalCodeBlock.appendChild(copyBtn);
+          codeCollapseEl.appendChild(finalCodeBlock);
+        } else {
+          bodyEl.appendChild(el);
+        }
+      });
+
+      cardEl.appendChild(bodyEl);
+
+      if (hasCode) {
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'cheatsheet-code-toggle';
+        toggleBtn.innerHTML = '<i class="fa-solid fa-code"></i> &nbsp;展开代码示例';
+        
+        toggleBtn.addEventListener('click', () => {
+          const isExpanded = codeCollapseEl.classList.toggle('expanded');
+          toggleBtn.innerHTML = isExpanded 
+            ? '<i class="fa-solid fa-chevron-up"></i> &nbsp;折叠代码示例'
+            : '<i class="fa-solid fa-code"></i> &nbsp;展开代码示例';
+        });
+
+        bodyEl.appendChild(toggleBtn);
+        bodyEl.appendChild(codeCollapseEl);
+      }
+
+      cardsGrid.appendChild(cardEl);
+      cardElements.push(cardEl);
+    });
+  });
+
+  
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function filterCards() {
+    cardElements.forEach(card => {
+      const categoryMatch = activeCategory === 'all' || card.getAttribute('data-category') === activeCategory;
+      const searchMatch = !searchQuery || card.getAttribute('data-search').includes(searchQuery);
+
+      if (categoryMatch && searchMatch) {
+        card.style.display = 'flex';
+        
+        card.style.opacity = '0';
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transition = 'opacity 0.25s ease';
+        }, 10);
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  
+  categoriesContainer.addEventListener('click', function(e) {
+    const btn = e.target.closest('.category-btn');
+    if (!btn) return;
+
+    categoriesContainer.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.getAttribute('data-category');
+    filterCards();
+  });
+
+  
+  searchInput.addEventListener('input', function(e) {
+    searchQuery = e.target.value.toLowerCase().trim();
+    filterCards();
+  });
+
+  
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '/' && document.activeElement !== searchInput) {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+  });
+});
+</script>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.xuqiongjie.com/zh-cn/">琼呀</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="https://www.xuqiongjie.com/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.xuqiongjie.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="https://www.xuqiongjie.com/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+

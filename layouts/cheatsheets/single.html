@@ -1,0 +1,249 @@
+{{ define "main" }}
+<div class="container cheatsheet-container" role="main">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <!-- Hidden Raw Content Container -->
+      <div id="raw-cheatsheet-content" style="display: none;">
+        {{ .Content }}
+      </div>
+
+      <!-- App Interface -->
+      <div id="cheatsheet-app">
+        <!-- Search & Control -->
+        <div class="cheatsheet-search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="cheatsheet-search-input" class="cheatsheet-search-input" placeholder="输入术语、简称、定义搜索... (按 / 键聚焦)" />
+          <span class="search-shortcut">/</span>
+        </div>
+
+        <!-- Categories Filter -->
+        <div class="cheatsheet-categories" id="categories-container">
+          <button class="category-btn active" data-category="all">全部 <span class="category-btn-en">All</span></button>
+        </div>
+
+        <!-- Grid of Cards -->
+        <div class="cheatsheet-grid" id="cards-grid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const rawContainer = document.getElementById('raw-cheatsheet-content');
+  const cardsGrid = document.getElementById('cards-grid');
+  const categoriesContainer = document.getElementById('categories-container');
+  const searchInput = document.getElementById('cheatsheet-search-input');
+
+  if (!rawContainer || !cardsGrid || !categoriesContainer || !searchInput) return;
+
+  const sections = [];
+  let currentCategoryZh = '未分类';
+  let currentCategoryEn = '';
+  let currentCard = null;
+
+  // 1. 解析 DOM 树生成结构化数据
+  Array.from(rawContainer.children).forEach(child => {
+    if (child.tagName === 'H2') {
+      const text = child.textContent.trim();
+      const parts = text.split('|');
+      currentCategoryZh = parts[0].trim();
+      currentCategoryEn = parts[1] ? parts[1].trim() : '';
+      
+      // 添加到分类列表
+      if (!sections.some(s => s.zh === currentCategoryZh)) {
+        sections.push({ zh: currentCategoryZh, en: currentCategoryEn, cards: [] });
+      }
+    } else if (child.tagName === 'H3') {
+      const text = child.textContent.trim();
+      const parts = text.split('|');
+      const termZh = parts[0].trim();
+      const termEn = parts[1] ? parts[1].trim() : '';
+
+      currentCard = {
+        termZh: termZh,
+        termEn: termEn,
+        categoryZh: currentCategoryZh,
+        elements: []
+      };
+
+      let currentSecObj = sections.find(s => s.zh === currentCategoryZh);
+      if (!currentSecObj) {
+        currentSecObj = { zh: currentCategoryZh, en: currentCategoryEn, cards: [] };
+        sections.push(currentSecObj);
+      }
+      currentSecObj.cards.push(currentCard);
+    } else {
+      if (currentCard) {
+        currentCard.elements.push(child.cloneNode(true));
+      }
+    }
+  });
+
+  // 2. 动态渲染分类过滤器
+  sections.forEach(sec => {
+    const btn = document.createElement('button');
+    btn.className = 'category-btn';
+    btn.setAttribute('data-category', sec.zh);
+    btn.innerHTML = `${sec.zh} ${sec.en ? '<span class="category-btn-en">' + sec.en + '</span>' : ''}`;
+    categoriesContainer.appendChild(btn);
+  });
+
+  // 3. 动态生成术语卡片
+  const cardElements = [];
+  
+  sections.forEach(sec => {
+    sec.cards.forEach(card => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'cheatsheet-card';
+      cardEl.setAttribute('data-category', card.categoryZh);
+      
+      // 生成搜索特征文本
+      const contentText = card.elements.map(el => el.textContent).join(' ');
+      const searchKey = `${card.termZh} ${card.termEn} ${card.categoryZh} ${contentText}`.toLowerCase();
+      cardEl.setAttribute('data-search', searchKey);
+
+      // Card Header
+      const headerEl = document.createElement('div');
+      headerEl.className = 'cheatsheet-card-header';
+      
+      const titleEl = document.createElement('h4');
+      titleEl.className = 'cheatsheet-card-title';
+      titleEl.innerHTML = `${card.termZh} ${card.termEn ? '<span class="title-en">' + card.termEn + '</span>' : ''}`;
+      
+      const badgeEl = document.createElement('span');
+      badgeEl.className = 'category-badge';
+      badgeEl.textContent = card.categoryZh;
+      
+      headerEl.appendChild(titleEl);
+      headerEl.appendChild(badgeEl);
+      cardEl.appendChild(headerEl);
+
+      // Card Body
+      const bodyEl = document.createElement('div');
+      bodyEl.className = 'cheatsheet-card-body';
+
+      let hasCode = false;
+      const codeCollapseEl = document.createElement('div');
+      codeCollapseEl.className = 'cheatsheet-card-code-collapse';
+
+      // 提取内容（特别处理代码块折叠）
+      card.elements.forEach(el => {
+        // 查找当前元素本身是否为代码块，或者内部是否包含代码块（多级列表中代码块通常被包裹在 li 内）
+        const codeBlock = el.classList.contains('highlight') || el.tagName === 'PRE'
+          ? el
+          : el.querySelector('.highlight, pre');
+
+        if (codeBlock) {
+          hasCode = true;
+          
+          // 如果代码块是被包含在子元素中，我们需要将其从原位置移除，单独用于折叠
+          const finalCodeBlock = codeBlock.cloneNode(true);
+          if (codeBlock !== el) {
+            codeBlock.parentNode.removeChild(codeBlock);
+            bodyEl.appendChild(el); // 将去除了代码块的其他内容（如 "代码：" 的描述）追加到卡片主体
+          }
+
+          // 添加复制代码块按钮到克隆出的代码块中
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'cheatsheet-code-copy';
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.title = '复制代码';
+          
+          copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const codeEl = finalCodeBlock.querySelector('code');
+            const textToCopy = codeEl ? codeEl.textContent : finalCodeBlock.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+              copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: #2ec4b6;"></i>';
+              setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+              }, 2000);
+            });
+          });
+
+          finalCodeBlock.style.position = 'relative';
+          finalCodeBlock.appendChild(copyBtn);
+          codeCollapseEl.appendChild(finalCodeBlock);
+        } else {
+          bodyEl.appendChild(el);
+        }
+      });
+
+      cardEl.appendChild(bodyEl);
+
+      if (hasCode) {
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'cheatsheet-code-toggle';
+        toggleBtn.innerHTML = '<i class="fa-solid fa-code"></i> &nbsp;展开代码示例';
+        
+        toggleBtn.addEventListener('click', () => {
+          const isExpanded = codeCollapseEl.classList.toggle('expanded');
+          toggleBtn.innerHTML = isExpanded 
+            ? '<i class="fa-solid fa-chevron-up"></i> &nbsp;折叠代码示例'
+            : '<i class="fa-solid fa-code"></i> &nbsp;展开代码示例';
+        });
+
+        bodyEl.appendChild(toggleBtn);
+        bodyEl.appendChild(codeCollapseEl);
+      }
+
+      cardsGrid.appendChild(cardEl);
+      cardElements.push(cardEl);
+    });
+  });
+
+  // 4. 检索与过滤逻辑
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function filterCards() {
+    cardElements.forEach(card => {
+      const categoryMatch = activeCategory === 'all' || card.getAttribute('data-category') === activeCategory;
+      const searchMatch = !searchQuery || card.getAttribute('data-search').includes(searchQuery);
+
+      if (categoryMatch && searchMatch) {
+        card.style.display = 'flex';
+        // 触发微小淡入动画
+        card.style.opacity = '0';
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transition = 'opacity 0.25s ease';
+        }, 10);
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // 绑定分类按钮点击事件
+  categoriesContainer.addEventListener('click', function(e) {
+    const btn = e.target.closest('.category-btn');
+    if (!btn) return;
+
+    categoriesContainer.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.getAttribute('data-category');
+    filterCards();
+  });
+
+  // 绑定搜索输入框事件
+  searchInput.addEventListener('input', function(e) {
+    searchQuery = e.target.value.toLowerCase().trim();
+    filterCards();
+  });
+
+  // 快捷键聚焦搜索框
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '/' && document.activeElement !== searchInput) {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+  });
+});
+</script>
+{{ end }}

@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     
 
   <meta charset="utf-8" />
@@ -18,7 +18,7 @@
   <meta name="author" content="Qiongjie.X"/>
 
 
-<link rel="canonical" href="http://localhost:1313/zh-cn/post/ai-fundamentals/" />
+<link rel="canonical" href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/" />
 
 
 <meta name="keywords" content="GIS, Remote Sensing, GeoAI, TerraFlow, Python, Deep Learning, Spatial Intelligence" /><script type="application/ld+json">
@@ -27,7 +27,7 @@
     "@type": "WebSite",
     "name": "琼呀",
     
-    "url": "http:\/\/localhost:1313\/"
+    "url": "https:\/\/www.xuqiongjie.com\/"
 }
 </script>
 
@@ -35,22 +35,22 @@
 
 <meta property="og:title" content="AI 基础系列" />
 <meta property="og:description" content="AI 基础系列：为 GeoAI 学习打好理论与方法的基石。">
-<meta property="og:image" content="http://localhost:1313/img/avatar-icon.png" />
-<meta property="og:url" content="http://localhost:1313/zh-cn/post/ai-fundamentals/" />
+<meta property="og:image" content="https://www.xuqiongjie.com/img/avatar-icon.png" />
+<meta property="og:url" content="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="琼呀" />
 
   <meta name="twitter:title" content="AI 基础系列" />
   <meta name="twitter:description" content="AI 基础系列：为 GeoAI 学习打好理论与方法的基石。">
-  <meta name="twitter:image" content="http://localhost:1313/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://www.xuqiongjie.com/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link href='http://localhost:1313/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='https://www.xuqiongjie.com/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta name="generator" content="Hugo 0.147.4">
-  <link rel="alternate" href="http://localhost:1313/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="alternate" href="https://www.xuqiongjie.com/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="http://localhost:1313/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://www.xuqiongjie.com/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://localhost:1313/css/syntax.css" /><link rel="stylesheet" href="http://localhost:1313/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.xuqiongjie.com/css/syntax.css" /><link rel="stylesheet" href="https://www.xuqiongjie.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
 
@@ -60,7 +60,7 @@
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="http://localhost:1313/css/custom.css"><link rel="stylesheet" href="http://localhost:1313/css/toc.css">
+<link rel="stylesheet" href="https://www.xuqiongjie.com/css/custom.css"><link rel="stylesheet" href="https://www.xuqiongjie.com/css/toc.css">
 
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -85,10 +85,10 @@
   });"></script>
 
 
-<link rel="icon" type="image/png" href="http://localhost:1313/img/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="http://localhost:1313/img/favicon.svg" />
-<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/img/apple-touch-icon.png" />
-<link rel="manifest" href="http://localhost:1313/img/site.webmanifest" />
+<link rel="icon" type="image/png" href="https://www.xuqiongjie.com/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="https://www.xuqiongjie.com/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://www.xuqiongjie.com/img/apple-touch-icon.png" />
+<link rel="manifest" href="https://www.xuqiongjie.com/img/site.webmanifest" />
 
   </head>
   <body>
@@ -101,7 +101,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="http://localhost:1313/zh-cn/">琼呀</a>
+      <a class="navbar-brand" href="https://www.xuqiongjie.com/zh-cn/">琼呀</a>
     </div>
 
     <div class="collapse navbar-collapse" id="main-navbar">
@@ -149,6 +149,12 @@
         
           
             <li>
+              <a title="速查表" href="/zh-cn/cheatsheets">速查表</a>
+            </li>
+          
+        
+          
+            <li>
               <a title="关于我" href="/zh-cn/page/about/">关于我</a>
             </li>
           
@@ -159,7 +165,7 @@
             <li>
               
                 
-                  <a href="http://localhost:1313/post/ai-fundamentals/">EN</a>
+                  <a href="https://www.xuqiongjie.com/post/ai-fundamentals/">EN</a>
                 
               
             </li>
@@ -173,8 +179,8 @@
     
       <div class="avatar-container">
         <div class="avatar-img-border">
-          <a title="琼呀" href="http://localhost:1313/zh-cn/">
-            <img class="avatar-img" src="http://localhost:1313/img/avatar-icon.png" alt="琼呀" />
+          <a title="琼呀" href="https://www.xuqiongjie.com/zh-cn/">
+            <img class="avatar-img" src="https://www.xuqiongjie.com/img/avatar-icon.png" alt="琼呀" />
            
           </a>
         </div>
@@ -280,7 +286,7 @@
         </h3>
         <div class="series-grid">
           
-          <a href="http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/" class="series-card source-sans-pro">
+          <a href="https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/" class="series-card source-sans-pro">
             <div class="series-card-header">
               <span class="series-icon">📂</span>
               <h4 class="series-title">自监督学习</h4>
@@ -310,7 +316,7 @@
       </h3>
       <div class="posts-list">
            <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/bayesian_approach/">
         <h2 class="post-title">贝叶斯图像分割实战</h2>
         
         
@@ -328,7 +334,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1934&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/bayesian_approach/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/mcmc-statics/bayesian_approach/" lang="en">EN</a>
 </span>
 
 
@@ -336,7 +342,7 @@
     <div class="post-entry">
         
         本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/bayesian_approach/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -344,31 +350,31 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%96%B9%E6%B3%95/">贝叶斯方法</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%96%B9%E6%B3%95/">贝叶斯方法</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/mrf/">MRF</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/mrf/">MRF</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/">图像分割</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/">图像分割</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E5%90%89%E5%B8%83%E6%96%AF%E9%87%87%E6%A0%B7/">吉布斯采样</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E5%90%89%E5%B8%83%E6%96%AF%E9%87%87%E6%A0%B7/">吉布斯采样</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/icm/">ICM</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/icm/">ICM</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
          
     </div>
     
 
 </article>  <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov_random_fields/">
         <h2 class="post-title">马尔可夫随机场（Markov Random Fields，MRF）</h2>
         
         
@@ -386,7 +392,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1794&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/markov_random_fields/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/mcmc-statics/markov_random_fields/" lang="en">EN</a>
 </span>
 
 
@@ -394,7 +400,7 @@
     <div class="post-entry">
         
         本文介绍了马尔可夫随机场（MRF）的核心概念，从时间序列的马尔可夫链扩展到空间网格的 MRF，通过引入“邻域”和“团”来定义局部依赖，并详细解释了 Hammersley-Clifford 定理如何联结 MRF 与吉布斯分布。最后，结合模拟退火和 Gibbs 采样，演示了如何利用 MRF 进行图像去噪的 Python 实战。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov_random_fields/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -402,34 +408,34 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%9A%8F%E6%9C%BA%E5%9C%BA/">马尔可夫随机场</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%9A%8F%E6%9C%BA%E5%9C%BA/">马尔可夫随机场</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/mrf/">MRF</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/mrf/">MRF</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E5%90%89%E5%B8%83%E6%96%AF%E5%88%86%E5%B8%83/">吉布斯分布</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E5%90%89%E5%B8%83%E6%96%AF%E5%88%86%E5%B8%83/">吉布斯分布</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/ising%E6%A8%A1%E5%9E%8B/">Ising模型</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/ising%E6%A8%A1%E5%9E%8B/">Ising模型</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA/">图像去噪</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA/">图像去噪</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/hammersley-clifford%E5%AE%9A%E7%90%86/">Hammersley-Clifford定理</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/hammersley-clifford%E5%AE%9A%E7%90%86/">Hammersley-Clifford定理</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
          
     </div>
     
 
 </article>  <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/stochastic-optimization/">
         <h2 class="post-title">随机优化算法详解：模拟退火与 Pincus 定理</h2>
         
         
@@ -447,7 +453,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3247&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/stochastic-optimization/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/mcmc-statics/stochastic-optimization/" lang="en">EN</a>
 </span>
 
 
@@ -455,7 +461,7 @@
     <div class="post-entry">
         
         当优化问题陷于局部最优的迷宫时，确定性算法往往束手无策。本文将带你进入随机优化的世界，探索如何将寻找最小能量的问题转化为寻找最大概率的问题。我们将深入剖析模拟退火算法（Simulated Annealing）的物理直觉与数学原理，通过动态可视化展示其“高温探索、低温锁定”的优雅机制，并详细推导 Pincus 定理，从数学上证明为何退火算法能找到全局最优解。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/stochastic-optimization/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -463,28 +469,28 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BC%98%E5%8C%96/">随机优化</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E4%BC%98%E5%8C%96/">随机优化</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">优化算法</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">优化算法</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/pincus%E5%AE%9A%E7%90%86/">Pincus定理</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/pincus%E5%AE%9A%E7%90%86/">Pincus定理</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
          
     </div>
     
 
 </article>  <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/deterministic-optimization/">
         <h2 class="post-title">确定性优化算法详解：梯度下降的数学本质与代码实战</h2>
         
         
@@ -502,7 +508,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3431&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/deterministic-optimization/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/mcmc-statics/deterministic-optimization/" lang="en">EN</a>
 </span>
 
 
@@ -510,7 +516,7 @@
     <div class="post-entry">
         
         确定性优化是理解现代 MCMC 算法（如 HMC, Langevin）的基石。本文深入解析了三种经典的确定性优化策略：牛顿法（利用曲率的二阶视角）、坐标下降法（分而治之的 Gibbs 前身）和最速下降法（贪婪的一阶探索）。通过数学推导与 Python 可视化，我们对比了它们在不同地形（凸面、狭长峡谷、强耦合）下的行为模式与收敛特性。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/deterministic-optimization/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -518,28 +524,28 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/">梯度下降</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/">梯度下降</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">优化算法</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">优化算法</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E5%87%B8%E4%BC%98%E5%8C%96/">凸优化</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E5%87%B8%E4%BC%98%E5%8C%96/">凸优化</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
          
     </div>
     
 
 </article>  <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/gibbs-sampling/">
         <h2 class="post-title">Gibbs 采样详解：分而治之的降维智慧</h2>
         
         
@@ -557,7 +563,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2426&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/gibbs-sampling/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/mcmc-statics/gibbs-sampling/" lang="en">EN</a>
 </span>
 
 
@@ -565,7 +571,7 @@
     <div class="post-entry">
         
         当高维空间让人无从下手时，Gibbs 采样采用了“各个击破”的策略。通过利用满条件分布，它将复杂的 N 维联合分布采样拆解为 N 个简单的 1 维采样。本文解析其直观直觉、数学证明（Brook&rsquo;s Lemma）及代码实战。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/gibbs-sampling/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -573,28 +579,28 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/gibbs%E9%87%87%E6%A0%B7/">Gibbs采样</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/gibbs%E9%87%87%E6%A0%B7/">Gibbs采样</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/mcmc/">MCMC</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/mcmc/">MCMC</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83/">条件分布</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83/">条件分布</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD/">贝叶斯推断</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD/">贝叶斯推断</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB/">降维打击</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB/">降维打击</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
          
     </div>
     
 
 </article>  <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis-hastings/">
         <h2 class="post-title">Metropolis-Hastings 算法：打破对称性的束缚</h2>
         
         
@@ -612,7 +618,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1891&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/metropolis-hastings/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/mcmc-statics/metropolis-hastings/" lang="en">EN</a>
 </span>
 
 
@@ -620,7 +626,7 @@
     <div class="post-entry">
         
         原版 Metropolis 受限于对称提议，常在边界“撞墙”或高维迷路。MH 算法引入“哈斯廷斯修正项”，允许不对称提议（如 Langevin 动力学）并维持细致平衡，大幅提升效率。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis-hastings/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -628,28 +634,28 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/mcmc/">MCMC</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/mcmc/">MCMC</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/mh%E7%AE%97%E6%B3%95/">MH算法</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/mh%E7%AE%97%E6%B3%95/">MH算法</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E5%93%88%E6%96%AF%E5%BB%B7%E6%96%AF%E4%BF%AE%E6%AD%A3/">哈斯廷斯修正</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E5%93%88%E6%96%AF%E5%BB%B7%E6%96%AF%E4%BF%AE%E6%AD%A3/">哈斯廷斯修正</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E7%BB%86%E8%87%B4%E5%B9%B3%E8%A1%A1/">细致平衡</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E7%BB%86%E8%87%B4%E5%B9%B3%E8%A1%A1/">细致平衡</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/">贝叶斯统计</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/">贝叶斯统计</a>&nbsp;
          
     </div>
     
 
 </article>  <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis/">
         <h2 class="post-title">Metropolis 算法详解：从原理到 Python 实现</h2>
         
         
@@ -667,7 +673,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;4878&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/metropolis/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/mcmc-statics/metropolis/" lang="en">EN</a>
 </span>
 
 
@@ -675,7 +681,7 @@
     <div class="post-entry">
         
         Metropolis 算法是 MCMC 的基石。本文深入探讨其应对未归一化概率密度的策略，从随机游走机制到高维相关高斯分布的采样实战，提供完整的 Python 实现与可视化分析。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -683,28 +689,28 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/mcmc/">MCMC</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/mcmc/">MCMC</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/metropolis%E7%AE%97%E6%B3%95/">Metropolis算法</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/metropolis%E7%AE%97%E6%B3%95/">Metropolis算法</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A8%A1%E6%8B%9F/">蒙特卡洛模拟</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A8%A1%E6%8B%9F/">蒙特卡洛模拟</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/">贝叶斯统计</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/">贝叶斯统计</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/python%E5%AE%9E%E7%8E%B0/">Python实现</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0/">随机游走</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0/">随机游走</a>&nbsp;
          
     </div>
     
 
 </article>  <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov-chains/">
         <h2 class="post-title">理解马尔可夫链</h2>
         
         
@@ -722,7 +728,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3583&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/markov-chains/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/mcmc-statics/markov-chains/" lang="en">EN</a>
 </span>
 
 
@@ -730,7 +736,7 @@
     <div class="post-entry">
         
         了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov-chains/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -738,19 +744,19 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/python/">python</a>&nbsp;
          
     </div>
     
 
 </article>  <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/geoai/geofm-intro-terramind/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/geoai/geofm-intro-terramind/">
         <h2 class="post-title">玩转 TerraMind：从理解到微调</h2>
         
         
@@ -768,7 +774,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;826&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/geoai/geofm-intro-terramind/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/geoai/geofm-intro-terramind/" lang="en">EN</a>
 </span>
 
 
@@ -776,7 +782,7 @@
     <div class="post-entry">
         
         TerraMind 是首个针对地球观测 (EO) 领域提出的大规模、任意到任意（any-to-any）生成式多模态基础模型，它通过结合令牌级别和像素级别的双尺度表示进行预训练，以学习高层上下文信息和精细的空间细节。该模型旨在促进多模态数据整合、提供强大的生成能力并支持零样本和少样本应用，同时在地球观测基准测试中超越现有模型，并通过引入“模态思维”（TiM）进一步提升性能。
-        <a href="http://localhost:1313/zh-cn/post/geoai/geofm-intro-terramind/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/geoai/geofm-intro-terramind/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -784,28 +790,28 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/geofm/">GeoFM</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/geofm/">GeoFM</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/terramind/">terramind</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/terramind/">terramind</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E9%81%A5%E6%84%9F/">遥感</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E9%81%A5%E6%84%9F/">遥感</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/ai/">AI</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/ai/">AI</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">大模型</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">大模型</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/eo/">EO</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/eo/">EO</a>&nbsp;
          
     </div>
     
 
 </article>  <article class="post-preview">
-    <a href="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/">
+    <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/intro-mcmc/">
         <h2 class="post-title">MCMC 初识</h2>
         
         
@@ -823,7 +829,7 @@
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;677&nbsp;个字
   
   
-  &nbsp;&bull;&nbsp;其它语言: <a href="http://localhost:1313/post/mcmc-statics/intro-mcmc/" lang="en">EN</a>
+  &nbsp;&bull;&nbsp;其它语言: <a href="https://www.xuqiongjie.com/post/mcmc-statics/intro-mcmc/" lang="en">EN</a>
 </span>
 
 
@@ -831,7 +837,7 @@
     <div class="post-entry">
         
         我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。
-        <a href="http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/" class="post-read-more">[阅读全文]</a>
+        <a href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/intro-mcmc/" class="post-read-more">[阅读全文]</a>
         
     </div>
 
@@ -839,19 +845,19 @@
     <div class="blog-tags">
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/">蒙特卡洛</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B/">蒙特卡洛</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE/">马尔可夫链</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E9%87%87%E6%A0%B7/">采样</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/%E6%95%B0%E5%AD%A6/">数学</a>&nbsp;
         
        
-       <a href="http://localhost:1313/zh-cn/tags/python/">python</a>&nbsp;
+       <a href="https://www.xuqiongjie.com/zh-cn/tags/python/">python</a>&nbsp;
          
     </div>
     
@@ -936,7 +942,7 @@
 
           
             &nbsp;&bull;&nbsp;
-            <a href="http://localhost:1313/zh-cn/">琼呀</a>
+            <a href="https://www.xuqiongjie.com/zh-cn/">琼呀</a>
           
         </p>
         
@@ -952,8 +958,8 @@
 <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
-<script src="http://localhost:1313/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://localhost:1313/js/load-photoswipe.js"></script>
+<script src="https://www.xuqiongjie.com/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.xuqiongjie.com/js/load-photoswipe.js"></script>
 
 
 
@@ -963,7 +969,7 @@
 
 
 
-<script src="http://localhost:1313/js/toc-enhancements.js"></script>
+<script src="https://www.xuqiongjie.com/js/toc-enhancements.js"></script>
 
 
     

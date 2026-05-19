@@ -2,47 +2,47 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python Implementation on Qiongjie&#39;s Notes</title>
-    <link>http://localhost:1313/tags/python-implementation/</link>
+    <link>https://www.xuqiongjie.com/tags/python-implementation/</link>
     <description>Recent content in Python Implementation on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/python-implementation/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.xuqiongjie.com/tags/python-implementation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bayesian Image Segmentation in Practice</title>
-      <link>http://localhost:1313/post/mcmc-statics/bayesian_approach/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/bayesian_approach/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/bayesian_approach/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/bayesian_approach/</guid>
       <description>This article introduces the combination of Bayesian methods and Markov Random Fields (MRF) through an image segmentation example. By introducing &amp;lsquo;Homogeneity Prior&amp;rsquo; and &amp;lsquo;Gibbs Sampling&amp;rsquo;, it demonstrates how to use MRF to solve image denoising and segmentation problems, and compares the results of traditional Maximum Likelihood, MRF Simulated Annealing, and the Simple Relaxation (ICM) method commonly used in industry.</description>
     </item>
     <item>
       <title>Markov Random Fields (MRF)</title>
-      <link>http://localhost:1313/post/mcmc-statics/markov_random_fields/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/markov_random_fields/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/markov_random_fields/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/markov_random_fields/</guid>
       <description>This article introduces the core concepts of Markov Random Fields (MRF), extending from Markov Chains in time series to MRFs on spatial lattices. It defines local dependencies through &amp;rsquo;neighborhoods&amp;rsquo; and &amp;lsquo;cliques,&amp;rsquo; and details how the Hammersley-Clifford theorem connects MRFs with Gibbs distributions. Finally, it demonstrates a Python implementation of image denoising using MRF combined with Simulated Annealing and Gibbs Sampling.</description>
     </item>
     <item>
       <title>Stochastic Optimization Explained: Simulated Annealing &amp; Pincus Theorem</title>
-      <link>http://localhost:1313/post/mcmc-statics/stochastic-optimization/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/stochastic-optimization/</link>
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/stochastic-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/stochastic-optimization/</guid>
       <description>When optimization problems are trapped in the maze of local optima, deterministic algorithms are often helpless. This article takes you into the world of stochastic optimization, exploring how to transform the problem of finding minimum energy into finding maximum probability. We will delve into the physical intuition and mathematical principles of the Simulated Annealing algorithm, demonstrate its elegant mechanism of &amp;lsquo;high-temperature exploration, low-temperature locking&amp;rsquo; through dynamic visualization, and derive the Pincus Theorem in detail, mathematically proving why the annealing algorithm can find the global optimal solution.</description>
     </item>
     <item>
       <title>Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent</title>
-      <link>http://localhost:1313/post/mcmc-statics/deterministic-optimization/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/deterministic-optimization/</link>
       <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/deterministic-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/deterministic-optimization/</guid>
       <description>Deterministic optimization is the cornerstone for understanding modern MCMC algorithms (like HMC, Langevin). This article delves into three classic deterministic optimization strategies: Newton&amp;rsquo;s Method (second-order perspective using curvature), Coordinate Descent (the divide-and-conquer predecessor to Gibbs), and Steepest Descent (greedy first-order exploration). Through mathematical derivation and Python visualization, we compare their behavioral patterns and convergence characteristics across different terrains (convex surfaces, narrow valleys, strong coupling).</description>
     </item>
     <item>
       <title>Metropolis Algorithm Explained: Implementation &amp; Intuition</title>
-      <link>http://localhost:1313/post/mcmc-statics/metropolis/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/metropolis/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/metropolis/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/metropolis/</guid>
       <description>The Metropolis algorithm is the cornerstone of MCMC. We delve into its strategy for handling unnormalized densities, from the random walk mechanism to sampling 2D correlated Gaussians, complete with Python implementation and visual diagnostics.</description>
     </item>
   </channel>

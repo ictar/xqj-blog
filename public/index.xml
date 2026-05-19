@@ -2,201 +2,201 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Qiongjie&#39;s Notes</title>
-    <link>http://localhost:1313/</link>
+    <link>https://www.xuqiongjie.com/</link>
     <description>Recent content on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.xuqiongjie.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bayesian Image Segmentation in Practice</title>
-      <link>http://localhost:1313/post/mcmc-statics/bayesian_approach/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/bayesian_approach/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/bayesian_approach/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/bayesian_approach/</guid>
       <description>This article introduces the combination of Bayesian methods and Markov Random Fields (MRF) through an image segmentation example. By introducing &amp;lsquo;Homogeneity Prior&amp;rsquo; and &amp;lsquo;Gibbs Sampling&amp;rsquo;, it demonstrates how to use MRF to solve image denoising and segmentation problems, and compares the results of traditional Maximum Likelihood, MRF Simulated Annealing, and the Simple Relaxation (ICM) method commonly used in industry.</description>
     </item>
     <item>
       <title>Markov Random Fields (MRF)</title>
-      <link>http://localhost:1313/post/mcmc-statics/markov_random_fields/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/markov_random_fields/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/markov_random_fields/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/markov_random_fields/</guid>
       <description>This article introduces the core concepts of Markov Random Fields (MRF), extending from Markov Chains in time series to MRFs on spatial lattices. It defines local dependencies through &amp;rsquo;neighborhoods&amp;rsquo; and &amp;lsquo;cliques,&amp;rsquo; and details how the Hammersley-Clifford theorem connects MRFs with Gibbs distributions. Finally, it demonstrates a Python implementation of image denoising using MRF combined with Simulated Annealing and Gibbs Sampling.</description>
     </item>
     <item>
       <title>Stochastic Optimization Explained: Simulated Annealing &amp; Pincus Theorem</title>
-      <link>http://localhost:1313/post/mcmc-statics/stochastic-optimization/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/stochastic-optimization/</link>
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/stochastic-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/stochastic-optimization/</guid>
       <description>When optimization problems are trapped in the maze of local optima, deterministic algorithms are often helpless. This article takes you into the world of stochastic optimization, exploring how to transform the problem of finding minimum energy into finding maximum probability. We will delve into the physical intuition and mathematical principles of the Simulated Annealing algorithm, demonstrate its elegant mechanism of &amp;lsquo;high-temperature exploration, low-temperature locking&amp;rsquo; through dynamic visualization, and derive the Pincus Theorem in detail, mathematically proving why the annealing algorithm can find the global optimal solution.</description>
     </item>
     <item>
       <title>Deterministic Optimization Explained: The Mathematical Essence of Gradient Descent</title>
-      <link>http://localhost:1313/post/mcmc-statics/deterministic-optimization/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/deterministic-optimization/</link>
       <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/deterministic-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/deterministic-optimization/</guid>
       <description>Deterministic optimization is the cornerstone for understanding modern MCMC algorithms (like HMC, Langevin). This article delves into three classic deterministic optimization strategies: Newton&amp;rsquo;s Method (second-order perspective using curvature), Coordinate Descent (the divide-and-conquer predecessor to Gibbs), and Steepest Descent (greedy first-order exploration). Through mathematical derivation and Python visualization, we compare their behavioral patterns and convergence characteristics across different terrains (convex surfaces, narrow valleys, strong coupling).</description>
     </item>
     <item>
       <title>Gibbs Sampling Explained: The Wisdom of Divide and Conquer</title>
-      <link>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/gibbs-sampling/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/gibbs-sampling/</guid>
       <description>When high-dimensional spaces are overwhelming, Gibbs sampling adopts a &amp;lsquo;divide and conquer&amp;rsquo; strategy. By utilizing full conditional distributions, it breaks down complex N-dimensional joint sampling into N simple 1-dimensional sampling steps. This article explains its intuition, mathematical proof (Brook&amp;rsquo;s Lemma), and Python implementation.</description>
     </item>
     <item>
       <title>The Metropolis-Hastings Algorithm: Breaking the Symmetry</title>
-      <link>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/metropolis-hastings/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/metropolis-hastings/</guid>
       <description>The original Metropolis is limited by symmetric proposals, often &amp;lsquo;hitting walls&amp;rsquo; at boundaries or getting lost in high dimensions. The MH algorithm introduces the &amp;lsquo;Hastings Correction&amp;rsquo;, allowing asymmetric proposals (like Langevin dynamics) while maintaining detailed balance, significantly improving efficiency.</description>
     </item>
     <item>
       <title>Metropolis Algorithm Explained: Implementation &amp; Intuition</title>
-      <link>http://localhost:1313/post/mcmc-statics/metropolis/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/metropolis/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/metropolis/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/metropolis/</guid>
       <description>The Metropolis algorithm is the cornerstone of MCMC. We delve into its strategy for handling unnormalized densities, from the random walk mechanism to sampling 2D correlated Gaussians, complete with Python implementation and visual diagnostics.</description>
     </item>
     <item>
       <title>Understanding Markov Chains</title>
-      <link>http://localhost:1313/post/mcmc-statics/markov-chains/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/markov-chains/</link>
       <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/markov-chains/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/markov-chains/</guid>
       <description>Learn about Markov processes, stationary distributions, and convergence of Markov chains.</description>
     </item>
     <item>
       <title>TerraFlow</title>
-      <link>http://localhost:1313/projects/terraflow/</link>
+      <link>https://www.xuqiongjie.com/projects/terraflow/</link>
       <pubDate>Sat, 20 Dec 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/projects/terraflow/</guid>
+      <guid>https://www.xuqiongjie.com/projects/terraflow/</guid>
       <description>A No-Code Visual Interface for GeoAI Fine-tuning based on &lt;a href=&#34;https://terrastackai.github.io/terratorch/stable/&#34;&gt;Terratorch&lt;/a&gt;</description>
     </item>
     <item>
       <title>I-JEPA: Image-based Joint Embedding Predictive Architecture</title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/i-jepa/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/i-jepa/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/i-jepa/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/i-jepa/</guid>
       <description>A non-generative, self-supervised framework predicting high-level feature representations of masked regions from visible context, enabling scalable and efficient visual pretraining.</description>
     </item>
     <item>
       <title>MaskFeat: Masked Feature Prediction for Self-Supervised Visual Pre-Training</title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/maskfeat/</link>
       <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/maskfeat/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/maskfeat/</guid>
       <description>Predict handcrafted features (e.g., HOG) of masked regions instead of raw pixels.</description>
     </item>
     <item>
       <title>DINO: Self-Distillation with No Labels</title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/dino/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/dino/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/dino/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/dino/</guid>
       <description>A student network learns from a teacher network using self-distillation, producing emergent semantic attention maps.</description>
     </item>
     <item>
       <title>MAE: Masked Autoencoders Are Scalable Vision Learners</title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/mae/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/mae/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/mae/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/mae/</guid>
       <description>Randomly mask image patches and reconstruct the missing ones to learn context-aware visual representations.</description>
     </item>
     <item>
       <title>SwAV: Swapping Assignments between Views</title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/swav/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/swav/</link>
       <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/swav/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/swav/</guid>
       <description>Simultaneously cluster the data and learn visual representations by enforcing consistency between cluster assignments, or &amp;lsquo;codes&amp;rsquo;, generated from different augmented views of the same image.</description>
     </item>
     <item>
       <title>MoCo: Momentum Contrast for Unsupervised Visual Representation Learning</title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/moco/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/moco/</link>
       <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/moco/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/moco/</guid>
       <description>It stabilizes and scales contrastive learning by maintaining a dynamic dictionary with momentum-based updates, becoming a cornerstone for modern SSL methods.</description>
     </item>
     <item>
       <title>Mastering TerraMind: From Understanding to Fine-tuning</title>
-      <link>http://localhost:1313/post/geoai/geofm-intro-terramind/</link>
+      <link>https://www.xuqiongjie.com/post/geoai/geofm-intro-terramind/</link>
       <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/geoai/geofm-intro-terramind/</guid>
+      <guid>https://www.xuqiongjie.com/post/geoai/geofm-intro-terramind/</guid>
       <description>TerraMind is the first large-scale, any-to-any generative multimodal foundation model proposed for the Earth Observation (EO) field. It is pre-trained by combining token-level and pixel-level dual-scale representations to learn high-level contextual information and fine-grained spatial details. The model aims to facilitate multimodal data integration, provide powerful generative capabilities, and support zero-shot and few-shot applications, while outperforming existing models on Earth Observation benchmarks and further improving performance by introducing &amp;lsquo;Thinking in Modalities&amp;rsquo; (TiM).</description>
     </item>
     <item>
       <title>Monte Carlo Sampling</title>
-      <link>http://localhost:1313/post/mcmc-statics/monte-carlo/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/monte-carlo/</link>
       <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/monte-carlo/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/monte-carlo/</guid>
       <description>Understand the core concepts of Monte Carlo: Law of Large Numbers, rejection sampling, importance sampling, variance reduction techniques (antithetic variates, control variates, stratified sampling).</description>
     </item>
     <item>
       <title>Introduction to MCMC</title>
-      <link>http://localhost:1313/post/mcmc-statics/intro-mcmc/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/intro-mcmc/</link>
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/intro-mcmc/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/intro-mcmc/</guid>
       <description>The reason we need MCMC is that many distributions are only known in their unnormalized form, making traditional sampling/integration methods ineffective. By constructing a &amp;lsquo;correct Markov chain&amp;rsquo;, we can obtain the target distribution from its stationary distribution, meaning the long-term distribution of the trajectory ≈ target distribution.</description>
     </item>
     <item>
       <title>What is Probability?</title>
-      <link>http://localhost:1313/post/mcmc-statics/probability/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/probability/</link>
       <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/probability/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/probability/</guid>
       <description>This article introduces the basic concepts and rigorous formulas of probability, serving as the foundation for understanding random variables, sampling, and MCMC.</description>
     </item>
     <item>
       <title>Random Variables and Sampling</title>
-      <link>http://localhost:1313/post/mcmc-statics/random-variables/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/random-variables/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/random-variables/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/random-variables/</guid>
       <description>Understand concepts of random variables, PDF, expectation, and sampling methods for common distributions (Uniform, Normal, Exponential).</description>
     </item>
     <item>
       <title>[Course Notes] Probability Theory and Mathematical Statistics | Preliminaries</title>
-      <link>http://localhost:1313/notes/probability_theory_preliminaries/</link>
+      <link>https://www.xuqiongjie.com/notes/probability_theory_preliminaries/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/notes/probability_theory_preliminaries/</guid>
+      <guid>https://www.xuqiongjie.com/notes/probability_theory_preliminaries/</guid>
       <description>&lt;h2 id=&#34;addition-principle-and-multiplication-principle&#34;&gt;Addition Principle and Multiplication Principle&lt;/h2&gt;&#xA;&lt;p&gt;According to &lt;a href=&#34;https://en.wikipedia.org/wiki/Rule_of_product&#34;&gt;Wikipedia&lt;/a&gt;:&lt;/p&gt;</description>
     </item>
     <item>
       <title>[Course Notes] Probability Theory and Mathematical Statistics | Random Events and Probability</title>
-      <link>http://localhost:1313/notes/probability_theory_random_events_and_probability/</link>
+      <link>https://www.xuqiongjie.com/notes/probability_theory_random_events_and_probability/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/notes/probability_theory_random_events_and_probability/</guid>
+      <guid>https://www.xuqiongjie.com/notes/probability_theory_random_events_and_probability/</guid>
       <description>&lt;h2 id=&#34;random-experiments-and-random-events&#34;&gt;Random Experiments and Random Events&lt;/h2&gt;&#xA;&lt;h3 id=&#34;definitions&#34;&gt;Definitions&lt;/h3&gt;&#xA;&lt;p&gt;In probability theory, an &lt;em&gt;experiment&lt;/em&gt; possessing the following three characteristics is called a &lt;strong&gt;random experiment&lt;/strong&gt;:&lt;/p&gt;</description>
     </item>
     <item>
       <title>[Podcast Notes] Chat2Geo and the Power of LLMs</title>
-      <link>http://localhost:1313/notes/podcast_chat2geo_llm_simplifying_geospatial_analysis/</link>
+      <link>https://www.xuqiongjie.com/notes/podcast_chat2geo_llm_simplifying_geospatial_analysis/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/notes/podcast_chat2geo_llm_simplifying_geospatial_analysis/</guid>
+      <guid>https://www.xuqiongjie.com/notes/podcast_chat2geo_llm_simplifying_geospatial_analysis/</guid>
       <description>&lt;p&gt;🎧 &lt;a href=&#34;https://notebooklm.google.com/notebook/3396b39f-24fd-439e-8b27-90d28e866872/audio&#34;&gt;Click here to access the audio notes for this podcast in NotebookLM&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>About Me</title>
-      <link>http://localhost:1313/page/about/</link>
+      <link>https://www.xuqiongjie.com/page/about/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/page/about/</guid>
+      <guid>https://www.xuqiongjie.com/page/about/</guid>
       <description>&lt;p&gt;👋 Hi, I&amp;rsquo;m a researcher, developer, and content creator.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Lesson 1: Introduction to Remote Sensing Data and Python Setup</title>
-      <link>http://localhost:1313/post/python-geodata/01-intro/</link>
+      <link>https://www.xuqiongjie.com/post/python-geodata/01-intro/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/python-geodata/01-intro/</guid>
+      <guid>https://www.xuqiongjie.com/post/python-geodata/01-intro/</guid>
       <description>Learn about raster and vector data and set up your Python environment</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/byol/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/byol/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/byol/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/byol/</guid>
       <description>&lt;p&gt;title: &amp;ldquo;BYOL Explained: Self-Supervised Learning without Negative Pairs&amp;rdquo;&#xA;date: 2025-10-08&#xA;summary: &amp;ldquo;Understanding BYOL: How interactions between Online and Target networks achieve SOTA performance without negative samples. A deep dive into the architecture and loss function.&amp;rdquo;&#xA;series: [&amp;ldquo;Self-Supervised Learning&amp;rdquo;]&#xA;tags: [&amp;ldquo;BYOL&amp;rdquo;, &amp;ldquo;Contrastive Learning&amp;rdquo;, &amp;ldquo;SSL&amp;rdquo;, &amp;ldquo;CV&amp;rdquo;, &amp;ldquo;Paper Notes&amp;rdquo;]&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</link>
+      <link>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/simclr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/ai-fundamentals/ssl/simclr/</guid>
+      <guid>https://www.xuqiongjie.com/post/ai-fundamentals/ssl/simclr/</guid>
       <description>&lt;p&gt;title: &amp;ldquo;SimCLR Explained: Contrastive Learning Design &amp;amp; Code&amp;rdquo;&#xA;date: 2025-10-07&#xA;summary: &amp;ldquo;A detailed visual guide to SimCLR. Understand the logic behind stochastic data augmentation, the NT-Xent loss, and why contrastive learning works.&amp;rdquo;&#xA;series: [&amp;ldquo;Self-Supervised Learning&amp;rdquo;]&#xA;tags: [&amp;ldquo;SimCLR&amp;rdquo;, &amp;ldquo;Contrastive Learning&amp;rdquo;, &amp;ldquo;SSL&amp;rdquo;, &amp;ldquo;CV&amp;rdquo;, &amp;ldquo;Paper Notes&amp;rdquo;]&lt;/p&gt;</description>
     </item>
   </channel>

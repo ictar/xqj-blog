@@ -2,68 +2,68 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Qiongjie&#39;s Notes</title>
-    <link>http://localhost:1313/tags/python/</link>
+    <link>https://www.xuqiongjie.com/tags/python/</link>
     <description>Recent content in Python on Qiongjie&#39;s Notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.xuqiongjie.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gibbs Sampling Explained: The Wisdom of Divide and Conquer</title>
-      <link>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/gibbs-sampling/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/gibbs-sampling/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/gibbs-sampling/</guid>
       <description>When high-dimensional spaces are overwhelming, Gibbs sampling adopts a &amp;lsquo;divide and conquer&amp;rsquo; strategy. By utilizing full conditional distributions, it breaks down complex N-dimensional joint sampling into N simple 1-dimensional sampling steps. This article explains its intuition, mathematical proof (Brook&amp;rsquo;s Lemma), and Python implementation.</description>
     </item>
     <item>
       <title>The Metropolis-Hastings Algorithm: Breaking the Symmetry</title>
-      <link>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/metropolis-hastings/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/metropolis-hastings/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/metropolis-hastings/</guid>
       <description>The original Metropolis is limited by symmetric proposals, often &amp;lsquo;hitting walls&amp;rsquo; at boundaries or getting lost in high dimensions. The MH algorithm introduces the &amp;lsquo;Hastings Correction&amp;rsquo;, allowing asymmetric proposals (like Langevin dynamics) while maintaining detailed balance, significantly improving efficiency.</description>
     </item>
     <item>
       <title>Understanding Markov Chains</title>
-      <link>http://localhost:1313/post/mcmc-statics/markov-chains/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/markov-chains/</link>
       <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/markov-chains/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/markov-chains/</guid>
       <description>Learn about Markov processes, stationary distributions, and convergence of Markov chains.</description>
     </item>
     <item>
       <title>Monte Carlo Sampling</title>
-      <link>http://localhost:1313/post/mcmc-statics/monte-carlo/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/monte-carlo/</link>
       <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/monte-carlo/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/monte-carlo/</guid>
       <description>Understand the core concepts of Monte Carlo: Law of Large Numbers, rejection sampling, importance sampling, variance reduction techniques (antithetic variates, control variates, stratified sampling).</description>
     </item>
     <item>
       <title>Introduction to MCMC</title>
-      <link>http://localhost:1313/post/mcmc-statics/intro-mcmc/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/intro-mcmc/</link>
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/intro-mcmc/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/intro-mcmc/</guid>
       <description>The reason we need MCMC is that many distributions are only known in their unnormalized form, making traditional sampling/integration methods ineffective. By constructing a &amp;lsquo;correct Markov chain&amp;rsquo;, we can obtain the target distribution from its stationary distribution, meaning the long-term distribution of the trajectory ≈ target distribution.</description>
     </item>
     <item>
       <title>What is Probability?</title>
-      <link>http://localhost:1313/post/mcmc-statics/probability/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/probability/</link>
       <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/probability/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/probability/</guid>
       <description>This article introduces the basic concepts and rigorous formulas of probability, serving as the foundation for understanding random variables, sampling, and MCMC.</description>
     </item>
     <item>
       <title>Random Variables and Sampling</title>
-      <link>http://localhost:1313/post/mcmc-statics/random-variables/</link>
+      <link>https://www.xuqiongjie.com/post/mcmc-statics/random-variables/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/mcmc-statics/random-variables/</guid>
+      <guid>https://www.xuqiongjie.com/post/mcmc-statics/random-variables/</guid>
       <description>Understand concepts of random variables, PDF, expectation, and sampling methods for common distributions (Uniform, Normal, Exponential).</description>
     </item>
     <item>
       <title>Lesson 1: Introduction to Remote Sensing Data and Python Setup</title>
-      <link>http://localhost:1313/post/python-geodata/01-intro/</link>
+      <link>https://www.xuqiongjie.com/post/python-geodata/01-intro/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/post/python-geodata/01-intro/</guid>
+      <guid>https://www.xuqiongjie.com/post/python-geodata/01-intro/</guid>
       <description>Learn about raster and vector data and set up your Python environment</description>
     </item>
   </channel>

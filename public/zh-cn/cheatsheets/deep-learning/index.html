@@ -1,0 +1,1056 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>深度学习名词速查表 - </title>
+
+  <meta name="description" content="深度学习核心概念、神经网络架构、优化算法及损失函数的快速查询手册。支持实时搜索与过滤。">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="https://www.xuqiongjie.com/zh-cn/cheatsheets/deep-learning/" />
+
+
+<meta name="keywords" content="GIS, Remote Sensing, GeoAI, TerraFlow, Python, Deep Learning, Spatial Intelligence" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼呀",
+    
+    "url": "https:\/\/www.xuqiongjie.com\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/www.xuqiongjie.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/www.xuqiongjie.com\/zh-cn\/cheatsheets\/deep-learning\/",
+          "name": "深度学习名词速查表"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "深度学习名词速查表",
+  "description" : "深度学习核心概念、神经网络架构、优化算法及损失函数的快速查询手册。支持实时搜索与过滤。",
+  "inLanguage" : "zh-cn",
+  "wordCount":  1101 ,
+  "datePublished" : "2026-05-19T00:00:00\u002b00:00",
+  "dateModified" : "2026-05-19T00:00:00\u002b00:00",
+  "image" : "https:\/\/www.xuqiongjie.com\/img\/avatar-icon.png",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/www.xuqiongjie.com\/zh-cn\/cheatsheets\/deep-learning\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/www.xuqiongjie.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.xuqiongjie.com\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="深度学习名词速查表" />
+<meta property="og:description" content="深度学习核心概念、神经网络架构、优化算法及损失函数的快速查询手册。支持实时搜索与过滤。">
+<meta property="og:image" content="https://www.xuqiongjie.com/img/avatar-icon.png" />
+<meta property="og:url" content="https://www.xuqiongjie.com/zh-cn/cheatsheets/deep-learning/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼呀" />
+
+  <meta name="twitter:title" content="深度学习名词速查表" />
+  <meta name="twitter:description" content="深度学习核心概念、神经网络架构、优化算法及损失函数的快速查询手册。支持实时搜索与过滤。">
+  <meta name="twitter:image" content="https://www.xuqiongjie.com/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='https://www.xuqiongjie.com/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="https://www.xuqiongjie.com/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://www.xuqiongjie.com/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.xuqiongjie.com/css/syntax.css" /><link rel="stylesheet" href="https://www.xuqiongjie.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="https://www.xuqiongjie.com/css/custom.css"><link rel="stylesheet" href="https://www.xuqiongjie.com/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="https://www.xuqiongjie.com/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="https://www.xuqiongjie.com/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://www.xuqiongjie.com/img/apple-touch-icon.png" />
+<link rel="manifest" href="https://www.xuqiongjie.com/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.xuqiongjie.com/zh-cn/">琼呀</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/post">文章</a>
+              <div class="navlinks-children">
+                
+                  <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
+                
+                  <a href="/zh-cn/post/ai-fundamentals">AI 基础系列</a>
+                
+                  <a href="/zh-cn/post/geoai">GeoAI 系列</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/projects">项目</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="笔记" href="/zh-cn/notes">笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="标签" href="/zh-cn/tags">标签</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="速查表" href="/zh-cn/cheatsheets">速查表</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="关于我" href="/zh-cn/page/about/">关于我</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼呀" href="https://www.xuqiongjie.com/zh-cn/">
+            <img class="avatar-img" src="https://www.xuqiongjie.com/img/avatar-icon.png" alt="琼呀" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="cheatsheets-heading">
+              
+                <h1>深度学习名词速查表</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container cheatsheet-container" role="main">
+  <div class="row">
+    <div class="col-lg-12">
+
+      
+      <div id="raw-cheatsheet-content" style="display: none;">
+        <h2 id="基础层与架构--basic-layers--architectures">基础层与架构 | Basic Layers &amp; Architectures</h2>
+<h3 id="感知机--perceptron">感知机 | Perceptron</h3>
+<ul>
+<li><strong>定义</strong>: 神经网络的最基本结构单元，由输入、权重、偏置、激活函数和输出组成。它能解决线性可分问题，但无法解决异或（XOR）问题。</li>
+<li><strong>大白话</strong>: 神经网络世界的“单个决策开关”。它根据输入信息的加权重要性，来决定是“拉闸”还是“合闸”。</li>
+<li><strong>怎么实现</strong>: 将输入向量和权重向量做内积（点乘），加上一个偏置量（阈值调整器），最后塞进一个二分类激活函数（如阶跃函数或 Sigmoid）。</li>
+<li><strong>公式</strong>: $$y = \sigma\left(\sum_{i=1}^n w_i x_i + b\right)$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 单个神经元（感知机）</span>
+</span></span><span style="display:flex;"><span>perceptron <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(in_features<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, out_features<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>sigmoid(perceptron(x))
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="多层感知机--mlp">多层感知机 | MLP</h3>
+<ul>
+<li><strong>定义</strong>: 由输入层、一个或多个隐藏层以及输出层组成的前馈神经网络。层与层之间是全连接的（Fully Connected）。</li>
+<li><strong>大白话</strong>: 多个决策开关层叠在一起的“多层投票系统”。通过多层传递，它能识破单一开关看不懂的复杂逻辑（如异或逻辑）。</li>
+<li><strong>怎么实现</strong>: 信号从输入层出发，经过多次「矩阵乘法 + 非线性变化（激活函数）」的嵌套叠加，最终输出到最后一层。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MLP</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>net <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">784</span>, <span style="color:#ae81ff">128</span>),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>ReLU(),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>net(x)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="卷积神经网络--cnn">卷积神经网络 | CNN</h3>
+<ul>
+<li><strong>定义</strong>: 专门用于处理网格结构数据（如图像）的神经网络。其核心操作是局部连接和权重共享。</li>
+<li><strong>大白话</strong>: 用一个“移动放大镜”在照片上逐行逐列扫描的识别系统，专门用来捕捉局部图案（比如边缘、眼睛、车轮）。</li>
+<li><strong>怎么实现</strong>: 拿着一个权重矩阵（卷积核）在输入图像上一步步滑动，每次把镜框内的像素与核进行乘累加，得到缩减但特征突出的新图。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 简单的卷积块</span>
+</span></span><span style="display:flex;"><span>conv_block <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>    nn<span style="color:#f92672">.</span>Conv2d(in_channels<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, out_channels<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>    nn<span style="color:#f92672">.</span>BatchNorm2d(<span style="color:#ae81ff">16</span>),
+</span></span><span style="display:flex;"><span>    nn<span style="color:#f92672">.</span>ReLU(),
+</span></span><span style="display:flex;"><span>    nn<span style="color:#f92672">.</span>MaxPool2d(kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="卷积层--convolutional-layer">卷积层 | Convolutional Layer</h3>
+<ul>
+<li><strong>定义</strong>: 卷积神经网络（CNN）的核心层。通过滑动卷积核对输入特征图进行局部运算以提取局部空间特征，具有局部连接和权重共享的特点。</li>
+<li><strong>大白话</strong>: “特征捕手”。用一组滤镜（卷积核）去提取图案，比如一号滤镜找横线，二号滤镜找竖线。</li>
+<li><strong>怎么实现</strong>: 输入矩阵与多个可学习的小矩阵（如 3x3 窗口）逐元素相乘并求和，滑过整个输入以生成多通道的特征响应图。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 二维卷积层示例</span>
+</span></span><span style="display:flex;"><span>conv <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(
+</span></span><span style="display:flex;"><span>    in_channels<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, 
+</span></span><span style="display:flex;"><span>    out_channels<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span>, 
+</span></span><span style="display:flex;"><span>    kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, 
+</span></span><span style="display:flex;"><span>    stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>    padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="池化层--pooling-layer">池化层 | Pooling Layer</h3>
+<ul>
+<li><strong>定义</strong>: 用于在保留主要特征的同时降低特征图空间分辨率（下采样）的层，以减少计算量并增强模型对特征微小位移和形变的鲁棒性。</li>
+<li><strong>大白话</strong>: “信息压缩器”或“脱水过滤器”。只保留最关键的那部分（比如局部最显眼的花纹），把次要的细节丢掉。</li>
+<li><strong>怎么实现</strong>: 在特征图上以固定步长滑动窗口（如 2x2），只取窗口内的最大值（Max Pooling）或取均值（Average Pooling）。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 最大池化层 (空间高宽减半)</span>
+</span></span><span style="display:flex;"><span>max_pool <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>MaxPool2d(kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 全局平均池化 (将高宽 HxW 压缩为 1x1 向量)</span>
+</span></span><span style="display:flex;"><span>gap <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>AdaptiveAvgPool2d((<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>))
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="全连接层--fully-connected-layer">全连接层 | Fully Connected Layer</h3>
+<ul>
+<li><strong>定义</strong>: 每个输入节点都与每个输出节点相连接的层，又称线性层（Linear Layer），常用于神经网络的末端进行特征高度汇总和最终分类/回归预测。</li>
+<li><strong>大白话</strong>: “终审判决官”。它把前面提取的所有局部特征都汇总过来，根据各自权重全盘考虑，给出最终的分数或结论。</li>
+<li><strong>怎么实现</strong>: 执行矩阵乘法 $y = x W^T + b$。将多维特征展平为一维向量，与权重矩阵直接点乘，生成目标类别的得分。</li>
+<li><strong>公式</strong>: $$y = x W^T + b$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 将 512 维的高阶特征映射到 10 分类的 logits</span>
+</span></span><span style="display:flex;"><span>fc <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(in_features<span style="color:#f92672">=</span><span style="color:#ae81ff">512</span>, out_features<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="残差连接--skip-connection">残差连接 | Skip Connection</h3>
+<ul>
+<li><strong>定义</strong>: 在深度神经网络中，将某一层的输入直接跨越一层或多层，加到后面某层的输出上的连接方式。它是 ResNet（残差网络）的核心设计。</li>
+<li><strong>大白话</strong>: “抄近道”或“直达通道”。在深山老林般的网络里修了一条高速公路，让后面的层直接听到前方的声音，也让梯度在回去时可以直接坐高铁。</li>
+<li><strong>怎么实现</strong>: 将某层的输入 $x$ 跨过若干中间计算层，直接与最后的输出 $F(x)$ 进行相加（即 Element-wise Sum）：$y = F(x) + x$。</li>
+<li><strong>公式</strong>: $$\mathcal{H}(x) = \mathcal{F}(x) + x$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResidualBlock</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, channels):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Conv2d(channels, channels, <span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>BatchNorm2d(channels),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>ReLU(),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Conv2d(channels, channels, <span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>BatchNorm2d(channels)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>relu <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>ReLU()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 残差连接：F(x) + x</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>relu(self<span style="color:#f92672">.</span>conv(x) <span style="color:#f92672">+</span> x)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="骨干网络--backbone">骨干网络 | Backbone</h3>
+<ul>
+<li><strong>定义</strong>: 负责提取输入特征的基础神经网络部分，如目标检测、图像分割模型中的特征提取器。常见的 Backbone 包括 ResNet、VGG、EfficientNet 等。</li>
+<li><strong>特点</strong>: Backbone 通常在海量数据集（如 ImageNet）上进行预训练，其提取的高阶特征会被传递给下游任务的特征融合层（Neck）与输出头（Head）。</li>
+<li><strong>大白话</strong>: “地基与主骨架”。就像看图写作时的“眼睛”，负责从图片中提取出基础视觉信息，是支撑整个下游任务的核心基础。</li>
+<li><strong>怎么实现</strong>: 通常直接复用经过 ImageNet 图像分类训练成熟的经典网络结构（如 ResNet），砍掉最尾端的分类头，只导出深层的多尺度特征响应图。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torchvision.models <span style="color:#66d9ef">as</span> models
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用预训练的 ResNet50 作为特征提取的 Backbone</span>
+</span></span><span style="display:flex;"><span>resnet <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>resnet50(pretrained<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 移除最后的分类全连接层，保留特征提取部分</span>
+</span></span><span style="display:flex;"><span>backbone <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(<span style="color:#f92672">*</span>list(resnet<span style="color:#f92672">.</span>children())[:<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 输入 shape: (batch_size, 3, 224, 224)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 输出特征 shape: (batch_size, 2048, 7, 7)</span>
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="颈部与头部--neck--head">颈部与头部 | Neck &amp; Head</h3>
+<ul>
+<li><strong>定义</strong>: 现代复杂深度学习模型（如目标检测 YOLO、图像分割 U-Net 等）中用于处理特征和产生输出的专门化结构。
+<ul>
+<li><strong>Neck (颈部)</strong>: 位于 Backbone 和 Head 之间，负责收集、融合并增强来自 Backbone 的不同尺度特征（例如 FPN 特征金字塔、PANet）。</li>
+<li><strong>Head (头部)</strong>: 负责接收融合特征并输出最终的特定预测任务结果（例如分类类别、物体边界框、语义分割图）。</li>
+</ul>
+</li>
+<li><strong>大白话</strong>:
+<ul>
+<li><strong>Neck (脖子)</strong>: 特征的“搅拌机”。把高层的宏观抽象特征和底层的细粒度局部细节特征掺在一起搅拌均匀。</li>
+<li><strong>Head (脑袋)</strong>: 特征的“执行官”。接收搅拌好的特征并做出具体决策（比如框出物体位置或标出像素的类别）。</li>
+</ul>
+</li>
+<li><strong>怎么实现</strong>: Neck 通过特征金字塔（FPN）做双向跨尺度上采样和级联相加；Head 则通常是一组小卷积或全连接层，将特征通道映射为具体的任务输出图。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SegModelWithNeckHead</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 1. Backbone: 特征提取</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>backbone <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>), nn<span style="color:#f92672">.</span>ReLU())
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 2. Neck: 特征多尺度融合/增强</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>neck <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>), nn<span style="color:#f92672">.</span>ReLU())
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 3. Head: 映射到分割掩膜预测</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>head <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>) <span style="color:#75715e"># 输出 1 个通道的 logits</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        feat <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>backbone(x)
+</span></span><span style="display:flex;"><span>        fused <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>neck(feat)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>head(fused)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="注意力机制--attention-mechanism">注意力机制 | Attention Mechanism</h3>
+<ul>
+<li><strong>定义</strong>: 允许模型在处理序列或图像 data 时，动态地给不同位置的特征分配不同权重的机制。自注意力（Self-Attention）是 Transformer 架构的基石。</li>
+<li><strong>大白话</strong>: “重点关注仪”。就像看书时视线会自动落在加粗的关键字上一样，它能主动从一堆字或像素里找出谁跟谁最有关联，并针对性地加权关注。</li>
+<li><strong>怎么实现</strong>: 计算输入特征的 Query（提问）、Key（索引）和 Value（内容）。通过 Q 与 K 的矩阵乘法计算相似度权重（注意力分数），再用该权重对 V 进行加权求和。</li>
+<li><strong>公式</strong>: $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># PyTorch 内置的多头自注意力层</span>
+</span></span><span style="display:flex;"><span>self_attn <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>MultiheadAttention(embed_dim<span style="color:#f92672">=</span><span style="color:#ae81ff">512</span>, num_heads<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, batch_first<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">512</span>)
+</span></span><span style="display:flex;"><span>attn_out, _ <span style="color:#f92672">=</span> self_attn(x, x, x)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="归一化层--normalization-layers">归一化层 | Normalization Layers</h3>
+<ul>
+<li><strong>定义</strong>: 调整网络中间层特征输入的分布均值与方差以稳定训练。Batch Normalization (BN) 沿 Batch 维度计算归一化，而 Layer Normalization (LN) 沿 Feature 维度计算归一化（常用于 Transformer）。</li>
+<li><strong>大白话</strong>: “强制班级标准化”。防止因为某些输入数据值太大或太小，导致网络情绪失控（梯度爆炸或消失）。强制将大家的表现拉回到标准的均值和方差内。</li>
+<li><strong>怎么实现</strong>: 计算指定范围内的均值 $\mu$ 和方差 $\sigma^2$，将输入数据转化为均值为 0、方差为 1 的分布，并应用可学习的缩放参数 $\gamma$ 和平移参数 $\beta$。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Batch Normalization (常用于卷积层)</span>
+</span></span><span style="display:flex;"><span>batch_norm <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>BatchNorm2d(num_features<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Layer Normalization (常用于 Transformer 等序列模型)</span>
+</span></span><span style="display:flex;"><span>layer_norm <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>LayerNorm(normalized_shape<span style="color:#f92672">=</span><span style="color:#ae81ff">512</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="u-net--u-net-architecture">U-Net | U-Net Architecture</h3>
+<ul>
+<li><strong>定义</strong>: 一种经典的对称式全卷积图像分割网络。由收缩路径（Encoder，特征提取）、扩张路径（Decoder，上采样）以及连接两者的跳跃连接（Skip Connection）组成，形状呈 &ldquo;U&rdquo; 字型。</li>
+<li><strong>大白话</strong>: “镜像折叠照相馆”。前半部分（Encoder）负责给图像做级联压缩以看懂大局，后半部分（Decoder）负责把它还原放大；中间用一根根直连的“跨界传送桥”（Skip Connection），把前半部分没被压缩污染的清晰图像细节，直接复制拼给后半部分，以实现极其精准的像素级抠图。</li>
+<li><strong>怎么实现</strong>: Encoder 用卷积+池化使图片变小、通道数翻倍；Decoder 用上采样使图片变大、通道数减半，并在每一次放大时，用 <code>torch.cat</code> 在通道维度拼上 Encoder 对应层的高清特征图，以此保留精准的空间坐标信息。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UNetMini</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 下采样部分 (Encoder)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>enc1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>), nn<span style="color:#f92672">.</span>ReLU())
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>pool <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>MaxPool2d(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 最底层 (Bottleneck)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bottle <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>), nn<span style="color:#f92672">.</span>ReLU())
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 上采样部分 (Decoder)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>up <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Upsample(scale_factor<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bilinear&#39;</span>, align_corners<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dec1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">128</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">3</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>), nn<span style="color:#f92672">.</span>ReLU())
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>final <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>) <span style="color:#75715e"># 输出单通道分割图</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 1. Encoder 提取并保存细节特征</span>
+</span></span><span style="display:flex;"><span>        x1 <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>enc1(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 2. 下采样到 Bottleneck</span>
+</span></span><span style="display:flex;"><span>        x_pool <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>pool(x1)
+</span></span><span style="display:flex;"><span>        b <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>bottle(x_pool)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 3. Decoder 上采样并进行拼接 (Skip Connection)</span>
+</span></span><span style="display:flex;"><span>        up_b <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>up(b)
+</span></span><span style="display:flex;"><span>        cat_x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([up_b, x1], dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e"># 拼接通道数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>final(self<span style="color:#f92672">.</span>dec1(cat_x))
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="嵌入向量--embedding">嵌入向量 | Embedding</h3>
+<ul>
+<li><strong>定义</strong>: 将高维离散特征（如单词 ID、类别标号、连续编号等）映射到低维连续稠密向量空间的技术。</li>
+<li><strong>大白话</strong>: “语义翻译计算器”或“数字化肖像画”。它把人说的话或类别代号转成一串表示特征含义的数值坐标。在这个坐标空间里，相似的事物（如“猫”和“狗”）会被自动聚到距离很近的地方。</li>
+<li><strong>怎么实现</strong>: 使用一个参数矩阵（Lookup Table），每一行对应一个离散标记的稠密向量。在反向传播中这些向量的数值会被自动微调，使上下文语义越接近的词，其向量积（余弦相似度）越大。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 词表大小为 1000，每个单词映射为 128 维的嵌入向量</span>
+</span></span><span style="display:flex;"><span>embedding_layer <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Embedding(num_embeddings<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>, embedding_dim<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 假定输入 2 个句子，每个句子 4 个单词对应的 token ID</span>
+</span></span><span style="display:flex;"><span>input_tokens <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">201</span>], [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">88</span>, <span style="color:#ae81ff">999</span>, <span style="color:#ae81ff">12</span>]])
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 输出 shape: (2, 4, 128)</span>
+</span></span><span style="display:flex;"><span>embedded <span style="color:#f92672">=</span> embedding_layer(input_tokens)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="隐空间--latent-space">隐空间 | Latent Space</h3>
+<ul>
+<li><strong>定义</strong>: 编码器在对原始高维数据进行特征降维和信息提取后，所生成的低维流形特征表示空间。它是隐藏在复杂数据背后的本质表示空间。</li>
+<li><strong>大白话</strong>: “灵魂画手脑海中的灵感空间”。在这个空间里，省去了图像上万个像素的冗余叙述，只剩下了控制本质特征的几个“核心旋钮”（例如：发色、性别、高度、是否戴眼镜）。拨动这些旋钮，就能随心所欲拼装出全新的图片。</li>
+<li><strong>怎么实现</strong>: 用多层卷积或全连接层将原始的高维数据压缩成一个低维特征向量（如 512 维的 Bottleneck 隐向量），后续的解码器（Decoder）将只根据这个低维特征向量来重构复原原始数据。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Autoencoder</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 编码器：将 784 维的图像压缩至 32 维的 Latent Space</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>encoder <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">784</span>, <span style="color:#ae81ff">128</span>),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>ReLU(),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">32</span>) <span style="color:#75715e"># 32 维的隐藏层</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 解码器：从 Latent Space 还原原始图像</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>decoder <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">128</span>),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>ReLU(),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">784</span>),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Sigmoid()
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        latent_vec <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>encoder(x<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">784</span>)) <span style="color:#75715e"># 获得隐变量</span>
+</span></span><span style="display:flex;"><span>        reconstructed <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>decoder(latent_vec)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> reconstructed, latent_vec
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="激活函数--activation-functions">激活函数 | Activation Functions</h2>
+<h3 id="relu--rectified-linear-unit">ReLU | Rectified Linear Unit</h3>
+<ul>
+<li><strong>定义</strong>: 线性整流单元，是深度学习中最常用的激活函数。在正半轴上是线性的，负半轴上输出为0。</li>
+<li><strong>大白话</strong>: “单向阀门”。如果输入值是负数，一律拒之门外（输出 0）；如果是正数，则原封不动放行。</li>
+<li><strong>怎么实现</strong>: 执行简单的求最大值操作：<code>max(0, x)</code>。在代码中，负数输入直接被截断清零。</li>
+<li><strong>公式</strong>: $$f(x) = \max(0, x)$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 激活函数调用</span>
+</span></span><span style="display:flex;"><span>relu <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>ReLU()
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#f92672">-</span><span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">3.0</span>])
+</span></span><span style="display:flex;"><span>print(relu(x)) <span style="color:#75715e"># Tensor: [0.0, 3.0]</span>
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="sigmoid--logistic-function">Sigmoid | Logistic Function</h3>
+<ul>
+<li><strong>定义</strong>: 将输入值压缩到 $(0, 1)$ 区间的激活函数，常用于二分类模型的输出层。</li>
+<li><strong>大白话</strong>: “概率转换器”。把从负无穷到正无穷的杂乱得分，全部折算成 0% 到 100% 之间的概率概率值。</li>
+<li><strong>怎么实现</strong>: 用数学公式 $1 / (1 + e^{-x})$ 处理每个输入。当输入很大时输出逼近 1，输入很小时输出逼近 0。</li>
+<li><strong>公式</strong>: $$\sigma(x) = \frac{1}{1 + e^{-x}}$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sigmoid <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sigmoid()
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">2.0</span>])
+</span></span><span style="display:flex;"><span>print(sigmoid(x)) <span style="color:#75715e"># Tensor: [0.5, 0.8808]</span>
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="softmax--normalized-exponential">Softmax | Normalized Exponential</h3>
+<ul>
+<li><strong>定义</strong>: 将一个向量转化为概率分布的函数，所有元素在 $(0, 1)$ 之间且和为 1。常用于多分类任务的输出层。</li>
+<li><strong>大白话</strong>: “比例切蛋糕”。把一组乱糟糟的得分（比如 3、1、0.1），按指数权重切成一份份加起来刚好等于 100% 的蛋糕片，代表每个选项的获胜概率。</li>
+<li><strong>怎么实现</strong>: 对向量中的每个元素求 $e$ 的次幂，然后除以所有元素求幂后的总和，从而实现归一化。</li>
+<li><strong>公式</strong>: $$S_i = \frac{e^{z_i}}{\sum_{j=1}^C e^{z_j}}$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>softmax <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Softmax(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>logits <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">3.0</span>]])
+</span></span><span style="display:flex;"><span>probs <span style="color:#f92672">=</span> softmax(logits)
+</span></span><span style="display:flex;"><span>print(probs) <span style="color:#75715e"># 各类别预测概率</span>
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="优化算法--optimizers">优化算法 | Optimizers</h2>
+<h3 id="sgd--stochastic-gradient-descent">SGD | Stochastic Gradient Descent</h3>
+<ul>
+<li><strong>定义</strong>: 随机梯度下降。在每个训练步骤中只使用一个样本或一个小批量（Mini-batch）样本来计算梯度并更新参数。</li>
+<li><strong>大白话</strong>: “摸黑下山法”。不花时间观察整座山的全貌，而是走一步算一步，沿着脚下最陡的一条小道往下挪，虽然会有些磕磕绊绊，但胜在速度快。</li>
+<li><strong>怎么实现</strong>: 在每个迭代步，计算当前 mini-batch 样本下的损失函数对参数的梯度，并用参数减去学习率乘以梯度来更新参数。</li>
+<li><strong>公式</strong>: $$	heta_{t+1} = 	heta_t - \eta \cdot 
+abla_{	heta} L(	heta_t)$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.optim <span style="color:#66d9ef">as</span> optim
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在 PyTorch 中使用带动量的 SGD</span>
+</span></span><span style="display:flex;"><span>optimizer <span style="color:#f92672">=</span> optim<span style="color:#f92672">.</span>SGD(model<span style="color:#f92672">.</span>parameters(), lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>, momentum<span style="color:#f92672">=</span><span style="color:#ae81ff">0.9</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="adam--adaptive-moment-estimation">Adam | Adaptive Moment Estimation</h3>
+<ul>
+<li><strong>定义</strong>: 自适应矩估计。结合了 Momentum（动量，考虑一阶矩）和 RMSprop（自适应学习率，考虑二阶矩）优点的优化器。</li>
+<li><strong>大白话</strong>: “带导航和避震的越野车”。它不仅记得之前的方向（有惯性），还会根据路况自动调整踩油门的力度（平缓的维度多走，走得陡峭颠簸的维度小步探路）。</li>
+<li><strong>怎么实现</strong>: 分别计算梯度的指数移动平均（一阶矩，即动量）和梯度的平方指数移动平均（二阶矩，即自适应步长），然后动态缩放每个参数的更新步长。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.optim <span style="color:#66d9ef">as</span> optim
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Adam 优化器</span>
+</span></span><span style="display:flex;"><span>optimizer <span style="color:#f92672">=</span> optim<span style="color:#f92672">.</span>Adam(model<span style="color:#f92672">.</span>parameters(), lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.001</span>, betas<span style="color:#f92672">=</span>(<span style="color:#ae81ff">0.9</span>, <span style="color:#ae81ff">0.999</span>))
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="损失函数--loss-functions">损失函数 | Loss Functions</h2>
+<h3 id="mse--mean-squared-error">MSE | Mean Squared Error</h3>
+<ul>
+<li><strong>定义</strong>: 均方误差损失，又称 $L_2$ 损失。计算预测值与真实值差值的平方均值，主要用于回归任务。</li>
+<li><strong>大白话</strong>: “偏差平分罚分”。如果射击离靶心越远，惩罚得分就呈平方级暴涨（比如偏离 2 米罚 4 分，偏离 3 米罚 9 分），所以它极力避免出现巨大偏差。</li>
+<li><strong>怎么实现</strong>: 用每个样本的（预测值 - 真实值）求平方，然后对所有样本求平均值。</li>
+<li><strong>公式</strong>: $$L_{MSE} = \frac{1}{N} \sum_{i=1}^N (y_i - \hat{y}_i)^2$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loss_fn <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>MSELoss()
+</span></span><span style="display:flex;"><span>y_pred <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1.5</span>, <span style="color:#ae81ff">2.0</span>])
+</span></span><span style="display:flex;"><span>y_true <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2.0</span>])
+</span></span><span style="display:flex;"><span>loss <span style="color:#f92672">=</span> loss_fn(y_pred, y_true)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="交叉熵损失--cross-entropy-loss">交叉熵损失 | Cross Entropy Loss</h3>
+<ul>
+<li><strong>定义</strong>: 衡量两个概率分布之间差异的指标，在分类任务中用来作为损失函数。在 PyTorch 中，<code>CrossEntropyLoss</code> 已经内置了 Softmax 操作。</li>
+<li><strong>大白话</strong>: “预测自信度考量”。如果模型对正确答案非常笃定（预测概率接近 100%），罚分为 0；如果押错了宝或者犹豫不决，罚分就会急剧上升。</li>
+<li><strong>怎么实现</strong>: 计算正确类别的预测概率 $\hat{y}$ 的负自然对数 $-\log(\hat{y})$。若预测对的概率低，则损失值极大。</li>
+<li><strong>公式</strong>: $$L_{CE} = -\sum_{i=1}^C y_i \log(\hat{y}_i)$$</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>loss_fn <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>CrossEntropyLoss()
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 假定 batch_size=2, 类别数=3</span>
+</span></span><span style="display:flex;"><span>logits <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>) <span style="color:#75715e"># 模型输出的 logits</span>
+</span></span><span style="display:flex;"><span>targets <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]) <span style="color:#75715e"># 真实的类标签</span>
+</span></span><span style="display:flex;"><span>loss <span style="color:#f92672">=</span> loss_fn(logits, targets)
+</span></span></code></pre></div></li>
+</ul>
+
+      </div>
+
+      
+      <div id="cheatsheet-app">
+        
+        <div class="cheatsheet-search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="cheatsheet-search-input" class="cheatsheet-search-input" placeholder="输入术语、简称、定义搜索... (按 / 键聚焦)" />
+          <span class="search-shortcut">/</span>
+        </div>
+
+        
+        <div class="cheatsheet-categories" id="categories-container">
+          <button class="category-btn active" data-category="all">全部 <span class="category-btn-en">All</span></button>
+        </div>
+
+        
+        <div class="cheatsheet-grid" id="cards-grid">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const rawContainer = document.getElementById('raw-cheatsheet-content');
+  const cardsGrid = document.getElementById('cards-grid');
+  const categoriesContainer = document.getElementById('categories-container');
+  const searchInput = document.getElementById('cheatsheet-search-input');
+
+  if (!rawContainer || !cardsGrid || !categoriesContainer || !searchInput) return;
+
+  const sections = [];
+  let currentCategoryZh = '未分类';
+  let currentCategoryEn = '';
+  let currentCard = null;
+
+  
+  Array.from(rawContainer.children).forEach(child => {
+    if (child.tagName === 'H2') {
+      const text = child.textContent.trim();
+      const parts = text.split('|');
+      currentCategoryZh = parts[0].trim();
+      currentCategoryEn = parts[1] ? parts[1].trim() : '';
+      
+      
+      if (!sections.some(s => s.zh === currentCategoryZh)) {
+        sections.push({ zh: currentCategoryZh, en: currentCategoryEn, cards: [] });
+      }
+    } else if (child.tagName === 'H3') {
+      const text = child.textContent.trim();
+      const parts = text.split('|');
+      const termZh = parts[0].trim();
+      const termEn = parts[1] ? parts[1].trim() : '';
+
+      currentCard = {
+        termZh: termZh,
+        termEn: termEn,
+        categoryZh: currentCategoryZh,
+        elements: []
+      };
+
+      let currentSecObj = sections.find(s => s.zh === currentCategoryZh);
+      if (!currentSecObj) {
+        currentSecObj = { zh: currentCategoryZh, en: currentCategoryEn, cards: [] };
+        sections.push(currentSecObj);
+      }
+      currentSecObj.cards.push(currentCard);
+    } else {
+      if (currentCard) {
+        currentCard.elements.push(child.cloneNode(true));
+      }
+    }
+  });
+
+  
+  sections.forEach(sec => {
+    const btn = document.createElement('button');
+    btn.className = 'category-btn';
+    btn.setAttribute('data-category', sec.zh);
+    btn.innerHTML = `${sec.zh} ${sec.en ? '<span class="category-btn-en">' + sec.en + '</span>' : ''}`;
+    categoriesContainer.appendChild(btn);
+  });
+
+  
+  const cardElements = [];
+  
+  sections.forEach(sec => {
+    sec.cards.forEach(card => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'cheatsheet-card';
+      cardEl.setAttribute('data-category', card.categoryZh);
+      
+      
+      const contentText = card.elements.map(el => el.textContent).join(' ');
+      const searchKey = `${card.termZh} ${card.termEn} ${card.categoryZh} ${contentText}`.toLowerCase();
+      cardEl.setAttribute('data-search', searchKey);
+
+      
+      const headerEl = document.createElement('div');
+      headerEl.className = 'cheatsheet-card-header';
+      
+      const titleEl = document.createElement('h4');
+      titleEl.className = 'cheatsheet-card-title';
+      titleEl.innerHTML = `${card.termZh} ${card.termEn ? '<span class="title-en">' + card.termEn + '</span>' : ''}`;
+      
+      const badgeEl = document.createElement('span');
+      badgeEl.className = 'category-badge';
+      badgeEl.textContent = card.categoryZh;
+      
+      headerEl.appendChild(titleEl);
+      headerEl.appendChild(badgeEl);
+      cardEl.appendChild(headerEl);
+
+      
+      const bodyEl = document.createElement('div');
+      bodyEl.className = 'cheatsheet-card-body';
+
+      let hasCode = false;
+      const codeCollapseEl = document.createElement('div');
+      codeCollapseEl.className = 'cheatsheet-card-code-collapse';
+
+      
+      card.elements.forEach(el => {
+        
+        const codeBlock = el.classList.contains('highlight') || el.tagName === 'PRE'
+          ? el
+          : el.querySelector('.highlight, pre');
+
+        if (codeBlock) {
+          hasCode = true;
+          
+          
+          const finalCodeBlock = codeBlock.cloneNode(true);
+          if (codeBlock !== el) {
+            codeBlock.parentNode.removeChild(codeBlock);
+            bodyEl.appendChild(el); 
+          }
+
+          
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'cheatsheet-code-copy';
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.title = '复制代码';
+          
+          copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const codeEl = finalCodeBlock.querySelector('code');
+            const textToCopy = codeEl ? codeEl.textContent : finalCodeBlock.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+              copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: #2ec4b6;"></i>';
+              setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+              }, 2000);
+            });
+          });
+
+          finalCodeBlock.style.position = 'relative';
+          finalCodeBlock.appendChild(copyBtn);
+          codeCollapseEl.appendChild(finalCodeBlock);
+        } else {
+          bodyEl.appendChild(el);
+        }
+      });
+
+      cardEl.appendChild(bodyEl);
+
+      if (hasCode) {
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'cheatsheet-code-toggle';
+        toggleBtn.innerHTML = '<i class="fa-solid fa-code"></i> &nbsp;展开代码示例';
+        
+        toggleBtn.addEventListener('click', () => {
+          const isExpanded = codeCollapseEl.classList.toggle('expanded');
+          toggleBtn.innerHTML = isExpanded 
+            ? '<i class="fa-solid fa-chevron-up"></i> &nbsp;折叠代码示例'
+            : '<i class="fa-solid fa-code"></i> &nbsp;展开代码示例';
+        });
+
+        bodyEl.appendChild(toggleBtn);
+        bodyEl.appendChild(codeCollapseEl);
+      }
+
+      cardsGrid.appendChild(cardEl);
+      cardElements.push(cardEl);
+    });
+  });
+
+  
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function filterCards() {
+    cardElements.forEach(card => {
+      const categoryMatch = activeCategory === 'all' || card.getAttribute('data-category') === activeCategory;
+      const searchMatch = !searchQuery || card.getAttribute('data-search').includes(searchQuery);
+
+      if (categoryMatch && searchMatch) {
+        card.style.display = 'flex';
+        
+        card.style.opacity = '0';
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transition = 'opacity 0.25s ease';
+        }, 10);
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  
+  categoriesContainer.addEventListener('click', function(e) {
+    const btn = e.target.closest('.category-btn');
+    if (!btn) return;
+
+    categoriesContainer.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.getAttribute('data-category');
+    filterCards();
+  });
+
+  
+  searchInput.addEventListener('input', function(e) {
+    searchQuery = e.target.value.toLowerCase().trim();
+    filterCards();
+  });
+
+  
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '/' && document.activeElement !== searchInput) {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+  });
+});
+</script>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.xuqiongjie.com/zh-cn/">琼呀</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="https://www.xuqiongjie.com/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.xuqiongjie.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="https://www.xuqiongjie.com/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+

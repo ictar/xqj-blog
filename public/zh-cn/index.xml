@@ -2,152 +2,166 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>琼呀</title>
-    <link>http://localhost:1313/zh-cn/</link>
+    <link>https://www.xuqiongjie.com/zh-cn/</link>
     <description>Recent content on 琼呀</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://www.xuqiongjie.com/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深度学习名词速查表</title>
+      <link>https://www.xuqiongjie.com/zh-cn/cheatsheets/deep-learning/</link>
+      <pubDate>Tue, 19 May 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>https://www.xuqiongjie.com/zh-cn/cheatsheets/deep-learning/</guid>
+      <description>深度学习核心概念、神经网络架构、优化算法及损失函数的快速查询手册。支持实时搜索与过滤。</description>
+    </item>
+    <item>
+      <title>遥感与地理信息名词速查表</title>
+      <link>https://www.xuqiongjie.com/zh-cn/cheatsheets/remote-sensing/</link>
+      <pubDate>Tue, 19 May 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>https://www.xuqiongjie.com/zh-cn/cheatsheets/remote-sensing/</guid>
+      <description>遥感物理机制、多光谱与高光谱波段、常用遥感指数及空间数据处理的快速查询手册。支持实时搜索与过滤。</description>
+    </item>
     <item>
       <title>贝叶斯图像分割实战</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/bayesian_approach/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/bayesian_approach/</guid>
       <description>本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。</description>
     </item>
     <item>
       <title>马尔可夫随机场（Markov Random Fields，MRF）</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov_random_fields/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov_random_fields/</guid>
       <description>本文介绍了马尔可夫随机场（MRF）的核心概念，从时间序列的马尔可夫链扩展到空间网格的 MRF，通过引入“邻域”和“团”来定义局部依赖，并详细解释了 Hammersley-Clifford 定理如何联结 MRF 与吉布斯分布。最后，结合模拟退火和 Gibbs 采样，演示了如何利用 MRF 进行图像去噪的 Python 实战。</description>
     </item>
     <item>
       <title>随机优化算法详解：模拟退火与 Pincus 定理</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/stochastic-optimization/</link>
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/stochastic-optimization/</guid>
       <description>当优化问题陷于局部最优的迷宫时，确定性算法往往束手无策。本文将带你进入随机优化的世界，探索如何将寻找最小能量的问题转化为寻找最大概率的问题。我们将深入剖析模拟退火算法（Simulated Annealing）的物理直觉与数学原理，通过动态可视化展示其“高温探索、低温锁定”的优雅机制，并详细推导 Pincus 定理，从数学上证明为何退火算法能找到全局最优解。</description>
     </item>
     <item>
       <title>确定性优化算法详解：梯度下降的数学本质与代码实战</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/deterministic-optimization/</link>
       <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/deterministic-optimization/</guid>
       <description>确定性优化是理解现代 MCMC 算法（如 HMC, Langevin）的基石。本文深入解析了三种经典的确定性优化策略：牛顿法（利用曲率的二阶视角）、坐标下降法（分而治之的 Gibbs 前身）和最速下降法（贪婪的一阶探索）。通过数学推导与 Python 可视化，我们对比了它们在不同地形（凸面、狭长峡谷、强耦合）下的行为模式与收敛特性。</description>
     </item>
     <item>
       <title>Gibbs 采样详解：分而治之的降维智慧</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/gibbs-sampling/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/gibbs-sampling/</guid>
       <description>当高维空间让人无从下手时，Gibbs 采样采用了“各个击破”的策略。通过利用满条件分布，它将复杂的 N 维联合分布采样拆解为 N 个简单的 1 维采样。本文解析其直观直觉、数学证明（Brook&amp;rsquo;s Lemma）及代码实战。</description>
     </item>
     <item>
       <title>Metropolis-Hastings 算法：打破对称性的束缚</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis-hastings/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis-hastings/</guid>
       <description>原版 Metropolis 受限于对称提议，常在边界“撞墙”或高维迷路。MH 算法引入“哈斯廷斯修正项”，允许不对称提议（如 Langevin 动力学）并维持细致平衡，大幅提升效率。</description>
     </item>
     <item>
       <title>Metropolis 算法详解：从原理到 Python 实现</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis/</guid>
       <description>Metropolis 算法是 MCMC 的基石。本文深入探讨其应对未归一化概率密度的策略，从随机游走机制到高维相关高斯分布的采样实战，提供完整的 Python 实现与可视化分析。</description>
     </item>
     <item>
       <title>理解马尔可夫链</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov-chains/</link>
       <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov-chains/</guid>
       <description>了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性</description>
     </item>
     <item>
       <title>TerraFlow</title>
-      <link>http://localhost:1313/zh-cn/projects/terraflow/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/projects/terraflow/</link>
       <pubDate>Sat, 20 Dec 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/projects/terraflow/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/projects/terraflow/</guid>
       <description>一个基于 &lt;a href=&#34;https://terrastackai.github.io/terratorch/stable/&#34;&gt;Terratorch&lt;/a&gt; 的可视化界面，用于对GeoFM进行微调。</description>
     </item>
     <item>
       <title>玩转 TerraMind：从理解到微调</title>
-      <link>http://localhost:1313/zh-cn/post/geoai/geofm-intro-terramind/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/geoai/geofm-intro-terramind/</link>
       <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/geoai/geofm-intro-terramind/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/geoai/geofm-intro-terramind/</guid>
       <description>TerraMind 是首个针对地球观测 (EO) 领域提出的大规模、任意到任意（any-to-any）生成式多模态基础模型，它通过结合令牌级别和像素级别的双尺度表示进行预训练，以学习高层上下文信息和精细的空间细节。该模型旨在促进多模态数据整合、提供强大的生成能力并支持零样本和少样本应用，同时在地球观测基准测试中超越现有模型，并通过引入“模态思维”（TiM）进一步提升性能。</description>
     </item>
     <item>
       <title>MCMC 初识</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/intro-mcmc/</link>
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/intro-mcmc/</guid>
       <description>我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。</description>
     </item>
     <item>
       <title>蒙特卡洛方法</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/monte-carlo/</link>
       <pubDate>Tue, 19 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/monte-carlo/</guid>
       <description>蒙特卡洛方法 = “随机试验 + 统计规律”</description>
     </item>
     <item>
       <title>什么是概率？</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/probability/</link>
       <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/probability/</guid>
       <description>本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。</description>
     </item>
     <item>
       <title>随机变量和采样</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/random-variables/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/random-variables/</guid>
       <description>了解随机变量、概率密度函数、期望等概念、常见采样方法以及简单分布（均匀、正态、指数）的采样方式</description>
     </item>
     <item>
       <title>第 1 课：遥感数据与 Python 环境入门</title>
-      <link>http://localhost:1313/zh-cn/post/python-geodata/01-intro/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/python-geodata/01-intro/</link>
       <pubDate>Fri, 11 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/python-geodata/01-intro/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/python-geodata/01-intro/</guid>
       <description>了解遥感数据的基本类型，并搭建处理环境</description>
     </item>
     <item>
       <title>【课程笔记】概率论与数理统计｜随机事件及其概率</title>
-      <link>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E5%8F%8A%E5%85%B6%E6%A6%82%E7%8E%87/</guid>
       <description>&lt;h2 id=&#34;随机试验与随机事件&#34;&gt;随机试验与随机事件&lt;/h2&gt;&#xA;&lt;h3 id=&#34;定义&#34;&gt;定义&lt;/h3&gt;&#xA;&lt;p&gt;在概率论中，将具有以下三个特点的&lt;em&gt;试验&lt;/em&gt;叫做&lt;strong&gt;随机试验&lt;/strong&gt;：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;相同条件下，可重复性&lt;/li&gt;&#xA;&lt;li&gt;多结果性&lt;/li&gt;&#xA;&lt;li&gt;不确定性&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;而&lt;strong&gt;样本空间&lt;/strong&gt;（$\Omega$）是一个随机试验所有可能结果的&lt;em&gt;集合&lt;/em&gt;。&lt;/p&gt;</description>
     </item>
     <item>
       <title>【课程笔记】概率论与数理统计｜预备知识</title>
-      <link>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</link>
       <pubDate>Sat, 05 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/notes/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1_%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/</guid>
       <description>&lt;h2 id=&#34;加法原理和乘法原理&#34;&gt;加法原理和乘法原理&lt;/h2&gt;&#xA;&lt;p&gt;根据&lt;a href=&#34;https://zh.wikipedia.org/zh-cn/%E4%B9%98%E6%B3%95%E5%8E%9F%E7%90%86&#34;&gt;维基百科&lt;/a&gt;：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;加法原理&lt;/strong&gt;：若有a种方式做某事，b种方式做另一件事，但只能选其一，则共有$a+b$种选择。&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;乘法原理&lt;/strong&gt;：若有a种方式做某事，b种方式做另一件事，则共有$a\times b$种方式做这两件事。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;加法原理还是乘法原理&#34;&gt;加法原理还是乘法原理？&lt;/h3&gt;&#xA;&lt;p&gt;取决于&lt;strong&gt;是否分步骤&lt;/strong&gt;。分步则乘法，否则加法。&lt;/p&gt;</description>
     </item>
     <item>
       <title>【播客笔记】Chat2Geo and the Power of LLMs</title>
-      <link>http://localhost:1313/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/notes/podcast_chat2geo_llm%E7%AE%80%E5%8C%96%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%88%86%E6%9E%90%E5%BA%94%E7%94%A8/</guid>
       <description>&lt;p&gt;🎧 &lt;a href=&#34;https://notebooklm.google.com/notebook/3396b39f-24fd-439e-8b27-90d28e866872/audio&#34;&gt;点击这里访问 NotebookLM 中关于这篇播客的音频笔记&lt;/a&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;本播客概述了 Shahab Jazdani 创立的 Georina 公司开发的 Chat2Geo 应用程序及其背后的理念。Chat2Geo 是一款基于网络的应用程序，旨在通过直观的聊天机器人界面简化基于遥感的地理空间分析。它利用大型语言模型 (LLM) 来实现地理空间分析的民主化，使没有地理空间背景的用户也能轻松使用。该应用程序的诞生源于对更简单界面的需求，并受到 ChatGPT 等流行的 LLM 模型的启发，旨在提供一种熟悉的、无障碍的用户体验。&lt;/p&gt;</description>
     </item>
     <item>
       <title>关于我</title>
-      <link>http://localhost:1313/zh-cn/page/about/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/page/about/</link>
       <pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/page/about/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/page/about/</guid>
       <description>&lt;p&gt;你好，欢迎来到我的小站 👋&lt;/p&gt;&#xA;&lt;p&gt;我是一个在意大利读博的普通中国留学生，现在在米兰理工大学做关于遥感、地理信息和 AI 的研究。平时跟卫星影像、高分辨率地图、地表分类这些东西打交道，也写代码、跑模型、画图表，偶尔熬夜写论文做PPT😅。&lt;/p&gt;&#xA;&lt;p&gt;除了科研，我也喜欢整理笔记、搭建网站、做点开发项目。这个博客，就是我记录学习、分享想法、输出内容的地方。&lt;/p&gt;&#xA;&lt;p&gt;你在这里会看到一些内容，比如：&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/simclr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/ai-fundamentals/ssl/simclr/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/ai-fundamentals/ssl/simclr/</guid>
       <description></description>
     </item>
   </channel>

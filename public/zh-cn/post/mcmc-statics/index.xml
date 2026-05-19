@@ -2,96 +2,96 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>蒙特卡洛-马尔可夫链统计方法 on 琼呀</title>
-    <link>http://localhost:1313/zh-cn/post/mcmc-statics/</link>
+    <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/</link>
     <description>Recent content in 蒙特卡洛-马尔可夫链统计方法 on 琼呀</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
     <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/zh-cn/post/mcmc-statics/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>贝叶斯图像分割实战</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/bayesian_approach/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/bayesian_approach/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/bayesian_approach/</guid>
       <description>本文通过图像分割的例子，介绍了贝叶斯方法与马尔可夫随机场（MRF）的结合应用。通过引入“同质性先验”和“吉布斯采样”，展示了如何利用 MRF 解决图像去噪和分割问题，并对比了传统极大似然方法、MRF 模拟退火方法以及工业界常用的简单松弛法（ICM）的效果。</description>
     </item>
     <item>
       <title>马尔可夫随机场（Markov Random Fields，MRF）</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov_random_fields/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/markov_random_fields/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov_random_fields/</guid>
       <description>本文介绍了马尔可夫随机场（MRF）的核心概念，从时间序列的马尔可夫链扩展到空间网格的 MRF，通过引入“邻域”和“团”来定义局部依赖，并详细解释了 Hammersley-Clifford 定理如何联结 MRF 与吉布斯分布。最后，结合模拟退火和 Gibbs 采样，演示了如何利用 MRF 进行图像去噪的 Python 实战。</description>
     </item>
     <item>
       <title>随机优化算法详解：模拟退火与 Pincus 定理</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/stochastic-optimization/</link>
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/stochastic-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/stochastic-optimization/</guid>
       <description>当优化问题陷于局部最优的迷宫时，确定性算法往往束手无策。本文将带你进入随机优化的世界，探索如何将寻找最小能量的问题转化为寻找最大概率的问题。我们将深入剖析模拟退火算法（Simulated Annealing）的物理直觉与数学原理，通过动态可视化展示其“高温探索、低温锁定”的优雅机制，并详细推导 Pincus 定理，从数学上证明为何退火算法能找到全局最优解。</description>
     </item>
     <item>
       <title>确定性优化算法详解：梯度下降的数学本质与代码实战</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/deterministic-optimization/</link>
       <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/deterministic-optimization/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/deterministic-optimization/</guid>
       <description>确定性优化是理解现代 MCMC 算法（如 HMC, Langevin）的基石。本文深入解析了三种经典的确定性优化策略：牛顿法（利用曲率的二阶视角）、坐标下降法（分而治之的 Gibbs 前身）和最速下降法（贪婪的一阶探索）。通过数学推导与 Python 可视化，我们对比了它们在不同地形（凸面、狭长峡谷、强耦合）下的行为模式与收敛特性。</description>
     </item>
     <item>
       <title>Gibbs 采样详解：分而治之的降维智慧</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/gibbs-sampling/</link>
       <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/gibbs-sampling/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/gibbs-sampling/</guid>
       <description>当高维空间让人无从下手时，Gibbs 采样采用了“各个击破”的策略。通过利用满条件分布，它将复杂的 N 维联合分布采样拆解为 N 个简单的 1 维采样。本文解析其直观直觉、数学证明（Brook&amp;rsquo;s Lemma）及代码实战。</description>
     </item>
     <item>
       <title>Metropolis-Hastings 算法：打破对称性的束缚</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis-hastings/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis-hastings/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis-hastings/</guid>
       <description>原版 Metropolis 受限于对称提议，常在边界“撞墙”或高维迷路。MH 算法引入“哈斯廷斯修正项”，允许不对称提议（如 Langevin 动力学）并维持细致平衡，大幅提升效率。</description>
     </item>
     <item>
       <title>Metropolis 算法详解：从原理到 Python 实现</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis/</link>
       <pubDate>Sat, 24 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/metropolis/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/metropolis/</guid>
       <description>Metropolis 算法是 MCMC 的基石。本文深入探讨其应对未归一化概率密度的策略，从随机游走机制到高维相关高斯分布的采样实战，提供完整的 Python 实现与可视化分析。</description>
     </item>
     <item>
       <title>理解马尔可夫链</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov-chains/</link>
       <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/markov-chains/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/markov-chains/</guid>
       <description>了解马尔可夫过程，以及马尔可夫链的平稳分布与收敛性</description>
     </item>
     <item>
       <title>MCMC 初识</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/intro-mcmc/</link>
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/intro-mcmc/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/intro-mcmc/</guid>
       <description>我们之所以需要MCMC，是因为很多分布只知道未归一化形式，所以无法使用传统抽样/积分方法。而我们通过构造“正确的马尔可夫链”，就可以从它的平稳分布获得目标分布，即轨迹的长期分布 ≈ 目标分布。</description>
     </item>
     <item>
       <title>蒙特卡洛方法</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/monte-carlo/</link>
       <pubDate>Tue, 19 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/monte-carlo/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/monte-carlo/</guid>
       <description>蒙特卡洛方法 = “随机试验 + 统计规律”</description>
     </item>
     <item>
       <title>什么是概率？</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/probability/</link>
       <pubDate>Fri, 15 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/probability/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/probability/</guid>
       <description>本文介绍概率的基本概念与核心公式，是理解随机变量、采样与 MCMC 的基础。</description>
     </item>
     <item>
       <title>随机变量和采样</title>
-      <link>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</link>
+      <link>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/random-variables/</link>
       <pubDate>Sat, 02 Aug 2025 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
-      <guid>http://localhost:1313/zh-cn/post/mcmc-statics/random-variables/</guid>
+      <guid>https://www.xuqiongjie.com/zh-cn/post/mcmc-statics/random-variables/</guid>
       <description>了解随机变量、概率密度函数、期望等概念、常见采样方法以及简单分布（均匀、正态、指数）的采样方式</description>
     </item>
   </channel>
