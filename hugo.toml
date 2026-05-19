@@ -58,6 +58,10 @@ enableRobotsTXT = true
         name = "TAG"
         url = "tags"
         weight = 4
+      [[languages.en.menus.main]]
+        name = "CHEATSHEET"
+        url = "cheatsheets"
+        weight = 5
   [languages.zh-cn]
     languageCode = 'zh-cn'
     languageName = 'CH'
@@ -113,6 +117,10 @@ enableRobotsTXT = true
         name = "标签"
         url = "tags"
         weight = 4
+      [[languages.zh-cn.menus.main]]
+        name = "速查表"
+        url = "cheatsheets"
+        weight = 5
 
 
 [Params]
