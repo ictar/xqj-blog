@@ -77,6 +77,36 @@
                 href="https://www.xuqiongjie.com/post/python-geodata/"
                 />
   </url><url>
+    <loc>https://www.xuqiongjie.com/cheatsheets/ai-glossary/</loc>
+    <lastmod>2026-06-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://www.xuqiongjie.com/zh-cn/cheatsheets/ai-glossary/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://www.xuqiongjie.com/cheatsheets/ai-glossary/"
+                />
+  </url><url>
+    <loc>https://www.xuqiongjie.com/</loc>
+    <lastmod>2026-06-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://www.xuqiongjie.com/zh-cn/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://www.xuqiongjie.com/"
+                />
+  </url><url>
     <loc>https://www.xuqiongjie.com/cheatsheets/</loc>
     <lastmod>2026-05-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -90,21 +120,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://www.xuqiongjie.com/cheatsheets/"
-                />
-  </url><url>
-    <loc>https://www.xuqiongjie.com/</loc>
-    <lastmod>2026-05-19T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://www.xuqiongjie.com/zh-cn/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://www.xuqiongjie.com/"
                 />
   </url><url>
     <loc>https://www.xuqiongjie.com/post/mcmc-statics/bayesian_approach/</loc>

@@ -8,8 +8,15 @@
     <language>zh-cn</language>
     <managingEditor>ele.qiong@gmail.com (Qiongjie.X)</managingEditor>
     <webMaster>ele.qiong@gmail.com (Qiongjie.X)</webMaster>
-    <lastBuildDate>Tue, 19 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://www.xuqiongjie.com/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>热门 AI 与智能体速查表</title>
+      <link>https://www.xuqiongjie.com/zh-cn/cheatsheets/ai-glossary/</link>
+      <pubDate>Thu, 25 Jun 2026 00:00:00 +0000</pubDate><author>ele.qiong@gmail.com (Qiongjie.X)</author>
+      <guid>https://www.xuqiongjie.com/zh-cn/cheatsheets/ai-glossary/</guid>
+      <description>当前热门的 AI、智能体（Agent）及大语言模型（LLM）核心词汇与技术速查手册。支持实时搜索与过滤。</description>
+    </item>
     <item>
       <title>深度学习名词速查表</title>
       <link>https://www.xuqiongjie.com/zh-cn/cheatsheets/deep-learning/</link>

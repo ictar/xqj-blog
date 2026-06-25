@@ -78,7 +78,7 @@
                 />
   </url><url>
     <loc>https://www.xuqiongjie.com/zh-cn/</loc>
-    <lastmod>2026-05-19T00:00:00+00:00</lastmod>
+    <lastmod>2026-06-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -90,6 +90,21 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://www.xuqiongjie.com/zh-cn/"
+                />
+  </url><url>
+    <loc>https://www.xuqiongjie.com/zh-cn/cheatsheets/ai-glossary/</loc>
+    <lastmod>2026-06-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://www.xuqiongjie.com/cheatsheets/ai-glossary/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://www.xuqiongjie.com/zh-cn/cheatsheets/ai-glossary/"
                 />
   </url><url>
     <loc>https://www.xuqiongjie.com/zh-cn/cheatsheets/deep-learning/</loc>

@@ -110,5 +110,12 @@
     "years": "2026-04",
     "coords": [45.8953, 8.5284],
     "type": "travel"
+  },
+  {
+    "title": "Heilbronn",
+    "desc": "In June 2026, I attended the \"Beyond the Visible\" Summer School at the ETH Zurich Campus Heilbronn in Germany, joining around 40 participants from diverse backgrounds.",
+    "years": "2026-06",
+    "coords": [49.1427, 9.2109],
+    "type": "study"
   }
 ]

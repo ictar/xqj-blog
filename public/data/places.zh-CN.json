@@ -110,5 +110,12 @@
     "years": "2026-04",
     "coords": [45.8953, 8.5284],
     "type": "travel"
+  },
+  {
+    "title": "海尔布隆",
+    "desc": "2026年6月，我在位于德国海尔布隆的苏黎世联邦理工学院校区（ETH Zurich Campus Heilbronn）参加了“Beyond the Visible”暑期学校，与来自不同背景的参与者们进行了交流。",
+    "years": "2026-06",
+    "coords": [49.1427, 9.2109],
+    "type": "study"
   }
 ]

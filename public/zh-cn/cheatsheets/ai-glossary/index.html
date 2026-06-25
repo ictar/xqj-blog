@@ -1,0 +1,958 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+ 
+
+
+      <title>热门 AI 与智能体速查表 - </title>
+
+  <meta name="description" content="当前热门的 AI、智能体（Agent）及大语言模型（LLM）核心词汇与技术速查手册。支持实时搜索与过滤。">
+  <meta name="author" content="Qiongjie.X"/>
+
+
+<link rel="canonical" href="https://www.xuqiongjie.com/zh-cn/cheatsheets/ai-glossary/" />
+
+
+<meta name="keywords" content="GIS, Remote Sensing, GeoAI, TerraFlow, Python, Deep Learning, Spatial Intelligence" /><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "琼呀",
+    
+    "url": "https:\/\/www.xuqiongjie.com\/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/www.xuqiongjie.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/www.xuqiongjie.com\/zh-cn\/cheatsheets\/ai-glossary\/",
+          "name": "热门 ai 与智能体速查表"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Qiongjie.X"
+  },
+  "headline": "热门 AI 与智能体速查表",
+  "description" : "当前热门的 AI、智能体（Agent）及大语言模型（LLM）核心词汇与技术速查手册。支持实时搜索与过滤。",
+  "inLanguage" : "zh-cn",
+  "wordCount":  798 ,
+  "datePublished" : "2026-06-25T00:00:00\u002b00:00",
+  "dateModified" : "2026-06-25T00:00:00\u002b00:00",
+  "image" : "https:\/\/www.xuqiongjie.com\/img\/avatar-icon.png",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/www.xuqiongjie.com\/zh-cn\/cheatsheets\/ai-glossary\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/www.xuqiongjie.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.xuqiongjie.com\/img\/avatar-icon.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+
+
+<meta property="og:title" content="热门 AI 与智能体速查表" />
+<meta property="og:description" content="当前热门的 AI、智能体（Agent）及大语言模型（LLM）核心词汇与技术速查手册。支持实时搜索与过滤。">
+<meta property="og:image" content="https://www.xuqiongjie.com/img/avatar-icon.png" />
+<meta property="og:url" content="https://www.xuqiongjie.com/zh-cn/cheatsheets/ai-glossary/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="琼呀" />
+
+  <meta name="twitter:title" content="热门 AI 与智能体速查表" />
+  <meta name="twitter:description" content="当前热门的 AI、智能体（Agent）及大语言模型（LLM）核心词汇与技术速查手册。支持实时搜索与过滤。">
+  <meta name="twitter:image" content="https://www.xuqiongjie.com/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href='https://www.xuqiongjie.com/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.147.4">
+  <link rel="alternate" href="https://www.xuqiongjie.com/zh-cn/index.xml" type="application/rss+xml" title="琼呀"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://www.xuqiongjie.com/css/main.css" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.xuqiongjie.com/css/syntax.css" /><link rel="stylesheet" href="https://www.xuqiongjie.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="https://www.xuqiongjie.com/css/custom.css"><link rel="stylesheet" href="https://www.xuqiongjie.com/css/toc.css">
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin="anonymous"
+></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+
+
+<link rel="icon" type="image/png" href="https://www.xuqiongjie.com/img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="https://www.xuqiongjie.com/img/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://www.xuqiongjie.com/img/apple-touch-icon.png" />
+<link rel="manifest" href="https://www.xuqiongjie.com/img/site.webmanifest" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.xuqiongjie.com/zh-cn/">琼呀</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/post">文章</a>
+              <div class="navlinks-children">
+                
+                  <a href="/zh-cn/post/python-geodata">用 Python 玩转遥感数据</a>
+                
+                  <a href="/zh-cn/post/mcmc-statics">蒙特卡洛-马尔可夫链统计方法</a>
+                
+                  <a href="/zh-cn/post/ai-fundamentals">AI 基础系列</a>
+                
+                  <a href="/zh-cn/post/geoai">GeoAI 系列</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li class="navlinks-container">
+              <a class="navlinks-parent" role="button" tabindex="0" href="/zh-cn/projects">项目</a>
+              <div class="navlinks-children">
+                
+                  <a href="https://ictar.github.io/TerraFlow/">TerraFlow</a>
+                
+              </div>
+            </li>
+          
+        
+          
+            <li>
+              <a title="笔记" href="/zh-cn/notes">笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="标签" href="/zh-cn/tags">标签</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="速查表" href="/zh-cn/cheatsheets">速查表</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="关于我" href="/zh-cn/page/about/">关于我</a>
+            </li>
+          
+        
+
+        
+          
+            <li>
+              
+                
+                  <a href="https://www.xuqiongjie.com/cheatsheets/ai-glossary/">EN</a>
+                
+              
+            </li>
+          
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="琼呀" href="https://www.xuqiongjie.com/zh-cn/">
+            <img class="avatar-img" src="https://www.xuqiongjie.com/img/avatar-icon.png" alt="琼呀" />
+           
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="cheatsheets-heading">
+              
+                <h1>热门 AI 与智能体速查表</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </header>
+
+
+    
+<div class="container cheatsheet-container" role="main">
+  <div class="row">
+    <div class="col-lg-12">
+
+      
+      <div id="raw-cheatsheet-content" style="display: none;">
+        <h2 id="智能体与核心架构--agents--architectures">智能体与核心架构 | Agents &amp; Architectures</h2>
+<h3 id="智能体--ai-agent">智能体 | AI Agent</h3>
+<ul>
+<li><strong>定义</strong>: 能够自主感知环境、进行推理和规划，并调用各种外部工具来执行任务以达到特定目标的 AI 系统。与单次问答的 Chatbot 相比，Agent 具备自主决策、长期/短期记忆和工具执行能力。</li>
+<li><strong>大白话</strong>: “有手有脚、会自我反思的 AI 助理”。你给它一个终极目标（比如“订一张明天去北京最便宜的机票”），它自己会上网查机票、对比价格、计算时间、调用购票接口，甚至如果中途出错，它还会自我修正。</li>
+<li><strong>怎么实现</strong>: 通过“大模型大脑（LLM）+ 记忆（Memory）+ 规划（Planning）+ 工具集（Tools）”的模式。利用 ReAct（Reason + Act）等提示词框架让模型交替进行“思考”和“行动”。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 简易 Agent 决策循环 (ReAct 核心逻辑)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleAgent</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, llm, tools):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>llm <span style="color:#f92672">=</span> llm
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tools <span style="color:#f92672">=</span> tools
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>memory <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self, task):
+</span></span><span style="display:flex;"><span>        prompt <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;任务: </span><span style="color:#e6db74">{</span>task<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">可用工具: </span><span style="color:#e6db74">{</span>list(self<span style="color:#f92672">.</span>tools<span style="color:#f92672">.</span>keys())<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">请一步步思考并选择工具执行。&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>            response <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>llm<span style="color:#f92672">.</span>generate(prompt <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join(self<span style="color:#f92672">.</span>memory))
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 解析出模型输出的 Thought (思考) 和 Action (行动)</span>
+</span></span><span style="display:flex;"><span>            thought, action, action_input <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>parse_response(response)
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;思考: </span><span style="color:#e6db74">{</span>thought<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> action <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Finish&#34;</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> action_input
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 调用工具执行行动</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>tools[action](action_input)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 将结果存入记忆，供下一步决策参考</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>memory<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Thought: </span><span style="color:#e6db74">{</span>thought<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Action: </span><span style="color:#e6db74">{</span>action<span style="color:#e6db74">}</span><span style="color:#e6db74">(</span><span style="color:#e6db74">{</span>action_input<span style="color:#e6db74">}</span><span style="color:#e6db74">)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Observation: </span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="技能与插件--skill--plugin">技能与插件 | Skill &amp; Plugin</h3>
+<ul>
+<li><strong>定义</strong>: 预设在智能体或大模型平台中的动作规范和执行逻辑。Skill 可以是特定的系统提示词、一段可执行的代码或 API 调用描述，用来扩展 Agent 的底层能力范围。</li>
+<li><strong>大白话</strong>: “AI 的技能槽或外挂背包”。比如刚出厂的 AI 算不出“1024的立方根”，但给它插上一个“计算器”插件，它就会调用这个技能来输出正确结果。</li>
+<li><strong>怎么实现</strong>: 通常以配置文件的形式定义（如 YAML frontmatter 或 JSON Schema），描述技能的输入、输出、描述信息以及底层执行的具体逻辑。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># 技能配置文件 (SKILL.md / skill.yaml 示例)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;GoogleSearch&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;使用谷歌搜索来获取最新的网络实时信息&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">properties</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">query</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">type</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;搜索关键词&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">required</span>: [<span style="color:#e6db74">&#34;query&#34;</span>]
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="多智能体系统--multi-agent-system">多智能体系统 | Multi-Agent System</h3>
+<ul>
+<li><strong>定义</strong>: 多个 AI Agent 相互协作、分工和通信以解决复杂问题的系统。每个 Agent 可以扮演不同的角色（例如程序员、测试员、产品经理），共同推进任务。</li>
+<li><strong>大白话</strong>: “AI 部门或虚拟团队”。一个 AI 单打独斗容易犯错，那就组建一个“AI 研发部”：AI 程序员写代码，AI 测试员找 Bug，AI 产品经理把控需求，大家在一个群里协作。</li>
+<li><strong>怎么实现</strong>: 定义不同的智能体角色，通过共享的通信总线（或消息队列）进行交互。通常使用 LangGraph、AutoGen 或 CrewAI 等框架实现。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 使用 CrewAI 概念的多智能体协作示意</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> crewai <span style="color:#f92672">import</span> Agent, Task, Crew
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 定义程序员 Agent</span>
+</span></span><span style="display:flex;"><span>coder <span style="color:#f92672">=</span> Agent(
+</span></span><span style="display:flex;"><span>    role<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Senior Python Developer&#39;</span>,
+</span></span><span style="display:flex;"><span>    goal<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Write clean, efficient Python code&#39;</span>,
+</span></span><span style="display:flex;"><span>    backstory<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;An expert in Python programming&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 定义测试员 Agent</span>
+</span></span><span style="display:flex;"><span>tester <span style="color:#f92672">=</span> Agent(
+</span></span><span style="display:flex;"><span>    role<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;QA Engineer&#39;</span>,
+</span></span><span style="display:flex;"><span>    goal<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Find bugs and write unit tests&#39;</span>,
+</span></span><span style="display:flex;"><span>    backstory<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;A detail-oriented software tester&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 组装任务和团队进行协作</span>
+</span></span><span style="display:flex;"><span>crew <span style="color:#f92672">=</span> Crew(agents<span style="color:#f92672">=</span>[coder, tester], tasks<span style="color:#f92672">=</span>[<span style="color:#f92672">...</span>])
+</span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> crew<span style="color:#f92672">.</span>kickoff()
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="工具使用与函数调用--tool-use--function-calling">工具使用与函数调用 | Tool Use &amp; Function Calling</h3>
+<ul>
+<li><strong>定义</strong>: 大模型生成结构化数据（如 JSON），指示调用特定的外部函数/API，并将调用结果返回给模型以继续生成答案的技术。</li>
+<li><strong>大白话</strong>: “AI 认领工具箱并说出用法”。大模型自己不运行代码，但它可以通过分析输入，决定说出：“我需要运行 <code>get_weather(city='Beijing')</code>”，让你（客户端）帮它运行并把天气结果喂回给它。</li>
+<li><strong>怎么实现</strong>: 在发送请求时，通过 <code>tools</code> 参数向 API 声明可用函数，大模型识别后会在响应中返回 <code>tool_calls</code>。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> openai
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 声明工具</span>
+</span></span><span style="display:flex;"><span>tools <span style="color:#f92672">=</span> [{
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;function&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;function&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;get_weather&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;获取指定城市的实时天气&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;parameters&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;properties&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;city&#34;</span>: {<span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>}
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 发送请求</span>
+</span></span><span style="display:flex;"><span>response <span style="color:#f92672">=</span> openai<span style="color:#f92672">.</span>chat<span style="color:#f92672">.</span>completions<span style="color:#f92672">.</span>create(
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gpt-4o&#34;</span>,
+</span></span><span style="display:flex;"><span>    messages<span style="color:#f92672">=</span>[{<span style="color:#e6db74">&#34;role&#34;</span>: <span style="color:#e6db74">&#34;user&#34;</span>, <span style="color:#e6db74">&#34;content&#34;</span>: <span style="color:#e6db74">&#34;北京天气怎么样？&#34;</span>}],
+</span></span><span style="display:flex;"><span>    tools<span style="color:#f92672">=</span>tools
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 解析模型返回的工具调用指令</span>
+</span></span><span style="display:flex;"><span>tool_call <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>choices[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>message<span style="color:#f92672">.</span>tool_calls[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;大模型要求调用函数: </span><span style="color:#e6db74">{</span>tool_call<span style="color:#f92672">.</span>function<span style="color:#f92672">.</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">，参数: </span><span style="color:#e6db74">{</span>tool_call<span style="color:#f92672">.</span>function<span style="color:#f92672">.</span>arguments<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="思维链--chain-of-thought-cot">思维链 | Chain of Thought (CoT)</h3>
+<ul>
+<li><strong>定义</strong>: 一种提示词工程技术或模型训练方法，通过引导大模型在输出最终答案之前，先生成中间推理步骤，从而显著提高复杂推理、数学和逻辑任务的准确率。</li>
+<li><strong>大白话</strong>: “让 AI 在心里打草稿”。不要让它直接给出答案，而是引导它“让我们一步一步地思考：首先&hellip; 其次&hellip; 所以结论是&hellip;”。</li>
+<li><strong>怎么实现</strong>: 在 Prompt 中加入“Let&rsquo;s think step by step”，或者在 Few-Shot 示例中给出详细的解题步骤；在 O1/O3 等原生推理模型中，模型会自动在后台运行 CoT。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 提示词级 CoT (Zero-shot CoT)</span>
+</span></span><span style="display:flex;"><span>prompt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;已知小明有5个苹果，小红的苹果是小明的两倍。小明给了小红3个后，小红还剩多少个？请一步一步思考并给出最终答案。&#34;</span>
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="数据处理与检索增强--data--rag">数据处理与检索增强 | Data &amp; RAG</h2>
+<h3 id="大模型爬虫--crawl4ai--opencrawl">大模型爬虫 | Crawl4AI &amp; OpenCrawl</h3>
+<ul>
+<li><strong>定义</strong>: 专门为大语言模型（LLM）数据填充而设计的网页爬取与数据清洗工具。其中，<code>Crawl4AI</code> 是非常流行的 LLM 友好型 Python 异步爬虫；而 <code>OpenCrawl</code> / <code>Common Crawl</code> 则代表更广泛的开源/公共网页抓取生态。它们能自动过滤广告、导航栏，并将 HTML 直接转换为纯净的 Markdown 格式。</li>
+<li><strong>大白话</strong>: “AI 的专业喂料机”。普通爬虫抓下的一堆 HTML 里夹杂着各种网页代码，而 AI 爬虫能瞬间把网页剥得只剩干净的文本和 Markdown，让 AI 读起来又快又准。</li>
+<li><strong>怎么实现</strong>: 利用异步请求爬取网页，并集成 Puppeteer 或 Playwright 处理动态 JS，最后通过 CSS 选择器或大模型提取有价值的结构化文本。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 使用 crawl4ai 进行快速爬取并转换为 Markdown</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> asyncio
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> crawl4ai <span style="color:#f92672">import</span> AsyncWebCrawler
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">with</span> AsyncWebCrawler() <span style="color:#66d9ef">as</span> crawler:
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> crawler<span style="color:#f92672">.</span>arun(url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://news.ycombinator.com&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 直接获取清洗后的 markdown 内容</span>
+</span></span><span style="display:flex;"><span>        print(result<span style="color:#f92672">.</span>markdown[:<span style="color:#ae81ff">500</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>asyncio<span style="color:#f92672">.</span>run(main())
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="检索增强生成--rag">检索增强生成 | RAG</h3>
+<ul>
+<li><strong>定义</strong>: 将外部知识库（文档、网页、数据库）的检索与大语言模型生成相结合的技术。在回答用户问题时，先去知识库搜出相关文档，然后把文档和问题一起喂给大模型，让大模型“看着参考书写答案”。</li>
+<li><strong>大白话</strong>: “开卷考试”。AI 不是靠脑子里的死记硬背来回答（容易胡说八道），而是先去公司文档库里搜索“2026年报”，把搜出来的几页纸贴在试卷旁边，看着它们组织语言回答你。</li>
+<li><strong>怎么实现</strong>: 用户问题 $\rightarrow$ 向量化检索相关文档块 $\rightarrow$ 拼接提示词（Context + Question） $\rightarrow$ 大模型生成回答。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 简易 RAG 流程伪代码</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simple_rag</span>(query, vector_db, llm):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 1. 从向量数据库检索最相似的 3 条文档</span>
+</span></span><span style="display:flex;"><span>    retrieved_docs <span style="color:#f92672">=</span> vector_db<span style="color:#f92672">.</span>search(query, k<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>    context <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join(retrieved_docs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 2. 拼接成开卷考试 Prompt</span>
+</span></span><span style="display:flex;"><span>    prompt <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;参考以下背景知识回答问题。</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">背景知识：</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>context<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">问题：</span><span style="color:#e6db74">{</span>query<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 3. 大模型基于背景生成答案</span>
+</span></span><span style="display:flex;"><span>    answer <span style="color:#f92672">=</span> llm<span style="color:#f92672">.</span>generate(prompt)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> answer
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="向量数据库--vector-database">向量数据库 | Vector Database</h3>
+<ul>
+<li><strong>定义</strong>: 专门用于存储、索引和快速检索高维向量数据的数据库。在 AI 领域，文本、图像等数据被转换成 Embedding 向量后，可以通过向量数据库进行高维空间下的“最近邻搜索”（Similarity Search）。</li>
+<li><strong>大白话</strong>: “模糊意图搜索引擎”。普通数据库查“西红柿”，查不到“番茄”；而向量数据库知道“西红柿”和“番茄”在语义上是近邻，能直接把语义相近的东西都捞出来。</li>
+<li><strong>怎么实现</strong>: 使用 HNSW、IVF 等索引算法，在海量高维数据中快速计算余弦距离（Cosine Similarity）或欧氏距离。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> chromadb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 初始化本地向量数据库</span>
+</span></span><span style="display:flex;"><span>chroma_client <span style="color:#f92672">=</span> chromadb<span style="color:#f92672">.</span>Client()
+</span></span><span style="display:flex;"><span>collection <span style="color:#f92672">=</span> chroma_client<span style="color:#f92672">.</span>create_collection(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ai_glossary&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 插入文档（内部会自动生成 Embedding）</span>
+</span></span><span style="display:flex;"><span>collection<span style="color:#f92672">.</span>add(
+</span></span><span style="display:flex;"><span>    documents<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;智能体能够自主使用工具&#34;</span>, <span style="color:#e6db74">&#34;向量数据库用于检索语义数据&#34;</span>],
+</span></span><span style="display:flex;"><span>    metadatas<span style="color:#f92672">=</span>[{<span style="color:#e6db74">&#34;source&#34;</span>: <span style="color:#e6db74">&#34;agent&#34;</span>}, {<span style="color:#e6db74">&#34;source&#34;</span>: <span style="color:#e6db74">&#34;db&#34;</span>}],
+</span></span><span style="display:flex;"><span>    ids<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;doc1&#34;</span>, <span style="color:#e6db74">&#34;doc2&#34;</span>]
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查询与 &#34;AI Agent 怎么工作&#34; 最相关的文档</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">=</span> collection<span style="color:#f92672">.</span>query(
+</span></span><span style="display:flex;"><span>    query_texts<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;AI Agent how it works&#34;</span>],
+</span></span><span style="display:flex;"><span>    n_results<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>print(results[<span style="color:#e6db74">&#39;documents&#39;</span>])
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="嵌入向量--embedding">嵌入向量 | Embedding</h3>
+<ul>
+<li><strong>定义</strong>: 将高维离散的非结构化数据（如单词、句子、图片）映射到一个低维实数向量空间的技术。在这个空间中，语义越接近的词，它们对应的向量距离就越近。</li>
+<li><strong>大白话</strong>: “万物的坐标化”。把世间万物变成一串坐标轴上的数字。比如“轻盈”的坐标是 <code>[0.2, 0.8, -0.1]</code>，“轻巧”是 <code>[0.2, 0.7, -0.2]</code>，“沉重”是 <code>[-0.9, 0.1, 0.5]</code>，你看，前两者的坐标距离非常近。</li>
+<li><strong>怎么实现</strong>: 通过神经网络（如 BERT、Sentence-Transformers）将文本输入编码为固定长度的浮点数数组（如 1536 维）。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> sentence_transformers
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加载开源 Embedding 模型</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> sentence_transformers<span style="color:#f92672">.</span>SentenceTransformer(<span style="color:#e6db74">&#39;all-MiniLM-L6-v2&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算两个句子的嵌入向量</span>
+</span></span><span style="display:flex;"><span>vec1 <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#34;人工智能改变世界&#34;</span>)
+</span></span><span style="display:flex;"><span>vec2 <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#34;AI is transforming the world&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算相似度（点积/余弦相似度）</span>
+</span></span><span style="display:flex;"><span>similarity <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dot(vec1, vec2) <span style="color:#f92672">/</span> (np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(vec1) <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(vec2))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;语义相似度: </span><span style="color:#e6db74">{</span>similarity<span style="color:#e6db74">:</span><span style="color:#e6db74">.4f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="模型参数与核心概念--llm-parameters--concepts">模型参数与核心概念 | LLM Parameters &amp; Concepts</h2>
+<h3 id="上下文窗口--context-window">上下文窗口 | Context Window</h3>
+<ul>
+<li><strong>定义</strong>: 大模型在单次对话中能够接收并处理的最大 Token 数量（包括输入的历史消息和模型即将生成的回复）。</li>
+<li><strong>大白话</strong>: “大模型的运行内存（RAM）”。如果一个大模型的上下文窗口是 128k tokens（约9万字），这就意味着你一次性喂给它一整本小说它也能读懂；但一旦对话内容超出这个窗口，它就会“失忆”或者拒绝回答。</li>
+<li><strong>怎么实现</strong>: 受限于注意力机制（Attention）的计算复杂度，早期模型窗口很小（如 4k）。目前通过 RoPE 旋转位置编码插值、FlashAttention 等技术，上下文窗口已扩展到 1M（百万级）甚至更多。</li>
+</ul>
+<h3 id="系统提示词--system-prompt">系统提示词 | System Prompt</h3>
+<ul>
+<li><strong>定义</strong>: 在对话开始前发给大模型的指令，具有最高优先级，用于设定模型的身份背景、工作行为准则、回复格式以及安全底线。</li>
+<li><strong>大白话</strong>: “大模型的人设与教条”。就像在演员上台前塞给它的剧本大纲：“你现在是一个极其严厉的英语老师，不准用中文，每次回答必须先纠正对方的语法错误。”</li>
+<li><strong>怎么实现</strong>: 在聊天 API 的 <code>messages</code> 列表中，添加一条 <code>role</code> 为 <code>system</code> 的消息。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>messages <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 设定系统人设</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#34;role&#34;</span>: <span style="color:#e6db74">&#34;system&#34;</span>, <span style="color:#e6db74">&#34;content&#34;</span>: <span style="color:#e6db74">&#34;你是一个只使用 JSON 格式回复的技术专家。&#34;</span>},
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 用户提问</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#34;role&#34;</span>: <span style="color:#e6db74">&#34;user&#34;</span>, <span style="color:#e6db74">&#34;content&#34;</span>: <span style="color:#e6db74">&#34;简述什么是 API。&#34;</span>}
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="温度与核采样--temperature--top-p">温度与核采样 | Temperature &amp; Top-P</h3>
+<ul>
+<li><strong>定义</strong>: 调节大模型输出随机性与创造力的两个关键采样参数。<code>Temperature</code>（温度）控制词表概率分布的平滑度；<code>Top-P</code>（核采样/累计概率）控制模型候选词的选择范围。</li>
+<li><strong>大白话</strong>:
+<ul>
+<li><strong>温度</strong>: “AI 喝酒的多少”。0 度表示滴酒不沾，AI 极度清醒，每次都说最稳重、标准的话；1 度表示微醺，AI 脑洞大开，开始写诗、讲段子，但也更容易胡言乱语（幻觉）。</li>
+<li><strong>Top-P</strong>: “候选词筛选框”。0.9 表示只从前 90% 最靠谱的词里选，剩下的 10% 奇葩词直接扔掉。</li>
+</ul>
+</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># API 调用参数配置</span>
+</span></span><span style="display:flex;"><span>response <span style="color:#f92672">=</span> openai<span style="color:#f92672">.</span>chat<span style="color:#f92672">.</span>completions<span style="color:#f92672">.</span>create(
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gpt-4o&#34;</span>,
+</span></span><span style="display:flex;"><span>    messages<span style="color:#f92672">=</span>[{<span style="color:#e6db74">&#34;role&#34;</span>: <span style="color:#e6db74">&#34;user&#34;</span>, <span style="color:#e6db74">&#34;content&#34;</span>: <span style="color:#e6db74">&#34;写一首关于宇宙的诗&#34;</span>}],
+</span></span><span style="display:flex;"><span>    temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>, <span style="color:#75715e"># 稍微带点创意</span>
+</span></span><span style="display:flex;"><span>    top_p<span style="color:#f92672">=</span><span style="color:#ae81ff">0.95</span>       <span style="color:#75715e"># 保证用词的基本规范</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="词元--token">词元 | Token</h3>
+<ul>
+<li><strong>定义</strong>: 大模型处理和理解文本的基本单位。它可以是一个汉字、一个英文单词的一部分（Subword）或一个标点符号。</li>
+<li><strong>大白话</strong>: “大模型的识字卡片”。大模型并不直接认识汉字或英文字母，而是将文本切碎成一个个 Token，然后把每个 Token 换成数字 ID 进行计算。通常 100 个英文单词约等于 130 个 Token，而 100 个汉字约等于 100~200 个 Token。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> tiktoken
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 获取 gpt-4 的分词器</span>
+</span></span><span style="display:flex;"><span>enc <span style="color:#f92672">=</span> tiktoken<span style="color:#f92672">.</span>encoding_for_model(<span style="color:#e6db74">&#34;gpt-4&#34;</span>)
+</span></span><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello world! 人工智能&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 分词</span>
+</span></span><span style="display:flex;"><span>tokens <span style="color:#f92672">=</span> enc<span style="color:#f92672">.</span>encode(text)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Token IDs: </span><span style="color:#e6db74">{</span>tokens<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Token 数量: </span><span style="color:#e6db74">{</span>len(tokens)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div></li>
+</ul>
+<hr>
+<h2 id="微调对齐与安全--fine-tuning--safety">微调、对齐与安全 | Fine-Tuning &amp; Safety</h2>
+<h3 id="模型微调--fine-tuning">模型微调 | Fine-Tuning</h3>
+<ul>
+<li><strong>定义</strong>: 在一个已经预训练好的大基座模型（Base Model）基础上，使用特定的下游任务数据（如客服对话、代码库）进行二次训练，以优化模型在特定领域表现的过程。常见的高效微调技术有 LoRA、QLoRA。</li>
+<li><strong>大白话</strong>: “岗前培训”。基座模型就像一个刚毕业的大学生，什么都知道一点，但干不好具体的专业活。通过收集几万条公司内部账单和业务问答对他进行微调，他就能变成合格的公司专属客服。</li>
+</ul>
+<h3 id="人类反馈强化学习--rlhf--rlaif">人类反馈强化学习 | RLHF &amp; RLAIF</h3>
+<ul>
+<li><strong>定义</strong>: 通过收集人类对模型输出的偏好排序，训练一个奖励模型（Reward Model），然后利用强化学习（如 PPO 算法）引导大模型迎合人类偏好，输出更安全、更有用的回答（RLHF）。RLAIF 则是用更强大、更守规矩的 AI 充当裁判来代替人类评分。</li>
+<li><strong>大白话</strong>: “大模型的家教与训导”。大模型刚训出来时像个野孩子，满嘴脏话或者胡乱编造。RLHF 就是让家教（人类/AI）对它的多次回答进行打分（“这个回答好，得10分；那个涉嫌歧视，扣10分”），逼它慢慢改掉坏习惯。</li>
+</ul>
+<h3 id="护栏与安全边界--guardrails">护栏与安全边界 | Guardrails</h3>
+<ul>
+<li><strong>定义</strong>: 在大模型输入端和输出端设立的拦截、过滤与校验框架（如 Llama Guard、NVIDIA NeMo Guardrails），用于拦截有害的输入（如投毒攻击、越狱提示词）和过滤敏感的输出（如暴力、色情、商业机密泄露）。</li>
+<li><strong>大白话</strong>: “AI 的保镖兼质检员”。不管大模型自己多想胡说八道，保镖在用户提问时会检查“这是不是越狱攻击？”，在模型回答时会检查“这句是不是敏感言论？”，一旦发现违规，直接用复读机式的提示语替换掉原文。</li>
+<li><strong>代码</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 简易输出端 Guardrails 示例</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">output_guardrail</span>(ai_response):
+</span></span><span style="display:flex;"><span>    sensitive_words <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;涉密密码&#34;</span>, <span style="color:#e6db74">&#34;越狱技巧&#34;</span>, <span style="color:#e6db74">&#34;制作炸弹&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> sensitive_words:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> word <span style="color:#f92672">in</span> ai_response:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;对不起，根据安全策略，我无法提供该内容。&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ai_response
+</span></span></code></pre></div></li>
+</ul>
+
+      </div>
+
+      
+      <div id="cheatsheet-app">
+        
+        <div class="cheatsheet-search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="cheatsheet-search-input" class="cheatsheet-search-input" placeholder="输入术语、简称、定义搜索... (按 / 键聚焦)" />
+          <span class="search-shortcut">/</span>
+        </div>
+
+        
+        <div class="cheatsheet-categories" id="categories-container">
+          <button class="category-btn active" data-category="all">全部 <span class="category-btn-en">All</span></button>
+        </div>
+
+        
+        <div class="cheatsheet-grid" id="cards-grid">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const rawContainer = document.getElementById('raw-cheatsheet-content');
+  const cardsGrid = document.getElementById('cards-grid');
+  const categoriesContainer = document.getElementById('categories-container');
+  const searchInput = document.getElementById('cheatsheet-search-input');
+
+  if (!rawContainer || !cardsGrid || !categoriesContainer || !searchInput) return;
+
+  const sections = [];
+  let currentCategoryZh = '未分类';
+  let currentCategoryEn = '';
+  let currentCard = null;
+
+  
+  Array.from(rawContainer.children).forEach(child => {
+    if (child.tagName === 'H2') {
+      const text = child.textContent.trim();
+      const parts = text.split('|');
+      currentCategoryZh = parts[0].trim();
+      currentCategoryEn = parts[1] ? parts[1].trim() : '';
+      
+      
+      if (!sections.some(s => s.zh === currentCategoryZh)) {
+        sections.push({ zh: currentCategoryZh, en: currentCategoryEn, cards: [] });
+      }
+    } else if (child.tagName === 'H3') {
+      const text = child.textContent.trim();
+      const parts = text.split('|');
+      const termZh = parts[0].trim();
+      const termEn = parts[1] ? parts[1].trim() : '';
+
+      currentCard = {
+        termZh: termZh,
+        termEn: termEn,
+        categoryZh: currentCategoryZh,
+        elements: []
+      };
+
+      let currentSecObj = sections.find(s => s.zh === currentCategoryZh);
+      if (!currentSecObj) {
+        currentSecObj = { zh: currentCategoryZh, en: currentCategoryEn, cards: [] };
+        sections.push(currentSecObj);
+      }
+      currentSecObj.cards.push(currentCard);
+    } else {
+      if (currentCard) {
+        currentCard.elements.push(child.cloneNode(true));
+      }
+    }
+  });
+
+  
+  sections.forEach(sec => {
+    const btn = document.createElement('button');
+    btn.className = 'category-btn';
+    btn.setAttribute('data-category', sec.zh);
+    btn.innerHTML = `${sec.zh} ${sec.en ? '<span class="category-btn-en">' + sec.en + '</span>' : ''}`;
+    categoriesContainer.appendChild(btn);
+  });
+
+  
+  const cardElements = [];
+  
+  sections.forEach(sec => {
+    sec.cards.forEach(card => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'cheatsheet-card';
+      cardEl.setAttribute('data-category', card.categoryZh);
+      
+      
+      const contentText = card.elements.map(el => el.textContent).join(' ');
+      const searchKey = `${card.termZh} ${card.termEn} ${card.categoryZh} ${contentText}`.toLowerCase();
+      cardEl.setAttribute('data-search', searchKey);
+
+      
+      const headerEl = document.createElement('div');
+      headerEl.className = 'cheatsheet-card-header';
+      
+      const titleEl = document.createElement('h4');
+      titleEl.className = 'cheatsheet-card-title';
+      titleEl.innerHTML = `${card.termZh} ${card.termEn ? '<span class="title-en">' + card.termEn + '</span>' : ''}`;
+      
+      const badgeEl = document.createElement('span');
+      badgeEl.className = 'category-badge';
+      badgeEl.textContent = card.categoryZh;
+      
+      headerEl.appendChild(titleEl);
+      headerEl.appendChild(badgeEl);
+      cardEl.appendChild(headerEl);
+
+      
+      const bodyEl = document.createElement('div');
+      bodyEl.className = 'cheatsheet-card-body';
+
+      let hasCode = false;
+      const codeCollapseEl = document.createElement('div');
+      codeCollapseEl.className = 'cheatsheet-card-code-collapse';
+
+      
+      card.elements.forEach(el => {
+        
+        const codeBlock = el.classList.contains('highlight') || el.tagName === 'PRE'
+          ? el
+          : el.querySelector('.highlight, pre');
+
+        if (codeBlock) {
+          hasCode = true;
+          
+          
+          const finalCodeBlock = codeBlock.cloneNode(true);
+          if (codeBlock !== el) {
+            codeBlock.parentNode.removeChild(codeBlock);
+            bodyEl.appendChild(el); 
+          }
+
+          
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'cheatsheet-code-copy';
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.title = '复制代码';
+          
+          copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const codeEl = finalCodeBlock.querySelector('code');
+            const textToCopy = codeEl ? codeEl.textContent : finalCodeBlock.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+              copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: #2ec4b6;"></i>';
+              setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+              }, 2000);
+            });
+          });
+
+          finalCodeBlock.style.position = 'relative';
+          finalCodeBlock.appendChild(copyBtn);
+          codeCollapseEl.appendChild(finalCodeBlock);
+        } else {
+          bodyEl.appendChild(el);
+        }
+      });
+
+      cardEl.appendChild(bodyEl);
+
+      if (hasCode) {
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'cheatsheet-code-toggle';
+        toggleBtn.innerHTML = '<i class="fa-solid fa-code"></i> &nbsp;展开代码示例';
+        
+        toggleBtn.addEventListener('click', () => {
+          const isExpanded = codeCollapseEl.classList.toggle('expanded');
+          toggleBtn.innerHTML = isExpanded 
+            ? '<i class="fa-solid fa-chevron-up"></i> &nbsp;折叠代码示例'
+            : '<i class="fa-solid fa-code"></i> &nbsp;展开代码示例';
+        });
+
+        bodyEl.appendChild(toggleBtn);
+        bodyEl.appendChild(codeCollapseEl);
+      }
+
+      cardsGrid.appendChild(cardEl);
+      cardElements.push(cardEl);
+    });
+  });
+
+  
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function filterCards() {
+    cardElements.forEach(card => {
+      const categoryMatch = activeCategory === 'all' || card.getAttribute('data-category') === activeCategory;
+      const searchMatch = !searchQuery || card.getAttribute('data-search').includes(searchQuery);
+
+      if (categoryMatch && searchMatch) {
+        card.style.display = 'flex';
+        
+        card.style.opacity = '0';
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transition = 'opacity 0.25s ease';
+        }, 10);
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  
+  categoriesContainer.addEventListener('click', function(e) {
+    const btn = e.target.closest('.category-btn');
+    if (!btn) return;
+
+    categoriesContainer.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.getAttribute('data-category');
+    filterCards();
+  });
+
+  
+  searchInput.addEventListener('input', function(e) {
+    searchQuery = e.target.value.toLowerCase().trim();
+    filterCards();
+  });
+
+  
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '/' && document.activeElement !== searchInput) {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+  });
+});
+</script>
+
+      <footer>
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+		
+		  <a href="mailto:ele.qiong@gmail.com" title="Email me">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://github.com/ictar" title="GitHub">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+		
+		  <a href="https://linkedin.com/in/qiongjie-xu" title="LinkedIn">
+		
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.xuqiongjie.com">Qiongjie.X</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2026
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.xuqiongjie.com/zh-cn/">琼呀</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.147.4</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<script src="https://www.xuqiongjie.com/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.xuqiongjie.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="https://www.xuqiongjie.com/js/toc-enhancements.js"></script>
+
+
+    
+  </body>
+</html>
+
